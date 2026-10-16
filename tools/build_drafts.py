@@ -237,7 +237,18 @@ CODE_KW = re.compile(
     r"\b(typedef|struct|union|enum|int|void|char|float|double|long|short|unsigned|"
     r"return|while|for|if|else|switch|case|break|continue|printf|scanf|malloc|free|"
     r"sizeof|NULL|main)\b")
-MATH_O = re.compile(r"(?<!\$)O\(((?:[^()\n]|\([^()\n]*\)){1,40})\)")
+MATH_O = re.compile(r"(?<!\$|\w)O\s*[（(]((?:[^()\n（）]|[（(][^()\n（）]*[）)]){1,40})[）)]")
+
+
+SUP_MAP = {"⁰": "0", "¹": "1", "²": "2", "³": "3", "⁴": "4",
+           "⁵": "5", "⁶": "6", "⁷": "7", "⁸": "8", "⁹": "9", "ⁿ": "n"}
+SUP = re.compile("[" + "".join(SUP_MAP) + "]+")
+CJK_ONLY = re.compile(r"^[\s，。、；：（）()〔〕【】\-—…·]*[\u4e00-\u9fff]")
+
+
+def _is_annot(ln: str) -> bool:
+    """代码块内的中文说明行（源图里就是块内注释，只是没有 // 前缀）。"""
+    return bool(CJK_ONLY.match(ln.strip())) and not _is_code(ln)
 
 
 def _is_code(ln: str) -> bool:
@@ -256,20 +267,32 @@ def embellish(text: str) -> str:
     out, i = [], 0
     while i < len(lines):
         if _is_code(lines[i]):
+            # 块内允许夹中文注释行与空行，直到连续两行都不是代码
             j = i
-            while j < len(lines) and (not lines[j].strip() or _is_code(lines[j])):
-                j += 1
-            block = [ln for ln in lines[i:j] if ln.strip()]
-            if len(block) >= 2:
+            while j < len(lines):
+                if not lines[j].strip() or _is_code(lines[j]) or _is_annot(lines[j]):
+                    j += 1
+                    continue
+                break
+            # 代码块只到**最后一个真正的代码行**为止；
+            # 其后的中文行是题干正文，不属于代码（否则会把正文吞进围栏）。
+            last = max(k for k in range(i, j) if _is_code(lines[k]))
+            block = [ln for ln in lines[i:last + 1] if ln.strip()]
+            rest = [ln for ln in lines[i:last + 1]]
+            if len([ln for ln in rest if _is_code(ln)]) >= 2:
                 out.append("```c")
-                out.extend(block)
+                for ln in block:
+                    # 仅块内中文说明转 // 注释：只加注释符，不改一个字
+                    out.append("// " + ln.strip() if _is_annot(ln) else ln)
                 out.append("```")
-                i = j
+                i = last + 1
                 continue
         out.append(lines[i])
         i += 1
     res = "\n".join(out)
-    res = MATH_O.sub(lambda m: f"$O({m.group(1)})$", res)
+    res = MATH_O.sub(lambda m: "$O(" + SUP.sub(
+        lambda x: "^" + "".join(SUP_MAP[c] for c in x.group(0)),
+        m.group(1).strip()) + ")$", res)
     return res
 
 
@@ -286,10 +309,17 @@ def render_questions(meta, qs, found, warn) -> str:
     cpatch = load_content_patch(meta["paper_id"])
     for n in choice:
         stem, opts = split_options(qs[n]["text"])
+        if str(n) in cpatch and cpatch[str(n)].get("stem_fix"):
+            fx = cpatch[str(n)]["stem_fix"]
+            new_stem, cnt = re.subn(fx["re"], fx["with"], stem)
+            if cnt:
+                stem = new_stem
+            else:
+                print(f"    warn: q{n} stem_fix 未匹配")
         if str(n) in cpatch and cpatch[str(n)].get("options"):
             opts = dict(opts)
             for k, v in cpatch[str(n)]["options"].items():
-                if not opts.get(k):
+                if not opts.get(k) or cpatch[str(n)].get("override"):
                     opts[k] = v
         L += [f"### 第 {n} 题", "", embellish(stem), ""]
         for k in ("A", "B", "C", "D"):

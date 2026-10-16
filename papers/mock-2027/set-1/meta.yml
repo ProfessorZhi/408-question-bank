@@ -20,10 +20,11 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=text-layer
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: text-layer      # 试卷与解析均为文字层；Q1/Q3 有图像核验补录
+  tool: "pdftotext/pymupdf 1.28.2 (paper); 源页图核验补录 (Q1 选项A、Q3 题干与选项)"
+  date: "2026-10-16"
 counts:
+
   choice: 40
   comprehensive: 7
   total: 47

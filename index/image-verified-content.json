@@ -2,6 +2,10 @@
   "_doc": "文本层残缺（多为数学字形未提取）时，由源页图像逐条目视读出后补入的内容。绝不臆造；每条必须带 evidence 与 note。",
   "mock-2027/set-1": {
     "3": {
+      "stem_fix": {
+        "re": "循环队列放在一维数组\\s+中，\\s*指向队头元素，\\s*指向队尾元素的后一个位\\s*置",
+        "with": "循环队列放在一维数组 $A[0, \\\\ldots, M-1]$ 中，$front$ 指向队头元素，$rear$ 指向队尾元素的后一个位置"
+      },
       "options": {
         "A": "$M - (rear - front)$",
         "B": "$M - (rear - front)\\%(M - 1)$",
@@ -9,7 +13,15 @@
         "D": "$M - 1 - (rear - front + M)\\%M$"
       },
       "evidence": "build/_scratch/verify/set1-q3.png（源试卷 p1，scale=3 裁图）",
-      "note": "源文本层中 A./B./C./D. 后为空（选项为数学字形未提取）。已按源页图逐条转录为 LaTeX。勘误第3条「CD选项都加上M」在本版 PDF 中已落实（C/D 均含 +M）。"
+      "note": "题干中的数组下标 A[0,…,M-1] 与 front/rear 在文本层为数学字形，未被提取（退化为空白）。已按源图补全为 LaTeX。四个选项同为数学字形，一并按源图转录。勘误第3条「CD选项都加上M」在本版 PDF 已落实（C/D 均含 +M）。"
+    },
+    "1": {
+      "options": {
+        "A": "$O(2^n)$"
+      },
+      "evidence": "build/_scratch/verify/set1-q1.png（源试卷 p1，scale=3 裁图）",
+      "note": "源图 A 选项为 O(2ⁿ)（2 的 n 次方）。文本层丢失上标，退化为 O（2n），语义被改变。已按源图更正为 $O(2^n)$。B/C/D 文本层与源图一致，未改。",
+      "override": true
     }
   }
 }

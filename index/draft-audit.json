@@ -248,5 +248,15 @@
     "images": 5,
     "code_fence": 1,
     "formula_inline": 4
+  },
+  "mock-2027/set-1": {
+    "counts": {
+      "high": 0,
+      "medium": 0
+    },
+    "kinds": {},
+    "images": 12,
+    "code_fence": 6,
+    "formula_inline": 28
   }
 }
