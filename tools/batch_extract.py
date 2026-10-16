@@ -27,6 +27,10 @@ for stream in (sys.stdout, sys.stderr):
 
 ROOT_DEFAULT = Path(__file__).resolve().parent.parent
 
+# `python -I` 不会把脚本目录放进 sys.path[0]，所以要显式加。
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ocr_runtime  # noqa: E402  （同目录，见该模块的 DLL 兼容说明）
+
 
 def digest(path: Path) -> str:
     h = hashlib.sha256()
@@ -37,13 +41,25 @@ def digest(path: Path) -> str:
 
 
 def setup_ocr():
-    """Lazy import: there is no OCR model load for text PDFs."""
+    """Lazy import: there is no OCR model load for text PDFs.
+
+    顺序不能颠倒：`rapidocr_onnxruntime` 一导入就会拉 `onnxruntime`，
+    而本机 onnxruntime 的原生 DLL 需要先经 `ocr_runtime.ensure()` 处理，
+    否则抛的是 "DLL load failed"，会被误读成「rapidocr 没装」。
+    """
     try:
         import numpy as np
+    except ImportError as exc:
+        raise RuntimeError("缺少 numpy，离线OCR不可用；只能用 --ocr off") from exc
+
+    ocr_runtime.ensure()   # 失败时自带「缺哪个 DLL / 代际差多少」的说明
+
+    try:
         from rapidocr_onnxruntime import RapidOCR
     except ImportError as exc:
         raise RuntimeError(
-            "离线OCR尚未安装：仅可使用 --ocr off，或者在本机安装 rapidocr-onnxruntime"
+            "rapidocr-onnxruntime 未安装：仅可使用 --ocr off，"
+            "或者 pip install rapidocr-onnxruntime"
         ) from exc
     return np, RapidOCR()
 
@@ -84,6 +100,13 @@ def main(argv: list[str] | None = None) -> int:
         (args.scope == "exam" and r["path"].startswith("sources/exams/")) or
         (args.scope == "mock" and r["path"].startswith("sources/mock-2027/"))
     )]
+    # ⚠️ 顺序要害：必须**先**把 OCR 运行时就位，**再** import pymupdf。
+    # 反过来的话，pymupdf 会先把 System32 里 VS2015 那份 msvcp140.dll 钉进进程，
+    # 之后 onnxruntime（VS2022 构建）撞上它直接段错误（exit 139、零输出）。
+    # 详见 tools/ocr_runtime.py 顶部说明。
+    if args.ocr == "auto":
+        ocr_runtime.ensure()
+
     import pymupdf
     np = engine = None
     processed = cached = n_ocr = n_text = n_unreadable = 0
