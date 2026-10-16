@@ -19,6 +19,7 @@ CACHE = ROOT / "build" / "_scratch" / "408-raw-pages"
 Q_HEAD = re.compile(r"^### 第 (\d+) 题")
 OPT = re.compile(r"^([ABCD])\.\s*(.*)$")
 ANS_LINE = re.compile(r"答案[：:]\s*([ABCD]|（缺）)?")
+LEAK_RE = re.compile(r"(正确答案|参考答案|答案\s*[*）)]*\s*[：:]\s*[*\s]*[A-D]\b|^\s*Key\s*[:：]\s*[A-D]\b)")
 PLACEHOLDER = re.compile(r"^(（?缺）?|待补|TODO|TBD|\.\.\.)$")
 
 
@@ -109,11 +110,12 @@ def audit(paper_id: str) -> dict:
             if "源中未定位到该题答案" in s["body_text"]:
                 flag("high", n, "no-solution", "solutions 未定位到答案")
 
-    # 泄漏（qa_paper 也有，这里给出具体命中行）
+    # 泄漏：与 qa_paper.py 的 C8 对齐 —— 只有「答案：X」这类才算泄漏。
+    # 题干正文出现「答案」二字（如"要求答案用十六进制表示"）不算。
     qtext = (pdir / "questions.md").read_text(encoding="utf-8")
     for ln in qtext.splitlines():
-        if "答案" in ln or "Key:" in ln or "<!-- ans" in ln:
-            flag("high", None, "answer-leak", f"questions.md 命中泄漏关键词: {ln[:70]}")
+        if LEAK_RE.search(ln):
+            flag("high", None, "answer-leak", f"questions.md 命中泄漏: {ln[:70]}")
 
     # 公式 / 代码形态
     rep["formula_inline"] = len(re.findall(r"(?<!\$)\$[^$\n]+\$(?!\$)", qtext))

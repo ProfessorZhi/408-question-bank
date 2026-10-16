@@ -1,173 +1,324 @@
 [
   {
     "paper": "papers/exams/2009",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C4 选项不齐共 1 题：4(AC)",
+      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 5,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2010",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C4 选项不齐共 1 题：3(AC)",
+      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 0,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2011",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 0,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2012",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2013",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 5,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2014",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C4 选项不齐共 1 题：37(ACD)",
+      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 5,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2015",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 5,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2016",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 37 题：[1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 3,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2017",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C4 选项不齐共 1 题：8(AC)",
+      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 5,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2018",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C4 选项不齐共 1 题：38(AC)",
+      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 0,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2019",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 0,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2020",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2021",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 0,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2022",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C4 选项不齐共 1 题：26(ACD)",
+      "C6 解析中缺答案字母共 16 题：[6, 7, 8, 17, 18, 19, 26, 27, 28, 33, 34, 35] …"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 24,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2023",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2024",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+      "C6 解析中缺答案字母共 4 题：[17, 18, 23, 26]"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 36,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2025",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2026",

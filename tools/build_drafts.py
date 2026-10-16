@@ -99,14 +99,18 @@ def load_key(pages) -> tuple[dict, list, list]:
     if not pages:
         return key, missing, ["答案底本无缓存"]
     page_no, text, method = pages[0]
-    for line in text.splitlines():
-        m = KEY_RE.match(line)
-        if m and 1 <= int(m.group(1)) <= 40:
-            key.setdefault(int(m.group(1)), m.group(2))
-            continue
-        m2 = KEY_MISS_RE.match(line)
-        if m2 and 1 <= int(m2.group(1)) <= 40 and int(m2.group(1)) not in key:
-            missing.append(int(m2.group(1)))
+    # 只取「一、单项选择题」到「二、综合应用题」之间，避免解析答疑正文里的编号
+    cut = text.find("二、综合应用题")
+    region = text[:cut] if cut > 0 else text
+    # 版式差异：有的卷一行一条，有的卷一行 5 条（01. C  02. D …）→ 不锚行尾
+    for m in re.finditer(r"(?<![\d.])(\d{1,2})\s*[．.、]\s*([ABCD])(?![A-Za-z])", region):
+        no = int(m.group(1))
+        if 1 <= no <= 40:
+            key.setdefault(no, m.group(2))
+    for m2 in re.finditer(r"(?<![\d.])(\d{1,2})\s*[．.、]\s*(?![ABCD\d]|【)", region):
+        no = int(m2.group(1))
+        if 1 <= no <= 40 and no not in key:
+            missing.append(no)
     if method != "text-layer":
         warn.append(f"key 来自 OCR(page1 method={method})")
     return key, sorted(missing), warn

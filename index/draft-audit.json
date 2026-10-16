@@ -1,27 +1,254 @@
 {
-  "paper": "exams/2026",
-  "questions": 47,
-  "solutions": 47,
-  "issues": [
-    {
-      "severity": "medium",
-      "q": 36,
-      "kind": "image-ownership",
-      "detail": "assets/q36-fig1.png 来自含 36/37/38 三题的页，归属未确认"
+  "exams/2009": {
+    "counts": {
+      "high": 46,
+      "medium": 7
     },
-    {
-      "severity": "medium",
-      "q": 36,
-      "kind": "image-ownership",
-      "detail": "assets/q36-fig2.png 来自含 36/37/38 三题的页，归属未确认"
-    }
-  ],
-  "formula_inline": 4,
-  "formula_block": 0,
-  "code_fence": 1,
-  "images": 5,
-  "counts": {
-    "high": 0,
-    "medium": 2
+    "kinds": {
+      "empty-option": 4,
+      "no-answer": 35,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 6,
+    "code_fence": 0,
+    "formula_inline": 0
+  },
+  "exams/2010": {
+    "counts": {
+      "high": 51,
+      "medium": 7
+    },
+    "kinds": {
+      "empty-option": 4,
+      "no-answer": 40,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 6,
+    "code_fence": 4,
+    "formula_inline": 0
+  },
+  "exams/2011": {
+    "counts": {
+      "high": 47,
+      "medium": 7
+    },
+    "kinds": {
+      "no-answer": 40,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 4,
+    "code_fence": 4,
+    "formula_inline": 4
+  },
+  "exams/2012": {
+    "counts": {
+      "high": 7,
+      "medium": 7
+    },
+    "kinds": {
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 6,
+    "code_fence": 3,
+    "formula_inline": 8
+  },
+  "exams/2013": {
+    "counts": {
+      "high": 42,
+      "medium": 7
+    },
+    "kinds": {
+      "no-answer": 35,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 7,
+    "code_fence": 0,
+    "formula_inline": 4
+  },
+  "exams/2014": {
+    "counts": {
+      "high": 43,
+      "medium": 7
+    },
+    "kinds": {
+      "empty-option": 1,
+      "no-answer": 35,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 4,
+    "code_fence": 1,
+    "formula_inline": 4
+  },
+  "exams/2015": {
+    "counts": {
+      "high": 42,
+      "medium": 7
+    },
+    "kinds": {
+      "no-answer": 35,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 9,
+    "code_fence": 2,
+    "formula_inline": 0
+  },
+  "exams/2016": {
+    "counts": {
+      "high": 44,
+      "medium": 7
+    },
+    "kinds": {
+      "no-answer": 37,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 8,
+    "code_fence": 4,
+    "formula_inline": 4
+  },
+  "exams/2017": {
+    "counts": {
+      "high": 46,
+      "medium": 7
+    },
+    "kinds": {
+      "empty-option": 4,
+      "no-answer": 35,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 8,
+    "code_fence": 4,
+    "formula_inline": 4
+  },
+  "exams/2018": {
+    "counts": {
+      "high": 51,
+      "medium": 7
+    },
+    "kinds": {
+      "empty-option": 4,
+      "no-answer": 40,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 16,
+    "code_fence": 0,
+    "formula_inline": 0
+  },
+  "exams/2019": {
+    "counts": {
+      "high": 47,
+      "medium": 7
+    },
+    "kinds": {
+      "no-answer": 40,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 4,
+    "code_fence": 3,
+    "formula_inline": 6
+  },
+  "exams/2020": {
+    "counts": {
+      "high": 7,
+      "medium": 7
+    },
+    "kinds": {
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 9,
+    "code_fence": 3,
+    "formula_inline": 0
+  },
+  "exams/2021": {
+    "counts": {
+      "high": 47,
+      "medium": 7
+    },
+    "kinds": {
+      "no-answer": 40,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 6,
+    "code_fence": 3,
+    "formula_inline": 0
+  },
+  "exams/2022": {
+    "counts": {
+      "high": 24,
+      "medium": 7
+    },
+    "kinds": {
+      "empty-option": 1,
+      "no-answer": 16,
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 9,
+    "code_fence": 2,
+    "formula_inline": 5
+  },
+  "exams/2023": {
+    "counts": {
+      "high": 7,
+      "medium": 7
+    },
+    "kinds": {
+      "thin-solution": 7,
+      "no-solution": 7
+    },
+    "images": 5,
+    "code_fence": 5,
+    "formula_inline": 1
+  },
+  "exams/2024": {
+    "counts": {
+      "high": 5,
+      "medium": 1
+    },
+    "kinds": {
+      "no-answer": 4,
+      "thin-solution": 1,
+      "no-solution": 1
+    },
+    "images": 7,
+    "code_fence": 2,
+    "formula_inline": 0
+  },
+  "exams/2025": {
+    "counts": {
+      "high": 1,
+      "medium": 1
+    },
+    "kinds": {
+      "thin-solution": 1,
+      "no-solution": 1
+    },
+    "images": 7,
+    "code_fence": 6,
+    "formula_inline": 12
+  },
+  "exams/2026": {
+    "counts": {
+      "high": 0,
+      "medium": 2
+    },
+    "kinds": {
+      "image-ownership": 2
+    },
+    "images": 5,
+    "code_fence": 1,
+    "formula_inline": 4
   }
 }
