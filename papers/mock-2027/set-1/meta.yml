@@ -20,63 +20,136 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=text-layer
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: text-layer     # text-layer | ocr | manual | mixed
+  # 试卷与解析都带文字层（解析卷 27/27 页判为 text-layer），但**行内公式与选项公式是矢量路径**：
+  # 第 3 题的 `A[0,…,M-1]`/`front`/`rear` 与四个选项、第 13 题的 `1e10=…×2^33` 都没有文字层，
+  # 只能整块裁成图（见图内登记与 q3/q13-fig.png）。所以 method 是 text-layer，
+  # 但「文字层」不等于「无遗漏」——矢量画出来的公式一律得靠图。
+  tool: "pymupdf 1.28.2 + rapidocr-onnxruntime 1.4.4"
+  date: 2026-10-16
 counts:
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 42, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 43, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 44, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 45, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
-errata: []
+  - {"no": 1, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 2, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 3, status: needs-review, confidence: medium, topic: 未知, notes: "题干行内符号（A[0,…,M−1]/front/rear）与四个选项都是矢量绘制、无文字层，只在 assets/q3-fig.png 内；已登记 options_in_figure，未抄成文字"}
+  - {"no": 4, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 5, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 6, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 7, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 8, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 9, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 10, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 11, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 12, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 13, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 14, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 15, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 16, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 17, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 18, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 19, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 20, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 21, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 22, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 23, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 24, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 25, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 26, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 27, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 28, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 29, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 30, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 31, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 32, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 33, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 34, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 35, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 36, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 37, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 38, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 39, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 40, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 41, status: needs-review, confidence: medium, topic: 未知, notes: "勘误 M2 已落实：题干含「结果：4321+321=4642。(十进制)」"}
+  - {"no": 42, status: needs-review, confidence: medium, topic: 未知, notes: "勘误 M4 **只落实一半**：文字解析含「插入80、64、66、74」；「答案图片中叶子节点关键字 72,73→73,74」改的是解答侧插图，而解答侧一律不出图，未落实"}
+  - {"no": 43, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 44, status: needs-review, confidence: medium, topic: 未知, notes: "勘误 M7 已落实：解答内 8 条指令逐条带注释"}
+  - {"no": 45, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 46, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 47, status: needs-review, confidence: medium, topic: 未知, notes: "勘误 M8 **未落实**：那条改的是解答侧抓包图的 version/IHL 字节（0x43→0x45），解答侧不出图"}
+# 勘误原文取自 `sources/mock-2027/pdf/mock2027-set1-solution.pdf` 第 1 页「勘误：」清单。
+# text 是**逐字照抄**，只做了一件事：把底本排版造成的硬换行接回一行
+# （底本里第 5、6 条各断了一次，断开处落在「忘记改 D」和「跟」之前）。
+# 照抄而非概述，是因为「概述会悄悄丢掉限定语」——例如第 5 条末尾的「答案仍选 B」、
+# 第 8 条末尾的「（不影响做题）」，一旦省掉，后面的人就会以为答案要跟着改。
+# applied 的判据一律是**产物里能否指出落实处**，指不出就写 false，不做「应该改了吧」的推断。
+errata:
+  - id: M1
+    text: 第16题选B，解析正确，答案打错了，把C改成B
+    applies_to: [16]
+    applied: true      # 产物第 16 题答案为 B，与卷首速查「16-20:BDDBA」一致（见 M9 交叉核对）
+  - id: M2
+    text: 代码题41题题目示例改成，结果：4321+321=4642。(十进制)。更加方便理解题意。解析代码已修正
+    applies_to: [41]
+    applied: true      # 试题第 41 题题干内已含「结果：4321+321=4642。(十进制)」
+  - id: M3
+    text: 第三题，CD选项都加上M，如C选项：
+    applies_to: [3]
+    applied: true      # 试卷底本本身已是修订版：q3-fig.png 内 C 为 M−(rear−front+M)%M、D 为 M−1−(rear−front+M)%M，两个都带 M
+  - id: M4
+    text: 42题，插入74，答案图片中得叶子节点关键字72，73改成73，74
+    applies_to: [42]
+    applied: false     # **只落实了一半**：文字解析含「插入80、64、66、74」；但「答案图片中叶子节点关键字」那部分是解答侧的插图，本仓库解答侧目前一律不出图（见 notes）
+  - id: M5
+    text: 第7题，D选项没出好，Floyd最好还是结合有向图，这题原本是有向图，为了结合生成树考点把有向图改成了无向图，忘记改D选项了，现增加一幅有向图，答案仍选B。
+    applies_to: [7]
+    applied: true      # 产物第 7 题答案为 B，且该题挂了三张图（q7-fig/q7-fig2/q7-fig3），新增的有向图在内
+  - id: M6
+    text: 第31题，从系统缓冲区读入一个数据块到用户工作区的时间为40μs，CPU对用户工作区的一个数据块处理分析时间为30μs，跟图片一致
+    applies_to: [31]
+    applied: true      # 试题第 31 题题干逐字含「…到用户工作区的时间为40μs，CPU…为30μs」
+  - id: M7
+    text: 44题代码应添加注释
+    applies_to: [44]
+    applied: true      # 解答第 44 题的指令序列逐条带注释（①内存地址$6+100处加载一个字到寄存器$2中 等 8 条）
+  - id: M8
+    text: 47题第二个ip第一个字节从43→45（不影响做题）
+    applies_to: [47]
+    applied: false     # 这条改的是解答侧的**抓包图**（0x43→0x45 那个 version/IHL 字节）；同上，解答侧不出图，改不到
+  - id: M9
+    text: 选择答案速查：1-5：ACDCD 6-10：CBCDA 11-15:BCCAC 16-20:BDDBA 21-25:DABDB 26-30:ACCBD 31-35:ACCBC 36-40：ABDBC
+    applies_to: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+    applied: true      # 不是「勘误」而是**独立第二通道**的答案源：产物那 40 个字母走逐题解析流，本条走卷首区间速查，两者逐题一致（见 review.qa.answer_crosscheck）
+# 「四个选项画在题图里」的逐题登记（见 docs/qa-policy.md §2 C4 例外）。
+options_in_figure:
+  # 键必须加引号：YAML 1.1 会把裸 no 解析成布尔 False，题号会静默丢失。
+  - "no": 3
+    figure: assets/q3-fig.png
+    verified_at: 2026-10-17
+    # 底本把四个选项**做成矢量公式**，没有文字层：正文只剩 `A. ` `B. ` `C. ` `D. ` 四个空标记，
+    # 公式本身在该图内、顺序与标记一一对应。已按 4× 渲染放大后逐行读过：
+    #   A. M−(rear−front)   B. M−(rear−front)%(M−1)   C. M−(rear−front+M)%M   D. M−1−(rear−front+M)%M
+    # 这里**只登记、不把公式抄成文字**——抄了就成了「人工补的字符」混在生成物里，
+    # 下次重新生成会被覆盖，也没人分得清哪几个字是机器出的。公式一行仍是空的 A./B./C./D.
+    # 另注：同题的题干也缺三个行内符号（数组名 `A[0,…,M−1]`、`front`、`rear`），
+    # 同样是矢量绘制，同样只在这张图里——所以本题的图不只是「选项图」，是**题干的一部分**。
+    verified_by: 人工直读该题图（4× 渲染裁图），图内四行公式依序对应 A./B./C./D.
 review:
-  proofread_by: []
+  proofread_by: []          # 尚未人工逐字对照底本 —— 本题全卷仍是 needs-review
   proofread_at: null
-  qa: null
+  qa:
+    date: 2026-10-17
+    tool: tools/qa_paper.py papers/mock-2027/set-1
+    result: 阻断 0 卷；choice=40/40、comp=7/7、total=47/47；C4 只剩第 3 题（已登记 options_in_figure）
+    answer_crosscheck: >-
+      选择题 40/40 两条**独立通道**逐题一致：产物走逐题解析流的 `答案：X`，核对走卷首
+      「答案速查」的区间段（`1-5：ACDCD …`，区间宽度必须等于字母数，否则整段跳过）。
+      核对脚本自带阳性对照：分别改通道 A 第 17 题、通道 B 第 33 题，都确实报出了那一处冲突，
+      证明「一致」不是探针恒真的假象。
+    # ⚠️ 列表项一律加引号：普通标量里出现 `: `（冒号+空格）会被 YAML 当成映射键，
+    # 报错长这样：`mapping values are not allowed here`。这里两处都踩过。
+    known_gaps:
+      - "解答侧无插图：本仓库所有 solutions.md（含已交付的 18 卷真题）一律不出图，「如下图」「如上表」在解答里没有对应图片；涉及解答插图的勘误 M4/M8 因此 applied=false。"
+      - "第 3 题的选项公式与题干行内符号只有图、没有文字（见上面的 options_in_figure）。"
