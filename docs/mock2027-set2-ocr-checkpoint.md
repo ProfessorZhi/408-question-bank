@@ -3,10 +3,9 @@
 > 状态：**已补齐 5 题选项，升级为完整草稿**（40/40 选项非空，qa_paper 0 警告）。
 > 历史：本卷曾是 draft-partial（5 题选项不全），Phase F 按 Issue #3 源页读数补齐后升级。全部内容为机器 OCR，**0 题人工校对**（`proofread` 保持 0）。
 
-## 1. 本卷为何是 draft-partial
+## 1. 当前状态
 
-`papers/mock-2027/set-2/` 只有 `draft-partial-questions.md` / `draft-partial-solutions.md`，
-**没有** 正式的 `questions.md` / `solutions.md`。
+`papers/mock-2027/set-2/` 为正式的 `questions.md` / `solutions.md`（draft-partial 已移除）。
 
 | 项 | 结果 |
 |---|---|
@@ -14,7 +13,7 @@
 | 选择题答案 | 40/40 条 OCR 标记（来自解析 PDF 的 OCR，**未校对**） |
 | 综合题解析段 | 7/7 段（OCR，未校对） |
 | **选项齐备** | ✅ **40/40 题 A–D 全非空** |
-| QA | `qa_paper` choice=40/40 comp=7/7，**C4 警告 5 题**；0 阻断 |
+| QA | `qa_paper` choice=40/40 comp=7/7，**C4 警告 0 题**；0 阻断 |
 
 补齐方式：按 GitHub Issue #3 源页图读数写入 `index/image-verified-content.json`（override），
 由生成器**幂等**应用，**未**手改生成物、**未**填空壳。
