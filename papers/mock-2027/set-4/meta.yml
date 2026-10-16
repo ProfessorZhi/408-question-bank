@@ -70,8 +70,8 @@ questions:
   - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 41, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第7页末–第8页、解析PDF第5页渲染图逐字重录题干/规则/三小问与解析(1)(2)(3)；基数树图已确认为本题专属并裁入 assets/q41-fig1.png；集合S末项经1200dpi与图中白结点集合交叉验证为单个0(非01)；原稿丢字、代码块损坏(isEna/1Child)、O(m)→O(n)已修；本轮仅局部源图复核，未 proofread"}
   - {"no": 42, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第8页、解析PDF第5–6页渲染图逐字重录题干/Graph结构体/三小问与解析(1)(2)(3)；原稿代码全行乱码(afs/concinuey/visit[cur]=17 等)已修；已移除误串入本题的Q41代码注释段落；本题无插图；源页G/M字母不一致按qa-policy§6保留原文未改写；本轮仅局部源图复核，未 proofread"}
-  - {"no": 43, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
-  - {"no": 44, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第8–9页、解析PDF第6页渲染图逐字重录题干/汇编代码表/指令格式表/四小问与解析(1)-(4)；原稿汇编表与格式表乱码、解析上标幂丢失(25→2^5)、JJ型等已修；本题无插图(两个表均为表格)；源页(3)问多一个「且」字按qa-policy§6保留未改；本轮仅局部源页核查，未 proofread"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第9页、解析PDF第6–7页渲染图逐字重录题干/四小问与解析(1)-(4)；数据通路图已确认为本题专属并裁入 assets/q44-fig1.png(原稿把整图识别成乱码ASCII串，已删除替换)；解析(4)控制信号步骤编号①②③④⑤⑥按源页恢复；源页②步「Read」无「=1」按§6保留未改；本轮仅局部源页核查，未 proofread"}
   - {"no": 45, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
   - {"no": 46, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
   - {"no": 47, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
