@@ -23,6 +23,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from pathlib import Path
@@ -36,6 +37,15 @@ for _s in (sys.stdout, sys.stderr):
 REPO = Path(__file__).resolve().parent.parent
 PAGES = REPO / "build" / "_scratch" / "408-raw-pages"
 REPORTS = REPO / "build" / "_scratch" / "reports"
+# 卷首答案表的三路读法（读到几路算几路），见 tools/answer_grid*.py：
+#   答案表 OCR（tools/answer_grid_ocr.py）      —— 读**页面像素**，扫描卷只有它有
+#   答案表 文字层（tools/answer_grid.py）        —— 读文字层里那张列式表
+#   答案表 人工直读（tools/answer_grid_visual.py）—— 人眼读渲染出来的裁带图
+# 三路都做了硬门槛（必须凑齐 1—40 且每号一个字母）。**多路一致才认**；
+# 不一致的题号一律留空并点名，不取多数、不取"看着更可靠"的那一方。
+GRID_ROOTS = [("答案表·OCR渲染", REPO / "build" / "_scratch" / "answer-grid-ocr"),
+              ("答案表·文字层", REPO / "build" / "_scratch" / "answer-grid"),
+              ("答案表·人工直读", REPO / "build" / "_scratch" / "answer-visual")]
 
 CHOICE = list(range(1, 41))
 COMPREHENSIVE = list(range(41, 48))
@@ -62,6 +72,8 @@ _COMP_WORD = r"(?:答案要点|解析|参考答案|答案|解答)"
 RE_COMP_HEAD = re.compile(r"^(\d{1,2})\s*[.．、•·・]\s*"
                           r"(?:【" + _COMP_WORD + r"】"
                           r"|" + _COMP_WORD + r"\s*[：:])\s*(.*)$")
+# 同上的写法但**整个题号都没了**（2024 第 41 题就是这样），只作兜底识别，见 parse_comprehensive。
+RE_COMP_HEAD_NONUM = re.compile(r"^(?:【" + _COMP_WORD + r"】|" + _COMP_WORD + r"\s*[：:])\s*$")
 # 章标题。**不能**见到章标题就停：2023 的答案卷开头就是「一、单项选择题」，
 # 无条件 break 会把整卷答案切掉。只有「非单项选择题」的章标题才代表进入下一节。
 RE_ANY_SECTION = re.compile(r"^[一二三四五六七八九]+\s*、\s*(\S+)")
@@ -80,7 +92,9 @@ RE_PAIR = re.compile(r"(\d{1,2})\s*[.．、•·・]\s*([A-D])(?![A-Za-z])")
 RE_PAIR_LEFTOVER = re.compile(r"^[A-D\s]*$")
 # 「题号 + 一个短记号」但记号不是 A–D：多半是字体映射坏了
 # （2024 第17题抽出来是 `17.℃`、第32题是 `32.C°`）。只报告，不猜。
-RE_CHOICE_ODD = re.compile(r"^(\d{1,2})\s*[.．、]\s*(\S{1,3})\s*$")
+# 但**中文词不算**：2009—2018 的解析流里每道题都有一行 `1. 解析：`，
+# 那会被上面这条吃成「疑似字体映射损坏」，一页刷出几十条假告警，把真告警淹掉。
+RE_CHOICE_ODD = re.compile(r"^(\d{1,2})\s*[.．、]\s*([^\s一-鿿]{1,3})\s*$")
 
 # OCR 形近误识的机械侦察（只为提示人工，不自动改写）
 ARTIFACT_PATTERNS = [
@@ -123,16 +137,52 @@ def read_rows(rel: str) -> list[tuple[int, str]]:
     return rows
 
 
-def parse_choices(rows: list[tuple[int, str]], log: list) -> dict[int, tuple[str, int]]:
+def load_grid(paper_id: str, log: list) -> dict[int, tuple[str, int]]:
+    """读卷首答案表的读法（OCR 渲染 / 文字层），→ {题号: (字母, 页码)}。
+
+    两种读法**互为独立证据**：一致才认；不一致的题号一律留空并点名（不取多数、不取"更可靠"的）。
+    只有一种读法时直接采信——它自己已过了「必须凑齐 1…40、每号恰好一个字母」的硬门槛。
+    """
+    kind, rest = paper_id.split("/", 1)
+    if kind != "exams":
+        return {}
+    stem = f"{rest}-answer"
+    per: dict[str, dict] = {}
+    pages: dict[str, int] = {}
+    for name, root in GRID_ROOTS:
+        f = root / f"{stem}.json"
+        if not f.is_file():
+            continue
+        data = json.loads(f.read_text(encoding="utf-8"))
+        per[name] = {int(k): v for k, v in data["answers"].items()}
+        pages[name] = int(data.get("page") or 1)
+    out: dict[int, tuple[str, int]] = {}
+    for no in range(1, 41):
+        vals = {name: d[no] for name, d in per.items() if no in d}
+        if len(set(vals.values())) > 1:
+            log.append(f"第 {no} 题的答案表读法互相矛盾（"
+                       + "、".join(f"{n}={v}" for n, v in vals.items())
+                       + "），已留空待人工核对")
+            continue
+        if vals:
+            name = next(iter(vals))
+            out[no] = (next(iter(vals.values())), pages[name])
+    return out
+
+
+def parse_choices(rows: list[tuple[int, str]], log: list,
+                  grid: dict[int, tuple[str, int]] | None = None
+                  ) -> dict[int, tuple[str, int]]:
     """→ {题号: (字母, 页码)}。
 
     分层取，按可靠性从高到低，**低层只补高层没拿到的题号**：
+      0. 卷首答案表（OCR 渲染 / 文字层两种读法，见 load_grid）；
       1. 逐题标注（2023 的 `1.【参考答案】D` / 2022 的 `01. B。【解析】`）——最可靠；
       2. 单行一条（2024 的 `1. D`）；
       3. 并排答案行（2023/2022 顶部的 `1． D  2． C …`）。
     同一题号出现**互相矛盾**的字母时，一律丢弃并在 log 里点名——不猜、不取多数。
     """
-    layers: list[dict[int, tuple[str, int]]] = [{}, {}, {}]
+    layers: list[dict[int, tuple[str, int]]] = [dict(grid or {}), {}, {}, {}]
     conflicts: dict[int, set[str]] = {}
     pending: int | None = None
 
@@ -197,24 +247,39 @@ def parse_choices(rows: list[tuple[int, str]], log: list) -> dict[int, tuple[str
     for layer in layers:
         for no, val in layer.items():
             out.setdefault(no, val)
+    # 跨层一致性：同一题号在**任何两处来源**给出不同字母，就留空并点名。
+    # 2026-10-16 实测：答案表两路 + 解析流在 2012/2020/2021/2022/2023 上零冲突，
+    # 所以这条规则不会误伤，只会把真正对不上的地方暴露出来。
+    for no in range(1, 41):
+        seen = {l[no][0] for l in layers if no in l}
+        if len(seen) > 1:
+            out.pop(no, None)
+            log.append(f"第 {no} 题在不同来源里互相矛盾"
+                       f"（{''.join(sorted(seen))}），已留空待人工核对")
     for no in sorted(conflicts):
-        out.pop(no, None)
-        log.append(f"第 {no} 题的答案在不同来源里互相矛盾（{''.join(sorted(conflicts[no]))}），"
-                   f"已留空待人工核对")
-    dup = [no for no in range(1, 41)
-           if sum(1 for l in layers if no in l) > 1]
-    if dup:
-        log.append(f"以下题号在多个来源里都取到答案（已取最可靠的一层）：{dup}")
+        if no in out:
+            out.pop(no, None)
+            log.append(f"第 {no} 题的答案在同一来源内自相矛盾"
+                       f"（{''.join(sorted(conflicts[no]))}），已留空待人工核对")
+    agree = [no for no in range(1, 41) if sum(1 for l in layers if no in l) > 1]
+    if agree:
+        log.append(f"以下 {len(agree)} 个题号在多个来源里都取到且**完全一致**：{agree}")
     return out
 
 
-def parse_comprehensive(rows: list[tuple[int, str]]) -> dict[int, dict]:
+def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None
+                        ) -> dict[int, dict]:
     segs: dict[int, dict] = {}
     cur: dict | None = None
     seen: dict[int, list[int]] = {}
+    in_comp = False          # 已经进了「综合应用题」区
     for pno, line in rows:
-        m = RE_COMP_HEAD.match(line.strip())
+        stripped = line.strip()
+        if "综合" in stripped and "应用" in stripped:
+            in_comp = True
+        m = RE_COMP_HEAD.match(stripped)
         if m and int(m.group(1)) in COMPREHENSIVE:
+            in_comp = True
             no = int(m.group(1))
             seen.setdefault(no, []).append(pno)
             if no in segs:
@@ -226,8 +291,23 @@ def parse_comprehensive(rows: list[tuple[int, str]]) -> dict[int, dict]:
             cur = {"lines": ([m.group(2)] if m.group(2).strip() else []), "pages": [pno]}
             segs[no] = cur
             continue
-        if cur is not None and line.strip():
-            cur["lines"].append(line.strip())
+        # **没有题号**的 `【答案要点】`：2024 底本第 1 页印的是 `41.【答案要点】`，
+        # 但 OCR 只认出了 `【答案要点】`，题号整个丢了（渲染图上一目了然，是 OCR 漏字）。
+        # 只在「已进综合题区 + 当前没有正在写的题 + 题号确实还缺」时才按顺序归位，
+        # 并且**在报告里点名这是靠位次补的**，交人工复核。
+        if (in_comp and cur is None and log is not None
+                and RE_COMP_HEAD_NONUM.match(stripped)):
+            pend = [n for n in COMPREHENSIVE if n not in segs]
+            if pend:
+                no = pend[0]
+                seen.setdefault(no, []).append(pno)
+                cur = {"lines": [], "pages": [pno], "no_head": True}
+                segs[no] = cur
+                log.append(f"第 {pno} 页的 `{stripped}` **没有题号**，按综合题顺序归为第 {no} 题"
+                           f"（底本该行题号在渲染图上清楚可见，是 OCR 漏了；`no_head` 已标记）")
+                continue
+        if cur is not None and stripped:
+            cur["lines"].append(stripped)
             cur["pages"].append(pno)
     for seg in segs.values():
         seg["span"] = (min(seg["pages"]), max(seg["pages"]))
@@ -270,15 +350,26 @@ def main(argv: list[str] | None = None) -> int:
     rel = paths_for(paper_id)
     log: list[str] = []
     rows = read_rows(rel)
-    choices = parse_choices(rows, log)
-    comp = parse_comprehensive(rows)
+    grid = load_grid(paper_id, log)
+    choices = parse_choices(rows, log, grid)
+    comp = parse_comprehensive(rows, log)
     artifacts = scan_artifacts(comp)
+
+    # 逐题来源：按层优先级回填，写进 solutions.md 的注释里，便于人工按来源核对。
+    flow_only = parse_choices(rows, [])          # 只看解析流，用来判断某题是不是「表 + 解析」双源
+    src: dict[int, str] = {}
+    for no in choices:
+        where = []
+        if no in grid:
+            where.append("答案表")
+        if no in flow_only and flow_only[no][0] == choices[no][0]:
+            where.append("解析流")
+        src[no] = "·".join(where) or "解析流"
 
     missing_choice = [n for n in CHOICE if n not in choices]
     missing_comp = [n for n in COMPREHENSIVE if n not in comp]
     methods = {}
     folder = PAGES / Path(rel).with_suffix("")
-    import json
     confs = []
     for f in folder.glob("page-*.json"):
         info = json.loads(f.read_text(encoding="utf-8"))
@@ -294,6 +385,8 @@ def main(argv: list[str] | None = None) -> int:
         f"- 逐页方法：{methods}",
         f"- OCR 平均置信度：{sum(confs) / len(confs):.3f}（{len(confs)} 页）" if confs else "- 文字层提取，无 OCR 置信度",
         f"- 选择题答案：{len(choices)}/40；缺号：{missing_choice or '无'}",
+        f"- 其中来自卷首答案表：{len([n for n in choices if n in grid])} 题"
+        f"（双源一致的 {len([n for n in choices if n in grid and n in flow_only and flow_only[n][0] == choices[n][0]])} 题）",
         f"- 综合题答案：{len(comp)}/7；缺号：{missing_comp or '无'}",
         "",
         "## 选择题答案（按题号严格递增取出）",
@@ -312,6 +405,8 @@ def main(argv: list[str] | None = None) -> int:
         note = ""
         if comp[no].get("dup_pages"):
             note = f"；底本在 {comp[no]['dup_pages']} 页又印了一遍，只取首次"
+        if comp[no].get("no_head"):
+            note += "；⚠️ 底本该处无题号，按综合题位次归位（待人工复核）"
         lines.append(f"- 第 {no} 题：底本第 {lo}—{hi} 页，{len(comp[no]['lines'])} 行{note}")
     lines.append("")
     if log:
@@ -347,6 +442,11 @@ def main(argv: list[str] | None = None) -> int:
         f"> 来源：`{rel}`。转写记录见 `build/_scratch/reports/"
         f"{paper_id.replace('/', '-')}-solutions.md`。",
         honest,
+        (f"> 选择题答案来自卷首答案表（`tools/answer_grid_ocr.py` 读页面像素 + "
+         f"`tools/answer_grid.py` 读文字层，两路互校）与逐题解析流，"
+         f"逐题来源见各题上方注释。"
+         if grid else
+         "> 选择题答案来自逐题解析流（该卷卷首答案表未能整表读出）。"),
         "> 综合题文字若来自扫描件则为 **OCR 初稿**，存在形近误识"
         "（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，",
         "> 核对前请勿当作定论。逐题状态见 `meta.yml`。",
@@ -357,7 +457,7 @@ def main(argv: list[str] | None = None) -> int:
     for no in CHOICE:
         out += [f"### 第 {no} 题", ""]
         if no in choices:
-            out += [f"<!-- 底本第 {choices[no][1]} 页 -->", "",
+            out += [f"<!-- 底本第 {choices[no][1]} 页；来源：{src[no]} -->", "",
                     f"答案：{choices[no][0]}", ""]
         else:
             out += ["> ⛔ 答案未从底本切出，待人工补齐。", ""]
@@ -370,7 +470,9 @@ def main(argv: list[str] | None = None) -> int:
             continue
         lo, hi = seg["span"]
         span = f"底本第 {lo} 页" if lo == hi else f"底本第 {lo}—{hi} 页"
-        out += [f"<!-- {span}；OCR 初稿，未逐字核对 -->", "", "【答案要点】", ""]
+        caveat = "；⚠️ 底本该处**题号缺失**（OCR 漏字），本段题号系按综合题位次补的，待人工复核" \
+            if seg.get("no_head") else ""
+        out += [f"<!-- {span}；OCR 初稿，未逐字核对{caveat} -->", "", "【答案要点】", ""]
         out += join_cjk(seg["lines"])
         out += [""]
     target.mkdir(parents=True, exist_ok=True)

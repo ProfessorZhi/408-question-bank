@@ -89,6 +89,84 @@ def caption_owner(lines: list[dict], y0: float, y1: float) -> tuple[int, str] | 
     return (best[1], best[2]) if best else None
 
 
+def png_size(path: Path) -> tuple[int, int] | None:
+    """只读 PNG 头（IHDR）拿像素宽高 —— 用来核对「盘上这张图到底是不是这次要的那张」。
+
+    为什么要核：`figures.json` 和 `assets/*.png` 是两次写入，中间失败/换规则时会对不上；
+    光比 bbox（清单里写的）会漏掉「清单是新的、图是旧的」。
+    """
+    import struct
+    try:
+        with path.open("rb") as fh:
+            head = fh.read(33)
+        if head[:8] != b"\x89PNG\r\n\x1a\n" or head[12:16] != b"IHDR":
+            return None
+        return struct.unpack(">II", head[16:24])
+    except Exception:
+        return None
+
+
+def group_slices(images: list[dict], anchors: list[tuple[float, int]],
+                 gap: float = 2.0, xtol: float = 2.0) -> list[dict]:
+    """把**同一张图被拆成多条位图**的情况并回一张。
+
+    2018 第 44 题的「题44 图」（CPU 存储访问过程框图）在 PDF 里是 **11 条**
+    4903×213 的横条位图叠出来的：x 范围完全一样（54.0—553.0），y 首尾相接。
+    按「一框一图」处理的话，同名文件会被覆盖 → 前 10 条**内容直接丢掉**，
+    questions.md 里只嵌到最上面那一窄条。
+    所以 x 范围相同、y 相接、且**两条之间没有夹着别的题号行**的位图并成一组，
+    按合并后的外框**重新渲染**一张 PNG（多条位图拼的图取不出单个 xref，只能渲染）。
+
+    「中间不许夹题号行」这条是保险：两题的图正好上下相接时不能并成一张。
+    """
+    out: list[dict] = []
+    for im in sorted(images, key=lambda im: (im["bbox"][1], im["bbox"][0])):
+        b = list(im["bbox"])
+        if out:
+            g = out[-1]
+            gb = g["bbox"]
+            same_x = abs(b[0] - gb[0]) <= xtol and abs(b[2] - gb[2]) <= xtol
+            touching = 0.0 <= b[1] - gb[3] <= gap
+            crosses = any(gb[3] <= ay <= b[1] for ay, _no in anchors)
+            if same_x and touching and not crosses:
+                g["bbox"] = [min(gb[0], b[0]), gb[1], max(gb[2], b[2]), max(gb[3], b[3])]
+                g["parts"] += 1
+                continue
+        out.append({"kind": "img", "bbox": b, "px": im["px"], "xref": im["xref"], "parts": 1})
+    for g in out:
+        if g["parts"] > 1:
+            g["kind"] = "img-slices"     # 多条位图拼的：按区域重渲染
+            g["xref"] = None
+    return out
+
+
+def owner_overlap(anchors: list[tuple[float, int]], box: list[float],
+                  page_h: float) -> tuple[int, float] | None:
+    """图落进哪道题的**纵向跨度**里最多。
+
+    为什么要这一条：「就近题号」取的是**图的上边缘**之上的题号，而右侧「如右图所示」那种图
+    的上边缘常常高于它自己那道题的题号行 —— 2009 第 3 题的二叉树图 bbox 上边缘 y=238.8，
+    第 3 题题号行 y=249.7，于是整张图被判给了**第 2 题**（第 3 题反而没图）。
+    改成「谁跟这张图的重叠最高就归谁」，同一份数据下第 2 题重叠 10.9pt、第 3 题重叠 81.5pt，
+    结论就正过来了。返回值带重叠高度，供报告说明归属依据。
+    """
+    if not anchors:
+        return None
+    spans = []
+    for i, (ay, no) in enumerate(anchors):
+        end = anchors[i + 1][0] if i + 1 < len(anchors) else page_h
+        spans.append((ay, end, no))
+    y0, y1 = box[1], box[3]
+    best: tuple[float, int] | None = None
+    for a, b, no in spans:
+        ov = min(b, y1) - max(a, y0)
+        if ov <= 0:
+            continue
+        if best is None or ov > best[0] + 1e-9:
+            best = (ov, no)
+    return best
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -108,9 +186,26 @@ def main(argv: list[str] | None = None) -> int:
     import pymupdf
     figures: list[dict] = []
     notes: list[str] = []
+    # 上一轮裁过的清单：**「文件已存在」不等于「文件是对的」**。
+    # 2018 第 44 题那张图，上一轮只裁到最上面一条横条（同名文件），这一轮并成整张后
+    # 若还按「文件在就复用」，就会把旧的那条窄图当成成品交出去。
+    # 所以复用要求**几何完全一致**（同页、同 bbox、同拼条数），否则重裁。
+    prev: dict[str, tuple] = {}
+    prev_file = OBJ_ROOT / paper_id.replace("/", "-") / "figures.json"
+    if prev_file.is_file():
+        try:
+            for f in json.loads(prev_file.read_text(encoding="utf-8"))["figures"]:
+                prev[f["file"]] = (f.get("page"), tuple(round(v, 1) for v in f["bbox"]),
+                                   f.get("parts", 1))
+        except Exception:                     # 清单坏了就当没有，重裁一遍即可
+            prev = {}
     # 上一页结尾时“正在写”的题号：题43 的表落在第 8 页，而题43 起于第 7 页，
     # 本页又没有新题号，所以必须跨页沿用。
     carry_q: int | None = None
+    # 同一道题可以有多张图（2009 第 44 题：数据通路结构图 + 指令格式表，都是位图）。
+    # 文件名按「该题第几张」编号，重复的那张不许再叫 q44-fig.png ——
+    # 否则第二张会被当成「文件已存在」直接复用，**内容悄悄丢了**，questions.md 里还出现两条同链接。
+    seq: dict[int, int] = {}
     # 题号必须**接得上**：`RE_QSTART` 只管「数字+顿号」，正文换行后的续行照样会中招。
     # 2021 第 40 题题干折行成 `501、封装200B 数据的段…`（x=54，和题号同一起始位置），
     # 于是图被归给了「第 501 题」，真图 q40 反而没嵌进 questions.md。
@@ -140,11 +235,14 @@ def main(argv: list[str] | None = None) -> int:
                 found = [no for ay, no in anchors if ay <= y]
                 return found[-1] if found else carry_q
 
-            candidates = [{"kind": "img", "bbox": im["bbox"], "px": im["px"],
-                           "xref": im["xref"]} for im in obj["images"]]
+            candidates = group_slices(obj["images"], anchors)
+            for g in candidates:
+                if g["parts"] > 1:
+                    notes.append(f"第 {pno} 页 bbox={g['bbox']} 由 {g['parts']} 条位图横条拼成"
+                                 f"（同一张图被切碎），已并回一张")
             for cl in obj["clusters"]:
                 candidates.append({"kind": "cluster", "bbox": cl["bbox"],
-                                   "px": None, "xref": None})
+                                   "px": None, "xref": None, "parts": 1})
             candidates.sort(key=lambda c: c["bbox"][1])
 
             for cand in candidates:
@@ -163,18 +261,37 @@ def main(argv: list[str] | None = None) -> int:
                     owner, _kind_cn = cap
                     how = "题注"
                 else:
-                    near = owner_above(box[1])
-                    if near is None:
-                        notes.append(f"第 {pno} 页 bbox={box} 归属不明，未裁（等人工判）")
-                        continue
-                    owner, how = near, "就近题号"
+                    ov = owner_overlap(anchors, box, obj["size"][1])
+                    if ov:
+                        owner, how = ov[1], f"跨度重叠{ov[0]:.0f}pt"
+                    else:
+                        near = owner_above(box[1])
+                        if near is None:
+                            notes.append(f"第 {pno} 页 bbox={box} 归属不明，未裁（等人工判）")
+                            continue
+                        owner, how = near, "就近题号（本页无重叠）"
 
-                name = f"q{owner}-fig.png"
+                idx = seq.get(owner, 0)
+                seq[owner] = idx + 1
+                name = f"q{owner}-fig.png" if idx == 0 else f"q{owner}-fig{idx + 1}.png"
                 dst = assets / name
-                if dst.exists() and not args.force:
+                ref = f"题 {owner} 图" + (f"（第 {idx + 1} 张）" if idx else "")
+                same_geom = prev.get(f"assets/{name}") == (
+                    pno, tuple(round(v, 1) for v in box), cand["parts"])
+                # 还要核盘上那份图的**长宽比**跟这次的外框对不对得上
+                # （清单一致、图是旧的这种情况前面就踩过）——差得远就重裁。
+                if same_geom and dst.exists():
+                    wh = png_size(dst)
+                    want = (box[2] - box[0]) / max(box[3] - box[1], 1e-6)
+                    same_geom = wh is not None and abs(wh[0] / wh[1] - want) <= 0.03 * want
+                    if not same_geom:
+                        notes.append(f"第 {pno} 页 {name}：盘上那张图的长宽比与本次外框不符"
+                                     f"（{wh if wh else '读不出尺寸'} vs 外框比 {want:.2f}），重裁")
+                if dst.exists() and same_geom and not args.force:
                     figures.append({"q": owner, "file": f"assets/{name}",
-                                    "ref": f"题 {owner} 图", "page": pno,
-                                    "bbox": box, "owner_by": how, "reused": True})
+                                    "ref": ref, "page": pno,
+                                    "bbox": box, "owner_by": how, "reused": True,
+                                    "parts": cand["parts"]})
                     continue
 
                 if cand["xref"]:
@@ -184,15 +301,15 @@ def main(argv: list[str] | None = None) -> int:
                         pix = pymupdf.Pixmap(data)
                         data = pix.tobytes("png")
                 else:
-                    # 纯矢量图：按区域渲染，2 倍分辨率够看清
+                    # 纯矢量图 / 多条位图拼的图：按区域渲染，2 倍分辨率够看清
                     clip = pymupdf.Rect(*box)
                     data = page.get_pixmap(clip=clip, matrix=pymupdf.Matrix(2, 2),
                                            alpha=False, colorspace="rgb").tobytes("png")
                 dst.write_bytes(data)
                 figures.append({"q": owner, "file": f"assets/{name}",
-                                "ref": f"题 {owner} 图", "page": pno,
+                                "ref": ref, "page": pno,
                                 "bbox": box, "owner_by": how, "reused": False,
-                                "bytes": len(data)})
+                                "parts": cand["parts"], "bytes": len(data)})
                 print(f"[fig] 第 {owner} 题 ← 第 {pno} 页 {cand['kind']} "
                       f"bbox={box}（{how}） → {name} {len(data) // 1024}KB")
 

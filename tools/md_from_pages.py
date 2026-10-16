@@ -506,6 +506,13 @@ def page_regions(obj: dict) -> list[dict]:
         # （2026 题43：表框 y1=135.8，正文「其中，op1 为…」在 137.6，
         #  于是那行正文被塞成表格的最后一行空行）。
         idx = [i for i, r in enumerate(rows) if y0 - 1 <= r["y"] <= y1 + 1]
+        # 选项行**不是表格内容**，它只是正好落进了图形框里：2017 第 1 题的代码块
+        # 框把紧跟着的那行「A. O(log n)  B. O(n^(1/2))  C. O(n)  D. O(n log n)」
+        # 也框了进来，按表格渲染 → 四个选项被摊成四格，`O(n` 和 `1/2)` 还被拆开，
+        # 而正文流里就再也找不到选项（QA 报 C4「选项不齐」）。
+        # 把这一行剔出候选区，它回到正文流里才切得出 A/B/C/D。
+        idx = [i for i in idx
+               if not any(RE_OPT_CELL.match(c["text"].strip()) for c in rows[i]["cells"])]
         if not idx:
             continue
         # 判「表还是图」：文字成堆 → 表。单行也可能是表（如 2026 题28 的地址格式图，
