@@ -61,7 +61,17 @@ CHOICE = list(range(1, 41))
 COMPREHENSIVE = list(range(41, 48))
 EXPECTED = CHOICE + COMPREHENSIVE
 
-RE_FOOTER = re.compile(r"第\s*\d+\s*页\s*[（(]\s*共\s*\d+\s*页\s*[)）]")
+# 页脚两种排版：`第 N 页（共 M 页）`（文字层 PDF）与 `第N页／共M页`（扫描卷 OCR）。
+# 扫描卷那种用的是全角斜杠、没有圆括号，老口径认不出，整行就跟着题干/选项进了 md
+# （实测 sets 2/3/4 的试题卷共 26 行；18 卷真题与 set-1 各 0 行，故这次放宽对它们**可证**无影响）。
+RE_FOOTER = re.compile(r"第\s*\d+\s*页\s*(?:[（(]\s*共\s*\d+\s*页\s*[)）]|[/／|]\s*共\s*\d+\s*页)")
+# 页眉（卷名）。两种形态：整行就是页眉、以及 OCR 把页眉和后一行**粘成一行**
+# （`27考研408模拟卷3·试题入.两个线程…`——实测 4 处，页眉在最前）。
+# 只在**第 1 页之后**丢整行：第 1 页那条是文档标题，属于内容。
+# 判据是「同一串出现在 N>1 页」——那只能是跑版页眉。set-1 的那条恰好在第 1 页，
+# 于是 set-1 的输出逐字节不变（这是有意保留的回归锚点）。
+RE_RUNNING_HEAD = re.compile(r"^\s*\d{2}\s*考研\s*408\s*模拟卷\s*\d+\s*"
+                             r"(?:[·．.、]\s*(?:试题|解析))?\s*(?:[（(]\s*解析\s*[)）])?")
 RE_EMPHASIS = re.compile(r"\s*．+")
 RE_CJK = re.compile(r"[一-鿿㐀-䶿]")
 RE_SPACE_BEFORE_PUNCT = re.compile(r"[ \t]+([，。、；：？！）》」』】．])")
@@ -100,6 +110,8 @@ _OPT_SEP = r"(?:^|\s)"
 # （已对整个 sources/ 逐个 PDF 扫过行首 `[A-D]` + 冒号，只有 set1-paper 4 处、
 # set1-solution 8 处）。加进来对真题是无操作，但仍按全量重生成的逐字节 diff 验证。
 _OPT_PUNCT = r"[.、．：:]"
+# 只给**选项头**（字后位置）用的宽口径：多收半/全角逗号。
+_OPT_PUNCT_OCR = r"[.、．：:,，]"
 RE_OPT_MARK = re.compile(_OPT_SEP + r"([A-D])\s*" + _OPT_PUNCT + r"\s*")
 # 前瞻里**不能**要求标点后面还有空白：`A.仅I、II`（2023 第18题）标点后就紧跟正文，
 # 一旦要求 `\s`，整条选项行切不出来；而上面的 RE_OPT_MARK 用的是 `\s*`，
@@ -128,9 +140,21 @@ RE_QSTART = re.compile(r"^(\d{1,3})\s*[.．、]\s*(.*)$", re.S)
 # 它靠「号须等于期望号」兜住（第 1 页的期望号是 1，不是 100）。两把锁都失效的概率极低，
 # 但**没被证明为零**，所以这里只对扫描卷启用（见 `segment` 的 `ocr` 形参），文字层一律走严格版。
 RE_QSTART_OCR = re.compile(r"^(\d{1,3})\s*(?:[.．、]|[，,](?!\s*\d))\s*(.*)$", re.S)
+# 题号**连分隔符都被吃掉**的形态。实测 6 本扫描卷里 `\d{1,3}` 紧跟汉字共 26 处，
+# 真阳性只有 1 处（set3 第 7 题 `07下列关于B树的说法错误的是（）。`），其余 25 处是
+# 页眉 `27考研408模拟卷3`（每页都有！n=27）、`5位`×4、`6位`×2、`500个时钟周期`、
+# `16个页表项`、`190时，要读取逻辑地址…`、`43中的指令6是否需要用到FR？` 之类。
+# 所以**不放开通用裸数字**，只收「零填充两位 + 紧跟汉字」这一种：同一实测集里假阳性 0 处。
+# 这条窄规则只保住了 1 道题，写在这里是因为那 1 道题**正文确实在底本里**，
+# 不收它就得靠人工补录；而通用形态会引进 25 处新的误切，代价远大于收益。
+RE_QSTART_OCR_BARE = re.compile(r"^(0[1-9])(?=[一-鿿])(.*)$", re.S)
 # 每一段的「字母 + 内容」头。严格版与 OCR 版**唯一**的区别就是标点可缺。
 RE_HEAD_OPT = re.compile(r"([A-D])\s*" + _OPT_PUNCT + r"\s*(.*)", re.S)
-RE_HEAD_OPT_OCR = re.compile(r"([A-D])\s*" + _OPT_PUNCT + r"?\s*(.*)", re.S)
+# OCR 版另收半/全角**逗号**当标点：扫描卷实测把 `D.5001` 印/读成 `D,5001`（set-3 第 39 题）。
+# 逗号的危险在于它同时是**题号**分隔符，但这里是选项头的**字后**位置，且外面还套着
+# 「A→B→C→D 四连 + 恰好 4 段」的锁，所以只吃标点、不会把 `43, 8, 90` 那类正文当选项。
+# 只影响 OCR 通道（文字层 18 卷走 `RE_HEAD_OPT`，逐字节无影响）。
+RE_HEAD_OPT_OCR = re.compile(r"([A-D])\s*" + _OPT_PUNCT_OCR + r"?\s*(.*)", re.S)
 # ── OCR 兜底（只用于扫描卷）────────────────────────────────────────────────
 # 只认**行首**的 A–D：`joined` 是段落拼接的，段内换行也是 `\n`，所以 `(?:\A|\n)` 就是行首。
 # 标点后用 `[^\S\n]*`（行内空白）而不是 `\s*`——`\s` 会吃换行，把下一行吞进本选项。
@@ -166,8 +190,42 @@ def _is_cjk(ch: str) -> bool:
     return bool(RE_CJK.fullmatch(ch))
 
 
-def restore_emphasis(text: str, log: list) -> str:
-    """N2：n 个 `．` → 前 n 个汉字的 `**强调**`。"""
+def _emphasis_targets(text: str) -> list[tuple[int, int, str]]:
+    """列出 N2 会还原的着重号：(命中起点, 终点, 被强调词)。跳过前导汉字不足的。"""
+    found: list[tuple[int, int, str]] = []
+    for m in RE_EMPHASIS.finditer(text):
+        n = m.group(0).count("．")
+        run: list[str] = []
+        for ch in reversed(text[:m.start()]):
+            if _is_cjk(ch) and len(run) < n:
+                run.append(ch)
+            else:
+                break
+        if len(run) < n:
+            continue
+        found.append((m.start(), m.end(), "".join(reversed(run))))
+    return found
+
+
+def restore_emphasis(text: str, log: list, ocr: bool = False) -> str:
+    """N2：n 个 `．` → 前 n 个汉字的 `**强调**`。**扫描卷必须关掉**（见下）。
+
+    这条规则**只在文字层底本上成立**，它的依据是几何：底本 PDF 把着重号排成
+    被强调字**下方**约 4.6pt 的一个全角句点，于是 `不．可能`、`错误．．的是` 这类
+    文本形状才是着重号。但 `restore_emphasis` 读的是**纯文本**，这条几何前提
+    在扫描卷上根本拿不到（逐页草稿 JSON 里没有字符坐标，见 `page-NNN.json` 的字段），
+    而扫描件的 OCR 会把**排印的逗号**读成 `．`——实测 set-3 第 2 页第 5 题 B 行
+    印刷的是「在有向图的邻接表**，**某个顶点」，草稿写成 `．`，
+    照规则就会还原成 `**中**` ⇒ **凭空造出一处着重号**。
+
+    所以扫描卷走「原样保留 `．`」这条路：宁可在正文里留一个来源可疑的标点
+    （它确实是底本草稿里的字符，可追可查），也不许伪造强调。每次跳过都写进报告。
+    """
+    if ocr:
+        for s, e, word in _emphasis_targets(text):
+            log.append(f"N2 **关掉**（扫描卷：`．` 无几何判据，原样保留，不造着重号）："
+                       f"…{text[max(0, s - 8):e + 4]!r} → 否则会变成 `**{word}**`")
+        return text
     out, pos = [], 0
     for m in RE_EMPHASIS.finditer(text):
         n = m.group(0).count("．")
@@ -190,8 +248,8 @@ def restore_emphasis(text: str, log: list) -> str:
     return "".join(out)
 
 
-def inline_text(text: str, log: list) -> str:
-    text = restore_emphasis(text, log)
+def inline_text(text: str, log: list, ocr: bool = False) -> str:
+    text = restore_emphasis(text, log, ocr)
     text = RE_SPACE_BEFORE_PUNCT.sub(r"\1", text)
     return RE_MANY_SPACES.sub(" ", text).strip()
 
@@ -216,7 +274,7 @@ def join_lines(lines: list[str]) -> str:
 
 
 def read_lines(rel: str) -> list[tuple[int, str]]:
-    """逐页草稿 → (页码, 原始行)；页脚行替换为空行。"""
+    """逐页草稿 → (页码, 原始行)；页脚行、跑版页眉行替换为空行。"""
     folder = PAGES / Path(rel).with_suffix("")
     if not folder.is_dir():
         raise SystemExit(f"[md] 找不到逐页草稿：{folder}（先跑 tools/batch_extract.py）")
@@ -224,7 +282,129 @@ def read_lines(rel: str) -> list[tuple[int, str]]:
     for f in sorted(folder.glob("page-*.txt")):
         pno = int(f.stem.split("-")[1])
         for line in f.read_text(encoding="utf-8").splitlines():
-            rows.append((pno, "" if RE_FOOTER.search(line) else line))
+            if RE_FOOTER.search(line):
+                rows.append((pno, ""))
+                continue
+            m = RE_RUNNING_HEAD.match(line)
+            if m:
+                rest = line[m.end():].strip()
+                # 第 1 页且整行只有卷名 → 文档标题，属于内容，保留原样；
+                # 其余（第 1 页之后、或还粘着后文）→ 页眉，削掉。
+                if not rest and pno == 1:
+                    rows.append((pno, line))
+                    continue
+                line = rest
+            rows.append((pno, line))
+    return rows
+
+
+def load_recovered(paper_id: str) -> list[dict]:
+    """读 `papers/<id>/recovered-lines.yml`：底本 OCR 漏检行的人工补录清单。
+
+    为什么要有这个东西：OCR 会把**个别整行**读丢（实测 3 处），不是形近误识，是整行没进
+    草稿。丢的那一行往往是题首，于是 `segment` 少一道题、甚至（修复 resync 之前）整卷卡死。
+    正文在底本里是**确实存在**的，所以既不能伪造，也不能就此停下——用**另一条通道**
+    （提高 dpi 重跑、或把该页渲染成图直接读）取回原文，逐条登记在这里。
+
+    落成仓库里的文件而不是补在脚本里，是为了让每次「补了什么、凭什么补的、从哪一页」
+    都能被 git 审。没有这个文件就是空清单，对真题 18 卷是**无操作**。
+    """
+    path = REPO / "papers" / paper_id / "recovered-lines.yml"
+    if not path.is_file():
+        return []
+    import yaml
+    data = yaml.safe_load(path.read_text(encoding="utf-8")) or []
+    if not isinstance(data, list):
+        raise SystemExit(f"[md] {path} 的顶层必须是清单，实际是 {type(data).__name__}")
+    for i, e in enumerate(data):
+        if not isinstance(e, dict):
+            raise SystemExit(f"[md] {path} 第 {i + 1} 条不是映射")
+        for k in ("q", "page", "mode", "anchor", "source"):
+            if k not in e:
+                raise SystemExit(f"[md] {path} 第 {i + 1} 条缺字段 {k}")
+        if e["mode"] not in ("insert_after", "prefix", "opt_mark", "replace"):
+            raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode 只能是 "
+                             f"insert_after/prefix/opt_mark/replace，实际 {e['mode']!r}")
+        if e["mode"] == "opt_mark":
+            g = e.get("glyphs")
+            if not isinstance(g, dict) or not g:
+                raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode=opt_mark 必须给 glyphs 映射")
+            for L, tok in g.items():
+                if L not in "ABCD" or not str(tok).strip() or str(tok) == L:
+                    raise SystemExit(f"[md] {path} 第 {i + 1} 条 glyphs 非法："
+                                     f"{L!r} → {tok!r}（键须是 A–D、值须非空且不等于该字母）")
+            continue
+        if e["mode"] == "replace":
+            if not str(e.get("text", "")).strip():
+                raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode=replace 必须给 text")
+            n = e.get("n", 1)
+            if not isinstance(n, int) or n < 1:
+                raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode=replace 的 n 必须是 ≥1 的整数，"
+                                 f"实际 {n!r}")
+            if "keep_first" in e and not isinstance(e["keep_first"], bool):
+                raise SystemExit(f"[md] {path} 第 {i + 1} 条 keep_first 只能是 true/false，"
+                                 f"实际 {e['keep_first']!r}")
+            continue
+        need = "text" if e["mode"] == "insert_after" else "prefix"
+        if not str(e.get(need, "")).strip():
+            raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode={e['mode']} 必须给 {need}")
+    return data
+
+
+def apply_recovered(paper_id: str, rows: list[tuple[int, str]], log: list,
+                    glyphs_by_q: dict | None = None) -> list[tuple[int, str]]:
+    """把补录清单落到行序列上。锚点找不到就**报错退出**——静默跳过等于偷偷少一道题。
+
+    `opt_mark` 条目不碰行序列，只把「标记字形」登记进 `glyphs_by_q`；
+    但锚点照样要核——它证明底本草稿没变、这条登记还站得住。
+    """
+    entries = load_recovered(paper_id)
+    for e in entries:
+        page = int(e["page"])
+        anchor = str(e["anchor"])
+        idx = None
+        for i, (pno, line) in enumerate(rows):
+            if pno == page and anchor in strip_marks(line):
+                idx = i
+                break
+        if idx is None:
+            raise SystemExit(
+                f"[md] {paper_id} recovered-lines.yml 第 {e['q']} 题：在第 {page} 页找不到锚点"
+                f"「{anchor}」——底本草稿变了，补录必须重新核对，不能猜。")
+        if e["mode"] == "insert_after":
+            rows.insert(idx + 1, (page, str(e["text"])))
+            log.append(f"第 {page} 页：补录第 {e['q']} 题题首行「{e['text']}」"
+                       f"（锚点「{anchor}」；来源：{e['source']}）")
+        elif e["mode"] == "replace":
+            n = int(e.get("n", 1))
+            # 锚点那一行必须**确实**是要替换的行：替换比插入危险，它会把原行抹掉。
+            # 所以这里额外要求锚点是该行的**行首**（去掉缩进后 startswith），
+            # 免得正文里偶然含到这个词就把整行换掉。
+            head = str(e["anchor"])
+            if not strip_marks(rows[idx][1]).lstrip().startswith(head):
+                raise SystemExit(
+                    f"[md] {paper_id} recovered-lines.yml 第 {e['q']} 题：第 {page} 页第 "
+                    f"{idx + 1} 行的行首不是锚点「{head}」，实际是"
+                    f"「{rows[idx][1].strip()[:30]}」——替换太危险，必须先核对。")
+            # keep_first：锚点行本身是**正文**（题干），只换它下面 n 行。
+            # set-2 第 7 题就是这种形状——题干行读得对，紧随其后的选项块被读成一堆散数字。
+            first = idx + 1 if e.get("keep_first") else idx
+            old = [rows[first + k][1] for k in range(n) if first + k < len(rows)]
+            rows[first:first + n] = [(page, t) for t in str(e["text"]).split("\n")]
+            kf = "（保留锚点行不动）" if e.get("keep_first") else ""
+            log.append(f"第 {page} 页：第 {e['q']} 题以页图直读结果替换 OCR 垃圾行{kf} "
+                       f"{len(old)} 行 → {len(str(e['text']).split(chr(10)))} 行"
+                       f"（锚点「{head}」；原行首「{old[0].strip()[:24]}…」；来源：{e['source']}）")
+        elif e["mode"] == "opt_mark":
+            if glyphs_by_q is not None:
+                glyphs_by_q[int(e["q"])] = {k: str(v) for k, v in e["glyphs"].items()}
+            log.append(f"第 {page} 页：第 {e['q']} 题登记选项标记字形 "
+                       f"{e['glyphs']}（锚点「{anchor}」；来源：{e['source']}）")
+        else:
+            old = rows[idx][1]
+            rows[idx] = (page, str(e["prefix"]) + old.lstrip())
+            log.append(f"第 {page} 页：给第 {e['q']} 题补题号「{e['prefix']}」"
+                       f"（原行以「{old.strip()[:18]}…」开头；来源：{e['source']}）")
     return rows
 
 
@@ -357,21 +537,81 @@ def paragraphs_of(lines: list[str], ocr: bool = False) -> list[dict]:
     return out
 
 
-def _options_pass(joined: str, mark_re, split_re, head_re):
+# 行中兜底的**字后**约束：字母后面必须紧跟选项标点，或者紧跟一个汉字。
+#
+# 为什么不能只放宽左边界：放宽后第一版写成 `([A-D])[^\S\n]*<标点>?`（标点可缺），
+# 结果 set-3 第 39 题被**假切**——底本 OCR 把选项 A 那一行整个读丢了，
+# 而题干里 `（FIN=0.ACK=1，seq=5001.` 的 **ACK 的 A** 左边是 `.`、不是字母，
+# 左边界拦不住它，于是四连凑成，切出来的 A 是
+# `CK=1，seq=5001.\nnck=6001），则H收到的…（）\n866V`——把题干尾句**吞进了选项 A**。
+# 这比切不出来坏得多：切不出来会挂 ⚠️ 待核，假切出来是**静默**给出错选项。
+#
+# 所以再加「字后」一刀，只留两种合法后继：
+#   · 选项标点 `A.` `B、` `C：`（含 OCR 常混的半/全角逗号 `,` `，`——见 `D,5001`）；
+#   · 汉字 `C可以使用…`（OCR 把点号吃掉的常见形态，实测 set-2 第 2 题）。
+# 被排除的正是「大写字母打头的西文记号」：`ACK`、`CPU`、`ASCII`、`Seq` 都会落在
+# 「字母后仍是字母/`=`」这一类上，全被这一刀挡掉。
+_MID_FOLLOW = r"(?=[^\S\n]*(?:[.、．：:,，]|[一-鿿㐀-䶿]))"
+RE_OPT_MARK_MID = re.compile(r"(?<![A-Za-z])([A-D])" + _MID_FOLLOW)
+RE_SPLIT_OPT_MID = re.compile(r"(?<![A-Za-z])(?=[A-D]" + _MID_FOLLOW + r")")
+
+
+def glyph_regexes(glyphs: dict[str, str]):
+    """按**人工登记的字形表**造这一趟专用的 mark/split 正则（set-3 第 25 题 `入.` 之类）。
+
+    为什么不让工具自己认字形：实测 `13.` 在全批出现 12 次，**全部是题号 13**——
+    一个「看着像标记」的字形，单看它自己根本分不出是标记还是别的东西
+    （见 `build/_scratch/probe/glyph_scan.py`）。所以字形必须**逐题登记**、带页码证据，
+    工具只负责按登记执行；没登记就一个都不认。
+
+    字面 A–D 仍然要过 `_MID_FOLLOW`（挡住 `ACK` 那类西文记号）；被登记的那个字形不过——
+    它已经由人核过是标记，再套字后约束反而挡掉 `·0x12334` 这种「标记后面直接跟数字」的真形态。
+    """
+    branches: list[str] = []
+    for L in "ABCD":
+        g = glyphs.get(L)
+        if g:
+            branches.append(re.escape(str(g)))
+        branches.append(L + _MID_FOLLOW)
+    alt = "|".join(branches)
+    mark = re.compile(r"(?<![A-Za-z])(?:" + alt + r")")
+    split = re.compile(r"(?<![A-Za-z])(?=(?:" + alt + r"))")
+    return mark, split
+
+
+def _mark_letter(m, glyphs: dict[str, str] | None):
+    """取标记的（字母，起点）。常规正则用 `group(1)`；字形表正则按**匹配文本**反查。"""
+    if m.re.groups == 1:
+        return m.group(1), m.start(1)
+    t = m.group(0)
+    for L, g in (glyphs or {}).items():
+        if t == g:
+            return L, m.start(0)
+    return t, m.start(0)
+
+
+def _options_pass(joined: str, mark_re, split_re, head_re, glyphs: dict[str, str] | None = None):
     """一趟选项切分。三处正则必须**同口径**传入（见上面 `_OPT_PUNCT` 的警告）。
 
     只认 A→B→C→D 顺序出现、且切完恰好 4 段的那一处。
+
+    ⚠️ 「切完恰好 4 段」**不够**：段本身可以只有那个字母。set-2 第 7 题的
+    dist 矩阵区里恰好有孤立的 A/B/C/D 四个字母竖排，于是切出 A/B/C 三段正文为空、
+    第四段是整片矩阵——四段都「非空」（每段至少含一个字母）却全是垃圾。
+    所以这里**另外要求每段正文非空**（`m.group(2).strip()`），否则换下一趟。
+    空选项比切不出来更糟：切不出来会走 ⚠️ 待核，空选项却是**静默**假装成功。
+
     返回起点偏移量是**必需**的：调用方要靠它在段落序列里找到分界，
     不能拿 `stem_raw` 的长度去数换行——选项段前的空白本身含换行，
     数换行会把选项段自己算进题干（2026 第1题就是这么重复出一份选项的）。
     """
     marks = list(mark_re.finditer(joined))
     for i in range(len(marks) - 3):
-        if [m.group(1) for m in marks[i:i + 4]] != ["A", "B", "C", "D"]:
+        if [_mark_letter(m, glyphs)[0] for m in marks[i:i + 4]] != ["A", "B", "C", "D"]:
             continue
         # 起点取**字母本身**的位置，不取前面那个空白——空白属于上一段，
         # 拿它当起点会让调用方把选项段误判成题干的一部分。
-        start = marks[i].start(1)
+        start = _mark_letter(marks[i], glyphs)[1]
         region = joined[start:].lstrip("\n")
         pieces = [p for p in split_re.split(region) if p.strip()]
         if len(pieces) != 4:
@@ -379,8 +619,14 @@ def _options_pass(joined: str, mark_re, split_re, head_re):
         opts: dict[str, str] = {}
         ok = True
         for want, piece in zip("ABCD", pieces):
-            m = head_re.match(piece.strip())
-            if not m or m.group(1) != want:
+            text = piece.strip()
+            # 登记的标记字形**只替换前缀那一个字**，正文一字不动：
+            # `·0x12334` → `A0x12334`、`入.两个线程…` → `A.两个线程…`。
+            g = (glyphs or {}).get(want)
+            if g and text.startswith(str(g)):
+                text = want + text[len(str(g)):]
+            m = head_re.match(text)
+            if not m or m.group(1) != want or not m.group(2).strip():
                 ok = False
                 break
             opts[want] = m.group(2).strip()
@@ -389,23 +635,43 @@ def _options_pass(joined: str, mark_re, split_re, head_re):
     return None
 
 
-def extract_options(joined: str, ocr: bool = False) -> tuple[str, dict[str, str], int] | None:
+def extract_options(joined: str, ocr: bool = False,
+                    glyphs: dict[str, str] | None = None) -> tuple[str, dict[str, str], int] | None:
     """切出 (stem, {A..D}, 选项区起点)。
 
-    两趟：先按**严格标点**（`A.` `B、` `C：` …），不中再走**OCR 兜底**（标点可缺）。
-    为什么需要兜底：扫描卷的 OCR 常把选项标记的点号吃掉，实测 6 个扫描 PDF 里
+    三趟（仅扫描卷跑到第三趟）：
+      1. **严格标点**（`A.` `B、` `C：` …）；
+      2. **OCR 兜底·行首**：标点可缺，但字母仍须在行首；
+      3. **OCR 兜底·行中**：字母连行首都不在——被上一段正文顶着，或被 OCR 粘在汉字后面。
+
+    为什么需要第 2 趟：扫描卷的 OCR 常把选项标记的点号吃掉，实测 6 个扫描 PDF 里
     行首 `[A-D]` 共 523 行，其中 72 行没有标点——`Ak=ixn+j`、`Aogn`、`A别除单签表的第个元素`。
     严格口径下这 72 行一个都不认，整题选项切不出来、只能糊在题干里。
 
-    兜底**不放松核心约束**：仍然要求 A→B→C→D 四连、切完恰好 4 段、每段以对应字母开头，
-    而且兜底只认**行首**（`^`）的字母——正文里顺手出现的「A」凑不齐这个。
-    严格口径先跑，所以对能走通严格口径的卷（18 卷真题全都能）逐字节无影响。
+    为什么还需要第 3 趟：第 2 趟的切分正则锚在 `(?:\\A|\\n)`，字母**前一格必须是行首**。
+    实测扫描卷里有 4 道题的 A/B 挤在同一行、B 前面直接是汉字（`栈B、可以使用…`），
+    第 2 趟照样切不动。第 3 趟把左边界从「行首」放宽到「前一字符不是 ASCII 字母」
+    （`(?<![A-Za-z])`），于是能切；`(?<![A-Za-z])` 是本趟**唯一**放开的约束。
+
+    三趟都不放松核心约束：仍然要求 A→B→C→D 四连、切完恰好 4 段、每段以对应字母开头。
+    正文里顺手出现的 A/B/C/D 凑不出这个结构，而任一趟切不干净就返回 None 交下一趟，
+    所以放宽不会制造「半截选项」。趟次是**依次尝试**的短路结构，前一趟成功就不跑后面，
+    因此对能走通第 1 趟的卷（18 卷真题、set-1 全部）逐字节无影响。
+
+    `glyphs` 是**这一题**人工登记的「标记被 OCR 认成了什么」（如 A→`入`）。
+    有登记时它作为**第 0 趟**先跑：它最具体（逐题核过页图），而且没登记就完全不存在，
+    所以对 18 卷真题、set-1、以及所有没登记的题都是**无操作**。
     """
-    for mark_re, split_re, head_re in (
-            (RE_OPT_MARK,     RE_SPLIT_OPT,     RE_HEAD_OPT),
-            (RE_OPT_MARK_OCR, RE_SPLIT_OPT_OCR, RE_HEAD_OPT_OCR)) if ocr else (
-            (RE_OPT_MARK,     RE_SPLIT_OPT,     RE_HEAD_OPT),):
-        got = _options_pass(joined, mark_re, split_re, head_re)
+    passes = []
+    if glyphs:
+        gr, gs = glyph_regexes(glyphs)
+        passes.append((gr, gs, RE_HEAD_OPT_OCR))
+    passes.append((RE_OPT_MARK, RE_SPLIT_OPT, RE_HEAD_OPT))
+    if ocr:
+        passes += [(RE_OPT_MARK_OCR, RE_SPLIT_OPT_OCR, RE_HEAD_OPT_OCR),
+                   (RE_OPT_MARK_MID, RE_SPLIT_OPT_MID, RE_HEAD_OPT_OCR)]
+    for mark_re, split_re, head_re in passes:
+        got = _options_pass(joined, mark_re, split_re, head_re, glyphs)
         if got:
             return got
     return split_glued_options(joined)
@@ -445,12 +711,12 @@ def split_glued_options(joined: str) -> tuple[str, dict[str, str], int] | None:
     return None
 
 
-def render_blocks(paras: list[dict], log: list) -> str:
+def render_blocks(paras: list[dict], log: list, ocr: bool = False) -> str:
     out: list[str] = []
     for para in paras:
         kind = para["kind"]
         if kind == "text":
-            out.append(inline_text(join_lines(para["lines"]), log))
+            out.append(inline_text(join_lines(para["lines"]), log, ocr))
             out.append("")
             continue
         fence = {"code": "c", "table": "text", "verbatim": "text"}[kind]
@@ -461,7 +727,8 @@ def render_blocks(paras: list[dict], log: list) -> str:
     return "\n".join(out).strip()
 
 
-def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False) -> dict:
+def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False,
+            glyphs_by_q: dict[int, dict[str, str]] | None = None) -> dict:
     """按行切题：题号必须**严格等于下一个期望号**才认，防止正文里的「1.」误切。
 
     `drop` 给出已由坐标搬走（进表格/进图片题注）的行，避免同一份内容出现两遍。
@@ -492,12 +759,39 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
     for pno, line in rows:
         stripped = line.strip()
         m = qstart_re.match(stripped)
-        if m and cursor < len(EXPECTED) and int(m.group(1)) == EXPECTED[cursor]:
+        if m is None and ocr:
+            m = RE_QSTART_OCR_BARE.match(stripped)
+        if m and cursor < len(EXPECTED):
             no = int(m.group(1))
-            cur = {"no": no, "lines": [m.group(2)], "pages": [pno]}
-            segs[no] = cur
-            cursor += 1
-            continue
+            pos = EXPECTED.index(no) if no in EXPECTED else -1
+            if pos == cursor:
+                cur = {"no": no, "lines": [m.group(2)], "pages": [pno]}
+                segs[no] = cur
+                cursor += 1
+                continue
+            # ── resync：往前跳过一个（或几个）**整行没取到**的题号 ────────────────
+            # 原来的口径是「号必须严格等于期望号」，于是丢一个号就**永久卡死**：
+            # 后面所有题号都撞不上期望号，全卷沦为空 stub。实测代价很大——
+            #   set3 卡在 7（`07下列关于B树…` 连分隔符都被吃），46 道题只剩 6 道；
+            #   set4 卡在 5（第 5 题整行没被 OCR 读出来），只剩 4 道。
+            # 现在允许向前跳，跳过的题号**不填任何内容**，照旧留空 stub 并写进报告，
+            # 所以「没取到」这件事只会变得更显眼，不会被藏起来。
+            # 安全性来自 `no in EXPECTED` 这一条：号必须落在 1–47 里，且只许向前。
+            # 实测 6 本扫描卷里 `n > 期望号` 的候选共 111 条，真跳转全是 +1；
+            # 其余全是 IP 地址（`192.168.0.8`、`200.1.1.1`…，n=192/200）与已翻过去的
+            # 选项噪声（`11.逾川资存器` 之类**向后**的号），两类都被这两条界挡掉。
+            # 残留风险如实记下：正文里恰好出现「落在 1–47、且严格大于当前期望号」的
+            # 数字开头行，仍会被误认。这类行一旦出现，后果是**该题题干被劈开**，
+            # 不是静默丢内容——比原来的整卷卡死容易发现。只对扫描卷开（文字层走严格版）。
+            if ocr and pos > cursor:
+                skipped = EXPECTED[cursor:pos]
+                log.append(f"第 {pno} 页：题号从 {EXPECTED[cursor]} 跳到 {no}，"
+                           f"跳过未取到的 {skipped}（留空 stub，不填内容）")
+                stats["resync"] = stats.get("resync", 0) + 1
+                cur = {"no": no, "lines": [m.group(2)], "pages": [pno]}
+                segs[no] = cur
+                cursor = pos + 1
+                continue
         if cur is not None:
             if RE_SECTION.match(stripped):
                 continue
@@ -530,7 +824,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
         paras = paragraphs_of(seg["lines"], ocr)
         seg["paras"] = paras
         joined = "\n".join(p["raw"] for p in paras)
-        got = extract_options(joined, ocr)
+        got = extract_options(joined, ocr, (glyphs_by_q or {}).get(no))
         if got:
             _stem_raw, raw_opts, start = got
             # 题干 = **包含**选项起点那一段之前的段。按段落偏移切，不数换行。
@@ -554,10 +848,10 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
             if head:
                 stem_paras = stem_paras + [{"lines": [head], "kind": "text", "raw": head}]
             seg["paras"] = stem_paras
-            seg["stem"] = render_blocks(stem_paras, log)
-            seg["options"] = {k: inline_text(v, log) for k, v in raw_opts.items()}
+            seg["stem"] = render_blocks(stem_paras, log, ocr)
+            seg["options"] = {k: inline_text(v, log, ocr) for k, v in raw_opts.items()}
         else:
-            seg["stem"] = render_blocks(paras, log)
+            seg["stem"] = render_blocks(paras, log, ocr)
             seg["options"] = None
         if any(p["kind"] == "table" for p in paras):
             tables.append(no)
@@ -1004,11 +1298,13 @@ def main(argv: list[str] | None = None) -> int:
     tables_by_q, drop, tstats = collect_tables(objs, figs_by_q)
     log: list[str] = []
     rows = read_lines(paper_rel)
+    glyphs_by_q: dict[int, dict[str, str]] = {}
+    rows = apply_recovered(paper_id, rows, log, glyphs_by_q)
     ocr = is_scanned(paper_rel)
     if ocr:
         log.append("本卷逐页草稿来自扫描件 OCR（method≠text-layer）→ 启用宽容口径："
                    "题号分隔符接受全角逗号，选项标记的点号可缺（仍要求 A→B→C→D 四连）")
-    data = segment(rows, log, drop, ocr)
+    data = segment(rows, log, drop, ocr, glyphs_by_q)
     data["tables_by_q"] = tables_by_q
     data["figs_by_q"] = figs_by_q
     segs = data["segments"]
