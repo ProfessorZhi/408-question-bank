@@ -1,0 +1,82 @@
+# 生成物骨架 —— 由 tools/bootstrap_meta.py 生成后**人工维护**。
+# 逐题状态机见 docs/qa-policy.md；schema 见 schema/paper-meta.schema.json。
+paper_id: exams/2024
+title: 2024 年全国硕士研究生招生考试 计算机学科专业基础综合
+year: 2024
+kind: exam
+sources:
+  - role: paper
+    path: sources/exams/papers/2024.pdf
+    sha256: "baae7ba96588d55117a31c297304927d3791d0f3576bf0c70f32fd8a9fe1766c"
+    upstream: https://github.com/neville-studio/408-exam-paper
+    upstream_commit: 44302e5bc425ed63d48186ec4ab3c342fac051eb
+    license: "MIT (covers upstream typesetting only; see docs/rights-and-licenses.md §1)"
+    confidence: medium   # probe=text-layer
+  - role: answer
+    path: sources/exams/answers/2024-answer.pdf
+    sha256: "83146d04e95bdf2e7a58b6157a2ba00029c7b4268f1937bedd740ae7f1868523"
+    upstream: https://github.com/neville-studio/408-exam-paper
+    upstream_commit: 44302e5bc425ed63d48186ec4ab3c342fac051eb
+    license: "MIT (covers upstream typesetting only; see docs/rights-and-licenses.md §1)"
+    confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
+extraction:
+  method: pending        # text-layer | ocr | manual | mixed
+  tool: null
+  date: null
+counts:
+  choice: 40
+  comprehensive: 7
+  total: 47
+questions:
+  - {"no": 1, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 2, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 3, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 4, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 5, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 6, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 7, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 8, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 9, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 10, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 11, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 12, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 13, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 14, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 15, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 16, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 17, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 18, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 19, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 20, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 21, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 22, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 23, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 24, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 25, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 26, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 27, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 28, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 29, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 30, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 31, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 32, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 33, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 34, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 35, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 36, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 37, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 38, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 39, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 40, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 41, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 42, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 43, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 44, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 45, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
+errata: []
+review:
+  proofread_by: []
+  proofread_at: null
+  qa: null

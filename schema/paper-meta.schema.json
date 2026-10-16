@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ProfessorZhi/408-question-bank/schema/paper-meta.schema.json",
+  "title": "408 题库 · 卷元数据（meta.yml）",
+  "type": "object",
+  "required": ["paper_id", "title", "kind", "sources", "counts", "questions"],
+  "additionalProperties": false,
+  "properties": {
+    "paper_id": {
+      "type": "string",
+      "pattern": "^(exams/[0-9]{4}|mock-[0-9]{4}/set-[0-9]+)$",
+      "description": "卷的唯一标识，须与目录路径一致，例如 exams/2009 或 mock-2027/set-1"
+    },
+    "title": { "type": "string", "minLength": 2 },
+    "year": { "type": ["integer", "null"] },
+    "kind": { "type": "string", "enum": ["exam", "mock"] },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["role", "path", "sha256", "confidence"],
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["paper", "answer", "errata", "reference", "page-images"],
+            "description": "该文件在本卷中的角色"
+          },
+          "path": { "type": "string", "description": "仓库内相对路径" },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "文件内容哈希。sources/ 只增不改，哈希漂移即为异常"
+          },
+          "upstream": { "type": ["string", "null"], "format": "uri" },
+          "upstream_commit": {
+            "type": ["string", "null"],
+            "pattern": "^[0-9a-f]{7,40}$"
+          },
+          "license": { "type": "string" },
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"],
+            "description": "对该底本可信度的判断。重排版/OCR 底本最高只能 medium"
+          }
+        }
+      }
+    },
+    "extraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["pending", "text-layer", "ocr", "manual", "mixed"],
+          "description": "pending = 尚未提取。承认「还没做」比填一个假值好。"
+        },
+        "tool": { "type": ["string", "null"] },
+        "date": { "type": ["string", "null"], "format": "date" }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "required": ["choice", "comprehensive", "total"],
+      "additionalProperties": false,
+      "properties": {
+        "choice": { "type": "integer", "const": 40 },
+        "comprehensive": { "type": "integer", "const": 7 },
+        "total": { "type": "integer", "const": 47 }
+      }
+    },
+    "questions": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 47,
+      "items": {
+        "type": "object",
+        "required": ["no", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "no": { "type": "integer", "minimum": 1, "maximum": 47 },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "blocked", "needs-review", "proofread", "ocr-uncertain"]
+          },
+          "confidence": {
+            "type": ["string", "null"],
+            "enum": ["high", "medium", "low", null],
+            "description": "null = 尚未判定，不是「低」。诚实留空优于随手填 low。"
+          },
+          "topic": {
+            "type": "string",
+            "enum": ["数据结构", "计算机组成原理", "操作系统", "计算机网络", "综合", "未知"]
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "errata": {
+      "type": "array",
+      "description": "来自解析 PDF 首页「勘误」清单等，逐条落实后在此登记",
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "applied"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "text": { "type": "string" },
+          "applies_to": { "type": "array", "items": { "type": "integer" } },
+          "applied": { "type": "boolean" }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "proofread_by": { "type": "array", "items": { "type": "string" } },
+        "proofread_at": { "type": ["string", "null"], "format": "date" },
+        "qa": { "type": ["object", "null"] }
+      }
+    }
+  }
+}

@@ -1,0 +1,465 @@
+{
+  "generated_by": "tools/inventory.py",
+  "repo": "C:\\Users\\vince.huang\\Documents\\408-question-bank",
+  "count": 48,
+  "total_bytes": 92028703,
+  "note": "sources/ 只增不改；sha256 用于检测意外改写。",
+  "files": [
+    {
+      "path": "sources/_upstream-licenses/DongDong20050214-408-Exam-Markdown/NO-LICENSE-FOUND.txt",
+      "bytes": 279,
+      "sha256": "c9179b3af17fcf13a699a73c9350639bf6d98ccfa6e42e5af346874928a16b25",
+      "ext": ".txt"
+    },
+    {
+      "path": "sources/_upstream-licenses/DongDong20050214-408-Exam-Markdown/README.md",
+      "bytes": 13452,
+      "sha256": "5385e033ae568dc811c04c6bf6d3829a8628be7b7b0d735f243a634ad9767035",
+      "ext": ".md"
+    },
+    {
+      "path": "sources/_upstream-licenses/neville-studio-408-exam-paper/LICENSE",
+      "bytes": 1092,
+      "sha256": "74f3299a22f192558acff3c466964e571de4d72cb552401d9130c8c0f616dfc2",
+      "ext": ""
+    },
+    {
+      "path": "sources/_upstream-licenses/neville-studio-408-exam-paper/README.md",
+      "bytes": 2683,
+      "sha256": "d9c5beb38796d8b98b76ec862c05c64886a0b2855bbc8c5cf32d0f0789666398",
+      "ext": ".md"
+    },
+    {
+      "path": "sources/_upstream-licenses/TommyTay0712-408/NO-LICENSE-FOUND.txt",
+      "bytes": 144,
+      "sha256": "3e3f261ad092817a064bf947e6d2e731f5fcdb8751d0275c5152e87ad9407d39",
+      "ext": ".txt"
+    },
+    {
+      "path": "sources/_upstream-licenses/TommyTay0712-408/README.md",
+      "bytes": 170,
+      "sha256": "87d8238f7e7c5ae6a4f99b923f50152cd9092a2674ca2a0250aaa72484834e7d",
+      "ext": ".md"
+    },
+    {
+      "path": "sources/exams/answers/2009-answer.pdf",
+      "bytes": 2174705,
+      "sha256": "7867c0cd6321445550e0d14f4677428570d6cb7d307a6c1944a4fe3d9381ec20",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 13434,
+      "images": 193,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2010-answer.pdf",
+      "bytes": 2212145,
+      "sha256": "a51847417dcad0f97373047a92044367edf6dd04d1badca148142d90b0f92957",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 13364,
+      "images": 216,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2011-answer.pdf",
+      "bytes": 2502317,
+      "sha256": "7441da7c20747fb56ed0f529343375b84d2c9d1abba5329c80209d4e67af6748",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 14897,
+      "images": 227,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2012-answer.pdf",
+      "bytes": 2339464,
+      "sha256": "d34d7378b038934026df401f05fbc6f269cbeb6a918007c5e3d0231591a2649c",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 13866,
+      "images": 154,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2013-answer.pdf",
+      "bytes": 2070543,
+      "sha256": "1a3b76ceeccbf3494b850f1608c1ee17d4999518961c037a3061af30023f8311",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 11218,
+      "images": 155,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2014-answer.pdf",
+      "bytes": 3007989,
+      "sha256": "400d22d3c21feae19a8f691c256902a3f745bb9f4fc227464ec55d94c35ffdc6",
+      "ext": ".pdf",
+      "pages": 14,
+      "text_chars": 17303,
+      "images": 166,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2015-answer.pdf",
+      "bytes": 1617182,
+      "sha256": "54ff1b454f7421365f0cb744aff2f28b8825b99de0d5b8ed1e9c716de3587b47",
+      "ext": ".pdf",
+      "pages": 8,
+      "text_chars": 9498,
+      "images": 112,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2016-answer.pdf",
+      "bytes": 2374710,
+      "sha256": "93c5cb3465c1141cfd023b17e2616f4392d97f74ff39443b1fc36b10c19c235f",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 14962,
+      "images": 209,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2017-answer.pdf",
+      "bytes": 1897944,
+      "sha256": "6799d0c083d9a32f499e4ee6c77be9b93cbd24d769a070ae98fd1637d67b00b2",
+      "ext": ".pdf",
+      "pages": 10,
+      "text_chars": 11441,
+      "images": 178,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2018-answer.pdf",
+      "bytes": 1732559,
+      "sha256": "411bf95ad1c23407c4d3fa6ee1de8467524146b9ea795ffff153d6af3598b507",
+      "ext": ".pdf",
+      "pages": 9,
+      "text_chars": 11186,
+      "images": 178,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2019-answer.pdf",
+      "bytes": 2793294,
+      "sha256": "a50bd04914b55d0400655a03e5fa5f02b37ac1821107827ecaf6ab09b71b3fd6",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 0,
+      "images": 12,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/exams/answers/2020-answer.pdf",
+      "bytes": 7242234,
+      "sha256": "97ee67dd49d648e206cffedf71772e8d86a26ad327baeb5397aa95562a844bf8",
+      "ext": ".pdf",
+      "pages": 13,
+      "text_chars": 13266,
+      "images": 13,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2021-answer.pdf",
+      "bytes": 8133056,
+      "sha256": "041f3f9509475584a2abebd729d3b2e01a2bd6535c7e10ebb39ddcd8a4378de9",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 0,
+      "images": 216,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/exams/answers/2022-answer.pdf",
+      "bytes": 2065590,
+      "sha256": "34561e046a8fc56fc98e01fbf88c1bf0152df80ff5e0898ed08da478549e7901",
+      "ext": ".pdf",
+      "pages": 10,
+      "text_chars": 13652,
+      "images": 33,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2023-answer.pdf",
+      "bytes": 533731,
+      "sha256": "20de39c0e7c4b949d8a94b78909e5e0a53f35276011f23aff07e8f0a9c04360c",
+      "ext": ".pdf",
+      "pages": 14,
+      "text_chars": 14862,
+      "images": 45,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/answers/2024-answer.pdf",
+      "bytes": 1232336,
+      "sha256": "83146d04e95bdf2e7a58b6157a2ba00029c7b4268f1937bedd740ae7f1868523",
+      "ext": ".pdf",
+      "pages": 6,
+      "text_chars": 2,
+      "images": 13,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/exams/answers/2025-answer.pdf",
+      "bytes": 1248632,
+      "sha256": "06bb902c4f7a5421ed4dd616acd4ca6cc52570ff54f75b9d01bf8f2e6fe6e8a4",
+      "ext": ".pdf",
+      "pages": 5,
+      "text_chars": 2,
+      "images": 13,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/exams/papers/2009.pdf",
+      "bytes": 819058,
+      "sha256": "06a35e0baaf67631ae311cb98b7d0a4eceb6fa292d5a19bda888d760a2e107da",
+      "ext": ".pdf",
+      "pages": 10,
+      "text_chars": 8100,
+      "images": 6,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2010.pdf",
+      "bytes": 891051,
+      "sha256": "0c744666761bc9d4870862927c9649683ce7a7d9954d75e5ef05b60a7388ed6e",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9903,
+      "images": 6,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2011.pdf",
+      "bytes": 1044010,
+      "sha256": "bd65487c3a2a55a2dd822560d91e2ad42439b48dd5e42adf814f22152d44de4d",
+      "ext": ".pdf",
+      "pages": 10,
+      "text_chars": 9729,
+      "images": 4,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2012.pdf",
+      "bytes": 860387,
+      "sha256": "63f7ba2f6cf8b10da27eb7ed8b30f87f6edfa918ec3fedad38de82d6d8355fe9",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 10602,
+      "images": 6,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2013.pdf",
+      "bytes": 1013658,
+      "sha256": "d514c3080e05bd73d12148dbe91ce850d67964a8fd0a3fc64174e3369b6dcf41",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9104,
+      "images": 7,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2014.pdf",
+      "bytes": 925216,
+      "sha256": "ae9a35cdf1e765cc80e4a14e4c15bc6ba9ceabcde1cb1f65d0c839d7a3f4f3c0",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9530,
+      "images": 4,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2015.pdf",
+      "bytes": 1093642,
+      "sha256": "8cf2a777421d0f9b2515e90a4cd3582f072150cdcdce9b8ce09bf543c7994abb",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9013,
+      "images": 9,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2016.pdf",
+      "bytes": 1024044,
+      "sha256": "727216ad7a903fa94bd8d596fecc43f4d6a731c49c3757ff638b48314d5eb9be",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 9828,
+      "images": 8,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2017.pdf",
+      "bytes": 1153304,
+      "sha256": "be9d174cfb6018c945066c94aa501675be4f3106a187037ab26757823fb51715",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9062,
+      "images": 8,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2018.pdf",
+      "bytes": 1838144,
+      "sha256": "1f47b4d36458b68d261f8e58b459fc5bf7b5fba3da40075f8ade36faeb7ec5ec",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9680,
+      "images": 16,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2019.pdf",
+      "bytes": 879667,
+      "sha256": "46e45d5c4bb5afce467e6cd0228fa64c90ab2ceb138e2f8b17a9eb0747542057",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9501,
+      "images": 4,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2020.pdf",
+      "bytes": 1293589,
+      "sha256": "3471eff98676125de3bc5f9b5eb9113cdf3388d13f86e02aba93b22402164401",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 9389,
+      "images": 9,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2021.pdf",
+      "bytes": 866184,
+      "sha256": "d26b51a98a162c1239df3aded10dba92fc94886090e044393bab2ed840fb7ea3",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9884,
+      "images": 6,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2022.pdf",
+      "bytes": 1183597,
+      "sha256": "6850a0c624b1ec419114ed9f366cdab0b9bd7e3ad00375ba5a9dba7a3a76eecb",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 9383,
+      "images": 9,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2023.pdf",
+      "bytes": 853848,
+      "sha256": "4c061880c25df3827374406426a315ec170270ac4b5c900de3dae5a5849b9cd5",
+      "ext": ".pdf",
+      "pages": 11,
+      "text_chars": 10750,
+      "images": 5,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2024.pdf",
+      "bytes": 771257,
+      "sha256": "baae7ba96588d55117a31c297304927d3791d0f3576bf0c70f32fd8a9fe1766c",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 11190,
+      "images": 7,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2025.pdf",
+      "bytes": 1053731,
+      "sha256": "28f4fd31bb5ee1a72a839c939b713ef1729271e676d99291df0df26f8ef90b37",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 10470,
+      "images": 7,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set1-paper.pdf",
+      "bytes": 2121637,
+      "sha256": "91bd08c1beee6a1abe4a74666c9cc6e628e200edf0598230715026f14ba2ecc8",
+      "ext": ".pdf",
+      "pages": 13,
+      "text_chars": 10145,
+      "images": 12,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set1-solution.pdf",
+      "bytes": 5464779,
+      "sha256": "ef2ffa1a1b4f9460e203297724daa7dc42374aaae15fdc3068b2934a90ad23dc",
+      "ext": ".pdf",
+      "pages": 27,
+      "text_chars": 30332,
+      "images": 30,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set2-paper.pdf",
+      "bytes": 3915903,
+      "sha256": "dd1e0bcbea35f4ae5dd6bd43f8d06769c65220f8d9dd01274395b4a1d7d4302a",
+      "ext": ".pdf",
+      "pages": 9,
+      "text_chars": 0,
+      "images": 9,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set2-solution.pdf",
+      "bytes": 3350450,
+      "sha256": "dd8e37b8d5d538bde74bea33396fb4415634418ea593a7d4be5cb60b680f1b11",
+      "ext": ".pdf",
+      "pages": 9,
+      "text_chars": 0,
+      "images": 9,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set3-paper.pdf",
+      "bytes": 3900023,
+      "sha256": "dd9ec7a2996efc95d9820ab1b2204a62eca4d709ba9357083fe7255d8ca467ac",
+      "ext": ".pdf",
+      "pages": 10,
+      "text_chars": 0,
+      "images": 10,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set3-solution.pdf",
+      "bytes": 3469854,
+      "sha256": "afa5c8236664174139b229b939fefd6d590b46c44b33e7454a40cbff19f33a46",
+      "ext": ".pdf",
+      "pages": 9,
+      "text_chars": 0,
+      "images": 9,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set4-paper.pdf",
+      "bytes": 3673019,
+      "sha256": "a2413641d36563a25efc601fe2502171d71587c2a78f4c5526ef45e8fbf671ab",
+      "ext": ".pdf",
+      "pages": 10,
+      "text_chars": 0,
+      "images": 10,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
+      "path": "sources/mock-2027/pdf/mock2027-set4-solution.pdf",
+      "bytes": 3372400,
+      "sha256": "252050ebef47855daebb9f943c86c2337e079b5f1c44415d463e7d9defb61944",
+      "ext": ".pdf",
+      "pages": 8,
+      "text_chars": 0,
+      "images": 8,
+      "probe": "no-text-layer (OCR needed)"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+# 文本一律以 LF 入库，工作区由 core.autocrlf 决定
+* text=auto eol=lf
+
+# 明确二进制，禁止任何行尾转换（改一个字节即损坏）
+*.pdf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.zip   binary
+*.docx  binary
+
+# Markdown / YAML / JSON / Python 强制 LF
+*.md    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf
+*.json  text eol=lf
+*.py    text eol=lf
+*.csv   text eol=lf
+
+# 生成物：不参与 diff 语言识别
+build/** linguist-generated=true
