@@ -113,6 +113,9 @@ def load_key(pages) -> tuple[dict, list, list]:
             missing.append(no)
     if method != "text-layer":
         warn.append(f"key 来自 OCR(page1 method={method})")
+    # 注：几何配对策略（tools/extract_answer_keys.py extract/extract_columnar）
+    # 在 2022 上实测产生错配（Q9/Q10/Q37 与源页图不符），因此**不并入**。
+    # 见 docs/transcription-status-dell.md。
     return key, sorted(missing), warn
 
 
@@ -195,6 +198,7 @@ def extract_images(pdf_rel: str, qs: dict) -> tuple[dict[int, list[str]], list[s
 
 # ---------------------------------------------------------------- 生成
 _PDIR: list[str] = [""]
+_ANS_PDF: list[Path] = [Path()]
 
 # 代码行判定：出现 C 家族关键字，或以 ; { } 结尾且缩进
 CODE_KW = re.compile(
@@ -293,6 +297,22 @@ def render_solutions(meta, key, ans, qs, key_note) -> str:
     return "\n".join(L).rstrip() + "\n"
 
 
+def load_verified_key(paper_id: str) -> tuple[dict, str]:
+    """图像核验 key（index/image-verified-keys.json）优先级最高。"""
+    f = ROOT / "index" / "image-verified-keys.json"
+    if not f.is_file():
+        return {}, ""
+    try:
+        data = json.loads(f.read_text(encoding="utf-8"))
+    except Exception:                                            # noqa: BLE001
+        return {}, ""
+    year = paper_id.split("/")[-1]
+    rec = data.get(year)
+    if not rec:
+        return {}, ""
+    return {int(k): v for k, v in rec["key"].items()}, rec.get("evidence", "")
+
+
 def build(paper_id: str, dry: bool, do_images: bool = True) -> bool:
     import yaml
     pdir = ROOT / "papers" / paper_id
@@ -314,6 +334,10 @@ def build(paper_id: str, dry: bool, do_images: bool = True) -> bool:
     key, miss, warn = ({}, [], [])
     ans, key_note = {}, ""
     if "answer" in srcs:
+        _ANS_PDF[0] = ROOT / srcs["answer"]["path"]
+        import sys as _sys
+        if str(ROOT / "tools") not in _sys.path:
+            _sys.path.insert(0, str(ROOT / "tools"))
         apages = load_pages(srcs["answer"]["path"])
         key, miss, warn = load_key(apages)
         ans = segment_answers(apages)
@@ -337,6 +361,13 @@ def build(paper_id: str, dry: bool, do_images: bool = True) -> bool:
         key.update(got)
         key_note = f"{note}；仍缺 {sorted(set(miss) - set(got)) or '无'}"
         print(f"    recover: {note}")
+
+    vkey, vevidence = load_verified_key(paper_id)
+    if vkey:
+        diff = [n for n in vkey if key.get(n) != vkey[n]]
+        key.update(vkey)                     # 图像核验覆盖自动提取
+        key_note = (f"选择题 key 取自源页图像逐条目视核对（{vevidence}），"
+                    f"覆盖自动提取的 {len(diff)} 条")
 
     found, iwarn = ({}, [])
     if do_images:

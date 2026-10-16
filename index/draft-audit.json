@@ -1,12 +1,11 @@
 {
   "exams/2009": {
     "counts": {
-      "high": 46,
+      "high": 11,
       "medium": 7
     },
     "kinds": {
       "empty-option": 4,
-      "no-answer": 35,
       "thin-solution": 7,
       "no-solution": 7
     },
@@ -186,12 +185,11 @@
   },
   "exams/2022": {
     "counts": {
-      "high": 24,
+      "high": 8,
       "medium": 7
     },
     "kinds": {
       "empty-option": 1,
-      "no-answer": 16,
       "thin-solution": 7,
       "no-solution": 7
     },

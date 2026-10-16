@@ -5,8 +5,7 @@
     "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C4 选项不齐共 1 题：4(AC)",
-      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
+      "C4 选项不齐共 1 题：4(AC)"
     ],
     "stats": {
       "q_choice": 40,
@@ -14,7 +13,7 @@
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 5,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
@@ -253,8 +252,7 @@
     "has_solutions": true,
     "errors": [],
     "warnings": [
-      "C4 选项不齐共 1 题：26(ACD)",
-      "C6 解析中缺答案字母共 16 题：[6, 7, 8, 17, 18, 19, 26, 27, 28, 33, 34, 35] …"
+      "C4 选项不齐共 1 题：26(ACD)"
     ],
     "stats": {
       "q_choice": 40,
@@ -262,7 +260,7 @@
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 24,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
