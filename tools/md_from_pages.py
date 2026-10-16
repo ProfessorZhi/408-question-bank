@@ -71,7 +71,14 @@ RE_SECTION = re.compile(r"^[一二三四五六七八九十]+\s*、\S")
 RE_SCORE = re.compile(r"（\s*本题\s*(\d+(?:\.\d+)?)\s*分\s*）")
 RE_FIGREF = re.compile(r"题\s*(\d{1,2})\s*([图表])")
 # 题号标题（图表标题单独成行，必须断段，否则会被吸进上一句）
-RE_CAPTION = re.compile(r"^题\s*(\d{1,3})\s*(?:题)?([图表])$")
+# 允许结尾带分图号 `（a）`：2025 第44题的两张图题注就是「题44 图（a）」「题44 图（b）」，
+# 只认「题44 图」会把它们当正文留在题干里（实测题干里出现了「如题44 图题44 图（a）」）。
+RE_CAPTION = re.compile(r"^题\s*(\d{1,3})\s*(?:题)?([图表])\s*(?:[（(][a-zA-Z][)）])?\s*$")
+# 「像题注」的独立行：题NN 图/表（可选分图号）、表1、图2-1 等。
+# 只有这种行才配当表格标题；否则一律用中性占位，**不许**拿题干残句当标题
+# （2025 实测会写出 `**的是。**`、`**代码如下。**` 这种把句子截断的假标题）。
+RE_CAP_LIKE = re.compile(r"^(?:题\s*)?\d{0,3}\s*[-—－]?\s*\d{0,3}\s*[图表]\s*\d{0,3}"
+                         r"\s*(?:[（(][a-zA-Z][)）])?$")
 # 小题编号：（1）（2）
 RE_SUBQ = re.compile(r"^[（(]\s*\d{1,2}\s*[)）]")
 # 罗马数字序号项：I. II. III. IV.
@@ -82,8 +89,13 @@ RE_TAGGED = re.compile(r"^[A-Z]{1,3}\d{0,3}\s*[：:]\s*\S")
 RE_CODE_LINE = re.compile(r"(#include|\btypedef\b|\bstruct\b|//|/\*|;\s*$|\{\s*$|\}\s*$)")
 RE_CODE_ANY = re.compile(r"^\s*(-|\+|\*|/\*)")
 # 选项标记
-RE_OPT_MARK = re.compile(r"(?:^|\n|\s{2,})([A-D])\s*[.、．]\s*")
-RE_SPLIT_OPT = re.compile(r"(?:^|\n|\s{2,})(?=[A-D]\s*[.、．]\s)")
+# 分隔符除了「行首 / 两个以上空格」，还要认「CJK 或右括号后跟**一个**空格」：
+# 2025 第31题把四个选项挤在同一行，且 `（FAT） D.` 之间只有一个空格，
+# 只认 \s{2,} 会漏掉 D —— 四个标记凑不齐就整题判成「选项切不干净」。
+_OPT_SEP = (r"(?:^|\n|\s{2,}"
+            r"|(?<=[）)】」』》，。；：、一-鿿])\s)")
+RE_OPT_MARK = re.compile(_OPT_SEP + r"([A-D])\s*[.、．]\s*")
+RE_SPLIT_OPT = re.compile(_OPT_SEP + r"(?=[A-D]\s*[.、．]\s)")
 RE_OPT_LINE_START = re.compile(r"^[A-D]\s*[.、．]\s")
 # 表格里的一个“格子”；以选项/罗马序号开头的行不是表格行（那是选项区）
 RE_OPT_CELL = re.compile(r"^(?:[A-D]|[IVX]{1,4})\s*[.、．]\s")
@@ -330,7 +342,17 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None) -> dict:
         if cur is not None:
             if RE_SECTION.match(stripped):
                 continue
-            if is_dropped(pno, line):
+            # 先走剔除核账（有副作用：把「计划剔且确实命中」记进 used），
+            # 再判题注行——顺序反了会让 collect_tables 登记过的题注行永远算「没找到」，
+            # 平白把「残留」计数抬上去，报告就失真了。
+            hit = is_dropped(pno, line)
+            # 独立成行的题注（「题44 图（b）」「表1」…）不是正文，不能留在题干里
+            # ——它已经由表格/插图的标题承担了内容。整行**恰好**是题注才剔，
+            # 句中提到「如题43 表所示」不受影响。
+            if RE_CAP_LIKE.match(stripped):
+                log.append(f"第 {pno} 页剔题注行「{stripped}」")
+                continue
+            if hit:
                 continue
             cur["lines"].append(line)
 
@@ -621,12 +643,15 @@ def collect_tables(objs: dict[int, dict], figs: dict[int, list[dict]]):
                 if row["y"] >= first_y:
                     break
                 if len(row["cells"]) == 1 and first_y - row["y"] < 22:
-                    m = RE_CAPTION.match(row["cells"][0]["text"].strip())
+                    text = row["cells"][0]["text"].strip()
+                    m = RE_CAPTION.match(text)
                     if m:
                         owner = int(m.group(1))
-                        cap_line = row["cells"][0]["text"].strip()
-                    elif len(row["cells"][0]["text"].strip()) <= 24:
-                        cap_line = row["cells"][0]["text"].strip()
+                        cap_line = text
+                    elif RE_CAP_LIKE.match(text):
+                        cap_line = text
+                    # 其它短行**不**当题注：那多半是题干被表格截断后的下半句，
+                    # 拿来当标题会把句子劈成两半（见 RE_CAP_LIKE 处的说明）。
             if owner is None:
                 owner = owner_of(pno, first_y)
             if owner is None:
@@ -706,7 +731,13 @@ def render_questions(paper_id: str, title: str, src_path: str, data: dict) -> st
         items += [(f["page"], 1, "fig", f) for f in data["figs_by_q"].get(no, [])]
         for page, _tie, kind, item in sorted(items, key=lambda x: (x[0], x[1])):
             if kind == "table":
-                cap = item["caption"] or f"底本第 {page} 页表格（原底本未给题注）"
+                # 无题注时用中性说法，且按形态区分：等宽块常常是代码/位域表，
+                # 一律叫「表格」会误导读者（2025 第44题那块其实是机器级代码）。
+                fallback = (f"底本第 {page} 页表格（原底本未给题注）"
+                            if item["kind"] == "gfm"
+                            else f"底本第 {page} 页独立排版块（无列结构，按等宽保形；"
+                                 "原底本未给题注）")
+                cap = item["caption"] or fallback
                 body.append(f"**{cap}**")
                 body.append("")
                 if item["kind"] == "mono":

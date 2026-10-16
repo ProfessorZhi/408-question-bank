@@ -21,7 +21,7 @@
 | `papers/exams/2022` | 0/40 | 0/7 | 0/47 | 0/40 | — |
 | `papers/exams/2023` | 0/40 | 0/7 | 0/47 | 0/40 | — |
 | `papers/exams/2024` | 0/40 | 0/7 | 0/47 | 0/40 | — |
-| `papers/exams/2025` | 0/40 | 0/7 | 0/47 | 0/40 | — |
+| `papers/exams/2025` | 40/40 | 7/7 | 47/47 | 40/40 | — |
 | `papers/exams/2026` | 40/40 | 7/7 | 47/47 | 40/40 | — |
 | `papers/mock-2027/set-1` | 0/40 | 0/7 | 0/47 | 0/40 | — |
 | `papers/mock-2027/set-2` | 0/40 | 0/7 | 0/47 | 0/40 | — |
@@ -30,4 +30,4 @@
 
 ## 尚未开始的卷
 
-`papers/exams/2009`、`papers/exams/2010`、`papers/exams/2011`、`papers/exams/2012`、`papers/exams/2013`、`papers/exams/2014`、`papers/exams/2015`、`papers/exams/2016`、`papers/exams/2017`、`papers/exams/2018`、`papers/exams/2019`、`papers/exams/2020`、`papers/exams/2021`、`papers/exams/2022`、`papers/exams/2023`、`papers/exams/2024`、`papers/exams/2025`、`papers/mock-2027/set-1`、`papers/mock-2027/set-2`、`papers/mock-2027/set-3`、`papers/mock-2027/set-4`
+`papers/exams/2009`、`papers/exams/2010`、`papers/exams/2011`、`papers/exams/2012`、`papers/exams/2013`、`papers/exams/2014`、`papers/exams/2015`、`papers/exams/2016`、`papers/exams/2017`、`papers/exams/2018`、`papers/exams/2019`、`papers/exams/2020`、`papers/exams/2021`、`papers/exams/2022`、`papers/exams/2023`、`papers/exams/2024`、`papers/mock-2027/set-1`、`papers/mock-2027/set-2`、`papers/mock-2027/set-3`、`papers/mock-2027/set-4`
