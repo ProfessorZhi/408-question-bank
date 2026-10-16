@@ -41,15 +41,15 @@ questions:
   - {"no": 11, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
   - {"no": 12, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
   - {"no": 13, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
-  - {"no": 14, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 14, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录（数值项700dpi复核）；未判定答案，未 proofread"}
   - {"no": 15, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 16, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
-  - {"no": 17, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
-  - {"no": 18, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 16, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 17, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 18, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干、代码序列与A–D选项并重录（代码块900dpi复核）；助记符/寄存器字形存疑已在正文标注；未判定答案，未 proofread"}
   - {"no": 19, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 20, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
-  - {"no": 21, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
-  - {"no": 22, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 20, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 21, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 22, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录（B项分隔符由逗号改为句点）；未判定答案，未 proofread"}
   - {"no": 23, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17，跨第4–5页）；未 proofread"}
   - {"no": 24, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
   - {"no": 25, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
