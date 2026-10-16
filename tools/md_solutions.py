@@ -44,12 +44,24 @@ COMPREHENSIVE = list(range(41, 48))
 RE_FOOTER = re.compile(r"^(?:附录\s*[／/]\s*\d+|\d+\s*[／/]\s*20\d\d\s*年.*大纲|"
                        r"20\d\d\s*年全国硕士研究生招生考试\s*$|"
                        r"计算机学科专业基础(?:试题)?参考答案\s*$|"
-                       r"\d{1,3}\s*)$")
-RE_CHOICE = re.compile(r"^(\d{1,2})\s*[.．、]\s*([A-D])?\s*$")
+                       # 页码两侧带装饰点：`• 037 •`、`·017·`（2020/2021 答案卷）。
+                       # 这类不管出现在哪都当页脚，装饰点是强证据。
+                       r"[•·・]\s*\d{1,3}\s*[•·・])$")
+# 光秃秃的页码（无装饰点）。**不能见着就删**——表格里的一列数也长这样，
+# 所以只在本页首尾两行非空行的位置上才认，见 read_rows()。
+RE_PAGE_NUM = re.compile(r"^\d{1,3}$")
+RE_CHOICE = re.compile(r"^(\d{1,2})\s*[.．、•·・]\s*([A-D])?\s*$")
 RE_ONLY_LETTER = re.compile(r"^([A-D])\s*[.．、]?\s*$")
-# 综合题小标题，各年写法不一：2024 用【答案要点】，2023/2022 用【解析】。
-RE_COMP_HEAD = re.compile(r"^(\d{1,2})\s*[.．、]\s*"
-                          r"【(?:答案要点|解析|参考答案|答案)】\s*(.*)$")
+# 综合题小标题，各年写法不一，必须都认：
+#   2024        `42.【答案要点】`
+#   2023/2022/2021 `41.【解析】`
+#   2009—2019   `41. 解答：`        —— 没有方括号（11 年 × 7 题 = 77 处）
+#   2020 第41/46题 `41• 【解析】`     —— 题号后面是实心圆点而不是句点
+# 裸词形式必须带冒号才认，免得把正文里的「…见 41 题解析」之类吃进来。
+_COMP_WORD = r"(?:答案要点|解析|参考答案|答案|解答)"
+RE_COMP_HEAD = re.compile(r"^(\d{1,2})\s*[.．、•·・]\s*"
+                          r"(?:【" + _COMP_WORD + r"】"
+                          r"|" + _COMP_WORD + r"\s*[：:])\s*(.*)$")
 # 章标题。**不能**见到章标题就停：2023 的答案卷开头就是「一、单项选择题」，
 # 无条件 break 会把整卷答案切掉。只有「非单项选择题」的章标题才代表进入下一节。
 RE_ANY_SECTION = re.compile(r"^[一二三四五六七八九]+\s*、\s*(\S+)")
@@ -64,7 +76,7 @@ RE_KEY_B = re.compile(r"^(\d{1,2})\s*[.．、]\s*([A-D])\s*[。．]\s*【解析�
 # 一行里并排多组「题号 + 字母」：`1． D   2． C   3． A …`（2023 顶部答案表；
 # 2022 的答案表也长这样，只是被文本层打乱）。整行**除去配对后只剩空白或零散字母**
 # 才算答案行——否则正文里的「如图1 所示」之类会被当成答案。
-RE_PAIR = re.compile(r"(\d{1,2})\s*[.．、]\s*([A-D])(?![A-Za-z])")
+RE_PAIR = re.compile(r"(\d{1,2})\s*[.．、•·・]\s*([A-D])(?![A-Za-z])")
 RE_PAIR_LEFTOVER = re.compile(r"^[A-D\s]*$")
 # 「题号 + 一个短记号」但记号不是 A–D：多半是字体映射坏了
 # （2024 第17题抽出来是 `17.℃`、第32题是 `32.C°`）。只报告，不猜。
@@ -96,8 +108,18 @@ def read_rows(rel: str) -> list[tuple[int, str]]:
     rows: list[tuple[int, str]] = []
     for f in sorted(folder.glob("page-*.txt")):
         pno = int(f.stem.split("-")[1])
-        for line in f.read_text(encoding="utf-8").splitlines():
-            rows.append((pno, "" if RE_FOOTER.match(line.strip()) else line))
+        lines = f.read_text(encoding="utf-8").splitlines()
+        # 独立成行的纯数字既可能是页脚页码，也可能是表格里的一列数
+        # （2024 第42题哈希表那列 0/3/4/5/…/18 就曾被当成页码整列删掉）。
+        # 判据用位置：只有出现在**本页首尾两行非空行**里的纯数字才当页码。
+        idx = [i for i, l in enumerate(lines) if l.strip()]
+        edge = set(idx[:2]) | set(idx[-2:])
+        for i, line in enumerate(lines):
+            s = line.strip()
+            if RE_FOOTER.match(s) or (i in edge and RE_PAGE_NUM.match(s)):
+                rows.append((pno, ""))
+            else:
+                rows.append((pno, line))
     return rows
 
 

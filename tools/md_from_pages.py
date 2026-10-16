@@ -274,7 +274,9 @@ def extract_options(joined: str) -> tuple[str, dict[str, str], int] | None:
     for i in range(len(marks) - 3):
         if [m.group(1) for m in marks[i:i + 4]] != ["A", "B", "C", "D"]:
             continue
-        start = marks[i].start()
+        # 起点取**字母本身**的位置，不取前面那个空白——空白属于上一段，
+        # 拿它当起点会让调用方把选项段误判成题干的一部分。
+        start = marks[i].start(1)
         region = joined[start:].lstrip("\n")
         pieces = [p for p in RE_SPLIT_OPT.split(region) if p.strip()]
         if len(pieces) != 4:
@@ -379,19 +381,26 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None) -> dict:
         got = extract_options(joined)
         if got:
             _stem_raw, raw_opts, start = got
-            # 题干 = 起点落在选项区之前的那些段。按**段落偏移**切，不数换行。
+            # 题干 = **包含**选项起点那一段之前的段。按段落偏移切，不数换行。
+            # ⚠️ 判据必须是「哪一段包含 start」，不能数「偏移量 < start 的段数」：
+            # `A.` 前面那个空格本身落在选项段内部，会让选项段被算进题干
+            # （2021 第 39 题因此把整行选项又打印了一遍）。
             offsets, pos = [], 0
             for para in paras:
                 offsets.append(pos)
                 pos += len(para["raw"]) + 1
-            keep = sum(1 for off in offsets if off < start)
-            stem_paras = paras[:keep]
+            k = 0
+            for i, off in enumerate(offsets):
+                if off <= start:
+                    k = i
+                else:
+                    break
+            stem_paras = paras[:k]
             # 选项若与题干挤在同一段（整行形如「…的是。A. x B. y C. z D. w」），
             # 就把这一段在选项起点处截断，别整段丢掉。
-            if keep < len(paras) and keep < len(offsets) and start > offsets[keep]:
-                head = joined[offsets[keep]:start].strip()
-                if head:
-                    stem_paras = stem_paras + [{"lines": [head], "kind": "text", "raw": head}]
+            head = joined[offsets[k]:start].strip() if k < len(paras) else ""
+            if head:
+                stem_paras = stem_paras + [{"lines": [head], "kind": "text", "raw": head}]
             seg["paras"] = stem_paras
             seg["stem"] = render_blocks(stem_paras, log)
             seg["options"] = {k: inline_text(v, log) for k, v in raw_opts.items()}

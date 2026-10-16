@@ -111,15 +111,29 @@ def main(argv: list[str] | None = None) -> int:
     # 上一页结尾时“正在写”的题号：题43 的表落在第 8 页，而题43 起于第 7 页，
     # 本页又没有新题号，所以必须跨页沿用。
     carry_q: int | None = None
+    # 题号必须**接得上**：`RE_QSTART` 只管「数字+顿号」，正文换行后的续行照样会中招。
+    # 2021 第 40 题题干折行成 `501、封装200B 数据的段…`（x=54，和题号同一起始位置），
+    # 于是图被归给了「第 501 题」，真图 q40 反而没嵌进 questions.md。
+    expect_q = 1
 
     with pymupdf.open(str(src)) as doc:
         for pno in sorted(objs):
             obj = objs[pno]
             page = doc[pno - 1]
             lines = obj["lines"]
-            anchors = sorted(
-                (l["bbox"][1], int(m.group(1))) for l in lines
-                if (m := RE_QSTART.match(l["text"].strip())) and l["bbox"][0] < 130)
+            anchors = []
+            for l in sorted(lines, key=lambda l: l["bbox"][1]):
+                m = RE_QSTART.match(l["text"].strip())
+                if not m or l["bbox"][0] >= 130:
+                    continue
+                no = int(m.group(1))
+                # 允许跳号 1—2 个（个别题号 OCR 丢了），但绝不允许「501」这种脱轨值。
+                if expect_q <= no <= expect_q + 2:
+                    anchors.append((l["bbox"][1], no))
+                    expect_q = no + 1
+                else:
+                    notes.append(f"第 {pno} 页剔除伪题号锚点「{l['text'].strip()[:40]}」"
+                                 f"（期望 {expect_q}±2，实得 {no}）")
 
             def owner_above(y: float) -> int | None:
                 """该 y 之上最近的那个题号；本页没有就用上一页沿用的。"""
