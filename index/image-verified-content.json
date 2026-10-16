@@ -23,5 +23,29 @@
       "note": "源图 A 选项为 O(2ⁿ)（2 的 n 次方）。文本层丢失上标，退化为 O（2n），语义被改变。已按源图更正为 $O(2^n)$。B/C/D 文本层与源图一致，未改。",
       "override": true
     }
+  },
+  "mock-2027/set-2": {
+    "8": {
+      "override": true,
+      "options": {
+        "A": "II、III",
+        "B": "III",
+        "C": "III、IV",
+        "D": "II、IV"
+      },
+      "evidence": "GitHub Issue #3（源试卷 PDF 第 3 页目视）",
+      "note": "扫描 OCR 未取出选项正文（A./B./C./D. 后为空）。选项内容按源页逐条录出，仅记录题干列出的组合，**不推断正确答案**。"
+    },
+    "33": {
+      "override": true,
+      "options": {
+        "A": "I、II",
+        "B": "I、III",
+        "C": "II、III",
+        "D": "I、II、III"
+      },
+      "evidence": "GitHub Issue #3（源试卷 PDF 第 6 页目视）",
+      "note": "同上：仅录选项正文，不推断答案。"
+    }
   }
 }

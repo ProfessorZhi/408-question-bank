@@ -1,0 +1,28 @@
+{
+  "_doc": "纯扫描模拟卷中，OCR 漏检但已由【源 PDF 页图】人工确认存在的题号。每条必须带真实页码、题干 anchor（源图可见首句片段）与证据。prepare_mock_ocr.py 仅在 anchor 能唯一追溯时插入题号；绝不按序号推断。",
+  "_anchor_rule": "anchor 取源图首句中足够独特的片段；命中数必须唯一，否则记 unresolved 且不改动。",
+  "mock-2027/set-2": {
+    "6":  {"page": 2, "anchor": "有向图连通分量特性的叙述中，正确的是",
+           "head": "列关于有向图连通分量特性的叙述中，正确的是（ ）。",
+           "evidence": "GitHub Issue #3；源试卷 p2（OCR 漏检加粗题号 06.）"},
+    "11": {"page": 3, "anchor": "元素个数相同的不同初始序列进行排序",
+           "head": "对元素个数相同的不同初始序列进行排序，总的比较次数相同的是（ ）。",
+           "evidence": "GitHub Issue #3；源试卷 p3"}
+  },
+  "mock-2027/set-3": {
+    "34": {"page": 6, "anchor": "奇偶校验码和香农定理",
+           "head": "下列有关奇偶校验码和香农定理的说法中，错误的是（ ）。",
+           "evidence": "GitHub Issue #3；源试卷 p6"}
+  },
+  "mock-2027/set-4": {
+    "5":  {"page": 2, "anchor": "依次插入空的红黑树",
+           "head": "将关键字41、38、31、12、19、8依次插入空的红黑树后…",
+           "evidence": "GitHub Issue #3；源试卷 p2"},
+    "31": {"page": 6, "anchor": "固态硬盘（SSD）的说法中",
+           "head": "下列关于固态硬盘（SSD）的说法中，错误的是（ ）。",
+           "evidence": "GitHub Issue #3；源试卷 p6"},
+    "40": {"page": 7, "anchor": "网络应用模型的叙述中",
+           "head": "下列关于网络应用模型的叙述中，错误的是（ ）。",
+           "evidence": "GitHub Issue #3；源试卷 p7"}
+  }
+}

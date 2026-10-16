@@ -30,7 +30,10 @@ CACHE = ROOT / "build" / "_scratch" / "408-raw-pages"
 Q_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*(?=\S)")
 OPT_RE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、]\s*")
 # 有的卷用冒号分隔选项（如 `A:2025 BC15H`）。仅在严格分隔凑不齐 4 项时启用。
-OPT_RE_LOOSE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、:：]\s*")
+OPT_RE_LOOSE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、:：，,;；]\s*")
+# 扫描 OCR 常把选项分隔符整个丢掉（`A除单表…` / `B，在链表…`）。
+# 最后一级：允许字母后直接跟中文。仅在前面几级都凑不齐 4 项时启用。
+OPT_RE_WIDE = re.compile(r"(?<![A-Za-z0-9])([ABCD])(?:\s*[．.、:：，,;；]\s*|(?=[\u4e00-\u9fff]))")
 KEY_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*([ABCD])\s*$")
 Q_LEAD = re.compile(r"^\s*\d{1,2}\s*[．.、]\s*")
 KEY_MISS_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*$")          # 只有题号、丢了字母
@@ -40,6 +43,15 @@ LEAK_WORDS = ("答案", "Key:", "<!-- ans")
 
 # ---------------------------------------------------------------- 读取缓存
 def load_pages(src_rel: str) -> list[tuple[int, str, str]]:
+    # 纯扫描卷若做过页级重建（tools/prepare_mock_ocr.py），优先用重建文本：
+    # 它修好了 OCR 误用的题号分隔符，题号覆盖才完整。
+    rebuilt = ROOT / "build" / "_scratch" / "mockocr" / Path(src_rel).stem
+    if rebuilt.is_dir() and any(rebuilt.glob("page-*.txt")):
+        out = []
+        for f in sorted(rebuilt.glob("page-*.txt")):
+            out.append((int(f.stem.split("-")[1]),
+                        f.read_text(encoding="utf-8"), "ocr-rebuilt"))
+        return out
     d = CACHE / Path(src_rel).with_suffix("")
     if not d.is_dir():
         return []
@@ -82,8 +94,12 @@ def split_options(text: str) -> tuple[str, dict[str, str]]:
     if len(strict[1]) >= 4:
         return strict
     loose = _split_with(text, OPT_RE_LOOSE)
-    # 冒号模式可能误伤正文，要求确实凑出更多选项才采用
-    return loose if len(loose[1]) > len(strict[1]) else strict
+    if len(loose[1]) >= 4:
+        return loose
+    wide = _split_with(text, OPT_RE_WIDE)
+    # 宽松模式可能误伤正文，要求确实凑出更多选项才采用
+    best = max((strict, loose, wide), key=lambda r: len(r[1]))
+    return best if len(best[1]) > len(strict[1]) else strict
 
 
 def _split_with(text: str, pat) -> tuple[str, dict[str, str]]:
