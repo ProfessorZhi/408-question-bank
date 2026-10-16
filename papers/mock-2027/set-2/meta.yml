@@ -20,10 +20,11 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: ocr            # 试卷与解析均为纯扫描件；页级重建 + 图像核验补录
+  tool: "rapidocr-onnxruntime 1.2.3 (页级 scale2/3/4 重建); 源页图核验补录 (Q3/Q5/Q7/Q18/Q19 选项, Q7 图)"
+  date: "2026-10-16"
 counts:
+
   choice: 40
   comprehensive: 7
   total: 47

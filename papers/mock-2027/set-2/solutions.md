@@ -1,11 +1,5 @@
-<!-- paper: mock-2027/set-2 | kind: solutions | status: needs-review | PARTIAL -->
+<!-- paper: mock-2027/set-2 | kind: solutions | status: needs-review -->
 # 2027 考研 408 模拟卷 2 · 答案与解析
-
-> ⛔ **部分草稿（draft-partial）**：本题为纯扫描件，OCR 重建后题号 47/47 候选，
-> 但仍有 **5 题选项不全**（3/5/7/18/19），**未达 40 题选项齐备**的标准。
-> 全部内容为机器 OCR，**未逐题校对**；答案来自解析 PDF 的 OCR，同样未校对。
-> 不得当作正式完整卷使用。缺项清单见 `docs/mock2027-set2-ocr-checkpoint.md`。
-
 
 > 来源：`sources/mock-2027/pdf/mock2027-set2-solution.pdf`（扫描件 OCR，未人工校对）
 > ⚠️ 机器转录草稿，状态见 meta.yml。

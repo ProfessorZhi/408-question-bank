@@ -346,6 +346,9 @@ def render_questions(meta, qs, found, warn) -> str:
         L.append("")
         for img in found.get(n, []):
             L += [f"![第 {n} 题图](assets/{img})", ""]
+        pf = cpatch.get(str(n), {}).get("figure")
+        if pf:
+            L += [f"![第 {n} 题图](assets/{pf})", ""]
     if comp:
         L += ["## 二、综合应用题（41—47 题，共 70 分）", ""]
     for n in comp:

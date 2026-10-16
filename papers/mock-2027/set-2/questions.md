@@ -1,11 +1,5 @@
-<!-- paper: mock-2027/set-2 | kind: questions | status: needs-review | PARTIAL -->
+<!-- paper: mock-2027/set-2 | kind: questions | status: needs-review -->
 # 2027 考研 408 模拟卷 2
-
-> ⛔ **部分草稿（draft-partial）**：本题为纯扫描件，OCR 重建后题号 47/47 候选，
-> 但仍有 **5 题选项不全**（3/5/7/18/19），**未达 40 题选项齐备**的标准。
-> 全部内容为机器 OCR，**未逐题校对**；答案来自解析 PDF 的 OCR，同样未校对。
-> 不得当作正式完整卷使用。缺项清单见 `docs/mock2027-set2-ocr-checkpoint.md`。
-
 
 > 来源：`sources/mock-2027/pdf/mock2027-set2-paper.pdf`（见 docs/provenance.md）
 > ⚠️ 本文件为机器转录草稿，**尚未逐题对照原文**。状态见 meta.yml。
@@ -41,10 +35,10 @@ D. 可以使用一个栈实现先人先出队列
 在放在 S[对中、则的关系为()。
 A k=ixn+j
 
-A. 
-B. =(2n-j+1)×j/2+i-j C k=(i+1)xi+J
-C. 
-D. k =(2n-j+ 1)xj/2+i
+A. $k = i\times n+j$
+B. $k = (2n-j+1)\times j/2+i-j$
+C. $k = (i+1)\times i/2+j$
+D. $k = (2n-j+1)\times j/2+i$
 
 ### 第 4 题
 
@@ -60,10 +54,10 @@ D. 若从二叉树的任一结点出发，到根结点的路径上所经结点�
 年个结点的度部是0 或2 的二又树称正则二叉树，Ⅱ 个结点的正则二叉树中有（）个叶结点。
 A logan]
 
-A. 
-B. (n-1)/2
-C. [log2(n + 1)]
-D. (n+ 1)/2
+A. $\lceil\log_2 n\rceil$
+B. $(n-1)/2$
+C. $\lceil\log_2(n+1)\rceil$
+D. $(n+1)/2$
 
 ### 第 6 题
 
@@ -79,10 +73,12 @@ D. 若在图G中加入一条新边，若该边的两个顶点
 
 用Floyd算法求下图的最短路径，得到的dist矩阵结果是（)。
 
-A. 
-B. 
-C. 
-D. 第2页/共9页 27考研408模拟卷2：试题
+A. $\begin{bmatrix}1&0&0&0 \\ 1&1&1&1 \\ 1&1&1&1 \\ 1&1&1&1\end{bmatrix}$
+B. $\begin{bmatrix}1&\infty&\infty&0 \\ 2&1&1&1 \\ 3&1&1&2 \\ 1&2&1&1\end{bmatrix}$
+C. $\begin{bmatrix}0&0&0&0 \\ 2&0&1&1 \\ 3&1&0&2 \\ 1&2&1&0\end{bmatrix}$
+D. $\begin{bmatrix}0&\infty&\infty&\infty \\ 2&0&1&1 \\ 3&1&0&2 \\ 1&2&1&0\end{bmatrix}$
+
+![第 7 题图](assets/q7-fig1.png)
 
 ### 第 8 题
 
@@ -204,10 +200,10 @@ IV.在多阀期数据通路中，一个控制信号的取值在一个指令周�
 V.在一条指令的执行过程中，单周期数据通路中每个部件只能被使用一次
 A I、
 
-A. 
-B. 1、II、V
-C. I、IⅡ、Ⅲ、IV
-D. I、I、ⅢI、V、V
+A. I、II
+B. I、II、IV
+C. I、II、III、IV
+D. I、II、III、IV、V
 
 ### 第 19 题
 
@@ -220,11 +216,10 @@ add R2,R2,1  (R2)+1 → R2
 goto loop
 exit:
 其中可能会产生控制宣险的是（）。
-A 指令 I
 
-A. 
+A. 指令1
 B. 指令3
-C. 指令 4
+C. 指令4
 D. 指令4和指令6
 
 ### 第 20 题

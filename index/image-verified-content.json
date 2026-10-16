@@ -46,6 +46,71 @@
       },
       "evidence": "GitHub Issue #3（源试卷 PDF 第 6 页目视）",
       "note": "同上：仅录选项正文，不推断答案。"
+    },
+    "3": {
+      "override": true,
+      "sourcePage": 2,
+      "options": {
+        "A": "$k = i\\times n+j$",
+        "B": "$k = (2n-j+1)\\times j/2+i-j$",
+        "C": "$k = (i+1)\\times i/2+j$",
+        "D": "$k = (2n-j+1)\\times j/2+i$"
+      },
+      "evidence": "GitHub Issue #3 comment 6217564190（源试卷渲染页图目视）",
+      "note": "扫描 OCR 未取出选项正文。源页为下三角矩阵 $A(n\\times n)$ 按**列优先**压缩到 $S[(n+1)n/2]$（保持源页印刷的“按列优先”，未改成按行）。仅录选项，不推断答案。"
+    },
+    "5": {
+      "override": true,
+      "sourcePage": 2,
+      "options": {
+        "A": "$\\lceil\\log_2 n\\rceil$",
+        "B": "$(n-1)/2$",
+        "C": "$\\lceil\\log_2(n+1)\\rceil$",
+        "D": "$(n+1)/2$"
+      },
+      "evidence": "GitHub Issue #3 comment 6217564190（源试卷渲染页图目视）",
+      "note": "⚠️ A/C 的取整符号（上取整 ⌈⌉ 还是下取整 ⌊⌋）为目视暂读，**未最终确认**，标记 ocr-uncertain，需放大源图复核。"
+    },
+    "7": {
+      "override": true,
+      "sourcePage": 2,
+      "options": {
+        "A": "$\\begin{bmatrix}1&0&0&0 \\\\ 1&1&1&1 \\\\ 1&1&1&1 \\\\ 1&1&1&1\\end{bmatrix}$",
+        "B": "$\\begin{bmatrix}1&\\infty&\\infty&0 \\\\ 2&1&1&1 \\\\ 3&1&1&2 \\\\ 1&2&1&1\\end{bmatrix}$",
+        "C": "$\\begin{bmatrix}0&0&0&0 \\\\ 2&0&1&1 \\\\ 3&1&0&2 \\\\ 1&2&1&0\\end{bmatrix}$",
+        "D": "$\\begin{bmatrix}0&\\infty&\\infty&\\infty \\\\ 2&0&1&1 \\\\ 3&1&0&2 \\\\ 1&2&1&0\\end{bmatrix}$"
+      },
+      "evidence": "GitHub Issue #3 comment 6217564190（源试卷渲染页图目视）",
+      "note": "选项为 4×4 矩阵（Floyd 最短路径）。源页含顶点 1–4 的有向图，已裁图归本题目（见 assets）。仅录选项矩阵，不推断答案。 有向图已按源图裁图归本题（assets/q7-fig1.png，源试卷 p2 scale=4 裁剪）。",
+      "figure": "q7-fig1.png"
+    },
+    "18": {
+      "override": true,
+      "sourcePage": 4,
+      "options": {
+        "A": "I、II",
+        "B": "I、II、IV",
+        "C": "I、II、III、IV",
+        "D": "I、II、III、IV、V"
+      },
+      "evidence": "GitHub Issue #3 comment 6217564190（源试卷渲染页图目视）",
+      "note": "题干含 I–V 五条陈述。仅录选项组合，不推断答案。"
+    },
+    "19": {
+      "override": true,
+      "sourcePage": 4,
+      "options": {
+        "A": "指令1",
+        "B": "指令3",
+        "C": "指令4",
+        "D": "指令4和指令6"
+      },
+      "evidence": "GitHub Issue #3 comment 6217564190（源试卷渲染页图目视）",
+      "note": "五段流水线题。源文含 7 行汇编样例，需与选项一并保留。仅录选项，不推断答案。 源文 7 行汇编样例已随题干保留（OCR 原文，未逐字校对）；已移除 OCR 残留的重复选项行。",
+      "stem_fix": {
+        "re": "\n\\s*A\\s*指令\\s*[I1]\\s*$",
+        "with": ""
+      }
     }
   }
 }
