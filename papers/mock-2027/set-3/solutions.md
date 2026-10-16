@@ -1,7 +1,7 @@
-<!-- paper: mock-2027/set-3 | kind: solutions | status: needs-review | PARTIAL -->
+<!-- paper: mock-2027/set-3 | kind: solutions | status: needs-review -->
 # 2027 考研 408 模拟卷 3 · 答案与解析
 
-> ⛔ **部分草稿**：7 题选项不全（9(A), 25(A), 33(A), 34(A), 37(B), 39(A), 40(B)）；OCR 未校对，见 docs/mock2027-set3-ocr-checkpoint.md。
+> ⚠️ 本解析由扫描件OCR转录，尚未按原PDF逐题核对答案正确性与公式、图表。
 
 
 > 来源：`sources/mock-2027/pdf/mock2027-set3-solution.pdf`（扫描件 OCR，未人工校对）

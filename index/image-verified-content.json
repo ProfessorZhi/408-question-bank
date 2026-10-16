@@ -1,6 +1,14 @@
 {
   "_doc": "文本层残缺（多为数学字形未提取）时，由源页图像逐条目视读出后补入的内容。绝不臆造；每条必须带 evidence 与 note。",
   "mock-2027/set-1": {
+    "1": {
+      "options": {
+        "A": "$O(2^n)$"
+      },
+      "evidence": "build/_scratch/verify/set1-q1.png（源试卷 p1，scale=3 裁图）",
+      "note": "源图 A 选项为 O(2ⁿ)（2 的 n 次方）。文本层丢失上标，退化为 O（2n），语义被改变。已按源图更正为 $O(2^n)$。B/C/D 文本层与源图一致，未改。",
+      "override": true
+    },
     "3": {
       "stem_fix": {
         "re": "循环队列放在一维数组\\s+中，\\s*指向队头元素，\\s*指向队尾元素的后一个位\\s*置",
@@ -14,39 +22,9 @@
       },
       "evidence": "build/_scratch/verify/set1-q3.png（源试卷 p1，scale=3 裁图）",
       "note": "题干中的数组下标 A[0,…,M-1] 与 front/rear 在文本层为数学字形，未被提取（退化为空白）。已按源图补全为 LaTeX。四个选项同为数学字形，一并按源图转录。勘误第3条「CD选项都加上M」在本版 PDF 已落实（C/D 均含 +M）。"
-    },
-    "1": {
-      "options": {
-        "A": "$O(2^n)$"
-      },
-      "evidence": "build/_scratch/verify/set1-q1.png（源试卷 p1，scale=3 裁图）",
-      "note": "源图 A 选项为 O(2ⁿ)（2 的 n 次方）。文本层丢失上标，退化为 O（2n），语义被改变。已按源图更正为 $O(2^n)$。B/C/D 文本层与源图一致，未改。",
-      "override": true
     }
   },
   "mock-2027/set-2": {
-    "8": {
-      "override": true,
-      "options": {
-        "A": "II、III",
-        "B": "III",
-        "C": "III、IV",
-        "D": "II、IV"
-      },
-      "evidence": "GitHub Issue #3（源试卷 PDF 第 3 页目视）",
-      "note": "扫描 OCR 未取出选项正文（A./B./C./D. 后为空）。选项内容按源页逐条录出，仅记录题干列出的组合，**不推断正确答案**。"
-    },
-    "33": {
-      "override": true,
-      "options": {
-        "A": "I、II",
-        "B": "I、III",
-        "C": "II、III",
-        "D": "I、II、III"
-      },
-      "evidence": "GitHub Issue #3（源试卷 PDF 第 6 页目视）",
-      "note": "同上：仅录选项正文，不推断答案。"
-    },
     "3": {
       "override": true,
       "sourcePage": 2,
@@ -84,6 +62,17 @@
       "note": "选项为 4×4 矩阵（Floyd 最短路径）。源页含顶点 1–4 的有向图，已裁图归本题目（见 assets）。仅录选项矩阵，不推断答案。 有向图已按源图裁图归本题（assets/q7-fig1.png，源试卷 p2 scale=4 裁剪）。",
       "figure": "q7-fig1.png"
     },
+    "8": {
+      "override": true,
+      "options": {
+        "A": "II、III",
+        "B": "III",
+        "C": "III、IV",
+        "D": "II、IV"
+      },
+      "evidence": "GitHub Issue #3（源试卷 PDF 第 3 页目视）",
+      "note": "扫描 OCR 未取出选项正文（A./B./C./D. 后为空）。选项内容按源页逐条录出，仅记录题干列出的组合，**不推断正确答案**。"
+    },
     "18": {
       "override": true,
       "sourcePage": 4,
@@ -111,6 +100,96 @@
         "re": "\n\\s*A\\s*指令\\s*[I1]\\s*$",
         "with": ""
       }
+    },
+    "33": {
+      "override": true,
+      "options": {
+        "A": "I、II",
+        "B": "I、III",
+        "C": "II、III",
+        "D": "I、II、III"
+      },
+      "evidence": "GitHub Issue #3（源试卷 PDF 第 6 页目视）",
+      "note": "同上：仅录选项正文，不推断答案。"
+    }
+  },
+  "mock-2027/set-3": {
+    "9": {
+      "override": true,
+      "options": {
+        "A": "$k-1$ 次",
+        "B": "$k$ 次",
+        "C": "$k+1$ 次",
+        "D": "$k(k+1)/2$ 次"
+      },
+      "evidence": "源试题PDF第3页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
+    },
+    "25": {
+      "override": true,
+      "options": {
+        "A": "两个线程都无法使用打印机，发生饥饿现象。",
+        "B": "两个线程同时使用打印机，打印出现错误。",
+        "C": "若线程1没有使用打印机，转而执行其他操作，则线程2也无法使用。",
+        "D": "不会发生错误，两线程正常使用打印机。"
+      },
+      "evidence": "源试题PDF第4-5页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
+    },
+    "33": {
+      "override": true,
+      "options": {
+        "A": "I、II",
+        "B": "I、III",
+        "C": "II、III",
+        "D": "I、II、III"
+      },
+      "evidence": "源试题PDF第5-6页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
+    },
+    "34": {
+      "override": true,
+      "options": {
+        "A": "奈奎斯特定理适用于无噪声理想低通环境，香农定理适用于有噪声信道。",
+        "B": "奈奎斯特定理和香农定理都定义了理想状态下的最大数据传输速率。",
+        "C": "在有噪声的环境中，影响信道的最大传输速率的因素主要是信道带宽和信噪比。",
+        "D": "在无噪声的理想低通环境中，影响信道的最大传输速率的因素主要是信道带宽和码元波形种类。"
+      },
+      "evidence": "源试题PDF第6页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
+    },
+    "37": {
+      "override": true,
+      "options": {
+        "A": "CSMA/CD适用于有线网络，CSMA/CA适用于无线网络，都用于实现链路共享。",
+        "B": "CSMA/CA对数据帧进行确认，而CSMA/CD不对数据帧进行确认。",
+        "C": "CSMA/CA采用RTS/CTS机制对信道进行预约。",
+        "D": "当发生冲突时，CSMA/CD和CSMA/CA采用相同的二进制指数退避算法解决碰撞。"
+      },
+      "evidence": "源试题PDF第6页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
+    },
+    "39": {
+      "override": true,
+      "options": {
+        "A": "4998",
+        "B": "4999",
+        "C": "5000",
+        "D": "5001"
+      },
+      "evidence": "源试题PDF第7页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
+    },
+    "40": {
+      "override": true,
+      "options": {
+        "A": "0,1",
+        "B": "0,4",
+        "C": "1,1",
+        "D": "1,4"
+      },
+      "evidence": "源试题PDF第7页渲染目视核对；GitHub private Issue #4",
+      "note": "仅核对该题4个选项原文；题干OCR/答案解析仍needs-review，不推断正确答案。"
     }
   }
 }

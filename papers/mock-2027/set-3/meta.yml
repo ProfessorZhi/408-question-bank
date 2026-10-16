@@ -20,9 +20,9 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: mixed
+  tool: "RapidOCR scanned-PDF extraction + original-page visual verification (Issue #4)"
+  date: "2026-10-17"
 counts:
   choice: 40
   comprehensive: 7
