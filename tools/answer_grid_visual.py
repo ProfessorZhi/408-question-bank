@@ -52,6 +52,9 @@ OUT_ROOT = REPO / "build" / "_scratch" / "answer-visual"
 BANDS: dict[str, tuple[tuple[float, float, float, float], tuple[float, float], float]] = {
     # 年份: (裁带 x0,y0,x1,y1), (页宽, 页高), 缩放
     "2009": ((15.6, 100.7, 516.5, 447.5), (519.1, 745.9), 3.4),
+    "2010": ((53.7, 155.3, 501.5, 266.4), (519.95, 746.40), 4.0),
+    "2011": ((45.0, 140.0, 500.0, 232.0), (516.70, 742.55), 5.0),
+    "2012": ((42.3, 188.5, 456.3, 300.2), (517.20, 744.00), 4.0),
     "2013": ((15.5, 74.4, 512.9, 409.2), (515.5, 744.0), 3.6),
     "2014": ((15.5, 100.6, 514.6, 447.1), (517.2, 745.1), 3.4),
     "2019": ((14.1, 95.5, 468.5, 424.2), (470.88, 707.04), 3.4),
@@ -67,6 +70,15 @@ VISUAL_READS: dict[str, tuple[str, list[str]]] = {
     # 8 列 × 5 行
     "2009": ("BCDBCBADABCDDCDCAADBDADDCACBAABABBCADDCA",
              ["BCDBCBAD", "ABCDDCDC", "AADBDADD", "CACBAABA", "BBCADDCA"]),
+    # 2010/2011/2012 的**文字层与 OCR 两路本来就一致**；2026-10-17 补读这三卷，
+    # 图的是另一件事：核对「格子→题号」的映射本身有没有错位（两路产物是同一套版式
+    # 常数算出来的，在映射这一维上并不独立）。三卷直读结果与两路产物**逐位相同**。
+    "2010": ("DCDCBACBBDADBBDADBADADACBADBBCCBCCDCBDAA",
+             ["DCDCBACB", "BDADBBDA", "DBADADAC", "BADBBCCB", "CCDCBDAA"]),
+    "2011": ("ABBCCDACDABDABDACDCCDCBADBDDACBCABBDDCCB",
+             ["ABBCCDAC", "DABDABDA", "CDCCDCBA", "DBDDACBC", "ABBDDCCB"]),
+    "2012": ("BAABCCCADADDBDDACCCDDBCBBADABCABBCABCADD",
+             ["BAABCCCA", "DADDBDDA", "CCCDDBCB", "BADABCAB", "BCABCADD"]),
     "2013": ("DCDBACCDCACCAACADCBBBDAACACBDBBBBADBABBA",
              ["DCDBACCD", "CACCAACA", "DCBBBDAA", "CACBDBBB", "BADBABBA"]),
     "2014": ("CBADCDDDDBCDCAADACCCDBABDAACBACDCBDCBABD",
