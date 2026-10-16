@@ -51,12 +51,12 @@ questions:
   - {"no": 21, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
   - {"no": 22, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第4页渲染图逐字核对题干与A–D选项并重录（B项分隔符由逗号改为句点）；未判定答案，未 proofread"}
   - {"no": 23, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17，跨第4–5页）；未 proofread"}
-  - {"no": 24, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
-  - {"no": 25, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
+  - {"no": 24, status: needs-review, confidence: low, topic: 操作系统, notes: "2026-10-17 按试题PDF第5页渲染图逐字核对题干与A–D选项并重录（选项数值500dpi复核）；未判定答案，未 proofread"}
+  - {"no": 25, status: needs-review, confidence: low, topic: 操作系统, notes: "2026-10-17 按试题PDF第5页渲染图逐字核对题干与A–D选项并重录；本题此前未被C4抓到但正文同为未校对OCR；未判定答案，未 proofread"}
   - {"no": 26, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 27, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；页码映射表归属Q27，未 proofread"}
   - {"no": 28, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 29, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 29, status: needs-review, confidence: low, topic: 操作系统, notes: "2026-10-17 按试题PDF第5页渲染图逐字核对题干与A–D选项并重录（路径项600dpi复核，挂载点/media/disk）；未判定答案，未 proofread"}
   - {"no": 30, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17，跨第5–6页）；未 proofread"}
   - {"no": 31, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 32, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
