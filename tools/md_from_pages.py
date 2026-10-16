@@ -105,6 +105,20 @@ RE_OPT_LINE_START = re.compile(r"^[A-D]\s*[.、．]\s")
 # 表格里的一个“格子”；以选项/罗马序号开头的行不是表格行（那是选项区）
 RE_OPT_CELL = re.compile(r"^(?:[A-D]|[IVX]{1,4})\s*[.、．]\s")
 RE_QANCHOR = re.compile(r"^(\d{1,3})\s*[.．、]")
+# 上/下标标记（`batch_extract.py` 插进逐页草稿正文的那层外壳）。
+# ⚠️ 本工具的文字有**两个来源**，口径不同：
+#   · 正文流 —— 来自 `build/_scratch/408-raw-pages/` 的草稿，**带**上下标标记；
+#   · 表格/题注 —— 来自 `build/_scratch/408-objects/`（`page_objects.py` 直读 PDF），**不带**标记。
+# 凡是把两边做「同一段文字吗」的比对，都必须先剥掉标记，否则同一行会被判成两段不同的话。
+# 实测代价：2016 第30题的代码行 `//进程P1 //进程P2` 因此**没被从题干里剔掉**，
+# 于是同一行在正文（围栏块）和表格首行里各出现一遍（2011/2012/2016/2017/2018/2026 共 6 卷受害）。
+RE_MARK = re.compile(r"[\^_]\{([^{}]*)\}")
+
+
+def strip_marks(text: str) -> str:
+    """剥掉上下标标记的外壳，只留字符本身。标记是**注释层**，不参与文本同一性判断。"""
+    return RE_MARK.sub(r"\1", text)
+
 
 OBJ_ROOT = REPO / "build" / "_scratch" / "408-objects"
 ROW_TOL = 3.0          # 同一行的 y 容差（pt）
@@ -153,9 +167,12 @@ def join_lines(lines: list[str]) -> str:
         if not piece:
             continue
         if parts:
-            prev = parts[-1]
-            if prev[-1].isascii() and prev[-1].isalnum() \
-                    and piece[0].isascii() and (piece[0].isalnum() or piece[0] == "("):
+            # 判「要不要补空格」只看**字符本身**，戴着标记看会把行尾的 `}` 当成非字母数字
+            # （`…序列P_{1}` 的末字符是 `}`），补空格的条件就永远不成立。
+            prev = strip_marks(parts[-1])
+            head = strip_marks(piece)
+            if prev and head and prev[-1].isascii() and prev[-1].isalnum() \
+                    and head[0].isascii() and (head[0].isalnum() or head[0] == "("):
                 parts.append(" ")
         parts.append(piece)
     return "".join(parts)
@@ -176,18 +193,19 @@ def read_lines(rel: str) -> list[tuple[int, str]]:
 
 def force_break(stripped: str) -> bool:
     """这一行是否必须自成一段（否则会被上下句吸掉）。"""
-    if RE_OPT_LINE_START.match(stripped):
+    view = strip_marks(stripped)
+    if RE_OPT_LINE_START.match(view):
         return True
-    if RE_CAPTION.match(stripped):
+    if RE_CAPTION.match(view):
         return True
-    if RE_SUBQ.match(stripped) or RE_ROMAN.match(stripped):
+    if RE_SUBQ.match(view) or RE_ROMAN.match(view):
         return True
-    if RE_TAGGED.match(stripped):
+    if RE_TAGGED.match(view):
         return True
-    if RE_CODE_LINE.search(stripped):
+    if RE_CODE_LINE.search(view):
         return True
     # 表格行：去掉首尾空白后仍有 ≥2 处连续多空格
-    return len(RE_MANY_SPACES.findall(stripped)) >= 2
+    return len(RE_MANY_SPACES.findall(view)) >= 2
 
 
 def is_codeish(para: dict) -> bool:
@@ -196,12 +214,13 @@ def is_codeish(para: dict) -> bool:
     刻意比 `classify_paragraph` 松：`{  int data;` 这类单行也要算，否则代码会被
     拆成一段一行。判错成代码的代价只是多一对围栏，判错成正文的代价是缩进丢失。
     """
-    return any(RE_CODE_LINE.search(ln.strip()) for ln in para["lines"] if ln.strip())
+    return any(RE_CODE_LINE.search(strip_marks(ln.strip()))
+               for ln in para["lines"] if ln.strip())
 
 
 def classify_paragraph(lines: list[str]) -> str:
-    text = "\n".join(lines)
-    stripped = [ln.strip() for ln in lines if ln.strip()]
+    text = strip_marks("\n".join(lines))
+    stripped = [strip_marks(ln.strip()) for ln in lines if ln.strip()]
     if not stripped:
         return "text"
     code_hits = sum(1 for ln in stripped if RE_CODE_LINE.search(ln))
@@ -216,7 +235,7 @@ def classify_paragraph(lines: list[str]) -> str:
 
 
 def _cjk_ratio(text: str) -> float:
-    body = re.sub(r"\s+", "", text)
+    body = re.sub(r"\s+", "", strip_marks(text))
     return len(RE_CJK.findall(body)) / len(body) if body else 0.0
 
 
@@ -232,7 +251,7 @@ def paragraphs_of(lines: list[str]) -> list[dict]:
             code_mode = False
             continue
         stripped = line.strip()
-        hint = bool(RE_CODE_LINE.search(stripped))
+        hint = bool(RE_CODE_LINE.search(strip_marks(stripped)))
         # 代码块的**出口**：出现一整行高汉字占比、又没有代码特征的正文。
         # 题41 的代码后面紧跟着「对于给定的非空二叉搜索树T（root 为…）…」，
         # 中间既没有空行也没有任何可切标记，不这么判就会把题干并进代码围栏。
@@ -291,6 +310,40 @@ def extract_options(joined: str) -> tuple[str, dict[str, str], int] | None:
             opts[want] = m.group(2).strip()
         if ok:
             return joined[:start].strip(), opts, start
+    return split_glued_options(joined)
+
+
+# 「四个选项挤在同一行、且字母紧贴上一段文字」的版式：
+#     2011 第 10 题 `A. 顺序存储B. 散列存储C. 链式存储D. 索引存储`
+# 字母 B/C/D 前面**一个空白都没有**，`_OPT_SEP` 要求「行首或空白」，于是只认得出 A。
+# 实测整批 18 卷只有这一处（脚本 `build/_scratch/probe` 里的普查：其余各卷均为 0 处），
+# 所以判据收得很紧，宁可不认也不许误切正文：
+#   1. A 标记必须在该行**行首**；
+#   2. 该行内 A→B→C→D 依次出现，且**没有别的** A–D 标记、没有跨行；
+#   3. 四段文字都非空。
+RE_GLUED_LINE = re.compile(r"^A\s*[.、．]\s*(?P<body>.*)$")
+RE_GLUED_MARK = re.compile(r"([A-D])\s*[.、．]\s*")
+
+
+def split_glued_options(joined: str) -> tuple[str, dict[str, str], int] | None:
+    """兜底：整行连排的选项行。认不出就返回 None（调用方照旧报「切不干净」）。"""
+    lines = joined.split("\n")
+    pos = 0
+    for li, line in enumerate(lines):
+        indent = len(line) - len(line.lstrip())
+        m = RE_GLUED_LINE.match(line[indent:])
+        if m:
+            body = m.group("body")
+            marks = list(RE_GLUED_MARK.finditer(body))
+            if [x.group(1) for x in marks] == ["B", "C", "D"]:
+                bounds = [(0, marks[0].start())]
+                bounds += [(a.end(), b.start()) for a, b in zip(marks, marks[1:])]
+                bounds += [(marks[-1].end(), len(body))]
+                pieces = [body[a:b].strip() for a, b in bounds]
+                if all(pieces):
+                    return ("\n".join(lines[:li]).strip(), dict(zip("ABCD", pieces)),
+                            pos + indent)
+        pos += len(line) + 1
     return None
 
 
@@ -444,7 +497,12 @@ def load_figures(paper_id: str) -> dict[int, list[dict]]:
 
 
 def norm_key(text: str) -> str:
-    return re.sub(r"\s+", "", text)
+    """文本同一性的**唯一**判据：先剥标记，再去掉全部空白。
+
+    剥标记这一步是必需的，不是保险：本函数的两侧分别是「带标记的草稿正文」和
+    「不带标记的坐标层文字」，不剥就永远比不中（见 RE_MARK 处的说明）。
+    """
+    return re.sub(r"\s+", "", strip_marks(text))
 
 
 def group_rows(lines: list[dict]) -> list[dict]:
