@@ -30,10 +30,10 @@ CACHE = ROOT / "build" / "_scratch" / "408-raw-pages"
 Q_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*(?=\S)")
 OPT_RE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、]\s*")
 # 有的卷用冒号分隔选项（如 `A:2025 BC15H`）。仅在严格分隔凑不齐 4 项时启用。
-OPT_RE_LOOSE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、:：，,;；]\s*")
+OPT_RE_LOOSE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.。、:：，,;；]\s*")
 # 扫描 OCR 常把选项分隔符整个丢掉（`A除单表…` / `B，在链表…`）。
 # 最后一级：允许字母后直接跟中文。仅在前面几级都凑不齐 4 项时启用。
-OPT_RE_WIDE = re.compile(r"(?<![A-Za-z0-9])([ABCD])(?:\s*[．.、:：，,;；]\s*|(?=[\u4e00-\u9fff]))")
+OPT_RE_WIDE = re.compile(r"(?<![A-Za-z0-9])([ABCD])(?:\s*[．.。、:：，,;；]\s*|(?=[\u4e00-\u9fff]))")
 KEY_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*([ABCD])\s*$")
 Q_LEAD = re.compile(r"^\s*\d{1,2}\s*[．.、]\s*")
 KEY_MISS_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*$")          # 只有题号、丢了字母
@@ -68,11 +68,18 @@ def segment_questions(pages) -> dict[int, dict]:
     """按原文题号切段；题号取自原文，绝不重编号。"""
     qs: dict[int, dict] = {}
     cur = None
+    last = 0        # 已接受的最大题号；题号必须**严格递增**（见下）
     for page_no, text, method in pages:
         for line in text.splitlines():
             m = Q_RE.match(line)
             no = int(m.group(1)) if m else None
+            # 只增序列：题干里用罗马数字列举的陈述（I/II/III/IV）常被 OCR 渲染成
+            # `01.`、`1.`，会被误当成「第 1 题」而把本题选项整块切走。
+            # 因此只接受比已见最大值更大的题号，否则视为正文。
+            if no is not None and not (last < no <= 47):
+                no = None
             if no is not None and 1 <= no <= 47:
+                last = no
                 cur = no
                 if no not in qs:
                     qs[no] = {"no": no, "page": page_no, "method": method, "lines": []}

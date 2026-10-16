@@ -97,8 +97,11 @@ def apply_numbers(rows: list[str], spec: dict) -> tuple[list[str], list[str]]:
             continue
         i = hits[0]
         if LEAD_OK.match(out[i]):
-            continue                      # 该行已有题号，无需插入
-        out[i] = f"{int(no):02d}. " + out[i].lstrip()
+            continue                      # 该行已有完整题号，无需插入
+        # 行首可能残留一个被 OCR 读残的题号（如 Q34 被读成 "3"、Q28 的 "28 " 无分隔符）。
+        # 先剥掉它再补真实题号，否则会出现 "34. 3下列…" 这类重复。
+        body = re.sub(r"^\s*\d{1,2}\s*", "", out[i], count=1)
+        out[i] = f"{int(no):02d}. " + (body or out[i]).lstrip()
     return out, unresolved
 
 

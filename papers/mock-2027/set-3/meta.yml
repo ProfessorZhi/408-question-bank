@@ -28,53 +28,53 @@ counts:
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 42, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 43, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 44, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 45, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 1, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 2, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 3, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 4, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 5, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 6, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 7, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 8, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 9, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 10, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 11, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 12, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 13, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 25, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 30, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 31, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 32, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 33, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 34, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 35, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 36, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 37, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 38, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 39, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 40, status: needs-review, confidence: null, topic: 未知, notes: ""}
+  - {"no": 41, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 42, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 43, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 44, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 45, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 46, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 47, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
 errata: []
 review:
   proofread_by: []
