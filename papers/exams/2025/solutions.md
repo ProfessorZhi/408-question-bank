@@ -2,8 +2,8 @@
 # 2025 年全国硕士研究生招生考试 计算机学科专业基础综合 参考答案
 
 > 来源：`sources/exams/answers/2025-answer.pdf`。转写记录见 `build/_scratch/reports/exams-2025-solutions.md`。
-> ⚠️ 选择题答案已按题号核对齐全；综合题文字为 **OCR 初稿**，
-> 存在形近误识（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，
+> 选择题答案：已从底本切出 40/40 题。
+> 综合题文字若来自扫描件则为 **OCR 初稿**，存在形近误识（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，
 > 核对前请勿当作定论。逐题状态见 `meta.yml`。
 
 ## 一、单项选择题（1—40 题，每小题 2 分，共 80 分）
