@@ -20,61 +20,61 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: mixed        # text-layer | ocr | manual | mixed
+  tool: "RapidOCR 页级识别（初稿）+ 源页渲染图人工定点核验（pymupdf 1.28.2，第2–3页 400dpi）"
+  date: "2026-10-17"
 counts:
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 42, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 43, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 44, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 45, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 1, status: needs-review, confidence: low, topic: 数据结构, notes: "源页图已核对题干/选项（2026-10-17）；程序段代码字体未复原，未 proofread"}
+  - {"no": 2, status: needs-review, confidence: low, topic: 数据结构, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 3, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第2页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 4, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 5, status: needs-review, confidence: low, topic: 数据结构, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 6, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
+  - {"no": 7, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17，跨第2–3页）；未 proofread"}
+  - {"no": 8, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
+  - {"no": 9, status: needs-review, confidence: low, topic: 数据结构, notes: "源页图已核对题干/选项（2026-10-17）；图未裁入assets，未 proofread"}
+  - {"no": 10, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 11, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 12, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 13, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
+  - {"no": 14, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 15, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 16, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 17, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 18, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 19, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 20, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 21, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 22, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 23, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17，跨第4–5页）；未 proofread"}
+  - {"no": 24, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 25, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
+  - {"no": 26, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 27, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；页码映射表归属Q27，未 proofread"}
+  - {"no": 28, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 29, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 30, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17，跨第5–6页）；未 proofread"}
+  - {"no": 31, status: needs-review, confidence: low, topic: 操作系统, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 32, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 33, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 34, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 35, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 36, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 37, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 38, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 39, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
+  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 42, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 43, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 44, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 45, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 46, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 47, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
 errata: []
 review:
   proofread_by: []

@@ -7,3 +7,8 @@
 - 40题选择答案字母来自用户原始答案PDF第一页的答案表。综合题41–47解析OCR仍未逐字校对；其余真题18套历史遗留 `no-answer`、`no-solution` 等高风险缺陷仍在，需要独立验收。
 - 所有题目状态仍为 `needs-review` 或 `ocr-uncertain`；**本次没有任何新题标记为proofread**。原正式工作分支 `work/dell-408-transcription-20261016` 和main均未改动。
 - Dell 408 Fleet旧会话当前对原 `/home/fjd/workspaces/408-question-bank-dell/repo` 的路径访问请求超时，故本阶段改走已授权GitHub连接器的隔离分支。本分支文件有独立来源审查记录，不是自动可发布的题库。
+
+> **后继（2026-10-17，Dell 隔离分支 `work/408-mock4-dell-source-review-20261017`）：** 上表 17 题中的
+> **3、10、11、12、13** 已按试题PDF第2–3页 400dpi 渲染图逐字重录题干与 A–D 选项，C4 不齐题数由 17 降到 12；
+> 40 条答案已与解析PDF第1页原表逐字复核一致；41–47 解析经抽查确认**未**逐字一致（含丢字、代码损坏、1 处跨题串段）。
+> 详见 [`docs/mock4-source-verified-batch-20261017.md`](mock4-source-verified-batch-20261017.md)。本轮仍未标记任何 `proofread`。
