@@ -29,6 +29,8 @@ CACHE = ROOT / "build" / "_scratch" / "408-raw-pages"
 # 题号：1-47，后接分隔符且后面还有内容。排除 "0.0.0.0/0"、小数、页码。
 Q_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*(?=\S)")
 OPT_RE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、]\s*")
+# 有的卷用冒号分隔选项（如 `A:2025 BC15H`）。仅在严格分隔凑不齐 4 项时启用。
+OPT_RE_LOOSE = re.compile(r"(?<![A-Za-z0-9])([ABCD])\s*[．.、:：]\s*")
 KEY_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*([ABCD])\s*$")
 Q_LEAD = re.compile(r"^\s*\d{1,2}\s*[．.、]\s*")
 KEY_MISS_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*$")          # 只有题号、丢了字母
@@ -74,14 +76,23 @@ def segment_questions(pages) -> dict[int, dict]:
 
 
 def split_options(text: str) -> tuple[str, dict[str, str]]:
-    """拆 (stem, {A..D})。选项可能一行 4 个 / 2+2 / 每行一个。"""
+    """拆 (stem, {A..D})。选项可能一行 4 个 / 2+2 / 每行一个 / 用冒号分隔。"""
     text = Q_LEAD.sub("", text, count=1)          # 去掉题干开头重复的题号
-    first = OPT_RE.search(text)
+    strict = _split_with(text, OPT_RE)
+    if len(strict[1]) >= 4:
+        return strict
+    loose = _split_with(text, OPT_RE_LOOSE)
+    # 冒号模式可能误伤正文，要求确实凑出更多选项才采用
+    return loose if len(loose[1]) > len(strict[1]) else strict
+
+
+def _split_with(text: str, pat) -> tuple[str, dict[str, str]]:
+    first = pat.search(text)
     if not first:
         return text.strip(), {}
     stem = text[: first.start()].strip()
     rest = text[first.start():]
-    marks = list(OPT_RE.finditer(rest))
+    marks = list(pat.finditer(rest))
     opts: dict[str, str] = {}
     for i, m in enumerate(marks):
         end = marks[i + 1].start() if i + 1 < len(marks) else len(rest)
@@ -103,6 +114,13 @@ def load_key(pages) -> tuple[dict, list, list]:
     cut = text.find("二、综合应用题")
     region = text[:cut] if cut > 0 else text
     # 版式差异：有的卷一行一条，有的卷一行 5 条（01. C  02. D …）→ 不锚行尾
+    # 先试「分组速查」版式：`1-5：ACDCD 6-10：CBCDA …`（模拟卷常用）
+    for g in re.finditer(r"(\d{1,2})\s*-\s*(\d{1,2})\s*[：:]\s*([ABCD]{2,10})", region):
+        a, b, letters = int(g.group(1)), int(g.group(2)), g.group(3)
+        if b - a + 1 == len(letters):
+            for k, ch in enumerate(letters):
+                if 1 <= a + k <= 40:
+                    key.setdefault(a + k, ch)
     for m in re.finditer(r"(?<![\d.])(\d{1,2})\s*[．.、]\s*([ABCD])(?![A-Za-z])", region):
         no = int(m.group(1))
         if 1 <= no <= 40:
@@ -145,20 +163,34 @@ def recover_key(pdf_rel: str, page_no: int, want: list[int]) -> tuple[dict, str]
     return got, f"定向 scale=4 重识别 p{page_no} 找回 {sorted(got)}"
 
 
-def segment_answers(pages) -> dict[int, dict]:
-    """从答案 PDF 切出 41-47 的解析。末尾题延续到最后一页。"""
-    out: dict[int, dict] = {}
-    cur = None
+ANS_ANY_RE = re.compile(r"^\s*(\d{1,2})\s*[．.、]\s*(?=\S)")
+
+
+def _blocks(pages) -> list[tuple[int, int, str]]:
+    """切出所有 `N. 正文` 块 → [(no, 起始页, 正文)]。"""
+    out, cur = [], None
     for page_no, text, method in pages:
         for line in text.splitlines():
-            m = ANS_Q_RE.match(line)
+            m = ANS_ANY_RE.match(line)
             if m:
-                cur = int(m.group(1))
-                out[cur] = {"page": page_no, "method": method, "lines": []}
+                no = int(m.group(1))
+                if 1 <= no <= 47:
+                    out.append([no, page_no, []])
+                    cur = out[-1]
+                    cur[2].append(line.rstrip())
+                    continue
             if cur is not None:
-                out[cur]["lines"].append(line.rstrip())
-    for q in out.values():
-        q["text"] = "\n".join(q["lines"]).strip()
+                cur[2].append(line.rstrip())
+    return [(n, p, "\n".join(ls).strip()) for n, p, ls in out]
+
+
+def segment_answers(pages) -> dict[int, dict]:
+    """切出 1-47 的解析。同一题号多次出现（简析 + 详解）时取**正文最长**的一次。"""
+    out: dict[int, dict] = {}
+    for no, page_no, body in _blocks(pages):
+        prev = out.get(no)
+        if prev is None or len(body) > len(prev["text"]):
+            out[no] = {"page": page_no, "method": "mixed", "text": body}
     return out
 
 
@@ -251,8 +283,14 @@ def render_questions(meta, qs, found, warn) -> str:
     comp = sorted(n for n in qs if n >= 41)
     if choice:
         L += ["## 一、单项选择题（1—40 题，每题 2 分，共 80 分）", ""]
+    cpatch = load_content_patch(meta["paper_id"])
     for n in choice:
         stem, opts = split_options(qs[n]["text"])
+        if str(n) in cpatch and cpatch[str(n)].get("options"):
+            opts = dict(opts)
+            for k, v in cpatch[str(n)]["options"].items():
+                if not opts.get(k):
+                    opts[k] = v
         L += [f"### 第 {n} 题", "", embellish(stem), ""]
         for k in ("A", "B", "C", "D"):
             if k in opts:
@@ -284,8 +322,11 @@ def render_solutions(meta, key, ans, qs, key_note) -> str:
         a = key.get(n)
         L.append(f"### 第 {n} 题　答案：{a if a else '（缺）'}")
         L.append("")
-        if not a:
-            L += ["**解析**：（答案字母在源 OCR 中缺失，需人工核对原页）", ""]
+        blk = ans.get(n)
+        if blk and len(blk["text"]) > 40:
+            L += [f"**解析**（源 p{blk['page']}）：", "", blk["text"], ""]
+        elif not a:
+            L += ["**解析**：（答案字母在源底部中缺失，需人工核对原页）", ""]
     L += ["", "## 综合应用题", ""]
     for n in range(41, 48):
         blk = ans.get(n)
@@ -311,6 +352,17 @@ def load_verified_key(paper_id: str) -> tuple[dict, str]:
     if not rec:
         return {}, ""
     return {int(k): v for k, v in rec["key"].items()}, rec.get("evidence", "")
+
+
+def load_content_patch(paper_id: str) -> dict:
+    """图像核验内容补丁：补文本层残缺的选项等。绝不臆造。"""
+    f = ROOT / "index" / "image-verified-content.json"
+    if not f.is_file():
+        return {}
+    try:
+        return json.loads(f.read_text(encoding="utf-8")).get(paper_id, {})
+    except Exception:                                            # noqa: BLE001
+        return {}
 
 
 def build(paper_id: str, dry: bool, do_images: bool = True) -> bool:

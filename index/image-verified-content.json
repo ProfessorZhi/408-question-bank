@@ -1,0 +1,15 @@
+{
+  "_doc": "文本层残缺（多为数学字形未提取）时，由源页图像逐条目视读出后补入的内容。绝不臆造；每条必须带 evidence 与 note。",
+  "mock-2027/set-1": {
+    "3": {
+      "options": {
+        "A": "$M - (rear - front)$",
+        "B": "$M - (rear - front)\\%(M - 1)$",
+        "C": "$M - (rear - front + M)\\%M$",
+        "D": "$M - 1 - (rear - front + M)\\%M$"
+      },
+      "evidence": "build/_scratch/verify/set1-q3.png（源试卷 p1，scale=3 裁图）",
+      "note": "源文本层中 A./B./C./D. 后为空（选项为数学字形未提取）。已按源页图逐条转录为 LaTeX。勘误第3条「CD选项都加上M」在本版 PDF 中已落实（C/D 均含 +M）。"
+    }
+  }
+}
