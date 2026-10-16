@@ -66,7 +66,6 @@ RE_EMPHASIS = re.compile(r"\s*．+")
 RE_CJK = re.compile(r"[一-鿿㐀-䶿]")
 RE_SPACE_BEFORE_PUNCT = re.compile(r"[ \t]+([，。、；：？！）》」』】．])")
 RE_MANY_SPACES = re.compile(r"[ \t]{2,}")
-RE_QSTART = re.compile(r"^(\d{1,3})\s*[.．、]\s*(.*)$", re.S)
 RE_SECTION = re.compile(r"^[一二三四五六七八九十]+\s*、\S")
 RE_SCORE = re.compile(r"（\s*本题\s*(\d+(?:\.\d+)?)\s*分\s*）")
 RE_FIGREF = re.compile(r"题\s*(\d{1,2})\s*([图表])")
@@ -113,6 +112,36 @@ RE_OPT_LINE_START = re.compile(r"^[A-D]\s*" + _OPT_PUNCT + r"\s")
 # 放宽它等于把那一行从「表格行」翻成「选项行」，是真题上的真实行为改动。
 RE_OPT_CELL = re.compile(r"^(?:[A-D]\s*" + _OPT_PUNCT + r"|[IVX]{1,4}\s*[.、．])\s")
 RE_QANCHOR = re.compile(r"^(\d{1,3})\s*[.．、]")
+# 题号分隔符。扫描卷的 OCR 会把 `06.` 读成 `06，`（全角逗号）——实测 2 处：
+# set2 第 6 题 `06，列关于有向图…`、set3 第 28 题 `28，把作业…`。
+RE_QSTART = re.compile(r"^(\d{1,3})\s*[.．、]\s*(.*)$", re.S)
+# ⚠️ 逗号是**危险**的分隔符，不能无脑放宽。曾经在这里写成 `[.．、，,]` 并附了一句
+# 「宽松是安全的——`segment` 还要求号严格等于期望号」。**那句判断已被反例推翻**：
+# 题干里折行的数字枚举，续行天然长成 `数字, 数字, …` 的样子，只要它恰好以期望号开头，
+# 就会被当成题首。真实代价：2023 第 6 页的续行
+#     `43, 8, 90, 166, 100，当m = 4 时，可生成几个初始归并段？各是什么？`
+# 被认成「第 43 题」，把第 42 题的题干劈成两半，还让真正的第 43 题（下一页的
+# `43.（14 分）…`）整段掉进正文。同类假阳性在真题里还有 2012/2016/2017/2021/2023/2026 多处。
+# 守卫取实测出来的那条不变量：**真阳性的逗号后面是汉字，假阳性的逗号后面是数字**。
+# 于是逗号分支加 `(?!\s*\d)`：`06，列…`/`28，把…` 照过，`43, 8`/`6，7。`/`001, 011` 全挡。
+# 残留风险：`100，A[3][3]的存储地址是220`（2021 第 1 页）逗号后是字母，守卫挡不住；
+# 它靠「号须等于期望号」兜住（第 1 页的期望号是 1，不是 100）。两把锁都失效的概率极低，
+# 但**没被证明为零**，所以这里只对扫描卷启用（见 `segment` 的 `ocr` 形参），文字层一律走严格版。
+RE_QSTART_OCR = re.compile(r"^(\d{1,3})\s*(?:[.．、]|[，,](?!\s*\d))\s*(.*)$", re.S)
+# 每一段的「字母 + 内容」头。严格版与 OCR 版**唯一**的区别就是标点可缺。
+RE_HEAD_OPT = re.compile(r"([A-D])\s*" + _OPT_PUNCT + r"\s*(.*)", re.S)
+RE_HEAD_OPT_OCR = re.compile(r"([A-D])\s*" + _OPT_PUNCT + r"?\s*(.*)", re.S)
+# ── OCR 兜底（只用于扫描卷）────────────────────────────────────────────────
+# 只认**行首**的 A–D：`joined` 是段落拼接的，段内换行也是 `\n`，所以 `(?:\A|\n)` 就是行首。
+# 标点后用 `[^\S\n]*`（行内空白）而不是 `\s*`——`\s` 会吃换行，把下一行吞进本选项。
+# 尾部再要求「后面确实有内容」：`A` 单独一行（Q7 那堆矩阵数字里就有孤立字母行）
+# 不算选项起点，否则会把矩阵噪声当选项。
+RE_OPT_MARK_OCR = re.compile(r"(?:\A|\n)[^\S\n]*([A-D])[^\S\n]*" + _OPT_PUNCT + r"?[^\S\n]*")
+RE_SPLIT_OPT_OCR = re.compile(r"(?:\A|\n)(?=[^\S\n]*[A-D][^\S\n]*" + _OPT_PUNCT + r"?)")
+# 末尾那个 `\S` 是必需的：要求字母（及其可选标点）之后**还有内容**。
+# 第 7 题那块矩阵被 OCR 读成一行一个字符，里面就有孤立的 `A` `B.` 行，
+# 不要求有内容就会把那些噪声行也当成选项起点。
+RE_OPT_LINE_START_OCR = re.compile(r"^[^\S\n]*[A-D][^\S\n]*" + _OPT_PUNCT + r"?[^\S\n]*\S")
 # 上/下标标记（`batch_extract.py` 插进逐页草稿正文的那层外壳）。
 # ⚠️ 本工具的文字有**两个来源**，口径不同：
 #   · 正文流 —— 来自 `build/_scratch/408-raw-pages/` 的草稿，**带**上下标标记；
@@ -199,10 +228,48 @@ def read_lines(rel: str) -> list[tuple[int, str]]:
     return rows
 
 
-def force_break(stripped: str) -> bool:
-    """这一行是否必须自成一段（否则会被上下句吸掉）。"""
+def is_scanned(paper_rel: str) -> bool:
+    """本卷草稿是不是扫描件 OCR 出来的？
+
+    判据取逐页草稿 JSON 里的 `method`（`batch_extract.py` 写的），**不猜文本长相**。
+
+    阈值是**过半**，不是「有一页就算」。这条原先写的是「只要有一页不是 text-layer
+    就算——宁可对文字层卷误开宽容口径」，理由听着稳（漏开的后果是选项切不出来），
+    但**实测把取舍写反了**：set-1 的 13 页里只有末页是 `ocr-unverified`，据此整卷翻宽，
+    结果把两处原本正确的地方改坏——
+      · 第 41 题的 `III.…` / `IV.…` 两行并成一行；
+      · 第 3 题（选项画在图里、已按 C4 例外登记）由「不输出四个空选项 + ⚠️ 待人工整理」
+        变成输出 `A. `~`D. ` 四个**空**壳 —— 空壳冒充切成功，是本仓库点名的假绿灯。
+    实测分布（tolerant/总页）：真题 18 卷 0/10–12，set-1 1/13，set2/3/4 9/9、10/10、10/10。
+    过半这条线把三者干净分开，且对真题是恒不触发（已用逐字节 diff 验证）。
+
+    为什么按**卷**判而不是按页判：`extract_options` 吃的是整道题的正文，一道题可能跨页；
+    逐页开关会让同一道题在不同页上口径不一致，这种不一致是最难查的失败。
+    """
+    folder = PAGES / Path(paper_rel).with_suffix("")
+    total = scanned = 0
+    for f in sorted(folder.glob("page-*.json")):
+        try:
+            if json.loads(f.read_text(encoding="utf-8")).get("method") != "text-layer":
+                scanned += 1
+        except Exception:
+            continue
+        total += 1
+    return bool(total) and scanned * 2 > total
+
+
+def force_break(stripped: str, ocr: bool = False) -> bool:
+    """这一行是否必须自成一段（否则会被上下句吸掉）。
+
+    `ocr` 打开「扫描卷宽容口径」。**必须按卷闸住**：真题卷里以 A–D 开头的正常行
+    多得很（`CPU用于外设I/O的时间…`、`C语言中的整型数据为补码形式…`、`CDcount = O…`），
+    在真题上放宽这一条会成片改写分段结果。实测扫描卷 OCR 草稿命中 2201 行，
+    而这些行**几乎全是真题卷的正文**，所以默认关闭。
+    """
     view = strip_marks(stripped)
     if RE_OPT_LINE_START.match(view):
+        return True
+    if ocr and RE_OPT_LINE_START_OCR.match(view):
         return True
     if RE_CAPTION.match(view):
         return True
@@ -247,7 +314,7 @@ def _cjk_ratio(text: str) -> float:
     return len(RE_CJK.findall(body)) / len(body) if body else 0.0
 
 
-def paragraphs_of(lines: list[str]) -> list[dict]:
+def paragraphs_of(lines: list[str], ocr: bool = False) -> list[dict]:
     paras: list[list[str]] = []
     buf: list[str] = []
     code_mode = False
@@ -269,7 +336,7 @@ def paragraphs_of(lines: list[str]) -> list[dict]:
             code_mode = False
         if hint:
             code_mode = True
-        if force_break(stripped) and buf:
+        if force_break(stripped, ocr) and buf:
             paras.append(buf); buf = []
         buf.append(line)
     if buf:
@@ -290,14 +357,15 @@ def paragraphs_of(lines: list[str]) -> list[dict]:
     return out
 
 
-def extract_options(joined: str) -> tuple[str, dict[str, str], int] | None:
-    """切出 (stem, {A..D}, 选项区起点)。只认 A→B→C→D 顺序出现、且切完恰好 4 段的那一处。
+def _options_pass(joined: str, mark_re, split_re, head_re):
+    """一趟选项切分。三处正则必须**同口径**传入（见上面 `_OPT_PUNCT` 的警告）。
 
+    只认 A→B→C→D 顺序出现、且切完恰好 4 段的那一处。
     返回起点偏移量是**必需**的：调用方要靠它在段落序列里找到分界，
     不能拿 `stem_raw` 的长度去数换行——选项段前的空白本身含换行，
     数换行会把选项段自己算进题干（2026 第1题就是这么重复出一份选项的）。
     """
-    marks = list(RE_OPT_MARK.finditer(joined))
+    marks = list(mark_re.finditer(joined))
     for i in range(len(marks) - 3):
         if [m.group(1) for m in marks[i:i + 4]] != ["A", "B", "C", "D"]:
             continue
@@ -305,19 +373,41 @@ def extract_options(joined: str) -> tuple[str, dict[str, str], int] | None:
         # 拿它当起点会让调用方把选项段误判成题干的一部分。
         start = marks[i].start(1)
         region = joined[start:].lstrip("\n")
-        pieces = [p for p in RE_SPLIT_OPT.split(region) if p.strip()]
+        pieces = [p for p in split_re.split(region) if p.strip()]
         if len(pieces) != 4:
             continue
         opts: dict[str, str] = {}
         ok = True
         for want, piece in zip("ABCD", pieces):
-            m = re.match(r"([A-D])\s*" + _OPT_PUNCT + r"\s*(.*)", piece.strip(), re.S)
+            m = head_re.match(piece.strip())
             if not m or m.group(1) != want:
                 ok = False
                 break
             opts[want] = m.group(2).strip()
         if ok:
             return joined[:start].strip(), opts, start
+    return None
+
+
+def extract_options(joined: str, ocr: bool = False) -> tuple[str, dict[str, str], int] | None:
+    """切出 (stem, {A..D}, 选项区起点)。
+
+    两趟：先按**严格标点**（`A.` `B、` `C：` …），不中再走**OCR 兜底**（标点可缺）。
+    为什么需要兜底：扫描卷的 OCR 常把选项标记的点号吃掉，实测 6 个扫描 PDF 里
+    行首 `[A-D]` 共 523 行，其中 72 行没有标点——`Ak=ixn+j`、`Aogn`、`A别除单签表的第个元素`。
+    严格口径下这 72 行一个都不认，整题选项切不出来、只能糊在题干里。
+
+    兜底**不放松核心约束**：仍然要求 A→B→C→D 四连、切完恰好 4 段、每段以对应字母开头，
+    而且兜底只认**行首**（`^`）的字母——正文里顺手出现的「A」凑不齐这个。
+    严格口径先跑，所以对能走通严格口径的卷（18 卷真题全都能）逐字节无影响。
+    """
+    for mark_re, split_re, head_re in (
+            (RE_OPT_MARK,     RE_SPLIT_OPT,     RE_HEAD_OPT),
+            (RE_OPT_MARK_OCR, RE_SPLIT_OPT_OCR, RE_HEAD_OPT_OCR)) if ocr else (
+            (RE_OPT_MARK,     RE_SPLIT_OPT,     RE_HEAD_OPT),):
+        got = _options_pass(joined, mark_re, split_re, head_re)
+        if got:
+            return got
     return split_glued_options(joined)
 
 
@@ -371,7 +461,7 @@ def render_blocks(paras: list[dict], log: list) -> str:
     return "\n".join(out).strip()
 
 
-def segment(rows: list[tuple[int, str]], log: list, drop=None) -> dict:
+def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False) -> dict:
     """按行切题：题号必须**严格等于下一个期望号**才认，防止正文里的「1.」误切。
 
     `drop` 给出已由坐标搬走（进表格/进图片题注）的行，避免同一份内容出现两遍。
@@ -381,6 +471,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None) -> dict:
     cur: dict | None = None
     used: set[tuple[int, str]] = set()
     stats = {"hit": 0, "residue": 0}
+    qstart_re = RE_QSTART_OCR if ocr else RE_QSTART
 
     def is_dropped(pno: int, line: str) -> bool:
         if not drop:
@@ -400,7 +491,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None) -> dict:
 
     for pno, line in rows:
         stripped = line.strip()
-        m = RE_QSTART.match(stripped)
+        m = qstart_re.match(stripped)
         if m and cursor < len(EXPECTED) and int(m.group(1)) == EXPECTED[cursor]:
             no = int(m.group(1))
             cur = {"no": no, "lines": [m.group(2)], "pages": [pno]}
@@ -436,10 +527,10 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None) -> dict:
     fig_refs: list[tuple[int, str, int]] = []
     tables: list[int] = []
     for no, seg in segs.items():
-        paras = paragraphs_of(seg["lines"])
+        paras = paragraphs_of(seg["lines"], ocr)
         seg["paras"] = paras
         joined = "\n".join(p["raw"] for p in paras)
-        got = extract_options(joined)
+        got = extract_options(joined, ocr)
         if got:
             _stem_raw, raw_opts, start = got
             # 题干 = **包含**选项起点那一段之前的段。按段落偏移切，不数换行。
@@ -913,7 +1004,11 @@ def main(argv: list[str] | None = None) -> int:
     tables_by_q, drop, tstats = collect_tables(objs, figs_by_q)
     log: list[str] = []
     rows = read_lines(paper_rel)
-    data = segment(rows, log, drop)
+    ocr = is_scanned(paper_rel)
+    if ocr:
+        log.append("本卷逐页草稿来自扫描件 OCR（method≠text-layer）→ 启用宽容口径："
+                   "题号分隔符接受全角逗号，选项标记的点号可缺（仍要求 A→B→C→D 四连）")
+    data = segment(rows, log, drop, ocr)
     data["tables_by_q"] = tables_by_q
     data["figs_by_q"] = figs_by_q
     segs = data["segments"]
