@@ -33,9 +33,9 @@ questions:
   - {"no": 3, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第2页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
   - {"no": 4, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 5, status: needs-review, confidence: low, topic: 数据结构, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 6, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
+  - {"no": 6, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第2页渲染图逐字核对题干与A–D选项并重录（选项550dpi复核，变量x/y按源图恢复）；本题此前未被C4抓到但正文同为未校对OCR；未判定答案，未 proofread"}
   - {"no": 7, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17，跨第2–3页）；未 proofread"}
-  - {"no": 8, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR未逐字校对，未通过源页核对"}
+  - {"no": 8, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第3页渲染图逐字核对题干与A–D选项并重录（选项500dpi复核，G/e/T/u/v按源图恢复为数学记号）；本题此前未被C4抓到但正文同为未校对OCR；未判定答案，未 proofread"}
   - {"no": 9, status: needs-review, confidence: low, topic: 数据结构, notes: "源页图已核对题干/选项（2026-10-17）；图未裁入assets，未 proofread"}
   - {"no": 10, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
   - {"no": 11, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第3页400dpi渲染图逐字核对题干与A–D选项并重录；未判定答案，未 proofread"}
