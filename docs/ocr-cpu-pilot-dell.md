@@ -137,3 +137,40 @@ set1 p13 走 OCR 后得 `characters: 0`、`confidence_mean: null`。
   SHA256 前缀 `dd1e0bcbea35f4ae`
 - 输出样例：`build/_scratch/ocr/mock2-p2.txt` SHA256 前缀 `79c79db7abb7cae8`
   （gitignored，未入库）
+
+## 9. 全库批处理执行记录（2026-10-16）
+
+受控启动器 `tools/run_batch_dell.sh`（flock 互斥 + PID 文件 + 日志），
+低优先级后台单 worker 跑完全库：
+
+```
+tools/run_batch_dell.sh --scope all --limit-pages 0 --timeout 1800
+```
+
+- 资源纪律：`nice -n 15`、`ionice -c3`、`OMP/MKL/OPENBLAS_NUM_THREADS=1`、单进程
+- worker PID 292197，起止 17:29:53 → 17:36:00，**耗时 6 分 07 秒**，`status=0`，0 报错
+- 日志 `build/_scratch/logs/batch.log`（gitignored）；结束自动释放锁与 PID 文件
+
+### 9.1 终态计数
+
+| 项 | 数 |
+|---|---|
+| 源 PDF | **44 / 44 全覆盖** |
+| 总页 | **483** |
+| `text-layer`（有文字层，直接抽取） | **387**（80.1%） |
+| `ocr-unverified`（扫描页，走 RapidOCR） | **96**（19.9%） |
+| 未处理 / 异常页 | **0** |
+| `characters == 0` 的页 | **1**（set1 p13，已核实为真空白页：墨水占比 0.0000%） |
+| `status: unverified` | **483/483 全部** ✅ |
+| 源 PDF sha256 复验 | 抽 5 份 **5/5 一致**（源未被改动） |
+| 产物体积 | 4.1 MB（`build/_scratch/408-raw-pages/`，gitignored） |
+
+本次 96 页需 OCR 与阶段2 基于 `pdftotext` 的独立普查（≈95 页）**交叉吻合**。
+
+### 9.2 边界
+
+- 产物**全部 `unverified`**，**不得**当作已校对转录，**不得**计入 47/47 之类完成度；
+  未生成、也不会生成正式的 `questions.md` / `solutions.md`。
+- OCR 页（96 页）质量未逐页人工校对；阶段2 已实测均值置信约 0.82 下仍存在
+  `O→0`、`删除→剩除` 类错误。
+- 空白页与"OCR 识别为空"在元数据中都表现为 `characters: 0`，本库仅 1 例且已确认为真空白。
