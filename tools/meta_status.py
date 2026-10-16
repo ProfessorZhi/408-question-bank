@@ -39,6 +39,14 @@ RAW = REPO / "build" / "_scratch" / "408-raw-pages"
 
 RE_QROW = re.compile(r'^(\s*- \{)"no": (\d+)(.*)\}\s*$')
 RE_QFIELD = re.compile(r'status:\s*([A-Za-z-]+)')
+RE_QTOPIC = re.compile(r'topic:\s*([^,}]+)')
+RE_QNOTES = re.compile(r'notes:\s*"([^"]*)"')
+# 本工具**自己**会写出的两种 notes。凡是与它们不等、又非空的 notes，都当人工写的，
+# 一律原样保留 —— 见下面 `keep_human` 的说明。
+RE_GENERIC_NOTE = re.compile(
+    r"^(?:题(?:文字层|OCR)／答(?:文字层|OCR)；未人工对照底本"
+    r"|题(?:文字层|OCR)；未人工对照底本"
+    r"|尚未切出（待人工补齐）)$")
 
 TOOL = "pymupdf 1.28.2 + rapidocr-onnxruntime 1.4.4"
 DATE = "2026-10-16"
@@ -146,9 +154,23 @@ def main(argv: list[str] | None = None) -> int:
             note = (f"题{QUALITY_NOTE.get(qm, qm)}"
                     + (f"／答{QUALITY_NOTE.get(am, am)}" if ans_rel else "")
                     + "；未人工对照底本")
-        notes_field = f'notes: "{note}"'
+        # ── 保住人工写的东西 ────────────────────────────────────────────────
+        # 本行是**整行重建**的，早先连 `topic` 和 `notes` 一起覆盖。于是：
+        #   ① 有人按勘误在 notes 里写了「M4 只落实一半」「M8 未落实」，重跑一次就没了；
+        #   ② 工具因此**不幂等**：第一遍写的是通用文案，第二遍比对的是被人工改过的行，
+        #      每次重跑都改 1 行，`changed` 计数永远不为 0，也就永远看不出「没变化」。
+        # 判据取「是不是工具自己那两句」——是就照旧重写（方法变了要跟着更新），
+        # 不是就原样留着。这样既幂等，又不会把人工备注吃掉。
+        cur = RE_QNOTES.search(m.group(3) or "")
+        if cur and cur.group(1).strip() and not RE_GENERIC_NOTE.match(cur.group(1).strip()):
+            note = cur.group(1)
+        cur_t = RE_QTOPIC.search(m.group(3) or "")
+        topic = "未知"
+        if cur_t and cur_t.group(1).strip() and cur_t.group(1).strip() != "未知":
+            topic = cur_t.group(1).strip()
+        notes_field = 'notes: "' + note.replace('"', "'") + '"'
         new = (f'  - {{"no": {no}, status: {status}, confidence: {confidence}, '
-               f'topic: 未知, {notes_field}}}'
+               f'topic: {topic}, {notes_field}}}'
                + ("\n" if line.endswith("\n") else ""))
         tally[status] = tally.get(status, 0) + 1
         if new != line:

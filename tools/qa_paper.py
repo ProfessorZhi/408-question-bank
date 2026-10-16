@@ -274,15 +274,21 @@ def write_coverage(reports: list[dict]) -> Path:
         "> 由 `tools/qa_paper.py --all --write-coverage` 生成。",
         "> 空闲的卷显示「尚未开始转录」是**预期**状态，不是故障。",
         "",
-        "| 卷 | 选择题 | 综合题 | 合计 | 有答案 | 阻断项 |",
-        "|---|---|---|---|---|---|",
+        "| 卷 | 选择题 | 综合题 | 合计 | 有答案 | 阻断项 | 告警 |",
+        "|---|---|---|---|---|---|---|",
     ]
     for r in reports:
         s = r.get("stats", {})
         blk = "⛔ " + "; ".join(r["errors"]) if r.get("errors") else "—"
+        # 「告警」这一列是**必需的**，否则这张表会把骨架报成绿灯：
+        # C1/C2/C3 只数**题号在不在**，一道题只要有 `### 第 N 题` 就算数。
+        # 于是「题号齐全但一个选项都没切出来」的 OCR 骨架会显示成 47/47、阻断项 —，
+        # 看的人会以为这卷完成了。2027 模拟卷 set-2/3/4 当前正是这个状态
+        # （C4 报「选项不齐 39/34/37 题」、C5 报「solutions.md 缺失」）。
+        warn = "；".join(w.split("：")[0] for w in r.get("warnings", [])) or "—"
         lines.append(
             f"| `{r['paper']}` | {s.get('q_choice', 0)}/40 | {s.get('q_comp', 0)}/7 "
-            f"| {s.get('q_total', 0)}/47 | {s.get('answers_parsed', 0)}/40 | {blk} |")
+            f"| {s.get('q_total', 0)}/47 | {s.get('answers_parsed', 0)}/40 | {blk} | {warn} |")
     lines += ["", "## 尚未开始的卷", ""]
     notstarted = [r["paper"] for r in reports if not r.get("has_questions")]
     lines.append("、".join(f"`{p}`" for p in notstarted) if notstarted else "（无）")

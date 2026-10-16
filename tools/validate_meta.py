@@ -26,6 +26,33 @@ for _s in (sys.stdout, sys.stderr):
 REPO = Path(__file__).resolve().parent.parent
 
 
+def jsonify(obj):
+    """把 YAML 解析出来的 `datetime.date`/`datetime` 折成 ISO 字符串再交 jsonschema。
+
+    为什么必须折：YAML 1.1 的隐式解析会把裸写的 `date: 2026-10-16` 直接变成
+    `datetime.date(2026, 10, 16)`，而 schema 上写的是 `{"type": "string",
+    "format": "date"}`。于是**19 份 meta.yml 全被判不合规**，报错长这样：
+
+        ⛔ papers/exams/2010/meta.yml  @ ['extraction','date']
+           datetime.date(2026, 10, 16) is not of type 'string', 'null'
+
+    这是「读取端的类型」不是「数据错」——文件里那个标量本来就是 `YYYY-MM-DD`
+    形态的字符串，jsonschema 只是不认 Python 的 date 对象。所以在这里折，
+    而不是去把 19 个文件都加引号：加引号是让人去迁就解析器的怪癖，
+    折一次是让所有 YAML 读者（包括以后新加的）口径一致。
+
+    ⚠️ 覆盖整棵结构，不能只处理顶层——`extraction.date` 埋在第二层。
+    """
+    import datetime
+    if isinstance(obj, dict):
+        return {k: jsonify(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return [jsonify(v) for v in obj]
+    if isinstance(obj, (datetime.date, datetime.datetime)):
+        return obj.isoformat()
+    return obj
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -47,7 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     for f in files:
         rel = Path(f).relative_to(REPO).as_posix()
         try:
-            meta = yaml.safe_load(Path(f).read_text(encoding="utf-8"))
+            meta = jsonify(yaml.safe_load(Path(f).read_text(encoding="utf-8")))
         except Exception as exc:
             print(f"⛔ {rel}  YAML 解析失败：{exc}")
             bad += 1

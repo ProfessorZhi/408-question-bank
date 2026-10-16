@@ -96,14 +96,22 @@ RE_CODE_ANY = re.compile(r"^\s*(-|\+|\*|/\*)")
 # 全判成「选项切不干净」。放宽到任意空白是安全的：调用方还要求这四处标记
 # **按 A→B→C→D 顺序出现、且切完恰好 4 段**，正文里偶然冒出的一个「A.」凑不齐四连。
 _OPT_SEP = r"(?:^|\s)"
-RE_OPT_MARK = re.compile(_OPT_SEP + r"([A-D])\s*[.、．]\s*")
+# 标点类也**只此一处**：`：`/`:` 是 2027 模拟卷加的——它把选项写成 `A:2025 BC15H`
+# （set1 第 14 题，四个选项全用半角冒号），真题 18 卷 + 全部答案卷里**零出现**
+# （已对整个 sources/ 逐个 PDF 扫过行首 `[A-D]` + 冒号，只有 set1-paper 4 处、
+# set1-solution 8 处）。加进来对真题是无操作，但仍按全量重生成的逐字节 diff 验证。
+_OPT_PUNCT = r"[.、．：:]"
+RE_OPT_MARK = re.compile(_OPT_SEP + r"([A-D])\s*" + _OPT_PUNCT + r"\s*")
 # 前瞻里**不能**要求标点后面还有空白：`A.仅I、II`（2023 第18题）标点后就紧跟正文，
 # 一旦要求 `\s`，整条选项行切不出来；而上面的 RE_OPT_MARK 用的是 `\s*`，
 # 两处不一致会让「标记找得到、切不出四段」这种最难查的失败出现。
-RE_SPLIT_OPT = re.compile(_OPT_SEP + r"(?=[A-D]\s*[.、．])")
-RE_OPT_LINE_START = re.compile(r"^[A-D]\s*[.、．]\s")
+RE_SPLIT_OPT = re.compile(_OPT_SEP + r"(?=[A-D]\s*" + _OPT_PUNCT + r")")
+RE_OPT_LINE_START = re.compile(r"^[A-D]\s*" + _OPT_PUNCT + r"\s")
 # 表格里的一个“格子”；以选项/罗马序号开头的行不是表格行（那是选项区）
-RE_OPT_CELL = re.compile(r"^(?:[A-D]|[IVX]{1,4})\s*[.、．]\s")
+# ⚠️ 罗马序号分支**不跟着放宽**冒号：全批扫下来 `[IVX]`+冒号只有 1 处，且是
+# 2010 答案卷第 8 页的一行乱码 `I : I 4 I ;I I :,。I`，不是选项行。
+# 放宽它等于把那一行从「表格行」翻成「选项行」，是真题上的真实行为改动。
+RE_OPT_CELL = re.compile(r"^(?:[A-D]\s*" + _OPT_PUNCT + r"|[IVX]{1,4}\s*[.、．])\s")
 RE_QANCHOR = re.compile(r"^(\d{1,3})\s*[.．、]")
 # 上/下标标记（`batch_extract.py` 插进逐页草稿正文的那层外壳）。
 # ⚠️ 本工具的文字有**两个来源**，口径不同：
@@ -303,7 +311,7 @@ def extract_options(joined: str) -> tuple[str, dict[str, str], int] | None:
         opts: dict[str, str] = {}
         ok = True
         for want, piece in zip("ABCD", pieces):
-            m = re.match(r"([A-D])\s*[.、．]\s*(.*)", piece.strip(), re.S)
+            m = re.match(r"([A-D])\s*" + _OPT_PUNCT + r"\s*(.*)", piece.strip(), re.S)
             if not m or m.group(1) != want:
                 ok = False
                 break
@@ -321,8 +329,8 @@ def extract_options(joined: str) -> tuple[str, dict[str, str], int] | None:
 #   1. A 标记必须在该行**行首**；
 #   2. 该行内 A→B→C→D 依次出现，且**没有别的** A–D 标记、没有跨行；
 #   3. 四段文字都非空。
-RE_GLUED_LINE = re.compile(r"^A\s*[.、．]\s*(?P<body>.*)$")
-RE_GLUED_MARK = re.compile(r"([A-D])\s*[.、．]\s*")
+RE_GLUED_LINE = re.compile(r"^A\s*" + _OPT_PUNCT + r"\s*(?P<body>.*)$")
+RE_GLUED_MARK = re.compile(r"([A-D])\s*" + _OPT_PUNCT + r"\s*")
 
 
 def split_glued_options(joined: str) -> tuple[str, dict[str, str], int] | None:
