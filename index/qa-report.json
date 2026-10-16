@@ -1,13 +1,23 @@
 [
   {
     "paper": "papers/exams/2009",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    "warnings": [],
+    "notes": [
+      "C4 选项在图内共 1 题：[4]（meta.yml options_in_figure 已登记；四个选项画在题图里，需人眼核对）"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2010",
@@ -17,6 +27,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -27,6 +38,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -37,6 +49,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -47,6 +60,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -57,6 +71,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -67,117 +82,208 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
     "paper": "papers/exams/2016",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2017",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    "warnings": [],
+    "notes": [
+      "C4 选项在图内共 1 题：[8]（meta.yml options_in_figure 已登记；四个选项画在题图里，需人眼核对）"
     ],
-    "stats": {}
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2018",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2019",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2020",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2021",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2022",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2023",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2024",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2025",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/exams/2026",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "notes": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/mock-2027/set-1",
@@ -187,6 +293,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -197,6 +304,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -207,6 +315,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -217,6 +326,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   }
 ]
