@@ -96,6 +96,20 @@ RE_PAIR_LEFTOVER = re.compile(r"^[A-D\s]*$")
 # 那会被上面这条吃成「疑似字体映射损坏」，一页刷出几十条假告警，把真告警淹掉。
 RE_CHOICE_ODD = re.compile(r"^(\d{1,2})\s*[.．、]\s*([^\s一-鿿]{1,3})\s*$")
 
+# ── 2027 模拟卷专用的两种答案写法（真题答案卷没有这两种，见 mock 开关）───────────
+# 卷首「答案速查」把 5 题并成一段**区间**：`1-5：ACDCD  6-10：CBCDA …`（全角/半角冒号混用）。
+# 一行里可以并排好几段，所以要 finditer 而不是 match。区间宽度与字母数必须相等，
+# 不等就整段跳过并点名——宁可留空，也不能把 `1-5` 的 5 个字母错位贴到别的题上。
+RE_KEY_RANGE = re.compile(r"(\d{1,2})\s*[-–－~]\s*(\d{1,2})\s*[：:]\s*([A-D]{1,8})(?![A-Za-z])")
+# 解析流里答案跟在**上一行的题干**后面：`答案：A。【解析】…`（分隔符「。」可有可无）。
+# 它自己不带题号，所以要和最近一次见到的题头行配。
+RE_ANSWER_MARK = re.compile(r"^答案\s*[：:]\s*([A-D])(?![A-Za-z])")
+RE_QNUM_HEAD = re.compile(r"^(\d{1,2})\s*[.．、]\s*(\S.*)$")
+# 综合题的**带题干**小标题：`41. （13分）大数加法…`。模拟卷把 41—47 的题目原文与完整解答
+# 重印在解析卷末（set1 在第 21—26 页），而卷首第 1—2 页另有一份简短的评分要点。
+# 后者不带 `（N分）`，所以这条只认得下完整解答那一份。
+RE_COMP_HEAD_MOCK = re.compile(r"^(\d{1,2})\s*[.．、]\s*（\s*\d+\s*分\s*）")
+
 # OCR 形近误识的机械侦察（只为提示人工，不自动改写）
 ARTIFACT_PATTERNS = [
     ("l/1 混淆", re.compile(r"(?:[A-Za-z]l\d|\d l|[A-Za-z]l(?=[^a-z]|$))")),
@@ -171,7 +185,8 @@ def load_grid(paper_id: str, log: list) -> dict[int, tuple[str, int]]:
 
 
 def parse_choices(rows: list[tuple[int, str]], log: list,
-                  grid: dict[int, tuple[str, int]] | None = None
+                  grid: dict[int, tuple[str, int]] | None = None,
+                  mock: bool = False
                   ) -> dict[int, tuple[str, int]]:
     """→ {题号: (字母, 页码)}。
 
@@ -181,10 +196,14 @@ def parse_choices(rows: list[tuple[int, str]], log: list,
       2. 单行一条（2024 的 `1. D`）；
       3. 并排答案行（2023/2022 顶部的 `1． D  2． C …`）。
     同一题号出现**互相矛盾**的字母时，一律丢弃并在 log 里点名——不猜、不取多数。
+
+    `mock=True` 时额外认 2027 模拟卷的两种写法（区间速查 → 第 2 层，`答案：X` → 第 1 层），
+    两者照旧互校。真题卷不走这条路，行为一字不改。
     """
     layers: list[dict[int, tuple[str, int]]] = [dict(grid or {}), {}, {}, {}]
     conflicts: dict[int, set[str]] = {}
     pending: int | None = None
+    cur_q: int | None = None       # mock 专用：最近一次见到的题头行题号（给 `答案：X` 配题）
 
     def put(layer: int, no: int, letter: str, pno: int) -> None:
         if not 1 <= no <= 40:
@@ -204,6 +223,32 @@ def parse_choices(rows: list[tuple[int, str]], log: list,
         mh = RE_COMP_HEAD.match(stripped)
         if mh and int(mh.group(1)) >= 41:
             break                       # 已经进入综合题区，后面不会再有选择题答案
+        if mock:
+            # 区间速查 + `答案：X` 两路。**先收速查**（它带题号，是自足的），
+            # 再靠题头行追踪题号去认 `答案：X`（它自己不带题号）。
+            hit = False
+            for mr in RE_KEY_RANGE.finditer(stripped):
+                a, b, letters = int(mr.group(1)), int(mr.group(2)), mr.group(3)
+                if b - a + 1 != len(letters):
+                    log.append(f"第 {pno} 页速查 `{mr.group(0)}`：区间含 {b - a + 1} 题却有 "
+                               f"{len(letters)} 个字母，**整段跳过**（宁可留空，不猜错位）")
+                    continue
+                for k, ch in enumerate(letters):
+                    put(2, a + k, ch, pno)
+                hit = True
+            mq = RE_QNUM_HEAD.match(stripped)
+            if mq and 1 <= int(mq.group(1)) <= 40:
+                cur_q = int(mq.group(1))
+            ma = RE_ANSWER_MARK.match(stripped)
+            if ma:
+                if cur_q is None:
+                    log.append(f"第 {pno} 页见到 `答案：{ma.group(1)}` 但此前没有题头行，"
+                               f"无法定题号，已丢弃")
+                else:
+                    put(1, cur_q, ma.group(1), pno)
+                hit = True
+            if hit:
+                continue
         m = RE_KEY_A.match(stripped) or RE_KEY_B.match(stripped)
         if m:
             put(0, int(m.group(1)), m.group(2), pno)
@@ -267,8 +312,8 @@ def parse_choices(rows: list[tuple[int, str]], log: list,
     return out
 
 
-def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None
-                        ) -> dict[int, dict]:
+def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None,
+                        mock: bool = False) -> dict[int, dict]:
     segs: dict[int, dict] = {}
     cur: dict | None = None
     seen: dict[int, list[int]] = {}
@@ -277,7 +322,10 @@ def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None
         stripped = line.strip()
         if "综合" in stripped and "应用" in stripped:
             in_comp = True
-        m = RE_COMP_HEAD.match(stripped)
+        # mock：只认带题干的 `NN. （N分）` 头（见 RE_COMP_HEAD_MOCK 处的说明）。
+        # 卷首那份不带 `（N分）` 的简短评分要点因此不会被当成题头，
+        # 免得把「完整解答」判成重复而丢掉。
+        m = RE_COMP_HEAD_MOCK.match(stripped) if mock else RE_COMP_HEAD.match(stripped)
         if m and int(m.group(1)) in COMPREHENSIVE:
             in_comp = True
             no = int(m.group(1))
@@ -288,14 +336,16 @@ def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None
                 # 合并只会把重复内容灌进正文。页码差异记进报告。
                 cur = None
                 continue
-            cur = {"lines": ([m.group(2)] if m.group(2).strip() else []), "pages": [pno]}
+            head_rest = m.group(2) if not mock else stripped[m.end():]
+            cur = {"lines": ([head_rest] if head_rest.strip() else []), "pages": [pno]}
             segs[no] = cur
             continue
         # **没有题号**的 `【答案要点】`：2024 底本第 1 页印的是 `41.【答案要点】`，
         # 但 OCR 只认出了 `【答案要点】`，题号整个丢了（渲染图上一目了然，是 OCR 漏字）。
         # 只在「已进综合题区 + 当前没有正在写的题 + 题号确实还缺」时才按顺序归位，
         # 并且**在报告里点名这是靠位次补的**，交人工复核。
-        if (in_comp and cur is None and log is not None
+        # mock 不走这条兜底：它的题头本来就**带题干**，靠位次瞎归位只会灌进错内容。
+        if (not mock and in_comp and cur is None and log is not None
                 and RE_COMP_HEAD_NONUM.match(stripped)):
             pend = [n for n in COMPREHENSIVE if n not in segs]
             if pend:
@@ -347,16 +397,20 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     paper_id = args.paper
+    mock = paper_id.startswith("mock")
     rel = paths_for(paper_id)
     log: list[str] = []
     rows = read_rows(rel)
     grid = load_grid(paper_id, log)
-    choices = parse_choices(rows, log, grid)
-    comp = parse_comprehensive(rows, log)
+    choices = parse_choices(rows, log, grid, mock=mock)
+    comp = parse_comprehensive(rows, log, mock=mock)
     artifacts = scan_artifacts(comp)
+    if mock:
+        log.append("模拟卷另有底本第 1—2 页的「答案速查 + 41—47 简短评分要点」一份；"
+                   "本工具只取题末**带题干**的完整解答（见 RE_COMP_HEAD_MOCK），不合并两份")
 
     # 逐题来源：按层优先级回填，写进 solutions.md 的注释里，便于人工按来源核对。
-    flow_only = parse_choices(rows, [])          # 只看解析流，用来判断某题是不是「表 + 解析」双源
+    flow_only = parse_choices(rows, [], mock=mock)   # 只看解析流，用来判断某题是不是「表 + 解析」双源
     src: dict[int, str] = {}
     for no in choices:
         where = []
