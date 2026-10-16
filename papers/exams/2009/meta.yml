@@ -76,6 +76,13 @@ questions:
   - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
   - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
 errata: []
+# 「四个选项画在题图里」的逐题登记（见 docs/qa-policy.md §2 C4 例外）。
+# 登记 = 有人看过那张图、确认 A/B/C/D 四个选项都在图内；没登记就照旧按「选项不齐」报。
+options_in_figure:
+  - "no": 4   # 键必须加引号：YAML 1.1 会把裸 no 解析成布尔 False
+    figure: assets/q4-fig.png
+    verified_at: 2026-10-17
+    verified_by: 人工直读该题图（四棵二叉树，各自带 A./B./C./D. 标注）
 review:
   proofread_by: []
   proofread_at: null
