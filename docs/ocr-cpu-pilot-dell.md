@@ -74,7 +74,35 @@ scale 2 → 3：均值置信 0.829 → **0.805**（下降），OCR 耗时 +29%�
 **CPU 时间不是瓶颈。** 真正的成本在**人工校对**：按 4 s/页算机器只花几分钟，
 但每页 1,000+ 字符的术语/公式/图表仍需人逐题核对。
 
-## 4. 结论
+## 4. 既有管线 `tools/batch_extract.py` 验证
+
+pymupdf 与 rapidocr 均装成后，按既定命令实跑：
+
+```
+tools/batch_extract.py --scope mock --ocr auto --limit-pages 3
+```
+
+验证通过项：
+
+| 要求 | 实测 |
+|---|---|
+| 输出隔离 | 仅写 `build/_scratch/408-raw-pages/`；未改 `papers/`、未改任何源 PDF |
+| 逐页缓存命中 | ✅ 重复执行报 `缓存命中 3` |
+| 源哈希绑定 | ✅ 每页记录 `source_sha256`；与 `index/sources-manifest.json` 不符即 `[stop]` 拒绝处理 |
+| 逐页 unverified | ✅ `"status": "unverified"`，另存 `method`(`text-layer`/`ocr-unverified`)、`dpi`、`min_chars`、`characters`、`confidence_mean`、`contains_images`、`processed_at` |
+| 断点续跑 | ✅ `--limit-pages` 限额生效后即退出，报"剩余下次可断点续跑" |
+| 限流 | ✅ 单进程；26 页产物耗时 1.63 s（其中仅 1 页走 OCR） |
+
+累计产物 26 页：**25 页 `text-layer` + 1 页 `ocr-unverified`**。
+
+### 4.1 一处需注意的行为
+
+set1 p13 走 OCR 后得 `characters: 0`、`confidence_mean: null`。
+渲染核查该页**墨水占比 0.0000%，确为空白页**，故返回空是正确的。
+但工具**不区分"空白页"与"OCR 失败/识别为空"**——两者都表现为 `characters: 0`。
+批处理时应把 `characters: 0` 的页单独拉出人工确认，避免静默漏页。
+
+## 5. 结论
 
 1. **离线 CPU OCR 链路在本机跑通且开销极低**（无 GPU、无网络依赖、无大模型权重）。
 2. **质量不足以直接入库**：均值置信 0.82 下仍稳定出现 `O→0`、`删→剩` 类错误，
@@ -83,7 +111,7 @@ scale 2 → 3：均值置信 0.829 → **0.805**（下降），OCR 耗时 +29%�
 4. **文字层页不该走 OCR**：388/483 页已有文本层，用 `pdftotext` 更快更准（阶段1 结论）。
 5. 原 PDF 只读未改；OCR 输出仅在 `build/_scratch/`。
 
-## 5. 未验证 / 待定
+## 6. 未验证 / 待定
 
 - 仅测 3 页、1 份扫描卷；其余 4 份扫描 PDF **未抽样**，结论不可外推。
 - **未做人工校对**，本报告只描述引擎行为，**不含任何题目正确性结论**。
@@ -91,7 +119,7 @@ scale 2 → 3：均值置信 0.829 → **0.805**（下降），OCR 耗时 +29%�
 - **未产出任何可入库的正式转录**，不触及完成度计数（不声称 1034 题中的任何完成数）。
 - 未测英文/公式专用识别模型，未测倾斜矫正、去噪等前处理的影响。
 
-## 6. 建议的下一步（待确认后再扩容）
+## 7. 建议的下一步（待确认后再扩容）
 
 1. **分流处理**：388 页文本层走 `pdftotext`（或 `tools/extract_text.py`），
    仅 ~95 页扫描页进 OCR。
@@ -101,9 +129,10 @@ scale 2 → 3：均值置信 0.829 → **0.805**（下降），OCR 耗时 +29%�
 4. 如质量仍不达标，再评估换识别模型（仍限 CPU、限包体积），
    **不要**引入 GPU 或大模型服务。
 
-## 7. 可复现信息
+## 8. 可复现信息
 
-- 脚本：`tools/ocr_cpu_pilot.py`（草稿性质，输出到 `build/_scratch/`）
+- 渲染+OCR 单页脚本：`tools/ocr_cpu_pilot.py`（草稿性质，输出到 `build/_scratch/`）
+- 批处理管线：`tools/batch_extract.py`（既有，输出到 `build/_scratch/408-raw-pages/`）
 - 源 PDF：`sources/mock-2027/pdf/mock2027-set2-paper.pdf`
   SHA256 前缀 `dd1e0bcbea35f4ae`
 - 输出样例：`build/_scratch/ocr/mock2-p2.txt` SHA256 前缀 `79c79db7abb7cae8`
