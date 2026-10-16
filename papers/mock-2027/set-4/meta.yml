@@ -21,7 +21,7 @@ sources:
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
   method: mixed        # text-layer | ocr | manual | mixed
-  tool: "RapidOCR 页级识别（初稿）+ 源页渲染图人工定点核验（pymupdf 1.28.2，第2–3页 400dpi）"
+  tool: "RapidOCR 页级识别（初稿）+ 源页渲染图人工定点核验（pymupdf 1.28.2，试题/解析 PDF 350–1200dpi 局部放大）"
   date: "2026-10-17"
 counts:
   choice: 40
@@ -68,8 +68,8 @@ questions:
   - {"no": 38, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 39, status: needs-review, confidence: low, topic: 计算机网络, notes: "2026-10-17 按试题PDF第7页渲染图逐字核对题干与A–D选项并重录（TCP句1000dpi复核）；源文「已经建立了TCP建立」为源卷自身重复用词，按qa-policy §6保留原文未改写；未 proofread"}
   - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
-  - {"no": 42, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第7页末–第8页、解析PDF第5页渲染图逐字重录题干/规则/三小问与解析(1)(2)(3)；基数树图已确认为本题专属并裁入 assets/q41-fig1.png；集合S末项经1200dpi与图中白结点集合交叉验证为单个0(非01)；原稿丢字、代码块损坏(isEna/1Child)、O(m)→O(n)已修；本轮仅局部源图复核，未 proofread"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 数据结构, notes: "2026-10-17 按试题PDF第8页、解析PDF第5–6页渲染图逐字重录题干/Graph结构体/三小问与解析(1)(2)(3)；原稿代码全行乱码(afs/concinuey/visit[cur]=17 等)已修；已移除误串入本题的Q41代码注释段落；本题无插图；源页G/M字母不一致按qa-policy§6保留原文未改写；本轮仅局部源图复核，未 proofread"}
   - {"no": 43, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
   - {"no": 44, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
   - {"no": 45, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
