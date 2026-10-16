@@ -63,10 +63,10 @@ questions:
   - {"no": 33, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 34, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 35, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 36, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
-  - {"no": 37, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 36, status: needs-review, confidence: low, topic: 计算机网络, notes: "2026-10-17 按试题PDF第6页渲染图逐字核对题干与A–D选项并重录（生成多项式700dpi复核）；算术旁证余数011与C项及答案key自洽，但C10人工验算未做；未 proofread"}
+  - {"no": 37, status: needs-review, confidence: low, topic: 计算机网络, notes: "2026-10-17 按试题PDF第6页末（题干+图）至第7页首（选项）逐字核对并重录（十六进制串700dpi复核）；拓扑图确认为本题专属，已裁入 assets/q37-fig1.png 并相对引用；未 proofread"}
   - {"no": 38, status: needs-review, confidence: low, topic: 未知, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
-  - {"no": 39, status: ocr-uncertain, confidence: low, topic: 未知, notes: "OCR选项未通过A–D严格检查（挤行/误字），未通过源页核对，保持 ocr-uncertain"}
+  - {"no": 39, status: needs-review, confidence: low, topic: 计算机网络, notes: "2026-10-17 按试题PDF第7页渲染图逐字核对题干与A–D选项并重录（TCP句1000dpi复核）；源文「已经建立了TCP建立」为源卷自身重复用词，按qa-policy §6保留原文未改写；未 proofread"}
   - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "源页图已核对题干/选项（2026-10-17）；未 proofread"}
   - {"no": 41, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
   - {"no": 42, status: ocr-uncertain, confidence: low, topic: 综合, notes: "解析OCR未逐字校对，可能跨题串段，保持 ocr-uncertain"}
