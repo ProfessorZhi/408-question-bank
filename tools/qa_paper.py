@@ -53,6 +53,8 @@ RE_LEAK = re.compile(r"(正确答案|参考答案|答案\s*[：:]\s*[A-D]\b|^\s*
                      re.M | re.I)
 
 RE_FENCE = re.compile(r"```.*?```", re.S)
+# 「这一段没切出来」的占位标记（由 md_from_pages 写出）。见 stats["stubs"] 处的说明。
+RE_STUB = re.compile(r"本题未从底本切出")
 
 
 def strip_fences(text: str) -> str:
@@ -143,12 +145,26 @@ def check_paper(paper_dir: Path) -> dict:
     stext = sfile.read_text(encoding="utf-8") if sfile.is_file() else ""
     ss = split_by_question(strip_fences(stext))
 
-    choice = {n for n in qs if n in CHOICE_RANGE}
-    comp = {n for n in qs if n in COMPREHENSIVE_RANGE}
-    out_of_range = set(qs) - CHOICE_RANGE - COMPREHENSIVE_RANGE
+    # ── 空 stub 不算题 ──────────────────────────────────────────────────────
+    # `md_from_pages.one()` 在底本切不出那一段时，写的是
+    #   `> ⛔ 本题未从底本切出，待人工补齐（见转写报告）。`
+    # 早先只数 `### 第 N 题` 在不在，于是**它也算一道题**。后果是：
+    # C1/C2/C3 全绿、coverage.md 报 47/47、阻断项 —，而那一卷可能 42 道题里
+    # 一个字都没有——docs/qa-policy.md 开头明写「不允许以空 stub 计入完整」，
+    # 这张表恰恰在替空 stub 记绿灯（2027 模拟卷 set-2/3/4：42/41/43 个）。
+    # 所以按**有无正文**计数，并把 stub 数单列出来，让人看得见缺口在哪。
+    stubs = {n for n, body in qs.items() if RE_STUB.search(body)}
+    real = {n: b for n, b in qs.items() if n not in stubs}
+    if stubs:
+        res["warnings"].append("C0 空 stub 共 %d 题（本题未从底本切出，不计入题数）：%s"
+                               % (len(stubs), sorted(stubs)[:12]))
+    choice = {n for n in real if n in CHOICE_RANGE}
+    comp = {n for n in real if n in COMPREHENSIVE_RANGE}
+    out_of_range = set(real) - CHOICE_RANGE - COMPREHENSIVE_RANGE
 
     res["stats"].update(q_choice=len(choice), q_comp=len(comp),
-                        q_total=len(qs), s_total=len(ss),
+                        q_total=len(real), s_total=len(ss),
+                        stubs=len(stubs),
                         out_of_range=sorted(out_of_range))
 
     # C1 / C2 / C3
