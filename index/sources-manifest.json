@@ -1,8 +1,8 @@
 {
   "generated_by": "tools/inventory.py",
   "repo": "C:\\Users\\vince.huang\\Documents\\408-question-bank",
-  "count": 48,
-  "total_bytes": 92028703,
+  "count": 50,
+  "total_bytes": 94172138,
   "note": "sources/ 只增不改；sha256 用于检测意外改写。",
   "files": [
     {
@@ -212,6 +212,16 @@
       "probe": "no-text-layer (OCR needed)"
     },
     {
+      "path": "sources/exams/answers/2026-answer.pdf",
+      "bytes": 1143635,
+      "sha256": "374d8130d1f3bb70a8d26659b0d2c22bad3f7ea58c62b641cb9c5fa4cc23fa78",
+      "ext": ".pdf",
+      "pages": 6,
+      "text_chars": 12,
+      "images": 11,
+      "probe": "no-text-layer (OCR needed)"
+    },
+    {
       "path": "sources/exams/papers/2009.pdf",
       "bytes": 819058,
       "sha256": "06a35e0baaf67631ae311cb98b7d0a4eceb6fa292d5a19bda888d760a2e107da",
@@ -379,6 +389,16 @@
       "pages": 12,
       "text_chars": 10470,
       "images": 7,
+      "probe": "text-layer"
+    },
+    {
+      "path": "sources/exams/papers/2026.pdf",
+      "bytes": 999800,
+      "sha256": "c2eea4cecc5840dc35b9ce13c7abe9476ae806063201ee8875579eaee341abf1",
+      "ext": ".pdf",
+      "pages": 12,
+      "text_chars": 11585,
+      "images": 5,
       "probe": "text-layer"
     },
     {

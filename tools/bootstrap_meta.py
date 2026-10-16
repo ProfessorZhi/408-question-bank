@@ -24,7 +24,7 @@ for _s in (sys.stdout, sys.stderr):
         pass
 
 REPO = Path(__file__).resolve().parent.parent
-EXAM_YEARS = list(range(2009, 2026))          # 2009—2025
+EXAM_YEARS = list(range(2009, 2027))          # 2009—2026（2026 于 P2 补入）
 MOCK_SETS = [1, 2, 3, 4]
 
 NEVILLE = "https://github.com/neville-studio/408-exam-paper"

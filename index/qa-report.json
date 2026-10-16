@@ -170,6 +170,16 @@
     "stats": {}
   },
   {
+    "paper": "papers/exams/2026",
+    "has_questions": false,
+    "has_solutions": false,
+    "errors": [],
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "stats": {}
+  },
+  {
     "paper": "papers/mock-2027/set-1",
     "has_questions": false,
     "has_solutions": false,

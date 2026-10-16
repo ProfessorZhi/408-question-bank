@@ -20,8 +20,8 @@
 | 上游自述错误率 | 「约 1 处错误 / 100KB 二进制内容」——**即文本层存在已知的零星 OCR/录入错误** |
 | 本仓库用法 | 作为**转录底本**引入 PDF 到 `sources/exams/`。**保留上游署名**；不单独对外分发；重排后的 Markdown 在 `papers/exams/` |
 | 许可存档 | `sources/_upstream-licenses/neville-studio-408-exam-paper/` |
-| 已引入文件 | `papers/2009.pdf` … `2025.pdf`（17 份）、`answers/2009-answer.pdf` … `2025-answer.pdf`（17 份） |
-| 未引入 | 上游还有 `2026.pdf` / `2026-answer.pdf`——**超出本次范围**，未复制 |
+| 已引入文件 | `papers/2009.pdf` … `2026.pdf`（**18 份**）、`answers/2009-answer.pdf` … `2026-answer.pdf`（**18 份**） |
+| 2026 补入（P2） | 2026-10-16 补 `papers-rebuild/2026.pdf`（999,800 B, sha256 `c2eea4ce…3abf1`）与 `answers/2026-answer.pdf`（1,143,635 B, sha256 `374d8130…3fa78`），字节数与上游逐一致。试卷**有文本层**（11,585 字符/12 页）；答案为扫描件（0 字符/6 页）**须 OCR**。 |
 
 > ⚠️ **上游 PDF 是「基于图片重新生成」的文字版，不是官方原卷扫描。**
 > 因此它本身**不能**作为「官方权威源」，只能作为**便利底本**。
