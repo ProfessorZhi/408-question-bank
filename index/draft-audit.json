@@ -1,0 +1,27 @@
+{
+  "paper": "exams/2026",
+  "questions": 47,
+  "solutions": 47,
+  "issues": [
+    {
+      "severity": "medium",
+      "q": 36,
+      "kind": "image-ownership",
+      "detail": "assets/q36-fig1.png 来自含 36/37/38 三题的页，归属未确认"
+    },
+    {
+      "severity": "medium",
+      "q": 36,
+      "kind": "image-ownership",
+      "detail": "assets/q36-fig2.png 来自含 36/37/38 三题的页，归属未确认"
+    }
+  ],
+  "formula_inline": 4,
+  "formula_block": 0,
+  "code_fence": 1,
+  "images": 5,
+  "counts": {
+    "high": 0,
+    "medium": 2
+  }
+}

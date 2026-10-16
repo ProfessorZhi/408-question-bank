@@ -171,13 +171,20 @@
   },
   {
     "paper": "papers/exams/2026",
-    "has_questions": false,
-    "has_solutions": false,
+    "has_questions": true,
+    "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
-    ],
-    "stats": {}
+    "warnings": [],
+    "stats": {
+      "q_choice": 40,
+      "q_comp": 7,
+      "q_total": 47,
+      "s_total": 47,
+      "out_of_range": [],
+      "answers_parsed": 40,
+      "proofread": "0/47"
+    },
+    "blocking": false
   },
   {
     "paper": "papers/mock-2027/set-1",
