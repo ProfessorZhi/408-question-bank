@@ -127,6 +127,7 @@ def page_lines(page) -> list[dict]:
 
 def draw_rects(page) -> list:
     rects = []
+    pr = page.rect
     for d in page.get_drawings():
         r = d.get("rect")
         if r is None:
@@ -134,6 +135,15 @@ def draw_rects(page) -> list:
         box = (r.x0, r.y0, r.x1, r.y1)
         if (box[2] - box[0]) < 0.5 and (box[3] - box[1]) < 0.5:
             continue                      # 退化点（着重号的圆点等）不计
+        # 整页底板／页框：2027 模拟卷每页铺一块填充底板，它的 rect 甚至**超出页面**
+        # （set1 第 2 页实测 rect=(29.0, -755.9, 567.0, 8664.8)，而该页只有 595×841.9）。
+        # 它会被 cluster 成一个覆盖全页的「表格区」，进而把**整页文字**塞进一张 GFM 表
+        # ——set1 第 2/3/6/11/12 页的 Q6–Q10、Q12–Q14、Q27–Q28 就是这么丢的选项。
+        # 判据按**裁到页内**后的占比：真表格不会同时占满 85% 的宽和高。
+        w = min(box[2], pr.x1) - max(box[0], pr.x0)
+        h = min(box[3], pr.y1) - max(box[1], pr.y0)
+        if w >= 0.85 * pr.width and h >= 0.85 * pr.height:
+            continue
         rects.append(box)
     return rects
 

@@ -699,7 +699,21 @@ def collect_tables(objs: dict[int, dict], figs: dict[int, list[dict]]):
     tables: dict[int, list[dict]] = {}
     drop_exact: dict[int, set[str]] = {}
     drop_sorted: dict[int, set[str]] = {}
-    stats = {"regions": 0, "gfm": 0, "mono": 0, "orphan": 0, "dropped": 0, "residue": 0}
+    stats = {"regions": 0, "gfm": 0, "mono": 0, "orphan": 0, "dropped": 0, "residue": 0,
+             "fig_covered": 0}
+
+    # 同一块内容既被裁成图、又被判成表 —— **留图、弃表**。
+    # 2027 模拟卷把**行内公式**画成矢量路径（没有文本层），它同时满足「图形簇」
+    # 和「行里有 ≥2 个格子」两条判据：Q13 的 `1e10 = 1.001…×2³³` 因此既出了一张
+    # `q13-fig.png`，又出了一张只有一行的伪表；Q3 的四个选项公式亦然，还会在正文里
+    # 留下一段空的 `A.／B.／C.／D.` 骨架。判据是**纵向完全落在一张已裁图的 bbox 内**
+    # （同页、±2pt 容差），此时图就是这段内容最忠实的表示。
+    fig_boxes: dict[int, list[tuple]] = {}
+    for _flist in figs.values():
+        for _f in _flist:
+            _b = _f.get("bbox")
+            if _b:
+                fig_boxes.setdefault(_f["page"], []).append(tuple(_b))
 
     def mark(pno: int, keys: list[str]) -> None:
         for key in keys:
@@ -715,6 +729,12 @@ def collect_tables(objs: dict[int, dict], figs: dict[int, list[dict]]):
         for region in page_regions(obj):
             stats["regions"] += 1
             region_rows = region["rows"]
+            _top = region_rows[0]["bbox"][1]
+            _bot = region_rows[-1]["bbox"][3]
+            if any(_b[1] - 2 <= _top and _bot <= _b[3] + 2
+                   for _b in fig_boxes.get(pno, [])):
+                stats["fig_covered"] += 1
+                continue
             owner = None
             cap_line = None
             first_y = region_rows[0]["y"]
