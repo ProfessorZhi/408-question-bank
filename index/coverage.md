@@ -23,11 +23,11 @@
 | `papers/exams/2024` | 40/40 | 7/7 | 47/47 | 36/40 | — |
 | `papers/exams/2025` | 40/40 | 7/7 | 47/47 | 40/40 | — |
 | `papers/exams/2026` | 40/40 | 7/7 | 47/47 | 40/40 | — |
-| `papers/mock-2027/set-1` | 0/40 | 0/7 | 0/47 | 0/40 | — |
+| `papers/mock-2027/set-1` | 40/40 | 7/7 | 47/47 | 40/40 | — |
 | `papers/mock-2027/set-2` | 0/40 | 0/7 | 0/47 | 0/40 | — |
 | `papers/mock-2027/set-3` | 0/40 | 0/7 | 0/47 | 0/40 | — |
 | `papers/mock-2027/set-4` | 0/40 | 0/7 | 0/47 | 0/40 | — |
 
 ## 尚未开始的卷
 
-`papers/mock-2027/set-1`、`papers/mock-2027/set-2`、`papers/mock-2027/set-3`、`papers/mock-2027/set-4`
+`papers/mock-2027/set-2`、`papers/mock-2027/set-3`、`papers/mock-2027/set-4`
