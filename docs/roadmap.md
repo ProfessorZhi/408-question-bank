@@ -36,7 +36,7 @@
 - [ ] **44MB 页面图像包未到设备** —— 影响图表像素级对照（见 `docs/transfer-instructions.md`）
 - [ ] `papers/` 下**尚无任何转录正文** —— 每卷 md 都还没写
 - [ ] `papers/exams/<year>/meta.yml` 未逐题枚举
-- [ ] CI 尚未在 GitHub 上跑过一次（本地跑得到结果，但远端首跑待首次 push 后确认）
+- [ ] **CI 已配置但从未真正执行过** —— 见下节「CI 实测结果」。**不要**把它当作验证过的护栏。
 
 ---
 
@@ -49,6 +49,41 @@
 3. **最后做 2009—2024 真题（P2）**：量大（16 卷 × 47 题 = 752 题），
    底本又是重排版（有已知错字率），需要最成熟的流水线。
 4. P5 生成形态可**穿插进行**：只要有一卷完成就能验证 `build_paper.py`。
+
+---
+
+## CI 实测结果（2026-10-16）
+
+首次 push 后 GitHub Actions 起了 1 次 run（run id `38857392737`），**失败**，特征是：
+
+- 耗时 **2 秒**（`startedAt 05:45:00Z` → `completedAt 05:45:02Z`）
+- job 的 `steps` 为**空数组** —— **没有任何一个 step 被执行**
+- 取失败日志时报 `results-receiver.actions.githubusercontent.com ... EOF`
+
+**判断**：这是 **runner/基础设施层面**的问题，**不是**质检脚本失败
+（脚本一步都没跑）。此前在本机其它仓库上见过完全相同的签名。
+
+因此：
+
+- ❌ **不能说 CI 已经验证通过**。它现在只是一个「提交的配置」，不是有效的护栏。
+- ✅ 同等的检查在本机**逐条实跑通过**（证据见下）。
+- 待办：查该账号的 Actions 是否被禁用 / 配额耗尽；确认后再声称 CI 生效。
+  诊断曾被本机到 `api.github.com` 的 TLS 阵发失败打断（见
+  `docs/provenance.md` 同类网络记录），未得结论。
+
+### 本机实跑证据（可复现）
+
+| 命令 | 结果 |
+|---|---|
+| `python tools/selftest_qa.py` | ✅ 5/5 对照样本判定与期望一致（**能翻红也能翻绿**） |
+| `python tools/validate_meta.py` | ✅ 21 份 meta.yml，不合规 0 份 |
+| `python tools/inventory.py` | ✅ 48 个文件（PDF 42 个），登记 sha256/页数/文本层 |
+| `python tools/qa_paper.py --all --write-coverage` | ✅ 21 卷，阻断 0 卷（均为「尚未转录」） |
+
+> 校验过程中 schema 实际抓到两个**真缺陷**（不是误报）：
+> ① `extraction.method: pending` 不在枚举内；
+> ② 生成 YAML 时键名 `no` 未加引号，被 YAML 1.1 解析成布尔 `False`，**题号静默丢失**。
+> 两者都已修。这说明校验链路是有效的，不是摆设。
 
 ---
 
