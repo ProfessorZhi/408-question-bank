@@ -21,60 +21,60 @@ sources:
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
   method: mixed        # text-layer | ocr | manual | mixed
-  tool: "解析：源分支 RapidOCR 初稿 + 源页渲染图人工核验；题干仍为 main 的机器转录稿"
+  tool: "源页 2–10 4× 渲染人眼逐题核对 + pymupdf 局部裁图；未跑整卷 OCR"
   date: "2026-10-17"
 counts:
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 2, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 3, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 4, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 5, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 6, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 7, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 8, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 9, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 10, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 11, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 12, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 13, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 14, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 15, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 16, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 17, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 18, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 19, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 20, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 21, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 22, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 23, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 24, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 25, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 26, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 27, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 28, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 29, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 30, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 31, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 32, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 33, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 34, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 35, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 36, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 37, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 38, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 39, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 40, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 41, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 42, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 43, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 44, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 45, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 46, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 47, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
+  - {"no": 1, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 2, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 3, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 4, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 5, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 6, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 7, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 8, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p2 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 9, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 10, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 11, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 12, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 13, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 14, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 15, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 16, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 17, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p3 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 18, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 19, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 20, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 21, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 22, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 23, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 24, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 25, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p4 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 26, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 27, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 28, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 29, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 30, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 31, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 32, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 33, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p5–p6 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 34, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p6 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 35, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p6 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 36, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p6 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 37, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p6 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 38, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p6 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 39, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p7 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 40, status: needs-review, confidence: low, topic: 未知, notes: "题干/选项已按源 PDF p7 逐题核对重写；答案沿用源 PDF p1 答案表，未独立验算；图片按题号局部裁切；未 proofread"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p7 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p7 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p7–p8 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p8–p9 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
+  - {"no": 45, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p9 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
+  - {"no": 46, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p9–p10 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
+  - {"no": 47, status: needs-review, confidence: low, topic: 综合, notes: "题干/综合题解答已按源 PDF p10 核对；页脚污染已清理，Q46 截断已补完；未独立验算，未 proofread"}
 errata: []
 review:
   proofread_by: []
