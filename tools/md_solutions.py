@@ -3,7 +3,8 @@
 
 与题目卷不同，答案卷只有两条线：
   · 选择题：1—40 的答案字母，按题号**严格递增**取出；
-  · 综合题：以 `NN.【答案要点】` 切段。
+  · 综合题：以 `NN.【答案要点】`（真题）或 `NN.【解析】` / `NN. （N分）`（2027 模拟卷，
+    两种写法逐卷自动判定，见 `comp_head_re`）切段。
 
 诚实性（这是本工具的重点）
 --------------------------
@@ -60,6 +61,15 @@ RE_FOOTER = re.compile(r"^(?:附录\s*[／/]\s*\d+|\d+\s*[／/]\s*20\d\d\s*年.*
 # 光秃秃的页码（无装饰点）。**不能见着就删**——表格里的一列数也长这样，
 # 所以只在本页首尾两行非空行的位置上才认，见 read_rows()。
 RE_PAGE_NUM = re.compile(r"^\d{1,3}$")
+# 2027 模拟卷解析卷的跑版页眉/页脚（每页一条，长这样：`27考研408模拟卷2·解析`、
+# `27考研408模拟卷2·解析·6`、`27考研408模拟卷2·解析：5`），OCR 还会把它**和后一行粘成一行**
+# （实测 set-2 有 `27考研408模拟卷2·解析一、简单解法：`、`27考研408模拟卷2·解析页号页框号装入时刻…`）。
+# 2026-10-17 之前这 9 条原样进了 solutions.md 的正文——那是真缺陷（页眉混进答案里）。
+# 剥离规则与 `tools/md_from_pages.py` 的 RE_RUNNING_HEAD 一致：削掉页眉前缀，
+# 剩下的若只有页码/分隔符就整行丢弃，否则保留剩下的正文（粘行的情况）。
+RE_RUNNING_HEAD = re.compile(r"^\s*\d{2}\s*考研\s*408\s*模拟卷\s*\d+\s*"
+                             r"(?:[·．.、]\s*(?:试题|解析))?")
+RE_HEAD_TAIL_ONLY = re.compile(r"^[·．.、：:／/|\s]*\d{0,3}\s*$")
 RE_CHOICE = re.compile(r"^(\d{1,2})\s*[.．、•·・]\s*([A-D])?\s*$")
 RE_ONLY_LETTER = re.compile(r"^([A-D])\s*[.．、]?\s*$")
 # 综合题小标题，各年写法不一，必须都认：
@@ -109,6 +119,13 @@ RE_QNUM_HEAD = re.compile(r"^(\d{1,2})\s*[.．、]\s*(\S.*)$")
 # 重印在解析卷末（set1 在第 21—26 页），而卷首第 1—2 页另有一份简短的评分要点。
 # 后者不带 `（N分）`，所以这条只认得下完整解答那一份。
 RE_COMP_HEAD_MOCK = re.compile(r"^(\d{1,2})\s*[.．、]\s*（\s*\d+\s*分\s*）")
+# 模拟卷的**另一种**写法：不带题干、只带 `【解析】`——`41.【解析】…`。
+# 2026-10-17 实测：set-2 的解析卷通篇用这一种（卷末没有重印题目原文那一份），
+# 只有上面那条带题干的写法时，set-2 的综合题是 0/7（切不出来）。
+# 但**逐卷只认一种**（见 `comp_head_re`）：两种混着认会把 set-1 卷首第 2 页
+# 那份「41—47 简短评分要点」（也是 `42. 【解析】…` 这个形状）当成题头，
+# 于是卷末那份完整解答被判成「重复」整段丢掉——那是比切不出来更坏的静默失真。
+RE_COMP_HEAD_MOCK_ALT = re.compile(r"^(\d{1,2})\s*[.．、]\s*【解析】")
 
 # OCR 形近误识的机械侦察（只为提示人工，不自动改写）
 ARTIFACT_PATTERNS = [
@@ -129,21 +146,90 @@ def paths_for(paper_id: str) -> str:
     return f"sources/mock-2027/pdf/mock2027-set{rest.split('-')[1]}-solution.pdf"
 
 
-def read_rows(rel: str) -> list[tuple[int, str]]:
+def load_solution_overrides(paper_id: str) -> dict[int, tuple[Path, str]]:
+    """答案卷的人工逐页转录：`papers/<id>/solution-pages/page-NNN.txt`，来源登记在
+    `papers/<id>/solution-pages.yml`。
+
+    为什么答案卷也要走到这一步
+    --------------------------
+    与题目卷同一个理由（见 `tools/md_from_pages.py::load_page_overrides`），但这里多一类
+    **只在答案卷才出问题**的版面：扫描件里的**代码块与表格**。OCR 把代码里的空格/缩进吃掉
+    （`for（inti=1;i<n;++i）`、`inttmp=A[i]`、`1/` 代替 `//`），还会把表读成**按列散开的
+    单格**（set-2 第 46 题那张 6 列 × 4 行的结果表读成 29 行散字，表结构整个没了）。
+    更糟的是它会读出**貌似确定、实则错误**的字符：`A[]`（应为 `A[i]`）、`0(n)`（应为 `O(n)`）——
+    这类错字在正文里看不出来，只能靠人对着页图逐字抄。
+
+    与题目卷的登记格式**完全一致**（`page` + `source`，一页一条，不准重复、不准有孤儿文件），
+    这样两边的人工转录纪律是同一套。被接管的页**不再跑页眉页脚剥离**：转录者自己决定内容，
+    工具再按「首尾纯数字当页码」那类启发式去删行，反而会吃掉转录里的表格单元。
+    """
+    folder = REPO / "papers" / paper_id / "solution-pages"
+    reg = REPO / "papers" / paper_id / "solution-pages.yml"
+    files = ({int(f.stem.split("-")[1]): f for f in folder.glob("page-*.txt")}
+             if folder.is_dir() else {})
+    if not reg.is_file():
+        if files:
+            raise SystemExit(f"[sol] {paper_id} 有 solution-pages/ 逐页转录但缺 solution-pages.yml（来源登记）")
+        return {}
+    import yaml
+    data = yaml.safe_load(reg.read_text(encoding="utf-8")) or []
+    if not isinstance(data, list):
+        raise SystemExit(f"[sol] {reg} 的顶层必须是清单，实际是 {type(data).__name__}")
+    out: dict[int, tuple[Path, str]] = {}
+    for i, e in enumerate(data):
+        if not isinstance(e, dict) or not isinstance(e.get("page"), int) or e["page"] < 1:
+            raise SystemExit(f"[sol] {reg} 第 {i + 1} 条的 page 必须是正整数")
+        if not str(e.get("source", "")).strip():
+            raise SystemExit(f"[sol] {reg} 第 {i + 1} 条必须有 source（凭什么说这页抄对了）")
+        pno = int(e["page"])
+        if pno in out:
+            raise SystemExit(f"[sol] {reg} 第 {pno} 页登记了两次")
+        fn = files.get(pno)
+        if fn is None:
+            raise SystemExit(f"[sol] {reg} 登记了第 {pno} 页，但 {folder}/page-{pno:03d}.txt 不存在")
+        out[pno] = (fn, str(e["source"]))
+    orphan = sorted(set(files) - set(out))
+    if orphan:
+        raise SystemExit(f"[sol] {paper_id} 有逐页转录文件却没有登记来源："
+                         f"{[f'page-{p:03d}' for p in orphan]}")
+    return out
+
+
+def read_rows(rel: str, overrides: dict[int, tuple[Path, str]] | None = None,
+              log: list | None = None) -> list[tuple[int, str]]:
     folder = PAGES / Path(rel).with_suffix("")
     if not folder.is_dir():
         raise SystemExit(f"[sol] 找不到逐页草稿：{folder}")
+    overrides = overrides or {}
     rows: list[tuple[int, str]] = []
     for f in sorted(folder.glob("page-*.txt")):
         pno = int(f.stem.split("-")[1])
-        lines = f.read_text(encoding="utf-8").splitlines()
+        hand = overrides.get(pno)
+        src = hand[0] if hand else f
+        lines = src.read_text(encoding="utf-8").splitlines()
+        if hand and log is not None:
+            log.append(f"底本第 {pno} 页的答案改用**人工转录**（{src.name}，{len(lines)} 行；"
+                       f"来源：{hand[1]}）")
         # 独立成行的纯数字既可能是页脚页码，也可能是表格里的一列数
         # （2024 第42题哈希表那列 0/3/4/5/…/18 就曾被当成页码整列删掉）。
         # 判据用位置：只有出现在**本页首尾两行非空行**里的纯数字才当页码。
+        # 人工转录的页整页跳过剥离：转录者已按页图定稿，再套启发式只会误删内容。
         idx = [i for i, l in enumerate(lines) if l.strip()]
         edge = set(idx[:2]) | set(idx[-2:])
         for i, line in enumerate(lines):
             s = line.strip()
+            if hand:
+                rows.append((pno, line))
+                continue
+            # 模拟卷的跑版页眉/页脚（见 RE_RUNNING_HEAD 处的说明）：整行只有页眉+页码 → 丢；
+            # 页眉后面粘着正文 → 只削页眉，把剩下的正文留下（削完的行重新参与下面的页脚判定）。
+            mh = RE_RUNNING_HEAD.match(s)
+            if mh:
+                rest = s[mh.end():].strip()
+                if RE_HEAD_TAIL_ONLY.match(rest):
+                    rows.append((pno, ""))
+                    continue
+                s = line = rest
             if RE_FOOTER.match(s) or (i in edge and RE_PAGE_NUM.match(s)):
                 rows.append((pno, ""))
             else:
@@ -152,15 +238,23 @@ def read_rows(rel: str) -> list[tuple[int, str]]:
 
 
 def load_grid(paper_id: str, log: list) -> dict[int, tuple[str, int]]:
-    """读卷首答案表的读法（OCR 渲染 / 文字层），→ {题号: (字母, 页码)}。
+    """读卷首答案表的读法（OCR 渲染 / 文字层 / 人工直读），→ {题号: (字母, 页码)}。
 
-    两种读法**互为独立证据**：一致才认；不一致的题号一律留空并点名（不取多数、不取"更可靠"的）。
+    三种读法**互为独立证据**：一致才认；不一致的题号一律留空并点名（不取多数、不取"更可靠"的）。
     只有一种读法时直接采信——它自己已过了「必须凑齐 1…40、每号恰好一个字母」的硬门槛。
+
+    2027 模拟卷（`mock-2027/set-N`）此前**整条路被排除在外**（`kind != "exams"` 直接返回空），
+    于是 set-2 的答案只能靠解析流单路，第 18 题因此只有单源。2026-10-17 接通：
+    模拟卷的答案卷也是扫描件，与 2019/2024—2026 一样用 `tools/answer_grid_visual.py`
+    的**人工直读**那一路，落盘名 `mock2027-setN-solution.json`（与该工具的 `out_stem` 一致）。
     """
     kind, rest = paper_id.split("/", 1)
-    if kind != "exams":
+    if kind == "exams":
+        stem = f"{rest}-answer"
+    elif kind == "mock-2027":
+        stem = f"mock2027-set{rest.split('-')[1]}-solution"
+    else:
         return {}
-    stem = f"{rest}-answer"
     per: dict[str, dict] = {}
     pages: dict[str, int] = {}
     for name, root in GRID_ROOTS:
@@ -312,20 +406,57 @@ def parse_choices(rows: list[tuple[int, str]], log: list,
     return out
 
 
+def comp_head_re(rows: list[tuple[int, str]]) -> tuple[re.Pattern[str], str]:
+    """模拟卷的综合题小标题**本卷用的是哪一种写法**：先通读一遍再定，逐卷只认一种。
+
+    两种写法都见过（`RE_COMP_HEAD_MOCK` 的注释里有来历）。**不许两种同时认**：
+    set-1 的卷首第 2 页有一份简短的评分要点（`42. 【解析】插入80（2分）…`），
+    卷末第 21 页起才是重印题目原文的完整解答（`42. （10分）如图所示是一棵5阶B树…`）——
+    两种形状一起收，「完整解答」会被 `segs` 里的 `dup_pages` 判成重复而整段丢弃。
+
+    判据就是「全卷有没有带题干的头」：有 → 用带题干那条（set-1）；没有 → 用 `【解析】` 那条（set-2）。
+    两条都不中的卷子（比如题头被 OCR 读坏）会退回带题干那条，报告里照旧 0/7 点出来，不静默。
+    """
+    for _pno, line in rows:
+        if RE_COMP_HEAD_MOCK.match(line.strip()):
+            return RE_COMP_HEAD_MOCK, "stem"
+    return RE_COMP_HEAD_MOCK_ALT, "jiefenxi"
+
+
 def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None,
                         mock: bool = False) -> dict[int, dict]:
     segs: dict[int, dict] = {}
     cur: dict | None = None
     seen: dict[int, list[int]] = {}
     in_comp = False          # 已经进了「综合应用题」区
+    fence: str | None = None  # 人工转录里 ``` 围栏的开启行（见下）
+    head_re, head_style = (comp_head_re(rows) if mock else (RE_COMP_HEAD, "exam"))
     for pno, line in rows:
         stripped = line.strip()
+        # 人工转录的答案卷里代码块是**答案的主体**（2027 set-2 的第 41/42/45 题都是整块代码）。
+        # 围栏内的行必须**原样**收下：不 strip（代码缩进全在行首）、保留空行（函数之间靠它分段），
+        # 否则一行行 strip 之后又经 join_cjk 拼段，整块代码会塌成一整句（实测：注释以汉字收尾、
+        # 下一行又是汉字开头的注释，正是 join_cjk 的合并条件）。
+        # 这套 draft 里 0 处 ```（全批 483 页 page-*.txt 已 grep 过），故下面两条分支
+        # 对真题各卷不生效——改完后的 2026 卷报告与输出经逐字节比对一致。
+        if fence is not None:
+            if cur is not None:
+                cur["lines"].append(line.rstrip())
+                cur["pages"].append(pno)
+            if stripped.startswith("```"):
+                fence = None
+            continue
+        if stripped.startswith("```") and cur is not None:
+            cur["lines"].append(stripped)
+            cur["pages"].append(pno)
+            fence = stripped
+            continue
         if "综合" in stripped and "应用" in stripped:
             in_comp = True
-        # mock：只认带题干的 `NN. （N分）` 头（见 RE_COMP_HEAD_MOCK 处的说明）。
-        # 卷首那份不带 `（N分）` 的简短评分要点因此不会被当成题头，
-        # 免得把「完整解答」判成重复而丢掉。
-        m = RE_COMP_HEAD_MOCK.match(stripped) if mock else RE_COMP_HEAD.match(stripped)
+        # mock：本卷用的是带题干的 `NN. （N分）` 还是不带题干的 `NN.【解析】`，
+        # 由 `comp_head_re` 通读一遍定下来，逐卷只认一种（理由见该函数）。卷首那份
+        # 简短评分要点因此不会被当成题头，免得把「完整解答」判成重复而丢掉。
+        m = head_re.match(stripped)
         if m and int(m.group(1)) in COMPREHENSIVE:
             in_comp = True
             no = int(m.group(1))
@@ -359,8 +490,15 @@ def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None,
         if cur is not None and stripped:
             cur["lines"].append(stripped)
             cur["pages"].append(pno)
+    if fence is not None and log is not None:
+        log.append(f"⚠️ 答案卷转录里有一个**没闭合**的 ``` 围栏（开启行 `{fence}`），"
+                   f"它之后的内容全部按代码原样收下，请人工核对")
     for seg in segs.values():
         seg["span"] = (min(seg["pages"]), max(seg["pages"]))
+    if mock and log is not None:
+        log.append("模拟卷综合题小标题按「" + head_style + "」写法切段"
+                   + ("（带题干 `NN. （N分）`）" if head_style == "stem"
+                      else "（不带题干 `NN.【解析】`）"))
     for no, pages in seen.items():
         if no in segs and len(pages) > 1:
             segs[no]["dup_pages"] = pages[1:]
@@ -368,9 +506,39 @@ def parse_comprehensive(rows: list[tuple[int, str]], log: list | None = None,
 
 
 def join_cjk(lines: list[str]) -> list[str]:
-    """把 OCR 的硬折行合并成段落：上一行以汉字/逗号结尾且本行以汉字开头时接上。"""
+    """把 OCR 的硬折行合并成段落：上一行以汉字/逗号结尾且本行以汉字开头时接上。
+
+    **围栏内的行一律不参与合并**：代码行里的注释常常以汉字收尾（`//用于记录当前的读者数量`），
+    下一行又是以汉字开头的注释或标识符，一拼就把两行代码粘成一行（第 45 题的信号量代码
+    整块都会塌掉）。围栏本身照原样输出。
+    """
     out: list[str] = []
+    in_fence = False
+    in_table = False
     for line in lines:
+        if line.strip().startswith("```"):
+            in_fence = not in_fence
+            if in_table:
+                out.append("")          # 表后接围栏：补空行收表
+                in_table = False
+            out.append(line)
+            continue
+        if in_fence:
+            out.append(line)
+            continue
+        if line.strip().startswith("|"):
+            # GFM 表**不能中断段落**（表头行前面必须是空行），表内各行之间也不能有其它块级行。
+            # 底本里 `结果如下表所示。` 与表格是紧挨着的两行，之间没有任何空行，照抄进 Markdown
+            # 就会被当成段落的续行、整张表散掉——所以这里替底本把必要的空行补出来。
+            # 题目卷的 `md_from_pages.py` 也是这个口径（`questions.md` 里的表前后都有空行）。
+            if not in_table and out and out[-1].strip():
+                out.append("")
+            in_table = True
+            out.append(line.strip())
+            continue
+        if in_table:
+            out.append("")
+            in_table = False
         if out and re.search(r"[一-鿿，、；：]$", out[-1]) and re.match(r"^[一-鿿]", line):
             out[-1] = out[-1] + line
         else:
@@ -400,14 +568,16 @@ def main(argv: list[str] | None = None) -> int:
     mock = paper_id.startswith("mock")
     rel = paths_for(paper_id)
     log: list[str] = []
-    rows = read_rows(rel)
+    hand = load_solution_overrides(paper_id)
+    rows = read_rows(rel, hand, log)
     grid = load_grid(paper_id, log)
     choices = parse_choices(rows, log, grid, mock=mock)
     comp = parse_comprehensive(rows, log, mock=mock)
     artifacts = scan_artifacts(comp)
     if mock:
         log.append("模拟卷另有底本第 1—2 页的「答案速查 + 41—47 简短评分要点」一份；"
-                   "本工具只取题末**带题干**的完整解答（见 RE_COMP_HEAD_MOCK），不合并两份")
+                   "本工具只取**逐题完整解答**那一份（题头写法逐卷自动判定，见 comp_head_re），"
+                   "不把两份合并、也不拿评分要点当解答")
 
     # 逐题来源：按层优先级回填，写进 solutions.md 的注释里，便于人工按来源核对。
     flow_only = parse_choices(rows, [], mock=mock)   # 只看解析流，用来判断某题是不是「表 + 解析」双源
@@ -453,6 +623,11 @@ def main(argv: list[str] | None = None) -> int:
             lines.append(f"- 第 {no} 题（底本第 {page} 页）[{name}] `{text}`")
     else:
         lines.append("- （机械侦察未命中）")
+    if hand:
+        lines += ["", "## 人工转录页（答案卷）", ""]
+        for pno in sorted(hand):
+            lines.append(f"- 底本第 {pno} 页 ← `papers/{paper_id}/solution-pages/"
+                         f"page-{pno:03d}.txt`；来源：{hand[pno][1]}")
     lines += ["", "## 综合题分段（页范围）", ""]
     for no in sorted(comp):
         lo, hi = comp[no]["span"]
@@ -461,6 +636,11 @@ def main(argv: list[str] | None = None) -> int:
             note = f"；底本在 {comp[no]['dup_pages']} 页又印了一遍，只取首次"
         if comp[no].get("no_head"):
             note += "；⚠️ 底本该处无题号，按综合题位次归位（待人工复核）"
+        hp = sorted({p for p in comp[no]["pages"]} & set(hand))
+        if hp:
+            note += (f"；第 {'、'.join(str(p) for p in hp)} 页为**人工转录**"
+                     f"（其余页仍是 OCR 初稿）" if hp != sorted({p for p in comp[no]['pages']})
+                     else "；全段**人工转录**")
         lines.append(f"- 第 {no} 题：底本第 {lo}—{hi} 页，{len(comp[no]['lines'])} 行{note}")
     lines.append("")
     if log:
@@ -489,6 +669,11 @@ def main(argv: list[str] | None = None) -> int:
               if got_n == 40 else
               f"> ⛔ 选择题答案只切出 {got_n}/40 题；缺失的题号见下方各题的 ⛔ 标记，"
               f"**没有**用任何方式补全。")
+    # 有人工转录页时在卷首单独点一句（哪几页是人抄的、来源登记在哪），
+    # 没有转录页的卷子这一项是空表 —— 卷首一个字符都不变，老卷子重跑逐字节相同。
+    hand_note = (["> 综合题答案的第 " + "、".join(str(p) for p in sorted(hand))
+                  + " 页为**人工转录**（按底本页图逐字抄；来源与核对记录见 `solution-pages.yml`），"
+                  "其余页为 OCR 初稿。"] if hand else [])
     out = [
         f"<!-- paper: {paper_id} | kind: solutions | status: needs-review -->",
         f"# {title}",
@@ -496,11 +681,12 @@ def main(argv: list[str] | None = None) -> int:
         f"> 来源：`{rel}`。转写记录见 `build/_scratch/reports/"
         f"{paper_id.replace('/', '-')}-solutions.md`。",
         honest,
-        (f"> 选择题答案来自卷首答案表（`tools/answer_grid_ocr.py` 读页面像素 + "
-         f"`tools/answer_grid.py` 读文字层，两路互校）与逐题解析流，"
-         f"逐题来源见各题上方注释。"
+        (f"> 选择题答案来自卷首答案表（`tools/answer_grid*.py` 的三路读法互校："
+         f"OCR 读页面像素 / 读文字层 / 人工直读裁带图，哪几路读到就哪几路互校）"
+         f"与逐题解析流，逐题来源见各题上方注释。"
          if grid else
          "> 选择题答案来自逐题解析流（该卷卷首答案表未能整表读出）。"),
+        *hand_note,
         "> 综合题文字若来自扫描件则为 **OCR 初稿**，存在形近误识"
         "（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，",
         "> 核对前请勿当作定论。逐题状态见 `meta.yml`。",
@@ -526,7 +712,15 @@ def main(argv: list[str] | None = None) -> int:
         span = f"底本第 {lo} 页" if lo == hi else f"底本第 {lo}—{hi} 页"
         caveat = "；⚠️ 底本该处**题号缺失**（OCR 漏字），本段题号系按综合题位次补的，待人工复核" \
             if seg.get("no_head") else ""
-        out += [f"<!-- {span}；OCR 初稿，未逐字核对{caveat} -->", "", "【答案要点】", ""]
+        hp = sorted({p for p in seg["pages"]} & set(hand))
+        if hp and hp == sorted({p for p in seg["pages"]}):
+            quality = "**人工转录**（按底本页图逐字抄，来源见 `solution-pages.yml`）"
+        elif hp:
+            quality = ("OCR 初稿，未逐字核对；其中第 "
+                       + "、".join(str(p) for p in hp) + " 页为**人工转录**")
+        else:
+            quality = "OCR 初稿，未逐字核对"
+        out += [f"<!-- {span}；{quality}{caveat} -->", "", "【答案要点】", ""]
         out += join_cjk(seg["lines"])
         out += [""]
     target.mkdir(parents=True, exist_ok=True)

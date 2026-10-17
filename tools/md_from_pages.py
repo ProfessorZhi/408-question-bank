@@ -165,7 +165,21 @@ RE_SPLIT_OPT_OCR = re.compile(r"(?:\A|\n)(?=[^\S\n]*[A-D][^\S\n]*" + _OPT_PUNCT 
 # 末尾那个 `\S` 是必需的：要求字母（及其可选标点）之后**还有内容**。
 # 第 7 题那块矩阵被 OCR 读成一行一个字符，里面就有孤立的 `A` `B.` 行，
 # 不要求有内容就会把那些噪声行也当成选项起点。
-RE_OPT_LINE_START_OCR = re.compile(r"^[^\S\n]*[A-D][^\S\n]*" + _OPT_PUNCT + r"?[^\S\n]*\S")
+#
+# ⚠️ 还有一条**同样必需**的约束：标点缺失时，字母后面**不能紧跟 ASCII 字母/数字/撇号**。
+# 理由就是这条规则存在的理由——OCR 丢的是「选项标记后面的**分隔符**」，不是词边界；
+# 真选项正文紧接着写的是汉字（`A若有向图…`）。字母后面直接跟 ASCII 字母或数字的行，
+# 是一条**以字母开头的正文**，不是选项：`CPU通过存储器总线…`（set2 第 21 题题干）、
+# `Cache行号`、`ALU`、`CS`、`DS`、`C9`、`DHCP服务器`。
+# 实测（`build/_scratch/probe/optstart_flip.py`，全量对照收紧前后）：本仓库 4 本扫描卷
+# 的逐页草稿里，收紧会让 **45 行**不再被当成选项行，逐条看过，**45/45 都是上面那类正文
+# 或图内标注，没有一条是选项**。反方向（收紧后不再命中的真选项）为零——同一脚本给出
+# 的另一半证据是：收紧是旧规则的**严格子集**（只多一个否定前瞻），且 4 本卷重新生成后
+# 「选项不干净」计数与题数（47/47 等）全部不变。
+# 代价实例：set2 第 21 题的题干是一条整句，第 44 行 `CPU通过存储器总线读取数据的过程为…`
+# 被旧规则判成「C 选项行」而强行断段，题干中间裂出一个空行。
+RE_OPT_LINE_START_OCR = re.compile(
+    r"^[^\S\n]*[A-D][^\S\n]*(?:" + _OPT_PUNCT + r"[^\S\n]*\S|(?![A-Za-z0-9'])\S)")
 # 上/下标标记（`batch_extract.py` 插进逐页草稿正文的那层外壳）。
 # ⚠️ 本工具的文字有**两个来源**，口径不同：
 #   · 正文流 —— 来自 `build/_scratch/408-raw-pages/` 的草稿，**带**上下标标记；
@@ -273,15 +287,88 @@ def join_lines(lines: list[str]) -> str:
     return "".join(parts)
 
 
-def read_lines(rel: str) -> list[tuple[int, str]]:
-    """逐页草稿 → (页码, 原始行)；页脚行、跑版页眉行替换为空行。"""
+def load_page_overrides(paper_id: str) -> dict[int, tuple[Path, str]]:
+    """人工逐页转录：`papers/<id>/pages/page-NNN.txt`，来源登记在 `papers/<id>/pages.yml`。
+
+    为什么扫描卷要走到「逐页直读页图」这一步
+    ----------------------------------------
+    扫描卷（mock-2027 set-2/3/4）的正文是 OCR 出来的，而实测误识率高到**不能当正文用**：
+    set-2 第 2 页 65 行里数出 40 余处字符错（`删除`→`别除`、`O(1)`→`0(1)`、`时间`→`时同`、
+    `循环`→`衍环`、`哈夫曼`→`哈夫受`、`每`→`等`），还有把**并排的两个选项粘成一行**、
+    把整张表读成单格散字的版面级错误。在题库里这每一条都是**错题**，不是排版瑕疵。
+    **提高 dpi 治不了**：`build/_scratch/probe/ocr_dpi_cmp.py` 在 180/300 dpi 下并排跑过同一页，
+    误识**逐字相同**（该探针自带正/反对照：同 dpi 两次逐字节相同；缩到 0.4 倍明显变差），
+    说明这是模型层面的错，不是分辨率不够——所以只能换通道，不能加码重跑。
+
+    与 `recovered-lines.yml` 的分工
+    ------------------------------
+    后者补的是 OCR 的**局部**漏检（一行、一张表），锚点仍指着 OCR 草稿；
+    本文件替换的是**整页**的文字来源。同一页两者不能并存（锚点是在 OCR 草稿上找的，
+    而这里已经没有那份草稿了），所以被本文件接管的页，其 `recovered-lines.yml` 条目必须删掉——
+    留着会在 `apply_recovered` 里找不到锚点而报错退出（这是有意的：静默跳过等于偷偷少一道题）。
+
+    转录纪律
+    --------
+    · **按底本印刷的折行照抄**（不合并、不重排）——这样段落合并（N4）与选项切分走的是和
+      OCR 通道**完全相同**的代码路径，逐行可对着渲染图核对。
+    · 看不清的字**不许猜**：留原样并在 `pages.yml` 的 `source` 里点名。
+    · 图/表的标注文字不抄进来（它们在 `figures.yml` 裁出的图里可见），表格按 GFM 写。
+    · **印刷上各自成块的短行，行间要留一个空行**（作业轨迹、地址清单、步骤清单）。
+      段落是按空行切的，而正文段落渲染时会做 CJK 合并（`join_lines`）——不留空行，
+      `Job1：…` / `Job2：…` / `Job3：…` 会被拼成**一整行**，结构就没了。
+      实测代价：set2 第 24 题的三行作业轨迹粘成一句（见该页 `pages.yml` 的 source）。
+      注意这跟上面第一条不冲突：折行照抄管的是**句内**折行（要合并），空行管的是
+      **块与块之间**（要分开），两者在底本页图上一眼可辨。
+    """
+    folder = REPO / "papers" / paper_id / "pages"
+    reg = REPO / "papers" / paper_id / "pages.yml"
+    files = {int(f.stem.split("-")[1]): f for f in folder.glob("page-*.txt")} if folder.is_dir() else {}
+    if not reg.is_file():
+        if files:
+            raise SystemExit(f"[md] {paper_id} 有 papers/pages/ 逐页转录但缺 pages.yml（来源登记）")
+        return {}
+    import yaml
+    data = yaml.safe_load(reg.read_text(encoding="utf-8")) or []
+    if not isinstance(data, list):
+        raise SystemExit(f"[md] {reg} 的顶层必须是清单，实际是 {type(data).__name__}")
+    out: dict[int, tuple[Path, str]] = {}
+    for i, e in enumerate(data):
+        if not isinstance(e, dict) or not isinstance(e.get("page"), int) or e["page"] < 1:
+            raise SystemExit(f"[md] {reg} 第 {i + 1} 条的 page 必须是正整数")
+        if not str(e.get("source", "")).strip():
+            raise SystemExit(f"[md] {reg} 第 {i + 1} 条必须有 source（凭什么说这页抄对了）")
+        pno = int(e["page"])
+        if pno in out:
+            raise SystemExit(f"[md] {reg} 第 {pno} 页登记了两次")
+        fn = files.get(pno)
+        if fn is None:
+            raise SystemExit(f"[md] {reg} 登记了第 {pno} 页，但 {folder}/page-{pno:03d}.txt 不存在")
+        out[pno] = (fn, str(e["source"]))
+    orphan = sorted(set(files) - set(out))
+    if orphan:
+        raise SystemExit(f"[md] {paper_id} 有逐页转录文件却没有登记来源：{[f'page-{p:03d}' for p in orphan]}")
+    return out
+
+
+def read_lines(rel: str, overrides: dict[int, tuple[Path, str]] | None = None,
+               log: list | None = None) -> list[tuple[int, str]]:
+    """逐页草稿 → (页码, 原始行)；页脚行、跑版页眉行替换为空行。
+
+    `overrides` 里登记过的页**改用人工转录的正文**（其余页仍走 OCR 草稿）。
+    """
     folder = PAGES / Path(rel).with_suffix("")
     if not folder.is_dir():
         raise SystemExit(f"[md] 找不到逐页草稿：{folder}（先跑 tools/batch_extract.py）")
+    overrides = overrides or {}
     rows: list[tuple[int, str]] = []
     for f in sorted(folder.glob("page-*.txt")):
         pno = int(f.stem.split("-")[1])
-        for line in f.read_text(encoding="utf-8").splitlines():
+        hand = overrides.get(pno)
+        text = (hand[0] if hand else f).read_text(encoding="utf-8")
+        if hand and log is not None:
+            log.append(f"第 {pno} 页：正文取自**人工逐页转录** papers/…/pages/page-{pno:03d}.txt"
+                       f"（{len(text.splitlines())} 行；来源：{hand[1]}）")
+        for line in text.splitlines():
             if RE_FOOTER.search(line):
                 rows.append((pno, ""))
                 continue
@@ -322,9 +409,9 @@ def load_recovered(paper_id: str) -> list[dict]:
         for k in ("q", "page", "mode", "anchor", "source"):
             if k not in e:
                 raise SystemExit(f"[md] {path} 第 {i + 1} 条缺字段 {k}")
-        if e["mode"] not in ("insert_after", "prefix", "opt_mark", "replace"):
+        if e["mode"] not in ("insert_after", "prefix", "opt_mark", "replace", "drop"):
             raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode 只能是 "
-                             f"insert_after/prefix/opt_mark/replace，实际 {e['mode']!r}")
+                             f"insert_after/prefix/opt_mark/replace/drop，实际 {e['mode']!r}")
         if e["mode"] == "opt_mark":
             g = e.get("glyphs")
             if not isinstance(g, dict) or not g:
@@ -334,16 +421,20 @@ def load_recovered(paper_id: str) -> list[dict]:
                     raise SystemExit(f"[md] {path} 第 {i + 1} 条 glyphs 非法："
                                      f"{L!r} → {tok!r}（键须是 A–D、值须非空且不等于该字母）")
             continue
-        if e["mode"] == "replace":
-            if not str(e.get("text", "")).strip():
+        if e["mode"] in ("replace", "drop"):
+            if e["mode"] == "replace" and not str(e.get("text", "")).strip():
                 raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode=replace 必须给 text")
             n = e.get("n", 1)
             if not isinstance(n, int) or n < 1:
-                raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode=replace 的 n 必须是 ≥1 的整数，"
-                                 f"实际 {n!r}")
+                raise SystemExit(f"[md] {path} 第 {i + 1} 条 mode={e['mode']} 的 n 必须是 ≥1 的"
+                                 f"整数，实际 {n!r}")
             if "keep_first" in e and not isinstance(e["keep_first"], bool):
                 raise SystemExit(f"[md] {path} 第 {i + 1} 条 keep_first 只能是 true/false，"
                                  f"实际 {e['keep_first']!r}")
+            for k in ("break_before", "break_after"):
+                if k in e and not isinstance(e[k], bool):
+                    raise SystemExit(f"[md] {path} 第 {i + 1} 条 {k} 只能是 true/false，"
+                                     f"实际 {e[k]!r}")
             continue
         need = "text" if e["mode"] == "insert_after" else "prefix"
         if not str(e.get(need, "")).strip():
@@ -362,9 +453,20 @@ def apply_recovered(paper_id: str, rows: list[tuple[int, str]], log: list,
     for e in entries:
         page = int(e["page"])
         anchor = str(e["anchor"])
+        # 搜索口径必须跟下面的校验口径一致：`replace`/`drop` 是**破坏性**的，它额外要求
+        # 「锚点就是该行的行首」。若搜索仍按子串找，锚点落在别行的子串里就会先命中错行，
+        # 再被行首校验判死——报「锚点不是行首」这种指向错误的死因（Q12 的「指令类」在题干
+        # 「指令类型及数目」里出现过一次，正是这个形状）。
+        # 对现有条目这是**无操作**的：能通过行首校验的条目，其命中行本来就以锚点开头，
+        # 「首个以锚点开头的行」与「首个含锚点的行」必是同一行（startswith ⇒ in）。
+        destructive = e["mode"] in ("replace", "drop")
         idx = None
         for i, (pno, line) in enumerate(rows):
-            if pno == page and anchor in strip_marks(line):
+            if pno != page:
+                continue
+            raw = strip_marks(line)
+            hit = raw.lstrip().startswith(anchor) if destructive else anchor in raw
+            if hit:
                 idx = i
                 break
         if idx is None:
@@ -375,22 +477,36 @@ def apply_recovered(paper_id: str, rows: list[tuple[int, str]], log: list,
             rows.insert(idx + 1, (page, str(e["text"])))
             log.append(f"第 {page} 页：补录第 {e['q']} 题题首行「{e['text']}」"
                        f"（锚点「{anchor}」；来源：{e['source']}）")
-        elif e["mode"] == "replace":
+        elif e["mode"] in ("replace", "drop"):
             n = int(e.get("n", 1))
-            # 锚点那一行必须**确实**是要替换的行：替换比插入危险，它会把原行抹掉。
+            # 锚点那一行必须**确实**是要动的那一行：替换/删除比插入危险，它会把原行抹掉。
             # 所以这里额外要求锚点是该行的**行首**（去掉缩进后 startswith），
-            # 免得正文里偶然含到这个词就把整行换掉。
+            # 免得正文里偶然含到这个词就把整行删/换掉。
             head = str(e["anchor"])
             if not strip_marks(rows[idx][1]).lstrip().startswith(head):
                 raise SystemExit(
                     f"[md] {paper_id} recovered-lines.yml 第 {e['q']} 题：第 {page} 页第 "
                     f"{idx + 1} 行的行首不是锚点「{head}」，实际是"
-                    f"「{rows[idx][1].strip()[:30]}」——替换太危险，必须先核对。")
-            # keep_first：锚点行本身是**正文**（题干），只换它下面 n 行。
+                    f"「{rows[idx][1].strip()[:30]}」——{e['mode']} 太危险，必须先核对。")
+            # keep_first：锚点行本身是**正文**（题干），只动它下面 n 行。
             # set-2 第 7 题就是这种形状——题干行读得对，紧随其后的选项块被读成一堆散数字。
             first = idx + 1 if e.get("keep_first") else idx
             old = [rows[first + k][1] for k in range(n) if first + k < len(rows)]
+            if e["mode"] == "drop":
+                rows[first:first + n] = []
+                log.append(f"第 {page} 页：删掉第 {e['q']} 题处的底本噪声 {len(old)} 行"
+                           f"（锚点「{head}」；原行首「{old[0].strip()[:24]}…」；"
+                           f"来源：{e['source']}）")
+                continue
+            # break_before / break_after：显式插一个**空行**，把这段跟上下段隔开。
+            # 段落是按空行切的（`paragraphs_of`），而注入的 GFM 表若跟题干粘在同一段里，
+            # 会被当成正文合并成一行——表就废了。空行是唯一可靠的切分手段。
+            if e.get("break_before"):
+                rows.insert(first, (page, ""))
+                first += 1
             rows[first:first + n] = [(page, t) for t in str(e["text"]).split("\n")]
+            if e.get("break_after"):
+                rows.insert(first + len(str(e["text"]).split("\n")), (page, ""))
             kf = "（保留锚点行不动）" if e.get("keep_first") else ""
             log.append(f"第 {page} 页：第 {e['q']} 题以页图直读结果替换 OCR 垃圾行{kf} "
                        f"{len(old)} 行 → {len(str(e['text']).split(chr(10)))} 行"
@@ -463,6 +579,9 @@ def force_break(stripped: str, ocr: bool = False) -> bool:
     return len(RE_MANY_SPACES.findall(view)) >= 2
 
 
+RE_GFM_ROW = re.compile(r"^\|.*\|\s*$")
+
+
 def is_codeish(para: dict) -> bool:
     """这一段像不像代码（宽松判据，只用来决定「相邻两段要不要并成一块」）。
 
@@ -478,6 +597,11 @@ def classify_paragraph(lines: list[str]) -> str:
     stripped = [strip_marks(ln.strip()) for ln in lines if ln.strip()]
     if not stripped:
         return "text"
+    # 已成型 的 GFM 表：整段每一行都是 `| … |`。只有 `recovered-lines.yml` 的
+    # `mode: replace` 注入的表格会长这样——全批草稿里 `^\s*\|.*\|\s*$` 命中 **0 行**
+    # （已用 grep 量过），所以这条不会碰任何 OCR 出来的正文。
+    if all(RE_GFM_ROW.match(ln) for ln in stripped):
+        return "gfm"
     code_hits = sum(1 for ln in stripped if RE_CODE_LINE.search(ln))
     if code_hits >= 2 or ("{" in text and "}" in text and code_hits >= 1):
         return "code"
@@ -494,12 +618,44 @@ def _cjk_ratio(text: str) -> float:
     return len(RE_CJK.findall(body)) / len(body) if body else 0.0
 
 
-def paragraphs_of(lines: list[str], ocr: bool = False) -> list[dict]:
+def paragraphs_of(rows: list[tuple[int, str]], ocr: bool = False,
+                  hand_pages: frozenset[int] | set[int] = frozenset()) -> list[dict]:
+    """逐页文本 → 段落。
+
+    `rows` 是 `(页码, 行)`；页码只用来判这一段文字**出自哪条通道**
+    （OCR 草稿 / `pages/page-NNN.txt` 人工转录）。
+
+    ⚠️ `hand_pages` 里的页**关掉 OCR 宽容口径**（`force_break(..., ocr=False)`）。
+    这不是优化，是**纠正口径错配**：那套宽容是为了补 OCR 丢掉的**分隔符**
+    （`A若有向图…` 的标记点号没了），人工转录**不做 OCR**，标点该有就有、该没就没，
+    把所有宽容都套上去只会把正文切碎。实测代价（set2 第 4 页，人工转录的正文）：
+    第 21 题的题干是一条整句，其中一行以 `CPU` 开头，被宽容口径判成「C 选项行」而强行
+    断段，题干中间凭空裂出一个空行——那不是底本的版式，是**工具造出来的**。
+    """
     paras: list[list[str]] = []
     buf: list[str] = []
     code_mode = False
-    for raw in lines:
+    fence: list[str] | None = None
+    for pno, raw in rows:
         line = raw.rstrip()
+        # 显式围栏：`papers/<id>/pages/` 里的**人工转录**用它把版面讲明白，
+        # 免得去依赖为 OCR 设计的那套启发式。实测那些启发式对这种三列行
+        # （`1  loop: sll R1,R2,2    (R2)<<2 → R1`）判不出代码：RE_CODE_LINE 认的是
+        # `//`、`{`、行尾 `;` 这些**源码**特征，汇编行一个都不占，于是整段被当正文合并，
+        # 列就塌成一行。OCR 草稿里不存在 ``` 行（全批已 grep 过 0 命中），故这条对
+        # 真题 18 卷与 set-1 是**可证的无操作**。
+        if line.strip().startswith("```"):
+            if fence is None:
+                if buf:
+                    paras.append(buf); buf = []
+                fence = [line.strip()]
+            else:
+                fence.append(line.strip())
+                paras.append(fence); fence = None
+            continue
+        if fence is not None:
+            fence.append(line)
+            continue
         if not line.strip():
             if buf:
                 paras.append(buf); buf = []
@@ -516,14 +672,22 @@ def paragraphs_of(lines: list[str], ocr: bool = False) -> list[dict]:
             code_mode = False
         if hint:
             code_mode = True
-        if force_break(stripped, ocr) and buf:
+        tolerant = ocr and pno not in hand_pages
+        if force_break(stripped, tolerant) and buf:
             paras.append(buf); buf = []
         buf.append(line)
+    if fence is not None:
+        raise SystemExit(f"[md] 转录正文里有没闭合的 ``` 围栏（{fence[0]} 起）")
     if buf:
         paras.append(buf)
 
     out: list[dict] = []
     for lines_ in paras:
+        if lines_[0].strip().startswith("```"):
+            inner = lines_[1:-1] if lines_[-1].strip().startswith("```") else lines_[1:]
+            out.append({"lines": inner, "kind": "fenced",
+                        "lang": lines_[0].strip()[3:].strip() or "text"})
+            continue
         item = {"lines": lines_, "kind": classify_paragraph(lines_)}
         # 代码的每一行都命中 force_break，于是被切成一段一行；这里把**连续的**
         # 代码段并回一块，否则围栏会变成一堆只有一行的代码块。
@@ -719,6 +883,19 @@ def render_blocks(paras: list[dict], log: list, ocr: bool = False) -> str:
             out.append(inline_text(join_lines(para["lines"]), log, ocr))
             out.append("")
             continue
+        if kind == "gfm":
+            # 已成型 的 GFM 表：逐行原样输出，不合并、不加围栏。
+            # **恰好**每条 `|` 行单独一行是 GFM 表的定义，合并就废了。
+            out.extend(ln.rstrip() for ln in para["lines"] if ln.strip())
+            out.append("")
+            continue
+        if kind == "fenced":
+            # 人工转录里显式写出的围栏：语言标注照抄，行**原样**保留（含缩进与对齐空白）。
+            out.append(f"```{para.get('lang') or 'text'}")
+            out.extend(ln.rstrip() for ln in para["lines"])
+            out.append("```")
+            out.append("")
+            continue
         fence = {"code": "c", "table": "text", "verbatim": "text"}[kind]
         out.append(f"```{fence}")
         out.extend(ln.rstrip() for ln in para["lines"] if ln.strip())
@@ -728,10 +905,14 @@ def render_blocks(paras: list[dict], log: list, ocr: bool = False) -> str:
 
 
 def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False,
-            glyphs_by_q: dict[int, dict[str, str]] | None = None) -> dict:
+            glyphs_by_q: dict[int, dict[str, str]] | None = None,
+            hand_pages: frozenset[int] | set[int] = frozenset()) -> dict:
     """按行切题：题号必须**严格等于下一个期望号**才认，防止正文里的「1.」误切。
 
     `drop` 给出已由坐标搬走（进表格/进图片题注）的行，避免同一份内容出现两遍。
+    `hand_pages` 原样转交给 `paragraphs_of`（属于人工转录的页 → 不套 OCR 宽容口径）；
+    正文里**逐行记页号**（`seg["lines"]` 是 `(页码, 行)`），就是为了让这个判断能落到
+    行上——一道题可以跨页，而两条通道可能同时供同一道题。
     """
     segs: dict[int, dict] = {}
     cursor = 0
@@ -765,7 +946,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
             no = int(m.group(1))
             pos = EXPECTED.index(no) if no in EXPECTED else -1
             if pos == cursor:
-                cur = {"no": no, "lines": [m.group(2)], "pages": [pno]}
+                cur = {"no": no, "lines": [(pno, m.group(2))], "pages": [pno]}
                 segs[no] = cur
                 cursor += 1
                 continue
@@ -788,7 +969,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
                 log.append(f"第 {pno} 页：题号从 {EXPECTED[cursor]} 跳到 {no}，"
                            f"跳过未取到的 {skipped}（留空 stub，不填内容）")
                 stats["resync"] = stats.get("resync", 0) + 1
-                cur = {"no": no, "lines": [m.group(2)], "pages": [pno]}
+                cur = {"no": no, "lines": [(pno, m.group(2))], "pages": [pno]}
                 segs[no] = cur
                 cursor = pos + 1
                 continue
@@ -807,7 +988,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
                 continue
             if hit:
                 continue
-            cur["lines"].append(line)
+            cur["lines"].append((pno, line))
 
     # 计划要剔的行里，有哪些**没在文本流里出现**？出现不了就是两边的行切法不一致，
     # 说明表格文字可能还残留在题干里——必须报出来，不能悄悄放过。
@@ -821,7 +1002,7 @@ def segment(rows: list[tuple[int, str]], log: list, drop=None, ocr: bool = False
     fig_refs: list[tuple[int, str, int]] = []
     tables: list[int] = []
     for no, seg in segs.items():
-        paras = paragraphs_of(seg["lines"], ocr)
+        paras = paragraphs_of(seg["lines"], ocr, hand_pages)
         seg["paras"] = paras
         joined = "\n".join(p["raw"] for p in paras)
         got = extract_options(joined, ocr, (glyphs_by_q or {}).get(no))
@@ -1297,14 +1478,15 @@ def main(argv: list[str] | None = None) -> int:
     figs_by_q = load_figures(paper_id)
     tables_by_q, drop, tstats = collect_tables(objs, figs_by_q)
     log: list[str] = []
-    rows = read_lines(paper_rel)
+    hand = load_page_overrides(paper_id)
+    rows = read_lines(paper_rel, hand, log)
     glyphs_by_q: dict[int, dict[str, str]] = {}
     rows = apply_recovered(paper_id, rows, log, glyphs_by_q)
     ocr = is_scanned(paper_rel)
     if ocr:
         log.append("本卷逐页草稿来自扫描件 OCR（method≠text-layer）→ 启用宽容口径："
                    "题号分隔符接受全角逗号，选项标记的点号可缺（仍要求 A→B→C→D 四连）")
-    data = segment(rows, log, drop, ocr, glyphs_by_q)
+    data = segment(rows, log, drop, ocr, glyphs_by_q, hand_pages=set(hand))
     data["tables_by_q"] = tables_by_q
     data["figs_by_q"] = figs_by_q
     segs = data["segments"]

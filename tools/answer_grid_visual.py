@@ -29,6 +29,14 @@
 ----
     python -I tools/answer_grid_visual.py --render            # 重新渲染并落盘证据
     python -I tools/answer_grid_visual.py --check exams/2013  # 只校验某一卷的形状
+    python -I tools/answer_grid_visual.py --check mock-2027/set-2
+
+读数对象（key）
+---------------
+  · 真题 `2019`              → `sources/exams/answers/2019-answer.pdf`
+  · 模拟卷 `mock-2027/set-2` → `sources/mock-2027/pdf/mock2027-set2-solution.pdf`
+落盘名 `build/_scratch/answer-visual/<stem>.json`（真题 `2019-answer.json`、
+模拟卷 `mock2027-set2-solution.json`），`tools/md_solutions.py` 的 `load_grid` 按这个名字取。
 """
 from __future__ import annotations
 
@@ -62,6 +70,11 @@ BANDS: dict[str, tuple[tuple[float, float, float, float], tuple[float, float], f
     "2024": ((14.0, 112.0, 588.0, 418.0), (595.32, 841.92), 3.0),
     "2025": ((14.0, 112.0, 588.0, 418.0), (595.32, 841.92), 3.0),
     "2026": ((14.0, 112.0, 588.0, 418.0), (595.32, 841.92), 3.0),
+    # 2027 模拟卷（整本扫描件，和 2019/2024—2026 一样只剩直读这一路）。
+    # 版式与真题不同：这张表是 **10 列 × 4 行**、题号与字母同框，行优先读
+    # （01—10 / 11—20 / 21—30 / 31—40），表格下方紧接着就是逐题解析。
+    # 页面是 515.88×728.52（与 2021 卷同尺寸）。
+    "mock-2027/set-2": ((40.0, 115.0, 516.0, 220.0), (515.88, 728.52), 4.0),
 }
 
 # ── 读数：人眼逐格读出，按「行优先、每行从左到右」拼成 40 个字母。──
@@ -94,6 +107,13 @@ VISUAL_READS: dict[str, tuple[str, list[str]]] = {
              ["BDDBD", "CCCAD", "ADDDC", "BCBAA", "BADCC", "BDCCA", "CBBCC", "CBABA"]),
     "2026": ("ADCBDDBDBAACABADACAADCCDDACCDBDDBDBBBACD",
              ["ADCBD", "DBDBA", "ACABA", "DACAA", "DCCDD", "ACCDB", "DDBDB", "BBACD"]),
+    # 2027 模拟卷（10 列 × 4 行）
+    # 2026-10-17 读 set-2：裁带图 `build/_scratch/answer-visual/mock2027-set2-solution-band.png`
+    # （x40—516 / y115—220 @ 4.0×，页 515.88×728.52）逐格读出。
+    # 与逐题解析流那一路**逐位相同**（见 `build/_scratch/reports/mock-2027-set-2-solutions.md`），
+    # 也回填了只有单路命中的第 18 题（解析流单路给 D，本表直读亦为 D）。
+    "mock-2027/set-2": ("DDBCDDDACAACABBCCDDCBBCACDDDBCACDBBCDDBB",
+                        ["DDBCDDDACA", "ACABBCCDDC", "BBCACDDDBC", "ACDBBCDDBB"]),
 }
 
 
@@ -113,21 +133,52 @@ def validate(year: str) -> list[str]:
     return errs
 
 
-def render(year: str, force: bool = False) -> tuple[Path, str]:
+def source_pdf(key: str) -> Path:
+    """读数对象（key）→ 底本 PDF。
+
+    key 两种写法：
+      · `2019`            —— 真题卷，读 `sources/exams/answers/2019-answer.pdf`；
+      · `mock-2027/set-2` —— 2027 模拟卷，读 `sources/mock-2027/pdf/mock2027-set2-solution.pdf`。
+    模拟卷的答案卷**整本是扫描件**（文字层 0 字符），与 2019/2024—2026 一样只剩
+    「人工直读」这一路，所以并到同一个工具里、同一套证据格式。
+    """
+    if "/" in key:
+        kind, rest = key.split("/", 1)
+        if kind != "mock-2027":
+            raise SystemExit(f"[visual] 不认识的读数对象：{key}")
+        return (REPO / "sources" / "mock-2027" / "pdf"
+                / f"mock2027-set{rest.split('-')[1]}-solution.pdf")
+    return REPO / "sources" / "exams" / "answers" / f"{key}-answer.pdf"
+
+
+def out_stem(key: str) -> str:
+    """读数对象的输出来源名：真题 `2019-answer` / 模拟卷 `mock2027-set2-solution`。
+
+    `tools/md_solutions.py` 的 `load_grid` 按这个名字去 `answer-visual/` 里找
+    `<stem>.json`，所以两边必须**逐字一致**（改这里要同步改那边）。
+    """
+    if "/" in key:
+        _kind, rest = key.split("/", 1)          # rest = `set-2`（不能拿整串 split('-')：
+        return f"mock2027-set{rest.split('-')[1]}-solution"   # `mock-2027/set-2` 会切出 `2027/set`）
+    return f"{key}-answer"
+
+
+def render(key: str, force: bool = False) -> tuple[Path, str]:
     """按登记的裁带重新渲染那张图 → (图路径, sha256)。已有且参数一致就直接复用。"""
     import pymupdf
 
-    band, (pw, ph), zoom = BANDS[year]
-    pdf = REPO / "sources" / "exams" / "answers" / f"{year}-answer.pdf"
+    band, (pw, ph), zoom = BANDS[key]
+    pdf = source_pdf(key)
     if not pdf.is_file():
         raise SystemExit(f"[visual] 缺底本：{pdf}")
     OUT_ROOT.mkdir(parents=True, exist_ok=True)
-    shot = OUT_ROOT / f"{year}-band.png"
+    # 真题的图名一直是 `<年>-band.png`（历史证据文件就叫这个名，不改），模拟卷用 stem
+    shot = OUT_ROOT / ((f"{out_stem(key)}-band.png") if "/" in key else f"{key}-band.png")
     with pymupdf.open(str(pdf)) as doc:
         page = doc[0]
         # 页面尺寸对不上 → 登记的裁带就不是这张图上的位置，宁可报错也不许沿用
         if abs(page.rect.width - pw) > 0.6 or abs(page.rect.height - ph) > 0.6:
-            raise SystemExit(f"[visual] {year} 第 1 页尺寸变成了 "
+            raise SystemExit(f"[visual] {key} 第 1 页尺寸变成了 "
                              f"{page.rect.width:.1f}×{page.rect.height:.1f}，"
                              f"登记的是 {pw}×{ph}；裁定要重读，不许沿用旧读数")
         if force or not shot.is_file():
@@ -154,9 +205,10 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.check:
-        year = args.check.split("/", 1)[1]
-        s, rows = VISUAL_READS[year]
-        print(f"✅ {year}: {len(s)}/40 个字母，分行 {len(rows)} 行、共 {len(''.join(rows))} 字符")
+        # `--check exams/2013`（真题）或 `--check mock-2027/set-2`（模拟卷）
+        key = args.check if args.check.startswith("mock-") else args.check.split("/", 1)[1]
+        s, rows = VISUAL_READS[key]
+        print(f"✅ {key}: {len(s)}/40 个字母，分行 {len(rows)} 行、共 {len(''.join(rows))} 字符")
         return 0
 
     if not args.render:
@@ -164,20 +216,20 @@ def main(argv: list[str] | None = None) -> int:
               + "、".join(sorted(VISUAL_READS)))
         return 0
 
-    for year in sorted(VISUAL_READS):
-        s, rows = VISUAL_READS[year]
-        shot, sha = render(year, force=args.force)
-        band, (pw, ph), zoom = BANDS[year]
-        dst = OUT_ROOT / f"{year}-answer.json"
+    for key in sorted(VISUAL_READS):
+        s, rows = VISUAL_READS[key]
+        shot, sha = render(key, force=args.force)
+        band, (pw, ph), zoom = BANDS[key]
+        dst = OUT_ROOT / f"{out_stem(key)}.json"
         dst.write_text(json.dumps({
-            "paper": f"{year}-answer", "source": "human-visual",
+            "paper": out_stem(key), "source": "human-visual",
             "page": 1, "answers": {str(i + 1): c for i, c in enumerate(s)},
             "rows": rows,
             "evidence": {"image": f"build/_scratch/answer-visual/{shot.name}",
                          "image_sha256": sha, "band": list(band),
                          "page_size": [pw, ph], "zoom": zoom},
         }, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
-        print(f"✅ {year}: {s}  ← {shot.name} (sha256 {sha[:12]}…)")
+        print(f"✅ {key}: {s}  ← {shot.name} (sha256 {sha[:12]}…)")
     return 0
 
 
