@@ -75,6 +75,9 @@ BANDS: dict[str, tuple[tuple[float, float, float, float], tuple[float, float], f
     # （01—10 / 11—20 / 21—30 / 31—40），表格下方紧接着就是逐题解析。
     # 页面是 515.88×728.52（与 2021 卷同尺寸）。
     "mock-2027/set-2": ((40.0, 115.0, 516.0, 220.0), (515.88, 728.52), 4.0),
+    # set-3 的答案表比 set-2 低一截（`page_bands.py` 量得四行分别起于 y148/167/187/206，
+    # 表格右侧到 x469），故裁带取 y138—222：四行全在框内、又不碰下方第 1 题的解析行（y229）。
+    "mock-2027/set-3": ((40.0, 138.0, 480.0, 222.0), (515.88, 728.52), 4.0),
 }
 
 # ── 读数：人眼逐格读出，按「行优先、每行从左到右」拼成 40 个字母。──
@@ -114,6 +117,13 @@ VISUAL_READS: dict[str, tuple[str, list[str]]] = {
     # 也回填了只有单路命中的第 18 题（解析流单路给 D，本表直读亦为 D）。
     "mock-2027/set-2": ("DDBCDDDACAACABBCCDDCBBCACDDDBCACDBBCDDBB",
                         ["DDBCDDDACA", "ACABBCCDDC", "BBCACDDDBC", "ACDBBCDDBB"]),
+    # 2026-10-18 读 set-3：裁带图 `build/_scratch/answer-visual/mock2027-set3-solution-band.png`
+    # （x40—480 / y138—222 @ 4.0×，页 515.88×728.52）逐格读出，行优先 01—10 / 11—20 / 21—30 / 31—40。
+    # 与逐题解析流那一路**逐位相同**（见 `build/_scratch/reports/mock-2027/set-3-solutions.md`），
+    # 并回填了只有单路命中的第 36 题（解析流单路给 A，本表直读亦为 A）——该题在本卷 OCR 草稿里
+    # 被折成 `36.` / `.A` 两行，行内配对失败，故 md_solutions 的「解析流」那一路仍只算单源。
+    "mock-2027/set-3": ("BCBCDADDDBBDBCDDDCCCBDDACADDBBCDCBBADABA",
+                        ["BCBCDADDDB", "BDBCDDDCCC", "BDDACADDBB", "CDCBBADABA"]),
 }
 
 
