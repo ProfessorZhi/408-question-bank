@@ -44,16 +44,16 @@ questions:
   - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: "答案字母由源答案 PDF 第1页选择题答案表 500dpi 渲染图目视复核补录（本卷该页为纯扫描件、无文本层），非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: "答案字母由源答案 PDF 第1页选择题答案表 500dpi 渲染图目视复核补录（本卷该页为纯扫描件、无文本层），非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: "答案字母由源答案 PDF 第1页选择题答案表 500dpi 渲染图目视复核补录（本卷该页为纯扫描件、无文本层），非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 25, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: "答案字母由源答案 PDF 第1页选择题答案表 500dpi 渲染图目视复核补录（本卷该页为纯扫描件、无文本层），非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: ""}
   - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: ""}
