@@ -78,6 +78,10 @@ BANDS: dict[str, tuple[tuple[float, float, float, float], tuple[float, float], f
     # set-3 的答案表比 set-2 低一截（`page_bands.py` 量得四行分别起于 y148/167/187/206，
     # 表格右侧到 x469），故裁带取 y138—222：四行全在框内、又不碰下方第 1 题的解析行（y229）。
     "mock-2027/set-3": ((40.0, 138.0, 480.0, 222.0), (515.88, 728.52), 4.0),
+    # set-4 的答案表紧接在「一、单项选择题」标题（y126—133）之下（`page_bands.py` 量得
+    # 四行分别起于 y146/164/181/199，四行都到 x469—470），故裁带取 y138—212：
+    # 四行全在框内、又不碰下方第 1 题的解析行（y229）。
+    "mock-2027/set-4": ((38.0, 138.0, 476.0, 212.0), (515.88, 728.52), 4.0),
 }
 
 # ── 读数：人眼逐格读出，按「行优先、每行从左到右」拼成 40 个字母。──
@@ -124,6 +128,14 @@ VISUAL_READS: dict[str, tuple[str, list[str]]] = {
     # 被折成 `36.` / `.A` 两行，行内配对失败，故 md_solutions 的「解析流」那一路仍只算单源。
     "mock-2027/set-3": ("BCBCDADDDBBDBCDDDCCCBDDACADDBBCDCBBADABA",
                         ["BCBCDADDDB", "BDBCDDDCCC", "BDDACADDBB", "CDCBBADABA"]),
+    # 2026-10-18 读 set-4：裁带图 `build/_scratch/answer-visual/mock2027-set4-solution-band.png`
+    # （x38—476 / y138—212 @ 4.0×，页 515.88×728.52）逐格读出，行优先 01—10 / 11—20 / 21—30 / 31—40。
+    # 读数时另用 6× 左右两半（`build/_scratch/probe/s4grid-L.png`、`s4grid-R.png`）复核过一遍：
+    # 每格都是「题号. 字母」同框，40 格题号 01—40 连续无缺、无重号。
+    # 与逐题解析流那一路**逐位相同**（见 `build/_scratch/reports/mock-2027-set-4-solutions.md`），
+    # 也与本卷 OCR 草稿 `page-001.txt` 的 40 行 `NN.X` 逐位相同——三路一致。
+    "mock-2027/set-4": ("BAADCCACBABDBAAABCDABCBCCDBDDABDBCDCACAD",
+                        ["BAADCCACBA", "BDBAAABCDA", "BCBCCDBDDA", "BDBCDCACAD"]),
 }
 
 

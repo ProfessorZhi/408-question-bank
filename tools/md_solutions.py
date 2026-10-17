@@ -671,9 +671,22 @@ def main(argv: list[str] | None = None) -> int:
               f"**没有**用任何方式补全。")
     # 有人工转录页时在卷首单独点一句（哪几页是人抄的、来源登记在哪），
     # 没有转录页的卷子这一项是空表 —— 卷首一个字符都不变，老卷子重跑逐字节相同。
+    # 「其余页」指的是**综合题实际用到的页**里没被人工接管的那几页。set-2/set-3 的第 5 页
+    # （第 41 题起头）仍是 OCR 草稿，那句「其余页为 OCR 初稿」对它们成立；set-4 把综合题
+    # 实际用到的 5—8 页全接管了，「其余页」是空集，再照抄那句就是**把没有的事写进卷首**，
+    # 所以这一支改成照实说全部人工转录。两份旧卷的输出因此逐字节不变。
+    comp_pages = sorted({p for seg in comp.values() for p in seg["pages"]})
+    ocr_pages = [p for p in comp_pages if p not in hand]
     hand_note = (["> 综合题答案的第 " + "、".join(str(p) for p in sorted(hand))
                   + " 页为**人工转录**（按底本页图逐字抄；来源与核对记录见 `solution-pages.yml`），"
-                  "其余页为 OCR 初稿。"] if hand else [])
+                  + ("其余页为 OCR 初稿。" if ocr_pages
+                     else "即本卷综合题的答案页**全部**为人工转录。")]
+                 if hand else [])
+    ocr_note = (["> 综合题文字若来自扫描件则为 **OCR 初稿**，存在形近误识"
+                 "（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，",
+                 "> 核对前请勿当作定论。逐题状态见 `meta.yml`。"]
+                if (ocr_pages or not hand) else
+                ["> 底本的印写错误一律照抄未改（逐条记在 `meta.yml`）；逐题状态见 `meta.yml`。"])
     out = [
         f"<!-- paper: {paper_id} | kind: solutions | status: needs-review -->",
         f"# {title}",
@@ -687,9 +700,7 @@ def main(argv: list[str] | None = None) -> int:
          if grid else
          "> 选择题答案来自逐题解析流（该卷卷首答案表未能整表读出）。"),
         *hand_note,
-        "> 综合题文字若来自扫描件则为 **OCR 初稿**，存在形近误识"
-        "（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，",
-        "> 核对前请勿当作定论。逐题状态见 `meta.yml`。",
+        *ocr_note,
         "",
         "## 一、单项选择题（1—40 题，每小题 2 分，共 80 分）",
         "",

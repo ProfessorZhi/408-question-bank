@@ -20,63 +20,92 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: mixed        # text-layer | ocr | manual | mixed
+  tool: "pymupdf 1.28.2 + rapidocr-onnxruntime 1.4.4"
+  date: 2026-10-18
 counts:
   choice: 40
   comprehensive: 7
   total: 47
+# 全卷学科归属**是本仓库按题干内容判的**（模拟卷正文不印学科分界）。本卷为
+# 数据结构 13（1—11、41、42）／计算机组成原理 13（12—22、43、44）／
+# 操作系统 12（23—32、45、46）／计算机网络 9（33—40、47）。与真题卷的 11/11/10/8
+# 不同：第 10 题（选择-置换排序，外部排序）按大纲归数据结构；第 22 题（I/O 接口）
+# 与第 31、32 题（SSD、格式化）按大纲分别归计算机组成原理与操作系统。
 questions:
-  - {"no": 1, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 42, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 43, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 44, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 45, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 1, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；题内 C 代码块是**浅灰印刷**（灰度约 190/255），按原生 JPEG（2.5×）裁切＋灰度拉伸逐行读定；7 行缩进按 3 字符宽的印刷版式归一化为 0/4/8 空格（版式归一化，非逐像素照抄）"}
+  - {"no": 2, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 3, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 4, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；**`M₂ + M₂` 照抄未改**：B 项印的是第 2 棵树结点数 `M₂` 加自己（4 倍与 6 倍两次读数一致，OCR 草稿亦为 `M2+M2`）；数学上更可能是 `M₁ + M₂`，属底本缺陷，留待原卷复核"}
+  - {"no": 5, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；**分隔符混印照语义统一**：关键字串底本前两个是逗点、后三个像句点，按「关键字序列」统一取「，」，逗点后照抄一个空格"}
+  - {"no": 6, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；C 项「查找」二字笔画明显重于同句其他字（疑印刷加重），未作强调、未改字；B 项经 5 倍对照确认是「后继」不是「前驱」"}
+  - {"no": 7, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-002.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；题干「下列关于图的陈述说法错误的是」——底本四个字就是「陈述说法」（语义重复，6×7 倍确认无缺字），照抄"}
+  - {"no": 8, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-003.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 9, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-003.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；题图（有序图／拓扑图）见 `assets/q9-fig.png`；图内 8 个顶点、10 条有向边不抄进正文，入度 0 只有 P、线性扩展恰 6 个（与选项 B 自洽）"}
+  - {"no": 10, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-003.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；题干首字「下」底本**印刷残损**（只剩一横一短竖，形如「卜」），按同卷第 6、8 题同一句式的「下列关于」补回——按同页句式补回一个不可辨的字，点名于此；「选择-置换排序」与 III 项的「置换选择排序」两种叫法底本如此，均照抄"}
+  - {"no": 11, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-003.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 12, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-003.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 13, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-003.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 14, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 15, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 16, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 17, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 18, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 19, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 20, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 21, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 22, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 23, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-004.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 24, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 25, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 26, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 27, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 28, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 29, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 30, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-005.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；I 项标记的句点被扫描吞掉（20 倍下只剩一根竖线，墨色明显浅），按同组 II—V 行的「I./II./III./IV./V.」版式补一个句点——按同组标记补回一个被吞掉的标点，点名于此；IV 项是唯一印有句末句点的，其余照印刷"}
+  - {"no": 31, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 32, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 33, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 34, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 35, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 36, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 37, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-006.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 1—4 页）；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；题图（两个无线局域网、H1—AP1—AP2—H2 虚线链路）见 `assets/q37-fig.png`；题干里的 MAC 串逐字核对，图内标注不抄进正文"}
+  - {"no": 38, status: needs-review, confidence: medium, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-007.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 5 页）；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 39, status: needs-review, confidence: medium, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-007.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 5 页）；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck；**「已经建立了 TCP 建立」照抄未改**：题面两字确为「建」「立」（16 倍复核），语义上应为「连接」，属底本缺陷，留待原卷复核"}
+  - {"no": 40, status: needs-review, confidence: medium, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-007.txt`）／答人工直读卷首答案表＋逐题解析流（解析落在底本第 5 页）；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（`tools/answer_grid_visual.py` 人工直读答案表 4 行 × 10 列 + 逐题解析流，40/40 逐位一致），见 review.qa.answer_crosscheck"}
+  - {"no": 41, status: needs-review, confidence: medium, topic: 数据结构, notes: "题人工逐页转录（`pages/page-007.txt`）／答人工逐页转录（`solution-pages/page-005.txt`）；未人工对照底本；答案见底本第 5 页；题图（9 个结点的基数树）见 `assets/q41-fig.png`；五条路径读出的关键字恰为 S = {1011, 10, 011, 100, 0}，边方向经自洽校验。答案侧 `（2）` 末句底本写「匹配到非深色**节点**」、同段前三处写「深色**结点**」——底本「结点／节点」摇摆，两处都照原印，留待原卷复核；代码块 5 行按每级 4 空格重排（实测级差 16.2pt），`bool isEnd;` 与 `//` 间 2 个空格、`string result;` 与 `//` 间 1 个空格照抄"}
+  - {"no": 42, status: needs-review, confidence: medium, topic: 数据结构, notes: "题人工逐页转录（`pages/page-008.txt`）／答人工逐页转录（`solution-pages/page-005.txt`、`page-006.txt`）；未人工对照底本；答案见底本第 5—6 页；答案侧第 `(2)` 问 26 行代码按每级 4 空格重排（四级左缘 93.5／109.8／125.8／141.8pt，级差 16.2pt），两级函数之间空一行照抄；**「每个顶点的要检查」照抄未改**——底本把「都」印成「的」，留待原卷复核；`根据汇编代码可以看出一条指令` 的「看出／一条」间隙 2.24pt（正常字距 1.5pt），按两端对齐拉伸判定无空格"}
+  - {"no": 43, status: needs-review, confidence: medium, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-008.txt`）／答人工逐页转录（`solution-pages/page-006.txt`）；未人工对照底本；答案见底本第 6 页；题面代码段按 fenced code 转；答案侧 `2^{5}=32`／`2^{6}-40-1=23` 按 `^{}` 记；**「且则哪些指令」照抄未改**——底本两字确为「且则」（10 倍复核），读不通属底本用词问题，留待原卷复核"}
+  - {"no": 44, status: needs-review, confidence: medium, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-009.txt`）／答人工逐页转录（`solution-pages/page-006.txt`、`page-007.txt`）；未人工对照底本；答案见底本第 6—7 页；题图（数据通路）见 `assets/q44-fig.png`；答案侧 `PCout`／`MARin` 等的 in/out 与 `PC` 同为基线（墨高 4.88pt vs 7.0pt、底边同为 y78.12），**不是下标**；**「加减运算有意义」处二次压印**（16 倍下五个字互相叠压），按可见笔画取字，不作字符级定论，留待原卷复核"}
+  - {"no": 45, status: needs-review, confidence: medium, topic: 操作系统, notes: "题人工逐页转录（`pages/page-009.txt`）／答人工逐页转录（`solution-pages/page-007.txt`）；未人工对照底本；答案见底本第 7 页；答案侧**资源分配图**裁自底本第 7 页（x191—330 / y178—303），4 倍存为 `assets/q45-ans-fig.png`（556×500），图上存在环路 P1→R1→P2→R4→P3→R2→P1，与正文「无法化简」自洽；**「只能进程主动释放」照抄未改**（「只能」后缺「由」），留待原卷复核；题干「5 类临界资源」实列 R1—R4 **四种**（数量 1、2、2、1），底本自相矛盾，原样保留"}
+  - {"no": 46, status: needs-review, confidence: medium, topic: 操作系统, notes: "题人工逐页转录（`pages/page-010.txt`）／答人工逐页转录（`solution-pages/page-007.txt`、`page-008.txt`）；未人工对照底本；答案见底本第 7—8 页；题图（DMA 控制器）见 `assets/q46-fig.png`；答案侧**两张图**裁自底本第 7 页：`assets/q46-ans-fig1.png`（模式位图，x107—415 / y445—539，1232×376）、`assets/q46-ans-fig2.png`（用户／内核空间图，x78—444 / y537—654，1464×468）；用户/内核空间图里 `write()` 框内 `int $0x80;` 与「I/O 指令属于特权指令」自洽；题图上 `coun` 疑为 `count`（引出线压住末笔），图内标注不抄进正文"}
+  - {"no": 47, status: needs-review, confidence: medium, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-010.txt`）／答人工逐页转录（`solution-pages/page-008.txt`）；未人工对照底本；答案见底本第 8 页；题图（网络拓扑）见 `assets/q47-fig.png`；答案侧路由表按 GFM 转录（表头 1 行 + 数据 5 行，照抄行序；「下一跳」的短线实测 w=4.75pt、厚 0.4—0.75pt，写成 ASCII `-`）；下一跳 `130.110.12.1`／`130.110.10.1` 与拓扑图标注逐字一致。**底本三处照抄未改**：题干「某网络拓扑所下图所示」（疑为「如」）、第 (1) 问「部门 1 的员工等于部门 2 的员工数量」（主宾不对称）、第 (3) 问两处「达到局域网 1」（底本不是「到达」）——均留待原卷复核"}
 errata: []
+# 本卷答案卷（`mock2027-set4-solution.pdf`）第 1 页**没有**「勘误：」清单：那一页是
+# 「一、单项选择题」+ 卷首答案表（4 行 × 10 列，共 40 格）+ 逐题解析的开头。所以
+# errata 是空的**不是漏抄**，而是底本本来就没有这一节；底本自身的印错/异体记在
+# 对应题的 notes 里（第 4 题 `M₂+M₂`、第 39 题「TCP 建立」、第 43 题「且则」、
+# 第 45 题「5 类临界资源」实列 4 种、第 47 题「所下图所示」与「达到」等）。
 review:
-  proofread_by: []
+  proofread_by: []          # 尚无人工逐字对照底本 —— 全卷仍是 needs-review / ocr-uncertain
   proofread_at: null
-  qa: null
+  qa:
+    date: 2026-10-18
+    tool: tools/qa_paper.py papers/mock-2027/set-4
+    result: 阻断 0 卷；choice=40/40、comp=7/7、total=47/47；C4/C5/C6 无告警，无 options_in_figure 登记项
+    # ⚠️ 列表项一律加引号：普通标量里出现 `: `（冒号+空格）会被 YAML 当成映射键。
+    answer_crosscheck: >-
+      选择题 40/40 由**两条独立通道**逐题取到且逐位一致：卷首答案表的**人工直读**
+      （`tools/answer_grid_visual.py` 登记 `mock-2027/set-4`，裁带 x38—476 / y138—212 @4.0×，
+      证据图 `build/_scratch/answer-visual/mock2027-set4-solution-band.png`，
+      sha256 `667fa7ab529535e35c6214d830d39cd52ee85154f4ca6573b3f6029480f90a88`，
+      4 行 × 10 列逐格读出）与逐题解析流（`NN.X。【解析】…`）。40 格的题号连续、无重号；
+      直读串与 OCR 草稿 `page-001.txt` 的 40 行 `NN.X` **逐位一致**。工具在任何一处见到
+      同号不同字母就**留空并点名**——不猜、不取多数。阳性对照沿用本仓库既有做法（改一处、
+      看工具是否点名、再还原并核对 sha256），本卷未另做——此处如实记为**沿用**，不是本卷新做的实验。
+    known_gaps:
+      - "答案侧第 1—4 页仍是 OCR 草稿：选择题只取答案字母（散文解析不进 solutions.md），答案字母本身已由答案表直读双源校验；第 37 题的解析起于第 4 页、末两行在第 5 页，解析正文未进产物。"
+      - "状态分布 37 ocr-uncertain / 10 needs-review（由 `tools/meta_status.py` 按实际来源复算：第 1—37 题的答案字母落在底本第 1—4 页、那 4 页仍是 OCR，记 ocr-uncertain；第 38—40 题的解析在第 5 页、第 41—47 题全在人工转录的第 5—8 页，记 needs-review）。**没有一题写成 proofread**：题目卷与答案卷第 5—8 页虽已人工逐页转录，但尚未逐字对照底本 PDF 做校对。"
+      - "存疑项（照抄未改，留待原卷复核）：题目卷第 4 题 `M₂+M₂`（数学上更像 `M₁+M₂`）、第 10 题首字「下」印刷残损按句式补回、第 30 题 I 项句点被扫描吞掉按同组补回、第 39 题「TCP 建立」、第 43 题「且则」、第 45 题「5 类临界资源」实列 4 种、第 47 题「所下图所示」；答案卷第 39 题三处括号宽窄不可辨（按全角统一）、第 41 题「非深色节点／深色结点」摇摆、第 42 题「顶点的要检查」、第 44 题「加减运算有意义」二次压印、第 45 题「只能进程」缺「由」、第 47 题「员工数量」「达到」、第 46 题图上 `coun` 疑为 `count`。"
+      - "答案侧插图共 3 张（`assets/q45-ans-fig.png`、`q46-ans-fig1.png`、`q46-ans-fig2.png`），均按 4 倍渲染、`alpha=False`，与 `tools/crop_figures.py` 同口径；题目卷的 6 张题图（第 9、37、41、44、46、47 题）不回填进解答——set-1/set-2 的答案卷同样无图，**不在本次回填**。"
+      - "题图与答案图的图内标注（IP、MAC、接口名、结点关键字、寄存器名、控制信号名、位宽）一律不抄进正文，只在 `figures.yml` / `solution-pages.yml` 与本题 notes 里登记。"
