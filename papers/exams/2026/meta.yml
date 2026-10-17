@@ -68,13 +68,13 @@ questions:
   - {"no": 38, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
   - {"no": 39, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
   - {"no": 40, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 42, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 43, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 44, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 45, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 46, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 47, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 综合, notes: "按源页第1—3页重录；代码嵌套依缩进判定（底本花括号印成细竖线），打印块置于 while 之后，语句未改"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 综合, notes: "按源页第3页重录（P_j<P_k<P_i 经 400dpi 确认）；未验算"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 综合, notes: "按源页第3—4页重录；二进制串按源页分组保留；未验算"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 综合, notes: "按源页第4页重录（IR7~4、IR11~0 经 400dpi 确认）；未验算"}
+  - {"no": 45, status: needs-review, confidence: low, topic: 综合, notes: "按源页第4页重录；未验算"}
+  - {"no": 46, status: needs-review, confidence: low, topic: 综合, notes: "按源页第5页重录（取整公式已恢复）；未验算"}
+  - {"no": 47, status: needs-review, confidence: low, topic: 综合, notes: "按源页第5—6页重录（S_i 下标恢复）；未验算"}
 errata: []
 review:
   proofread_by: []
