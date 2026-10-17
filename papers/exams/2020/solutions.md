@@ -3,7 +3,7 @@
 
 > 来源：`sources/exams/answers/2020-answer.pdf`。转写记录见 `build/_scratch/reports/exams-2020-solutions.md`。
 > 选择题答案：已从底本切出 40/40 题。
-> 选择题答案来自卷首答案表（`tools/answer_grid_ocr.py` 读页面像素 + `tools/answer_grid.py` 读文字层，两路互校）与逐题解析流，逐题来源见各题上方注释。
+> 选择题答案来自卷首答案表（`tools/answer_grid*.py` 的三路读法互校：OCR 读页面像素 / 读文字层 / 人工直读裁带图，哪几路读到就哪几路互校）与逐题解析流，逐题来源见各题上方注释。
 > 综合题文字若来自扫描件则为 **OCR 初稿**，存在形近误识（如 `pminl`/`BTreeroot`/`elseif`），**未擅自改写**，
 > 核对前请勿当作定论。逐题状态见 `meta.yml`。
 
