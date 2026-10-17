@@ -20,63 +20,70 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: mixed        # text-layer | ocr | manual | mixed
+  tool: "题干：main 25f1217 按源页第2—10页人工逐页转录（pages/page-00N.txt、pages.yml）+ figures.yml 局部裁图；解析：源分支 RapidOCR 初稿 + 源页渲染图核验（2026-10-17）"
+  date: "2026-10-18"
 counts:
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 42, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 43, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 44, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 45, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 46, status: pending, confidence: null, topic: 未知, notes: ""}
-  - {"no": 47, status: pending, confidence: null, topic: 未知, notes: ""}
+  - {"no": 1, status: needs-review, confidence: low, topic: 数据结构, notes: "程序段取自 main 25f1217 的源页第2页人工转录（pages/page-002.txt）；签名行笔画过淡，参数表由正文两条调用反证；行尾左花括号不可辨、未补入；未 proofread"}
+  - {"no": 2, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 3, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 4, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 5, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 6, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 7, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 8, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 9, status: needs-review, confidence: low, topic: 数据结构, notes: "有向图按 figures.yml 从源页第3页裁入 assets/q9-fig.png 并嵌入题干；顶点/边方向见 figures.yml 的自洽校验；未 proofread"}
+  - {"no": 10, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 11, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 12, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 13, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 14, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 15, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 16, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 17, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 18, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "汇编代码按源页校正为小写 $s0–$s4，修复原稿未配对的 LaTeX 记号；未 proofread"}
+  - {"no": 19, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 20, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 21, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 22, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 23, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 24, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 25, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 26, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 27, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 28, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 29, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 30, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 31, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 32, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 33, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 34, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 35, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 36, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 37, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 38, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 39, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 45, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 46, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 47, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
 errata: []
 review:
   proofread_by: []
   proofread_at: null
-  qa: null
+  qa:
+    date: 2026-10-18
+    tool: tools/qa_paper.py papers/mock-2027/set-4
+    result: 阻断 0；choice=40/40、comp=7/7、total=47/47；C5/C6 可解析
+    reconciliation: >-
+      本卷题面保留 main 25f1217 的人工逐页转录与 pages/figures 证据；解答与 40 个选择题答案
+      来自 PR8 446c78e（答案与源答案表第 1 页逐条比对一致）。题面仅补充 PR8 的源卷疑点注释，
+      未改题干/选项；proofread 仍为 0，C10 未做。
