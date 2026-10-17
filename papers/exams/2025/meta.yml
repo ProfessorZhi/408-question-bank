@@ -68,13 +68,13 @@ questions:
   - {"no": 38, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
   - {"no": 39, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
   - {"no": 40, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 42, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 43, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 44, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 45, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 46, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 47, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 综合, notes: "2026-10-18 按源页 PDF 第1—2页重录，代码块按原页补全结构；未独立验算；未 proofread"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 综合, notes: "按源页第2页重录（关键活动 a/e/m/n、b/c/d、j 余量 6 已核）；未验算"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 综合, notes: "按源页第2—3页重录（VA11~VA6、0180 01B0H、129/4096≈3.15%、8.3 周期）；未验算"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 综合, notes: "按源页第3—4页重录（初值 FFFF FFFFH / 8765 4321H / 0000 00FFH）；十六进制分组按源页保留"}
+  - {"no": 45, status: needs-review, confidence: low, topic: 综合, notes: "按源页第4页重录；源页为甲乙丙三栏并列表格，此处按角色分列；伪代码；未验算"}
+  - {"no": 46, status: needs-review, confidence: low, topic: 综合, notes: "按源页第4—5页重录；未验算"}
+  - {"no": 47, status: needs-review, confidence: low, topic: 综合, notes: "按源页第5页重录；嵌套分数与 2^k≥W_s+1 已按源页恢复；未独立验算"}
 errata: []
 review:
   proofread_by: []
