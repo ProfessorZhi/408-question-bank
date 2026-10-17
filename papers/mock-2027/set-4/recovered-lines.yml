@@ -1,58 +1,26 @@
-# 底本 OCR 漏检行的人工补录（mock-2027/set-4）
+# 底本 OCR 漏检行的人工补录（mock-2027/set-4）—— **当前为空**
 #
 # 这卷的底本是扫描件，RapidOCR 在 180dpi 下把**两道题的题首整行**读丢了：第 5 题、第 40 题。
 # 丢的不是个别字，是整行——所以题号与题干都不在草稿里，而它们的四个选项却在，
 # 结果就是这两题在 questions.md 里只剩一个空 stub。正文在底本里**确实存在**，
-# 用另一条通道取回来，逐条登记在这里。字段含义见 tools/md_from_pages.py `load_recovered`。
+# 当初用另一条通道取回来，逐条登记在这里。字段含义见 tools/md_from_pages.py `load_recovered`。
 #
-# 纪律：锚点找不到时工具会**报错退出**，绝不静默跳过；这里的 text 一律标明是怎么读出来的。
-
-- q: 5
-  page: 2
-  mode: insert_after
-  anchor: "D.M2+M3"
-  text: "05. 将关键字41，38，31，12，19，8依次插入空的红黑树后，下列对结果的树说法错误的是( )。"
-  source: "页图直读：本页 y300–500 以 3× 渲染成 build/_scratch/probe/set4-p2-q5b.png 后读出。同页 300dpi 重跑 RapidOCR 也能读出该行，但误识较多（漏「将」、`，`→`。`、「插入」→「插人」），故以直读为准"
-
-- q: 40
-  page: 7
-  mode: insert_after
-  anchor: "D.5KB"
-  text: "40. 下列关于网络应用模型的叙述中，错误的是( )。"
-  source: "页图直读：本页 y180–360 以 3× 渲染成 build/_scratch/probe/set4-p7-q40b.png 后读出。题号印在悬挂缩进位（正文左外侧），180dpi 与 300dpi 两轮都只读到它的四个选项"
-
-# ── 选项**标记字形**的登记（mode: opt_mark） ─────────────────────────────────
+# 纪律：锚点找不到时工具会**报错退出**，绝不静默跳过；条目的 text 一律标明是怎么读出来的。
 #
-# 这两道题的选项正文都在草稿里，切不出来只是因为标记那个字印刷残缺、被 OCR 认错。
-# 字形必须**逐题登记**：`13.` 在全批出现 12 次且**全部是题号 13**
-# （见 build/_scratch/probe/glyph_scan.py），放宽正则就会误切。
-# 登记只替换**前缀那一个字**，正文一字不动。
-
-- q: 27
-  page: 5
-  mode: opt_mark
-  anchor: "·0x12334"
-  glyphs: {"A": "·"}
-  source: "页图直读：本卷第 5 页 y400–540 以 5× 渲染成 build/_scratch/probe/set4-p5-q27c.png。A 的标记印刷残缺到只剩一个小点，RapidOCR 读成「·」；B/C/D 三个标记正常。登记后 A 的正文取草稿原有的 `0x12334`（与 B `0x12234`、C `0x43210`、D `0x22234` 并列，且符合题干「物理地址 18 位」）"
-
-- q: 37
-  page: 7
-  mode: opt_mark
-  anchor: "13. 01-23-45-67-89-0a"
-  glyphs: {"B": "13"}
-  source: "页图直读：本卷第 7 页 y30–260 以 4× 渲染成 build/_scratch/probe/set4-p7-top.png，B 的标记印刷残缺（形似「13.」）；A/C/D 三个标记正常"
-
-# ── OCR 整段毁损、按页图整行替换（mode: replace） ─────────────────────────────
+# ── 试题卷第 2—7 页转人工逐页转录后，原有的五条全部删除（2026-10-18） ─────────
 #
-# 第 2 题的四个选项是 C 语句序列，底本 OCR 把这**四行**读成了
-# `X=Ad<dx=xu<d<d<d=d<-x=<x` 这种完全的垃圾（一个可辨认的词都没有），
-# 所以既不能靠正则切分、也不能靠字形登记——只能把该页渲染出来直接读。
-# `n: 4` 表示从锚点那一行起替换 4 行；原 OCR 文本仍留在逐页草稿里，可随时比对。
-
-- q: 2
-  page: 2
-  mode: replace
-  n: 4
-  anchor: "X=Ad<d"
-  text: "A. x -> next = p; x -> prev = p -> prev; p -> prev -> next = x; p -> prev = x;\nB. x -> next = p; x -> prev = p -> prev; p -> prev = x; p -> prev -> next = x;\nC. x -> next = p; p -> prev = x; x -> prev = p -> prev; p -> prev -> next = x;\nD. p -> prev = x; x -> next = p; x -> prev = p -> prev; p -> prev -> next = x;"
-  source: "页图直读：本卷第 2 页 y250–340 以 5× 渲染成 build/_scratch/probe/set4-p2-q2-d.png，四行选项清晰可读，逐一照抄（未做任何「顺手改正」）。同页 y30–320 的 4× 全区域图 build/_scratch/probe/set4-p2-q2.png 可交叉核对"
+# 被 `pages/page-00N.txt` + `pages.yml` 接管的页，整页正文不再经过草稿，锚点也就落空了；
+# 按 `load_page_overrides` 的约定，这些条目必须删掉（留着会在 `apply_recovered` 里找不到锚点
+# 而报错退出——这是有意的：静默跳过等于偷偷少一道题）。删掉的是：
+#
+#   · q: 5   insert_after  anchor "D.M2+M3"                —— 第 5 题题首整行（第 2 页）
+#   · q: 2   replace       anchor "X=Ad<d"                 —— 第 2 题四个选项（第 2 页）
+#   · q: 27  opt_mark      anchor "·0x12334"               —— 第 27 题 A 标记残损（第 5 页）
+#   · q: 40  insert_after  anchor "D.5KB"                  —— 第 40 题题首整行（第 7 页）
+#   · q: 37  opt_mark      anchor "13. 01-23-45-67-89-0a"  —— 第 37 题 B 标记残损（第 7 页）
+#
+# 这些内容现在都直接写在对应的 `pages/page-00N.txt` 里；读法、判据与「底本此处残损」的说明
+# 记在 `pages.yml` 同页的 source 中。第 2 页那条 q2 `replace` 的四行选项，当初正好成了人工
+# 转录的**第三方互证**。
+#
+# 保留文件本身（而不是删文件）是为了留下上面这份「为什么清空」的账。
