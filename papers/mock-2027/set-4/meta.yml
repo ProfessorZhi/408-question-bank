@@ -21,60 +21,60 @@ sources:
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
   method: mixed        # text-layer | ocr | manual | mixed
-  tool: "解析：源分支 RapidOCR 初稿 + 源页渲染图人工核验；题干仍为 main 的机器转录稿"
+  tool: "题干：源页渲染图逐题核对重录（本分支 2026-10-17，另修 Q1 缺失程序段、Q9 缺图、Q18 寄存器大小写）；解析：源分支 RapidOCR 初稿 + 源页渲染图核验"
   date: "2026-10-17"
 counts:
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 2, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 3, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 4, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 5, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 6, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 7, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 8, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 9, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 10, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 11, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 12, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 13, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 14, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 15, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 16, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 17, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 18, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 19, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 20, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 21, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 22, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 23, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 24, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 25, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 26, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 27, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 28, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 29, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 30, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 31, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 32, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 33, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 34, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 35, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 36, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 37, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 38, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 39, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 40, status: needs-review, confidence: low, topic: 未知, notes: "答案字母取自源 PDF 第1页答案表并逐条复核；解析自源分支迁入；题干仍为 main 机器转录稿，未对照原文；未 proofread"}
-  - {"no": 41, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 42, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 43, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 44, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 45, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 46, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
-  - {"no": 47, status: needs-review, confidence: low, topic: 综合, notes: "综合题解析自源分支迁入（OCR 转写，未独立验算）；未 proofread"}
+  - {"no": 1, status: needs-review, confidence: low, topic: 数据结构, notes: "程序段已按源页第2页高倍放大图重录并补入（原稿缺失）；签名行笔画过淡，参数表由正文两条调用反证；未 proofread"}
+  - {"no": 2, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 3, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 4, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 5, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 6, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 7, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 8, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 9, status: needs-review, confidence: low, topic: 数据结构, notes: "有向图已从源页第3页裁入 assets/q9-fig1.png 并嵌入题干（原稿缺图且引用不存在的ZIP附件）；未 proofread"}
+  - {"no": 10, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 11, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 12, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 13, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 14, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 15, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 16, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 17, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 18, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "汇编代码按源页校正为小写 $s0–$s4，修复原稿未配对的 LaTeX 记号；未 proofread"}
+  - {"no": 19, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 20, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 21, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 22, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 23, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 24, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 25, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 26, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 27, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 28, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 29, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 30, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 31, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 32, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 33, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 34, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 35, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 36, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 37, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 38, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 39, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/选项按源页渲染图复核（2026-10-17 本分支）；未 proofread"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 数据结构, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 45, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 46, status: needs-review, confidence: low, topic: 操作系统, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
+  - {"no": 47, status: needs-review, confidence: low, topic: 计算机网络, notes: "题干/分问与解析按源页渲染图核对；解析为 OCR 转写，未独立验算；未 proofread"}
 errata: []
 review:
   proofread_by: []
