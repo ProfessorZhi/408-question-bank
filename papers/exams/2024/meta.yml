@@ -68,13 +68,13 @@ questions:
   - {"no": 38, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
   - {"no": 39, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
   - {"no": 40, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 42, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 43, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 44, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 45, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 46, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
-  - {"no": 47, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 41, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第1—3页渲染图逐字重录（去水印、代码块按原页缩进还原）；底本此处**有**「41.【答案要点】」题号（原稿注释称题号缺失，已更正）；证明过程未独立验算"}
+  - {"no": 42, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第3页渲染图逐字重录（去水印；散列表按原页 11 列还原为表格，7 项/α=7/11）；证明过程未独立验算"}
+  - {"no": 43, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第3—5页渲染图逐字重录（去水印；2^5、log_2 32 上标已还原；原稿末尾误串入的第41题代码尾已删除）；证明过程未独立验算"}
+  - {"no": 44, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第5页渲染图逐字重录（去水印；原稿「7」「rl」「α」已按原页纠正为 i、r1、a）；证明过程未独立验算"}
+  - {"no": 45, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第5—6页渲染图逐字重录（去水印；<< / >> 与等号已按原页恢复）；证明过程未独立验算"}
+  - {"no": 46, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第6页渲染图逐字重录（去水印；两张伪代码表按原页左右两列还原）；证明过程未独立验算"}
+  - {"no": 47, status: needs-review, confidence: low, topic: 未知, notes: "2026-10-18 按答案 PDF 第6页渲染图逐字重录（去水印；原稿「160」系「16。」误识，已按原页纠正）；证明过程未独立验算"}
 errata: []
 review:
   proofread_by: []
