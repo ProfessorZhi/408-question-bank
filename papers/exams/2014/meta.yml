@@ -29,45 +29,45 @@ counts:
   total: 47
 questions:
   - {"no": 1, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 3, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 4, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 5, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 6, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 7, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 8, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 2, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 3, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 4, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 5, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 6, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 7, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 8, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 9, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 11, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 12, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 13, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 10, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 11, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 12, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 13, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 25, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 30, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 31, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 32, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 30, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 31, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 32, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 33, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 35, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 36, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 37, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 38, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 39, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
-  - {"no": 40, status: needs-review, confidence: null, topic: 未知, notes: "答案字母缺失，待人工核对原页"}
+  - {"no": 34, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 35, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 36, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 37, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 38, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 39, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
+  - {"no": 40, status: needs-review, confidence: null, topic: 未知, notes: "答案字母取自源答案 PDF 第1页选择题答案表（该页有文本层），以第1页 420dpi 渲染图逐格目视读出并与文本层几何配对交叉核对，非从题目推断；解析仍未转录，未 proofread"}
   - {"no": 41, status: blocked, confidence: null, topic: 未知, notes: "源中未定位到答案"}
   - {"no": 42, status: blocked, confidence: null, topic: 未知, notes: "源中未定位到答案"}
   - {"no": 43, status: blocked, confidence: null, topic: 未知, notes: "源中未定位到答案"}
