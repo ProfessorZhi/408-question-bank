@@ -1,0 +1,45 @@
+name: Source spot inspection (temporary)
+
+on:
+  push:
+    branches: [work/408-v1-source-repairs-20261019]
+
+permissions:
+  contents: read
+
+jobs:
+  source-spots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install pymupdf
+      - name: Extract focused source-PDF visual evidence
+        run: |
+          python - <<'PY'
+          import base64
+          import fitz
+          SPOTS = [
+              ("2010-q8-graph", "sources/exams/papers/2010.pdf", 1, .38, 0, 1, .57),
+              ("2017-q43-formula", "sources/exams/papers/2017.pdf", 6, 0, 0, 1, .54),
+              ("2025-q13-exponents", "sources/exams/papers/2025.pdf", 1, 0, 0, 1, .65),
+              ("2022-q7-graph", "sources/exams/papers/2022.pdf", 0, .43, 0, 1, .72),
+              ("2013-q45-answer", "sources/exams/answers/2013-answer.pdf", 9, 0, 0, 1, .70),
+              ("2012-q42-code", "sources/exams/answers/2012-answer.pdf", 8, 0, .40, 1, 1),
+              ("2015-q43-answer", "sources/exams/answers/2015-answer.pdf", 6, 0, 0, 1, .66),
+          ]
+          for tag, file, index, x0, y0, x1, y1 in SPOTS:
+              doc = fitz.open(file)
+              page = doc[index]
+              clip = fitz.Rect(page.rect.width*x0, page.rect.height*y0,
+                               page.rect.width*x1, page.rect.height*y1)
+              pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5),
+                                   clip=clip, colorspace=fitz.csGRAY, alpha=False)
+              b = base64.b64encode(pix.tobytes("png")).decode()
+              print(f"AUDIT_IMG|{tag}|{b}", flush=True)
+              if tag in ("2017-q43-formula", "2025-q13-exponents"):
+                  txt = page.get_text()
+                  print(f"AUDIT_TEXT|{tag}|{txt[:3500]!r}", flush=True)
+          PY
