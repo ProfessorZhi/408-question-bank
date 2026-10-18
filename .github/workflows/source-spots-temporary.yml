@@ -41,6 +41,10 @@ jobs:
               ("2010-q29-source", "sources/exams/papers/2010.pdf", 3, 0, 0, 1, .63),
               ("2013-q13-source", "sources/exams/papers/2013.pdf", 1, 0, 0, 1, .60),
               ("2015-q38-source", "sources/exams/papers/2015.pdf", 3, 0, .16, 1, 1),
+              ("2011-answer-q42-p9", "sources/exams/answers/2011-answer.pdf", 8, 0, 0, 1, 1),
+              ("2011-answer-q42-p10", "sources/exams/answers/2011-answer.pdf", 9, 0, 0, 1, 1),
+              ("2017-answer-q41", "sources/exams/answers/2017-answer.pdf", 5, 0, 0, 1, 1),
+              ("2017-answer-q46", "sources/exams/answers/2017-answer.pdf", 8, 0, 0, 1, 1),
               ("2009-q41-fig1", "sources/exams/answers/2009-answer.pdf", 6, .16, .394, .415, .488),
               ("2009-q41-fig2", "sources/exams/answers/2009-answer.pdf", 6, .595, .382, .825, .488),
           ]
