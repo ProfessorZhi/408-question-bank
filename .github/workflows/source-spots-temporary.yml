@@ -56,3 +56,25 @@ jobs:
                   txt = page.get_text()
                   print(f"AUDIT_TEXT|{tag}|{txt[:3500]!r}", flush=True)
           PY
+      - name: Report residual source-transcription anomalies
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          pattern = re.compile(r'[\u0d80-\u0dff\u1c80-\u1c8f\u0250-\u02af\u1100-\u11ff]|(?:(?:20[0-2][0-9])\s*年全国硕士研究生入学统一考试.{12,130}第\s*\d+页)|本题未从底本切出|Semaph0|1\\.nt')
+          files = []
+          for base in (Path('papers/exams'), Path('papers/mock-2027')):
+              for file in base.rglob('*.md'):
+                  if '2026/' in str(file):
+                      continue
+                  files.append(file)
+          n = 0
+          for f in files:
+              hits = [(i, line.strip()) for i, line in enumerate(f.read_text(encoding='utf-8').splitlines(), 1) if pattern.search(line)]
+              n += len(hits)
+              if hits:
+                  print(f'SUSPECT {f} count={len(hits)}', flush=True)
+                  for i, t in hits[:4]:
+                      print(f'  L{i} {t[:160]}', flush=True)
+          print(f'SUSPECT_TOTAL={n} in {len(files)} markdown files', flush=True)
+          PY
