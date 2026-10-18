@@ -39,8 +39,8 @@ jobs:
               ("2009-q42-code", "sources/exams/answers/2009-answer.pdf", 7, 0, 0, 1, .80),
               ("2009-q41-figures", "sources/exams/answers/2009-answer.pdf", 6, 0, 0, 1, 1),
               ("2010-q29-source", "sources/exams/papers/2010.pdf", 3, 0, 0, 1, .63),
-              ("2009-q41-fig1", "sources/exams/answers/2009-answer.pdf", 6, .16, .365, .415, .488),
-              ("2009-q41-fig2", "sources/exams/answers/2009-answer.pdf", 6, .595, .362, .825, .488),
+              ("2009-q41-fig1", "sources/exams/answers/2009-answer.pdf", 6, .16, .386, .415, .488),
+              ("2009-q41-fig2", "sources/exams/answers/2009-answer.pdf", 6, .595, .382, .825, .488),
           ]
           for tag, file, index, x0, y0, x1, y1 in SPOTS:
               doc = fitz.open(file)
