@@ -279,26 +279,33 @@ CDcount = O, p和q指向链表表头结点的下一个结点；
 ®p指向下一个结点，转＠；
 © 若count等于k, 则查找成功，输出该结点的data域的值，返回1; 否则，说明K值超过了线性表的长度，查找失败，返回0;
 ＠算法结束。
-3)算法实现：
-typedef int Elem.Type;               ／／链表数据的类型定义
-typedef struct LNode{               II链表结点的结构定义
-ElemType                 .  data;                ／／结点数据
-struct Lnode *link;               ／／结点链接指针
-) *LinkList;
-in七  Search k(LinkList list,int k)  [
-／／查找链表list倒数第k个结点，并输出该结点data域的值
-LinkList p=list->link,q=lis七一>link;    //指针p、q指示第一个结点
-int countɰO;   .
-while (p  ! =NULL} {                 II遍历链表直到最后一个结点
-if(count<k} count++;             ／／计数，若count<k只移动p
-else q=q->link;p=p->link;        ／／之后让p、q同步移动
-} .//while
-if(count<k)
-return  O;                   II查找失败返回0
-else   {                       ／／否则打印并返回1
-printf ("%ct"  , q--->data};
-return  l;
-} //Search_k
+3）算法实现（按 2009-answer.pdf 第 8 页恢复）：
+
+```c
+typedef int ElemType;
+typedef struct LNode {
+    ElemType data;
+    struct LNode *link;
+} *LinkList;
+
+int Search_k(LinkList list, int k) {
+    LinkList p = list->link, q = list->link;
+    int count = 0;
+    while (p != NULL) {
+        if (count < k)
+            count++;
+        else
+            q = q->link;
+        p = p->link;
+    }
+    if (count < k)
+        return 0;
+    else {
+        printf("%d", q->data);
+        return 1;
+    }
+}
+```
 提示：算法程序题，如果能够写出数据结构类型定义，正确的算法思想都会至少给一半以上分数，如果能用伪代码写出自然更好，比较复杂的地方可以直接用文字表达。
 【评分说明】＠若所给出的算法采用一遍扫描方式就能得到正确结果，可给满分15分；若采用两遍或多遍扫描才能得到正确结果的，最高给10分；若采用递归算法得到正确结果的，最高给10分；若实现算法的空间复杂度过高（使用了大小与K有关的辅助数组），但结果正确，最高给10分；若实现的算法的空间复杂度过高（使用了大小与K有关的辅助数组），但结果正确，最高给10分。
 ＠若在算法基本思想描述和算法步骤描述中因文字表达没有非常清晰地反映出算法的思路，但在算法实现中能够清晰看出算法思想和步骤且正确，按照O的标准给分。
@@ -417,7 +424,7 @@ counteven();
 
 【答案要点】
 
-1)根据页式管理的工作原理，应先考虑页面大小，以便将页号和页内位移分解出来。页面大小为4KB, 即i ^{2}, 则得到页内位移占虚地址的低12位，页号占剩余高位。可得三个虚地址的页号P如下（十六进制的一位数字转换成4位二进制，因此，十六进制的低三位正好为页内位移，最高位为页号）：
+1)根据页式管理的工作原理，应先考虑页面大小，以便将页号和页内位移分解出来。页面大小为 4KB，即 $2^{12}$ B， 则得到页内位移占虚地址的低12位，页号占剩余高位。可得三个虚地址的页号P如下（十六进制的一位数字转换成4位二进制，因此，十六进制的低三位正好为页内位移，最高位为页号）：
 2362H: P = 2, 访问快表lOns, 因初始为空，访问页表lOOns得到页框号，合成物理地址后访问主存lOOns, 共计lOns + lOOns + lOOns = 2lOns。
 1565H: P = 1, 访问快表lOns, 落空，访问页表lOOns落空，进行缺页中断处理10 ^{8} ns, 访问快表lOns, 合成物理地址后访问主存lOOns, 共计lOns + lOOns + 10 ^{8} ns + 1  Ons + lOOns  =
 100000220  ns。
