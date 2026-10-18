@@ -403,29 +403,39 @@ I    主存字块标记                  I   Cache字块标记           1  字�
 
 ### 第 45 题
 
-<!-- 底本第 11 页；OCR 初稿，未逐字核对 -->
+<!-- 来源：2011-answer.pdf 第 11 页；按扫描页重新恢复同步伪代码，不修改来源答案逻辑 -->
 
 【答案要点】
 
-1)互斥资源：取号机（一次只一位顾客领号），因此设一个互斥信号量mutex。
-2)同步问题：顾客需要获得空座位等待叫号，当营业员空闲时，将选取一位顾客并为其服务。
-空座位的有、无影响等待顾客数量，顾客的有、无决定了营业员是否能开始服务，故分别设置信号量empty和full来实现这一同步关系。另外，顾客获得空座位后，需要等待叫号和被服务。这样，顾客与营业员就服务何时开始又构成了一个同步关系，定义信号量service来完成这一同步过程。
-emaphor.e empty=lO;                                                 . //空座位的数量        :s
-semaphore mutex=l;               / /互斥使用取号机
-semaphore fuHɖO;        //已占座位的数量
-semaphore service=O;      II等待叫号
-process顾客i{
-P (empty);                      I I等空位                                                                                                                                                      ·
-P (mutex) ; •                    I I申请使用取号机从取号机上取号；
-V(rnutex);            ／／取号完毕
-V(full);           ／／通知营业员有新顾客
-P(service);          II等待营业员叫号接受服务；
-｝
-process营业员{
-while (Trui:l)J
-p (full).;         ／／没有顾客则休息
-V(empty);         ／／离开座位
-V(service);         II叫号为顾客服务；
+1）互斥资源：取号机一次只允许一位顾客领号，设置互斥信号量 `mutex`。
+
+2）同步问题：顾客须获得空座位等候叫号；营业员空闲时选取一位顾客提供服务。空座位数由 `empty` 表示，已占座位数量由 `full` 表示；顾客等候营业员叫号的同步由 `service` 实现。
+
+```text
+semaphore empty = 10;    // 空座位数量
+semaphore mutex = 1;     // 互斥使用取号机
+semaphore full = 0;      // 已占座位数量
+semaphore service = 0;   // 等待叫号
+
+process 顾客 i {
+    P(empty);            // 等空位
+    P(mutex);            // 申请使用取号机
+    从取号机上取号;
+    V(mutex);            // 取号完毕
+    V(full);             // 通知营业员有新顾客
+    P(service);          // 等待营业员叫号
+    接受服务;
+}
+
+process 营业员 {
+    while (True) {
+        P(full);         // 没有顾客则休息
+        V(empty);        // 离开座位
+        V(service);      // 叫号
+        为顾客服务;
+    }
+}
+```
 
 ### 第 46 题
 
