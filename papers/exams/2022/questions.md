@@ -88,8 +88,8 @@ D. 当| V | > | E | + 1 时，G 一定是不连通的
 
 下图是一个有10 个活动的AOE 网，时间余量最大的活动是。
 
-<!-- 源卷第 1 页；历史文件名 q6-fig.png，实为 Q7 AOE 图 -->
-![第 7 题 AOE 网](assets/q6-fig.png)
+<!-- 源卷第 1 页；已核实 AOE 图属 Q7 -->
+![第 7 题 AOE 网](assets/q7-fig.png)
 
 A. c
 B. g
