@@ -99,7 +99,7 @@ python tools/build_paper.py papers/mock-2027/set-1 --teacher -o build/
 python tools/build_paper.py --all --both -o build/
 
 # 5) 如需构建不属于 v1 范围的 2026 卷，必须显式选择
-python tools/build_paper.py --all --both --include-2026 -o build/
+python tools/build_paper.py --all --both --include-2026 -o build-with-2026/
 
 # 6) 本地复现构建器的自测和产物验收
 python tools/selftest_build.py
