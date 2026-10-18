@@ -29,6 +29,14 @@ jobs:
               ("2013-q45-answer", "sources/exams/answers/2013-answer.pdf", 9, 0, 0, 1, .70),
               ("2012-q42-code", "sources/exams/answers/2012-answer.pdf", 8, 0, .40, 1, 1),
               ("2015-q43-answer", "sources/exams/answers/2015-answer.pdf", 6, 0, 0, 1, .66),
+              ("2010-q44-program", "sources/exams/papers/2010.pdf", 7, 0, 0, 1, .86),
+              ("2009-q13-float", "sources/exams/papers/2009.pdf", 1, 0, 0, 1, .68),
+              ("2009-q27-size", "sources/exams/papers/2009.pdf", 2, 0, 0, 1, .55),
+              ("2012-q14-float", "sources/exams/papers/2012.pdf", 1, 0, 0, 1, .66),
+              ("2015-q41-code", "sources/exams/answers/2015-answer.pdf", 5, 0, .25, 1, 1),
+              ("2013-q45-start", "sources/exams/answers/2013-answer.pdf", 8, 0, .40, 1, 1),
+              ("2016-q43-code", "sources/exams/answers/2016-answer.pdf", 9, 0, 0, 1, .85),
+              ("2009-q42-code", "sources/exams/answers/2009-answer.pdf", 7, 0, 0, 1, .80),
           ]
           for tag, file, index, x0, y0, x1, y1 in SPOTS:
               doc = fitz.open(file)
