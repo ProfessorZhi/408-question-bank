@@ -45,6 +45,10 @@ jobs:
               ("2011-answer-q42-p10", "sources/exams/answers/2011-answer.pdf", 9, 0, 0, 1, 1),
               ("2017-answer-q41", "sources/exams/answers/2017-answer.pdf", 5, 0, 0, 1, 1),
               ("2017-answer-q46", "sources/exams/answers/2017-answer.pdf", 8, 0, 0, 1, 1),
+              ("2011-q42-code-p9", "sources/exams/answers/2011-answer.pdf", 8, .12, .59, .91, 1),
+              ("2011-q42-code-p10", "sources/exams/answers/2011-answer.pdf", 9, .13, 0, .90, .32),
+              ("2017-q41-code", "sources/exams/answers/2017-answer.pdf", 5, .11, .32, .90, .64),
+              ("2017-q46-table", "sources/exams/answers/2017-answer.pdf", 8, .16, .13, .84, .61),
               ("2009-q41-fig1", "sources/exams/answers/2009-answer.pdf", 6, .16, .394, .415, .488),
               ("2009-q41-fig2", "sources/exams/answers/2009-answer.pdf", 6, .595, .382, .825, .488),
           ]
@@ -53,7 +57,7 @@ jobs:
               page = doc[index]
               clip = fitz.Rect(page.rect.width*x0, page.rect.height*y0,
                                page.rect.width*x1, page.rect.height*y1)
-              scale = 3.0 if tag.startswith("2009-q41-fig") else 1.5
+              scale = 3.0 if tag.startswith(("2009-q41-fig", "2011-q42-code", "2017-q41-code", "2017-q46-table")) else 1.5
               pix = page.get_pixmap(matrix=fitz.Matrix(scale, scale),
                                    clip=clip, colorspace=fitz.csGRAY, alpha=False)
               b = base64.b64encode(pix.tobytes("png")).decode()
