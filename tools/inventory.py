@@ -27,8 +27,18 @@ for _s in (sys.stdout, sys.stderr):  # Windows 控制台默认 GBK
 REPO = Path(__file__).resolve().parent.parent
 
 
+# 与 .gitattributes（`* text=auto eol=lf`）对齐：文本文件按 LF 归一后再算哈希。
+# 不归一的话，在 Windows 工作区对尚未归一的 CRLF 文件算哈希，得到的是「另一个文件」
+# 的指纹 —— 而 CI 在 Linux 上按 blob 算，于是报哈希漂移，可内容一个字节都没变。
+TEXT_SUFFIXES = {".md", ".txt", ".yml", ".yaml", ".json", ".py", ".csv"}
+
+
 def sha256_of(path: Path, chunk: int = 1 << 20) -> str:
     h = hashlib.sha256()
+    if path.suffix.lower() in TEXT_SUFFIXES:
+        # 这里的文本文件都很小，整体读入后归一，省掉跨块 CRLF 的边界处理。
+        h.update(path.read_bytes().replace(b"\r\n", b"\n"))
+        return h.hexdigest()
     with path.open("rb") as fh:
         while True:
             block = fh.read(chunk)

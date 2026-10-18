@@ -13,20 +13,20 @@
     },
     {
       "path": "sources/_upstream-licenses/DongDong20050214-408-Exam-Markdown/README.md",
-      "bytes": 13452,
-      "sha256": "5385e033ae568dc811c04c6bf6d3829a8628be7b7b0d735f243a634ad9767035",
+      "bytes": 13031,
+      "sha256": "bf425c781c6488aa9a733e59bb85c8ec32ce8f36bf6b753507ec0d2d9c82c900",
       "ext": ".md"
     },
     {
       "path": "sources/_upstream-licenses/neville-studio-408-exam-paper/LICENSE",
-      "bytes": 1092,
-      "sha256": "74f3299a22f192558acff3c466964e571de4d72cb552401d9130c8c0f616dfc2",
+      "bytes": 1071,
+      "sha256": "0e4c81be6b82e986abeea372272056aefc4d37590d03315dd6c61dd68a51c905",
       "ext": ""
     },
     {
       "path": "sources/_upstream-licenses/neville-studio-408-exam-paper/README.md",
-      "bytes": 2683,
-      "sha256": "d9c5beb38796d8b98b76ec862c05c64886a0b2855bbc8c5cf32d0f0789666398",
+      "bytes": 2643,
+      "sha256": "24b2abe821d98ade664f04d7fb46103ebaec8067282d0e3f145e4ddacca5cc1b",
       "ext": ".md"
     },
     {
@@ -37,8 +37,8 @@
     },
     {
       "path": "sources/_upstream-licenses/TommyTay0712-408/README.md",
-      "bytes": 170,
-      "sha256": "87d8238f7e7c5ae6a4f99b923f50152cd9092a2674ca2a0250aaa72484834e7d",
+      "bytes": 164,
+      "sha256": "64be5c8236b48ce1e59664f6eee62fde6206e6b525286f70bd068376683efff2",
       "ext": ".md"
     },
     {
