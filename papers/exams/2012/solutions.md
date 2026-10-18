@@ -292,15 +292,24 @@ q
 ＠将两个链表以表尾对齐：令指针p、q分别指向strl和str2的头结点，若m;;:=:n, 则使p
 指向链表中的第m-n + l个结点；若m<n, 则使q指向链表中的第n -m+ 1个结点，即使指针p和q所指的结点到表尾的长度相等。
 ＠反复将指针p和q同步向后移动，并判断它们是否指向同一结点。若p和q指向同一结点，则该点即为所求的共同后缀的起始位置。
-2)算法的C语言代码描述：豆n妞ode *F:irict'h七ComniortlLinkList·§trl,··ɤ.. .                          LinkLi.§t str2) {
-int lenl==Length(s七rlr,ɥen2=Leng七li(ɦ·tr2);
-LinkNode *、P,*q;
-for(p=strl;lenl>len2;lenl一一）   ／／使p指向的链表与q指向的链表等长
-.,g==p->ne^{xt;}          ɧ0立(q=stz;2江enl,                               <;.l en2江 P:2 一一）   门使q指向的链表与p指向的链表等长
-q=q->next;
-while(p->next! =NULL&&p->next! =q-:->next){    II查找共同后缀起始点
-p=p->next;                     ／／两个指针同步向后移动p,,哭一了~沪尸心“夕.q=q一>next;一鲨妇..                                                                                                                                                                                                                                                                 、.   ..，丫于沁,·心产心＼                                                                                                                                                                                                                                                     ，3..
-立eturn·p一>p.ext;                   II返回共同后缀的起始点
+2）算法的 C 语言代码描述（按源答案 PDF 第 9 页重新转录；沿用源例中的 `Length` 接口）：
+
+```c
+LinkNode *Find_lst_Common(LinkList str1, LinkList str2)
+{
+    int len1 = Length(str1), len2 = Length(str2);
+    LinkNode *p, *q;
+    for (p = str1; len1 > len2; len1--)
+        p = p->next;
+    for (q = str2; len1 < len2; len2--)
+        q = q->next;
+    while (p->next != NULL && p->next != q->next) {
+        p = p->next;
+        q = q->next;
+    }
+    return p->next;
+}
+```
 【1)、2)的评分说明】 ＠若考生所给算法实现正确，且时间复杂度为O(m+n), 可给12
 分；若算法正确，但时间复杂度超过O(m+n), 则最高可给9分。
 ＠若在算法的基本设计思想描述中因文字表达没有非常清晰反映出算法思路，但在算法实现中能够清晰看出算法思想且正确的，可参照＠的标准给分。
