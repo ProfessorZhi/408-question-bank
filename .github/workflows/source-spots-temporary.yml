@@ -39,6 +39,8 @@ jobs:
               ("2009-q42-code", "sources/exams/answers/2009-answer.pdf", 7, 0, 0, 1, .80),
               ("2009-q41-figures", "sources/exams/answers/2009-answer.pdf", 6, 0, 0, 1, 1),
               ("2010-q29-source", "sources/exams/papers/2010.pdf", 3, 0, 0, 1, .63),
+              ("2013-q13-source", "sources/exams/papers/2013.pdf", 1, 0, 0, 1, .60),
+              ("2015-q38-source", "sources/exams/papers/2015.pdf", 3, 0, .16, 1, 1),
               ("2009-q41-fig1", "sources/exams/answers/2009-answer.pdf", 6, .16, .394, .415, .488),
               ("2009-q41-fig2", "sources/exams/answers/2009-answer.pdf", 6, .595, .382, .825, .488),
           ]
