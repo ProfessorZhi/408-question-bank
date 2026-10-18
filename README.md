@@ -1,6 +1,7 @@
-# 408 题库（私有）· 408-question-bank
+# 408 题库 · 408-question-bank
 
-> **PRIVATE 仓库。** 本仓库用于个人备考研究，**当前不对外公开、不做商业再发布**。
+> **PUBLIC 仓库**（2026-10-18 起）。本仓库用于个人备考研究，**不做商业再发布**。
+> 试卷原文著作权不属于本仓库，**公开可见不等于取得再分发许可**。
 > 版权状况与使用边界见 [`RIGHTS.md`](RIGHTS.md) 与 [`docs/rights-and-licenses.md`](docs/rights-and-licenses.md)。
 
 考研 408（计算机学科专业基础综合）题库。目标：把散落的 PDF / 图片试卷，整理成
