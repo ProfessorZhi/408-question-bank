@@ -259,21 +259,28 @@
 
 (I)算法的基本设计思想表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历策略得到所需的表达式。(3分）
 表达式树中分支结点所对应的子表达式的计算次序，由该分支结点所处的位置决定。为得到正确的中缀表达式，需要在生成遍历序列的同时，在适当位置增加必要的括号。显然，表达式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）
-(2)算法实现(IQ分）
-将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外，遍历到其他结点时在遍历其左子树之前加上左括号，在遍历完右子树后加上右括号。
-void B七reeToE(BTree *root
-BtreeToExp(root,  1);         ／／根的高度为1
-void. 13七reeToE:xp(BTree *roqt, int deep)
-｛
-if(root == NULL) return;      ／／空结点返回
-else if(root->left==NULL&&rɝot今right==NULL)  !/若为叶结点
-printf ("%s",  root->data);   //输出操作数，不加括号
-else{
-if (deep>l) printf (" (");    //若有子表达式则加1层括号
-BtreeToExp(root->left, deep+l);
-printf("%s",  root->da七a);       / /输出操作符
-Btree'1'6Exp (roo七一>right, .'\ieep+l l;
-if (deep>l) printf (") ");          / /若有子表达式则加1层括号
+(2) 算法实现（10 分；按源答案第 6 页恢复 C 代码）：
+
+将表达式树的中序遍历递归算法略加改造。除根结点和叶结点外，在遍历左子树前输出左括号，在遍历右子树后输出右括号。
+
+```c
+void BtreeToE(BTree *root) {
+    BtreeToExp(root, 1);  // 根的高度为 1
+}
+
+void BtreeToExp(BTree *root, int deep) {
+    if (root == NULL) return;
+    else if (root->left == NULL && root->right == NULL)
+        printf("%s", root->data);
+    else {
+        if (deep > 1) printf("(");
+        BtreeToExp(root->left, deep + 1);
+        printf("%s", root->data);
+        BtreeToExp(root->right, deep + 1);
+        if (deep > 1) printf(")");
+    }
+}
+```
 【评分说明】CD若考生设计的算法满足题目的功能要求，则(1)、(2)根据所实现算法的策略及输出结果给分，评分标准见下表。
 分数                        备注
 15     采用中序遍历算法且正确，括号嵌套正确，层数适当采用中序遍历算法且正确，括号嵌套正确，但括号嵌套层数过多。例如，表达式最外层加
@@ -377,26 +384,60 @@ float 型，其机器数中不包含最高有效数位，但包含了阶码部�
 
 【答案要点】
 
-先找出线程对在各个变量上的互斥、并发关系。如果是一读一写或两个都是写，那么这就是互斥关系。每一个互斥关系都需要一个信号量进行调节。
-semaphore mutex_yl=l; //mutex_yl用千threadl与thread3对变量y的互斥访问。
-semaphore mu七ex.,._y2=1; //mutex_y2用于thread2与thread3对变量y的互斥访问。
-semaphore mu七ex_z=l;  //mutex_z用千变量z的互斥访问。
-互斥代码如下： (5分）
-thread!                    lhn•ad2                    thread3
-！                                                                                             I                                                                                  I
-(num w;              cnum w;              cnum w;
-wait (mutex_y I)  ;          wail (mutex_y2)  ;       w .a= 1  ;
-W = aiJd (X, y)  ;           wail(mulex_1.)  ;         w.h= I;
-signal(nmtex_yl);      w = add (y , z)  ;          wuit(mutcx_z);
-...                      呴ignal(mut忙x_z);           z = add (z , w)  ;
-：                                signal (mutex_y2)  ;       叫,nal(mutc,_z);
-...                   虹1l(mu廿x_yI);
-｝                         阳iii(mulrx_y2)  ;
-y = add (y , w)  ;
-signal (mutcx_y I)  ;
-ʆignal (mult•x_y2)  ;
-...
-：
+先找出线程对在各个变量上的互斥、并发关系。如果是一读一写或两个都是写，则应互斥。每一种互斥关系用一个信号量协调。
+
+```text
+semaphore mutex_y1 = 1;  // thread1 与 thread3 对变量 y 的互斥访问
+semaphore mutex_y2 = 1;  // thread2 与 thread3 对变量 y 的互斥访问
+semaphore mutex_z  = 1;  // 对变量 z 的互斥访问
+```
+
+互斥代码如下（源页为三栏表，此处分栏转写；5 分）：
+
+**thread1**
+
+```text
+{
+    cnum w;
+    wait(mutex_y1);
+    w = add(x, y);
+    signal(mutex_y1);
+    ...
+}
+```
+
+**thread2**
+
+```text
+{
+    cnum w;
+    wait(mutex_y2);
+    wait(mutex_z);
+    w = add(y, z);
+    signal(mutex_z);
+    signal(mutex_y2);
+    ...
+}
+```
+
+**thread3**
+
+```text
+{
+    cnum w;
+    w.a = 1;
+    w.b = 1;
+    wait(mutex_z);
+    z = add(z, w);
+    signal(mutex_z);
+    wait(mutex_y1);
+    wait(mutex_y2);
+    y = add(y, w);
+    signal(mutex_y1);
+    signal(mutex_y2);
+    ...
+}
+```
 【评分说明】
 ＠各线程与变量之间的互斥、并发情况及相应评分见下表。
 thread! 和thread2    thread2和thread3     thread! 和thread3     给分变益三
