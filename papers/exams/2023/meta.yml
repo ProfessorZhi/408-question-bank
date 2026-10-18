@@ -68,13 +68,13 @@ questions:
   - {"no": 38, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
   - {"no": 39, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
   - {"no": 40, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 41, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 42, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 43, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 44, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 45, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 46, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 47, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 41, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第11–12页核对重录（文本层为主，代码块 700dpi 定点复核）；已在 solutions 中登记源文异文：inde-gree、print Vertices、printf 全角引号；未做 C10 独立验算"}
+  - {"no": 42, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第12页核对重录（文本层 + 600dpi 定点复核三个归并段数列）；未做 C10 独立验算"}
+  - {"no": 43, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第12–13页核对重录（文本层 + 第13页 500dpi 复核地址与 Cache 字段 A4~A0/A10~A5）；原稿混入的页脚行已去除；未做 C10 独立验算"}
+  - {"no": 44, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第13页核对重录（文本层 + 500dpi 复核 0040 10B9H / 0040 1079H+2+09H / 00401H）；未做 C10 独立验算"}
+  - {"no": 45, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第13页核对重录（文本层 + 550dpi 复核 swap 语句与引号）；原稿混入的页脚行已去除；未做 C10 独立验算"}
+  - {"no": 46, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第13–14页核对重录（文本层 + 渲染复核操作①—⑥的顺序答案）；原稿在【答案要点】与(1)之间混入的页脚行已去除；未做 C10 独立验算"}
+  - {"no": 47, status: needs-review, confidence: medium, topic: 未知, notes: "2026-10-18 按答案 PDF 第14页核对重录（文本层 + 600dpi 复核 101/18102/2101/3MSS/7101/5MSS 与 300*10³B/s）；上标已还原；未做 C10 独立验算"}
 errata: []
 review:
   proofread_by: []

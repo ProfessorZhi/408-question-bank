@@ -68,13 +68,13 @@ questions:
   - {"no": 38, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
   - {"no": 39, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
   - {"no": 40, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 41, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 42, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 43, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 44, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 45, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 46, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
-  - {"no": 47, status: needs-review, confidence: medium, topic: 未知, notes: "题文字层／答文字层；未人工对照底本"}
+  - {"no": 41, status: needs-review, confidence: medium, topic: 未知, notes: "解析按源 PDF 文字层 + p6–p7 页图逐式核对；已修 SqBiTNode[0]/[2i+1]/[2i+2]/[(i-1)/2] 与两段代码；未独立验算，未 proofread"}
+  - {"no": 42, status: needs-review, confidence: medium, topic: 未知, notes: "解析按 p7–p8 页图核对；已修 A[0]/A[9]、MAX；源文 pmin[2i+1] 异文保留待复核；未 proofread"}
+  - {"no": 43, status: needs-review, confidence: medium, topic: 未知, notes: "解析按 p8 页图逐符号核对；SF/OF 公式与控制信号已恢复；未独立验算，未 proofread"}
+  - {"no": 44, status: needs-review, confidence: medium, topic: 未知, notes: "解析按 p8–p9 页图核对；柱面/磁头/扇区位数为 15/3/9；磁盘时间与 DMA 次数已恢复；未 proofread"}
+  - {"no": 45, status: needs-review, confidence: medium, topic: 未知, notes: "解析按 p9 页图核对；目录表 course→2、doc→10；course1/course2 与间接地址项已恢复；未 proofread"}
+  - {"no": 46, status: needs-review, confidence: medium, topic: 未知, notes: "解析按 p9 页图重排；信号量 S_AC/S_CE 与 T1/T2 代码表已恢复；未独立验算，未 proofread"}
+  - {"no": 47, status: needs-review, confidence: medium, topic: 未知, notes: "解析按 p10 页图核对；100BaseT/100Mbps/1.51μs/64B 公式与 E1/C1/D1 地址已恢复；未 proofread"}
 errata: []
 review:
   proofread_by: []
