@@ -94,10 +94,24 @@ python tools/qa_paper.py --all
 # 3) 生成学生卷与教师卷
 python tools/build_paper.py papers/mock-2027/set-1 --student -o build/
 python tools/build_paper.py papers/mock-2027/set-1 --teacher -o build/
+
+# 4) v1 正式 21 卷一次性生成 42 份文件（2009–2025 + 模拟卷 1–4）
+python tools/build_paper.py --all --both -o build/
+
+# 5) 如需构建不属于 v1 范围的 2026 卷，必须显式选择
+python tools/build_paper.py --all --both --include-2026 -o build/
+
+# 6) 本地复现构建器的自测和产物验收
+python tools/selftest_build.py
+python tools/selftest_build.py --verify-built build/
 ```
 
 CI（`.github/workflows/qa.yml`）在每次 push 跑 `qa_paper.py --all`，
-未达 47/47 的卷会被标红——这是**已知且被接受**的状态，直到该卷转录完成。
+除结构/来源检查外，CI 还会对正式 v1 的 **21 卷生成 21 份学生卷 + 21 份教师卷**，
+检查题号、图片链接与学生卷答案隔离。任意一卷缺件或构建失败，批量构建都会返回非零退出码。
+构建过程会保留题干与解析里的代码围栏，重写图片路径以适配输出目录。
+此项仅证明转录产物结构可用，**不等于逐题学术正确、也不等于已经完成与 PDF 的人工逐字对照**。
+CI 的 qa_paper.py 仍按 `docs/qa-policy.md` 报告非阻断警告；v1 构建检查则要求全部目标卷实际生成成功。
 
 ---
 
