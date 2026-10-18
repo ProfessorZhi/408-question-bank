@@ -297,31 +297,41 @@ M_{2}= I +( h-I)k              (2分）
 ＠若i= Ln12)」，则分组完成，算法结束；
 ＠若i < Ln12)」， 则枢轴及之前的所有元素均属于A,, 继续对l之后的元素进行划分；
 ＠若l扎n/2)」， 则枢轴及之后的所有元素均属千A2, 继续对l之前的元素进行划分；基于该设计思想实现的算法，无须对全部元素进行全排序，其平均时间复杂度是O(n), 空间复杂度是0(1)。
-(2)算法实现(9分）
-int setParti七ion(int a[], in七n)  {
-int pivotkey, low=O, lowO=O, high=n-1, highO=n-1,  flag=l, k=n/2,  i;
-int sl=O,  s2=0;
-while (flag)    {
-piovtkey=a [low];          ／／选择枢轴
-while (low<high).  {        ／／基于枢轴对数据进行划分
-while(low<high && a[high] >=pivotkey)  - high;
-if(low! =high)  a[low] =a[high];
-while(low<high && a[low]<=pivotkey)  ++low;
-if(low! =high)  a[high]=a[low];
-}  / /(;!nd of while (low<high)
-a[low] =pivotkey;
-if(low==k-1)         ／／如果枢轴是第n/2小元素，划分成功
-flag=O;
-else{              ／／是否继续划分
-if(low<k-1)  {
-lowO=++low;
-high=highO;
-else{
-highO=--high;
-low=lowO;
-for(i=O;i<k;i++)  sl+=;a[i);
-for (i=k; i<n; i++) s2+=a[i);
-return s2-sl;
+(2) 算法实现（9 分；按源答案 PDF 第 10 页印刷代码排版，保留源印疑点）：
+
+```c
+int setPartition(int a[], int n) {
+    int pivotkey, low = 0, low0 = 0, high = n - 1, high0 = n - 1;
+    int flag = 1, k = n / 2, i;
+    int s1 = 0, s2 = 0;
+    while (flag) {
+        piovtkey = a[low];  // 源答案此处印为 piovtkey，疑为 pivotkey 笔误
+        while (low < high) {
+            while (low < high && a[high] >= pivotkey) --high;
+            if (low != high) a[low] = a[high];
+            while (low < high && a[low] <= pivotkey) ++low;
+            if (low != high) a[high] = a[low];
+        }
+        a[low] = pivotkey;
+        if (low == k - 1)
+            flag = 0;
+        else {
+            if (low < k - 1) {
+                low0 = ++low;
+                high = high0;
+            } else {
+                high0 = --high;
+                low = low0;
+            }
+        }
+    }
+    for (i = 0; i < k; i++) s1 += a[i];
+    for (i = k; i < n; i++) s2 += a[i];
+    return s2 - s1;
+}
+```
+
+> 来源疑点：源答案将声明的 `pivotkey` 在赋值处误印为 `piovtkey`，此处如实保留并标注，原印代码不能直接编译；若需要运行须先核实并修正这一处标识符，不能把它当作无争议的原卷文字。
 【(1)(2)的评分说明】
 ＠本题目只需将最大的一半元素与最小的 一半元素分组， 不需要对所有元素进行全部排序。参考答案基于快速排序思想， 采用非递归的方式实现。若考生设计的算法满足题目的功能要求且正确， 则(1)、(2)根据所实现算法的平均时间复杂度给分， 细则见下表。
 时间复杂度    分  数                 说   明
