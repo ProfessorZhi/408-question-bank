@@ -49,6 +49,10 @@ jobs:
               ("2011-q42-code-p10", "sources/exams/answers/2011-answer.pdf", 9, .13, 0, .90, .32),
               ("2017-q41-code", "sources/exams/answers/2017-answer.pdf", 5, .11, .32, .90, .64),
               ("2017-q46-table", "sources/exams/answers/2017-answer.pdf", 8, .16, .13, .84, .61),
+              ("2011-answer-q45", "sources/exams/answers/2011-answer.pdf", 10, 0, .05, 1, .90),
+              ("2013-answer-q41", "sources/exams/answers/2013-answer.pdf", 7, 0, 0, 1, 1),
+              ("2017-answer-q47", "sources/exams/answers/2017-answer.pdf", 8, 0, .72, 1, 1),
+              ("2017-answer-q47-follow", "sources/exams/answers/2017-answer.pdf", 9, 0, 0, 1, .78),
               ("2009-q41-fig1", "sources/exams/answers/2009-answer.pdf", 6, .16, .394, .415, .488),
               ("2009-q41-fig2", "sources/exams/answers/2009-answer.pdf", 6, .595, .382, .825, .488),
           ]
