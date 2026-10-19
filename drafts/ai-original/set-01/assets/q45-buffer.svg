@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="445" viewBox="0 0 1140 445" role="img" aria-labelledby="title desc">
+<title id="title">Q45 three stages and two reusable slots</title>
+<desc id="desc">A captures, B checks, C archives. A and C share device D. Two slots are reused only after archival. No semaphore solution appears.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q45&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
+<rect width="1140" height="445" fill="white"/>
+<rect x="50" y="55" width="240" height="90" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="A"/>
+<text x="170" y="88" font-size="25" text-anchor="middle" font-weight="700">A</text>
+<text x="170" y="119" font-size="21" text-anchor="middle">capture</text>
+<rect x="450" y="55" width="240" height="90" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="B"/>
+<text x="570" y="88" font-size="25" text-anchor="middle" font-weight="700">B</text>
+<text x="570" y="119" font-size="21" text-anchor="middle">check</text>
+<rect x="850" y="55" width="240" height="90" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="C"/>
+<text x="970" y="88" font-size="25" text-anchor="middle" font-weight="700">C</text>
+<text x="970" y="119" font-size="21" text-anchor="middle">archive</text>
+<path class="line" d="M290,100 L450,100" marker-end="url(#arrow)"/>
+<path class="line" d="M690,100 L850,100" marker-end="url(#arrow)"/>
+<rect x="390" y="215" width="360" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="buffer"/>
+<path class="line" d="M570,215 L570,285"/>
+<text x="480" y="258" font-size="22" text-anchor="middle">slot 0</text>
+<text x="660" y="258" font-size="22" text-anchor="middle">slot 1</text>
+<text x="570" y="197" font-size="20" text-anchor="middle">FIFO ring buffer</text>
+<rect x="430" y="340" width="280" height="65" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="D"/>
+<text x="570.0" y="380.2" font-size="22" text-anchor="middle">shared device D</text>
+<path class="line" d="M170,145 L170,372 L430,372" stroke-dasharray="8 6"/>
+<path class="line" d="M970,145 L970,372 L710,372" stroke-dasharray="8 6"/>
+<text x="570" y="430" font-size="20" text-anchor="middle">A and C use D exclusively; B does not use D.</text>
+</svg>

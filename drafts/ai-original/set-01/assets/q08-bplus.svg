@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="365" viewBox="0 0 1000 365" role="img" aria-labelledby="title desc">
+<title id="title">Q08 B+ tree range scan</title>
+<desc id="desc">Root separators20,40; leaves3,8,12 then20,25,32 then40,47,51. Root cached.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q08&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
+<rect width="1000" height="365" fill="white"/>
+<text x="500" y="35" font-size="22" text-anchor="middle">Root page (cached)</text>
+<rect x="390" y="60" width="220" height="60" rx="4" fill="white" stroke="#111" stroke-width="2.4"/>
+<path class="line" d="M500,60 L500,120"/>
+<text x="445" y="99" font-size="22" text-anchor="middle">20</text>
+<text x="555" y="99" font-size="22" text-anchor="middle">40</text>
+<path class="line" d="M405,120 L160,235" marker-end="url(#arrow)"/>
+<rect x="50" y="235" width="220" height="55" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="leaf-0"/>
+<text x="86.66666666666666" y="271" font-size="22" text-anchor="middle">3</text>
+<path class="line" d="M123.33333333333333,235 L123.33333333333333,290"/>
+<text x="160.0" y="271" font-size="22" text-anchor="middle">8</text>
+<path class="line" d="M196.66666666666666,235 L196.66666666666666,290"/>
+<text x="233.33333333333334" y="271" font-size="22" text-anchor="middle">12</text>
+<path class="line" d="M270,263 L390,263" marker-end="url(#arrow)" stroke-dasharray="8 6"/>
+<text x="160" y="320" font-size="20" text-anchor="middle">L1</text>
+<path class="line" d="M500,120 L500,235" marker-end="url(#arrow)"/>
+<rect x="390" y="235" width="220" height="55" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="leaf-1"/>
+<text x="426.6666666666667" y="271" font-size="22" text-anchor="middle">20</text>
+<path class="line" d="M463.3333333333333,235 L463.3333333333333,290"/>
+<text x="500.0" y="271" font-size="22" text-anchor="middle">25</text>
+<path class="line" d="M536.6666666666666,235 L536.6666666666666,290"/>
+<text x="573.3333333333334" y="271" font-size="22" text-anchor="middle">32</text>
+<path class="line" d="M610,263 L730,263" marker-end="url(#arrow)" stroke-dasharray="8 6"/>
+<text x="500" y="320" font-size="20" text-anchor="middle">L2</text>
+<path class="line" d="M595,120 L840,235" marker-end="url(#arrow)"/>
+<rect x="730" y="235" width="220" height="55" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="leaf-2"/>
+<text x="766.6666666666666" y="271" font-size="22" text-anchor="middle">40</text>
+<path class="line" d="M803.3333333333334,235 L803.3333333333334,290"/>
+<text x="840.0" y="271" font-size="22" text-anchor="middle">47</text>
+<path class="line" d="M876.6666666666666,235 L876.6666666666666,290"/>
+<text x="913.3333333333334" y="271" font-size="22" text-anchor="middle">51</text>
+<text x="840" y="320" font-size="20" text-anchor="middle">L3</text>
+</svg>

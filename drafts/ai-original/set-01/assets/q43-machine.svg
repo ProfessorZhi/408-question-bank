@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="450" viewBox="0 0 1200 450" role="img" aria-labelledby="title desc">
+<title id="title">Q43 teaching machine M</title>
+<desc id="desc">Five stages IF ID EX MEM WB with interstage registers. EX/MEM and MEM/WB can forward to EX. Branches in detailed figure resolve at EX end.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q43&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
+<rect width="1200" height="450" fill="white"/>
+<rect x="40" y="100" width="185" height="80" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="IF"/>
+<text x="132.5" y="132" font-size="25" text-anchor="middle" font-weight="700">IF</text>
+<text x="132.5" y="160" font-size="17" text-anchor="middle">PC / instruction</text>
+<path class="line" d="M225,140 L270,140" marker-end="url(#arrow)"/>
+<path class="line" d="M246,120 L246,160" stroke-width="5"/>
+<rect x="270" y="100" width="185" height="80" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="ID"/>
+<text x="362.5" y="132" font-size="25" text-anchor="middle" font-weight="700">ID</text>
+<text x="362.5" y="160" font-size="17" text-anchor="middle">register read</text>
+<path class="line" d="M455,140 L500,140" marker-end="url(#arrow)"/>
+<path class="line" d="M476,120 L476,160" stroke-width="5"/>
+<rect x="500" y="100" width="185" height="80" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="EX"/>
+<text x="592.5" y="132" font-size="25" text-anchor="middle" font-weight="700">EX</text>
+<text x="592.5" y="160" font-size="17" text-anchor="middle">ALU / branch</text>
+<path class="line" d="M685,140 L730,140" marker-end="url(#arrow)"/>
+<path class="line" d="M706,120 L706,160" stroke-width="5"/>
+<rect x="730" y="100" width="185" height="80" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="MEM"/>
+<text x="822.5" y="132" font-size="25" text-anchor="middle" font-weight="700">MEM</text>
+<text x="822.5" y="160" font-size="17" text-anchor="middle">data memory</text>
+<path class="line" d="M915,140 L960,140" marker-end="url(#arrow)"/>
+<path class="line" d="M936,120 L936,160" stroke-width="5"/>
+<rect x="960" y="100" width="185" height="80" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="WB"/>
+<text x="1052.5" y="132" font-size="25" text-anchor="middle" font-weight="700">WB</text>
+<text x="1052.5" y="160" font-size="17" text-anchor="middle">register write</text>
+<path class="line" d="M706,140 L706,250 L590,250 L590,180" marker-end="url(#arrow)"/>
+<text x="740" y="242" font-size="18" text-anchor="start">EX/MEM to EX</text>
+<path class="line" d="M936,140 L936,295 L548,295 L548,180" marker-end="url(#arrow)"/>
+<text x="956" y="290" font-size="18" text-anchor="middle">MEM/WB</text>
+<path class="line" d="M590,100 L590,55 L133,55 L133,100" marker-end="url(#arrow)" stroke-dasharray="8 6"/>
+<text x="360" y="42" font-size="18" text-anchor="middle">taken branch: flush IF + ID; refetch target</text>
+<text x="132.5" y="87" font-size="20" text-anchor="middle">180 ps</text>
+<text x="362.5" y="87" font-size="20" text-anchor="middle">220 ps</text>
+<text x="592.5" y="87" font-size="20" text-anchor="middle">200 ps</text>
+<text x="822.5" y="87" font-size="20" text-anchor="middle">240 ps</text>
+<text x="1052.5" y="87" font-size="20" text-anchor="middle">140 ps</text>
+<text x="600" y="365" font-size="22" text-anchor="middle">Every stage register: +20 ps</text>
+<text x="600" y="405" font-size="20" text-anchor="middle">Load value ready at MEM-end; ALU value ready at EX-end.</text>
+</svg>

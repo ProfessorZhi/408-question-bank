@@ -1,7 +1,6 @@
 name: AI Original Draft QA
 
-# Only the isolated AI Set 01 proposal is checked here.
-# Existing historic papers and v1 build remain under qa.yml.
+# Isolated authoring checks. No repository write permissions or device agents.
 on:
   push:
     paths:
@@ -14,12 +13,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  direction-plan:
+  complete-draft:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate AI question blueprint and authoring state (not academic review)
+      - name: Validate all 47 authored questions and metadata
         run: python drafts/ai-original/set-01/check_plan.py
+      - name: Reproduce SVGs and cross-check calculations, C code and state machines
+        run: python drafts/ai-original/set-01/verify_paper.py --json /tmp/ai408-validation.json
+      - name: Upload reproducible validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai408-set01-validation
+          path: /tmp/ai408-validation.json
+          if-no-files-found: warn

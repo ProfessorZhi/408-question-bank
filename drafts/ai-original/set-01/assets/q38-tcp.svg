@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="460" viewBox="0 0 1000 460" role="img" aria-labelledby="title desc">
+<title id="title">Q38 TCP reordering and sample time</title>
+<desc id="desc">Three 400B data segments; seq1401 arrives before1001, then1801 later. T is after second arrival. ACK values intentionally not printed.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q38&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
+<rect width="1000" height="460" fill="white"/>
+<text x="150" y="38" font-size="24" text-anchor="middle" font-weight="700">Sender</text>
+<text x="830" y="38" font-size="24" text-anchor="middle" font-weight="700">Receiver</text>
+<path class="line" d="M150,60 L150,420" marker-end="url(#arrow)"/>
+<path class="line" d="M830,60 L830,420" marker-end="url(#arrow)"/>
+<path class="line" d="M150,90 L830,250" marker-end="url(#arrow)"/>
+<text x="370" y="110" font-size="18" text-anchor="middle">seq=1001, len=400</text>
+<path class="line" d="M150,145 L830,190" marker-end="url(#arrow)"/>
+<text x="615" y="157" font-size="18" text-anchor="middle">seq=1401, len=400</text>
+<path class="line" d="M150,205 L830,380" marker-end="url(#arrow)"/>
+<text x="455" y="260" font-size="18" text-anchor="middle">seq=1801, len=400</text>
+<path class="line" d="M725,282 L915,282" stroke-dasharray="8 6"/>
+<text x="940" y="289" font-size="24" text-anchor="middle" font-weight="700">T</text>
+<text x="500" y="447" font-size="18" text-anchor="middle">Arrival order: 1401, 1001, 1801; not to scale.</text>
+</svg>
