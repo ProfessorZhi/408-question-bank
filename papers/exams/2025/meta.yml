@@ -20,61 +20,61 @@ sources:
     license: "MIT (covers upstream typesetting only; see docs/rights-and-licenses.md §1)"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: mixed        # text-layer | ocr | manual | mixed
+  tool: "pymupdf 1.28.2 + rapidocr-onnxruntime 1.4.4"
+  date: 2026-10-16
 counts:
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 42, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 43, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 44, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 45, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 46, status: blocked, confidence: null, topic: 未知, notes: "源中未定位到答案"}
-  - {"no": 47, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 1, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 2, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 3, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 4, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 5, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 6, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 7, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 8, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 9, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 10, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 11, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 12, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 13, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 14, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 15, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 16, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 17, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 18, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 19, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 20, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 21, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 22, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 23, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 24, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 25, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 26, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 27, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 28, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 29, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 30, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 31, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 32, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 33, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 34, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 35, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 36, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 37, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 38, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 39, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 40, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 42, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 43, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 44, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 45, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 46, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
+  - {"no": 47, status: ocr-uncertain, confidence: low, topic: 未知, notes: "题文字层／答OCR；未人工对照底本"}
 errata: []
 review:
   proofread_by: []

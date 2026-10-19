@@ -112,6 +112,26 @@
         }
       }
     },
+    "options_in_figure": {
+      "type": "array",
+      "description": "C4 例外：这题的四个选项本身画在题图里（见 docs/qa-policy.md §2）。登记后 qa_paper.py 把它降为 ℹ️，不登记就照旧按「选项不齐」报。",
+      "items": {
+        "oneOf": [
+          { "type": "integer", "description": "简写：只写题号" },
+          {
+            "type": "object",
+            "required": ["no"],
+            "additionalProperties": false,
+            "properties": {
+              "no": { "type": "integer" },
+              "figure": { "type": "string", "description": "仓库内相对路径，如 assets/q4-fig.png" },
+              "verified_at": { "type": ["string", "null"], "format": "date" },
+              "verified_by": { "type": "string", "description": "谁、按什么依据确认「四个选项都在图内」" }
+            }
+          }
+        ]
+      }
+    },
     "review": {
       "type": "object",
       "additionalProperties": false,

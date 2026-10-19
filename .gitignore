@@ -5,6 +5,7 @@ sources/_incoming/
 # 构建中间产物（build/ 下的最终成品会入库，中间文件不入库）
 build/.tmp/
 build/_scratch/
+build/_scratch*.log
 
 # OCR / 转录工作区
 tools/__pycache__/

@@ -4,8 +4,9 @@
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C4 选项不齐共 1 题：4(AC)"
+    "warnings": [],
+    "notes": [
+      "C4 选项在图内共 1 题：[4]（meta.yml options_in_figure 已登记；四个选项画在题图里，需人眼核对）"
     ],
     "stats": {
       "q_choice": 40,
@@ -20,49 +21,77 @@
   },
   {
     "paper": "papers/exams/2010",
-    "has_questions": true,
-    "has_solutions": true,
+    "has_questions": false,
+    "has_solutions": false,
     "errors": [],
     "warnings": [
-      "C4 选项不齐共 1 题：3(AC)",
-      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 0,
-      "proofread": "0/47"
-    },
-    "blocking": false
+    "notes": [],
+    "stats": {}
   },
   {
     "paper": "papers/exams/2011",
-    "has_questions": true,
-    "has_solutions": true,
+    "has_questions": false,
+    "has_solutions": false,
     "errors": [],
     "warnings": [
-      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 0,
-      "proofread": "0/47"
-    },
-    "blocking": false
+    "notes": [],
+    "stats": {}
   },
   {
     "paper": "papers/exams/2012",
+    "has_questions": false,
+    "has_solutions": false,
+    "errors": [],
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "notes": [],
+    "stats": {}
+  },
+  {
+    "paper": "papers/exams/2013",
+    "has_questions": false,
+    "has_solutions": false,
+    "errors": [],
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "notes": [],
+    "stats": {}
+  },
+  {
+    "paper": "papers/exams/2014",
+    "has_questions": false,
+    "has_solutions": false,
+    "errors": [],
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "notes": [],
+    "stats": {}
+  },
+  {
+    "paper": "papers/exams/2015",
+    "has_questions": false,
+    "has_solutions": false,
+    "errors": [],
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "notes": [],
+    "stats": {}
+  },
+  {
+    "paper": "papers/exams/2016",
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
     "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
@@ -75,90 +104,13 @@
     "blocking": false
   },
   {
-    "paper": "papers/exams/2013",
-    "has_questions": true,
-    "has_solutions": true,
-    "errors": [],
-    "warnings": [
-      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
-    ],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 5,
-      "proofread": "0/47"
-    },
-    "blocking": false
-  },
-  {
-    "paper": "papers/exams/2014",
-    "has_questions": true,
-    "has_solutions": true,
-    "errors": [],
-    "warnings": [
-      "C4 选项不齐共 1 题：37(ACD)",
-      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
-    ],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 5,
-      "proofread": "0/47"
-    },
-    "blocking": false
-  },
-  {
-    "paper": "papers/exams/2015",
-    "has_questions": true,
-    "has_solutions": true,
-    "errors": [],
-    "warnings": [
-      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
-    ],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 5,
-      "proofread": "0/47"
-    },
-    "blocking": false
-  },
-  {
-    "paper": "papers/exams/2016",
-    "has_questions": true,
-    "has_solutions": true,
-    "errors": [],
-    "warnings": [
-      "C6 解析中缺答案字母共 37 题：[1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13] …"
-    ],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 3,
-      "proofread": "0/47"
-    },
-    "blocking": false
-  },
-  {
     "paper": "papers/exams/2017",
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C4 选项不齐共 1 题：8(AC)",
-      "C6 解析中缺答案字母共 35 题：[2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14] …"
+    "warnings": [],
+    "notes": [
+      "C4 选项在图内共 1 题：[8]（meta.yml options_in_figure 已登记；四个选项画在题图里，需人眼核对）"
     ],
     "stats": {
       "q_choice": 40,
@@ -166,7 +118,7 @@
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 5,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
@@ -176,17 +128,15 @@
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C4 选项不齐共 1 题：38(AC)",
-      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
-    ],
+    "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 0,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
@@ -196,16 +146,15 @@
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
-    ],
+    "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 0,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
@@ -216,6 +165,7 @@
     "has_solutions": true,
     "errors": [],
     "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
@@ -232,16 +182,15 @@
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C6 解析中缺答案字母共 40 题：[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] …"
-    ],
+    "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 0,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
@@ -251,9 +200,8 @@
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C4 选项不齐共 1 题：26(ACD)"
-    ],
+    "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
@@ -271,6 +219,7 @@
     "has_solutions": true,
     "errors": [],
     "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
@@ -287,16 +236,15 @@
     "has_questions": true,
     "has_solutions": true,
     "errors": [],
-    "warnings": [
-      "C6 解析中缺答案字母共 4 题：[17, 18, 23, 26]"
-    ],
+    "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
       "q_total": 47,
       "s_total": 47,
       "out_of_range": [],
-      "answers_parsed": 36,
+      "answers_parsed": 40,
       "proofread": "0/47"
     },
     "blocking": false
@@ -307,6 +255,7 @@
     "has_solutions": true,
     "errors": [],
     "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
@@ -324,6 +273,7 @@
     "has_solutions": true,
     "errors": [],
     "warnings": [],
+    "notes": [],
     "stats": {
       "q_choice": 40,
       "q_comp": 7,
@@ -337,37 +287,25 @@
   },
   {
     "paper": "papers/mock-2027/set-1",
-    "has_questions": true,
-    "has_solutions": true,
+    "has_questions": false,
+    "has_solutions": false,
     "errors": [],
-    "warnings": [],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 40,
-      "proofread": "0/47"
-    },
-    "blocking": false
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "notes": [],
+    "stats": {}
   },
   {
     "paper": "papers/mock-2027/set-2",
-    "has_questions": true,
-    "has_solutions": true,
+    "has_questions": false,
+    "has_solutions": false,
     "errors": [],
-    "warnings": [],
-    "stats": {
-      "q_choice": 40,
-      "q_comp": 7,
-      "q_total": 47,
-      "s_total": 47,
-      "out_of_range": [],
-      "answers_parsed": 40,
-      "proofread": "0/47"
-    },
-    "blocking": false
+    "warnings": [
+      "C1-C8: questions.md 不存在（本卷尚未开始转录）"
+    ],
+    "notes": [],
+    "stats": {}
   },
   {
     "paper": "papers/mock-2027/set-3",
@@ -377,6 +315,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   },
   {
@@ -387,6 +326,7 @@
     "warnings": [
       "C1-C8: questions.md 不存在（本卷尚未开始转录）"
     ],
+    "notes": [],
     "stats": {}
   }
 ]

@@ -20,63 +20,91 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: pending        # text-layer | ocr | manual | mixed
-  tool: null
-  date: null
+  method: mixed        # text-layer | ocr | manual | mixed
+  tool: "pymupdf 1.28.2 + rapidocr-onnxruntime 1.4.4"
+  date: 2026-10-16
 counts:
   choice: 40
   comprehensive: 7
   total: 47
+# 全卷学科归属**是本仓库按题干内容判的**（模拟卷正文不印学科分界）。与真题卷的
+# 11/11/10/8 不同：第 31 题（双缓冲传送磁盘数据）按 408 大纲「操作系统·I/O 管理·缓冲区管理」
+# 归操作系统，第 32 题（DMA）归计算机组成原理（I/O 方式），故本卷为 11/12/9/8。
 questions:
-  - {"no": 1, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 42, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 43, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 44, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 45, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 46, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 47, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 1, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p1 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 2, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p1 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 3, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p1–p2 页图人工逐题录入；源文第(1)–(4)行均印作 `nextval[1]`，与表格下标 0–3 不一致，按原印保留待复核；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 4, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 5, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 6, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 7, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 8, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 9, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 10, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 11, status: needs-review, confidence: low, topic: 数据结构, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 12, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 13, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p2 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 14, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 15, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 16, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 17, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 18, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 19, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 20, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 21, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 22, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p3 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 23, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 24, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 25, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 26, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 27, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 28, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 29, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 30, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 31, status: needs-review, confidence: low, topic: 操作系统, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 32, status: needs-review, confidence: low, topic: 计算机组成原理, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 33, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p4 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 34, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p4–p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 35, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 36, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 37, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 38, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 39, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 40, status: needs-review, confidence: low, topic: 计算机网络, notes: "解析正文按解析卷 p5 页图人工逐题录入；答案字母保持原 40/40；未独立验算，未 proofread"}
+  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录（`pages/page-007.txt`）／答OCR 初稿＋人工逐页转录（同一题跨页：解析起于底本第 5 页、仍是 OCR；第 6 页为人工转录）；未人工对照底本；答案见底本第 5—6 页；答案侧**补了图**：染色示意图裁自答案卷第 6 页（x194—326 / y160—257），4× 存为 `assets/q41-ans-fig.png`（528×388），直读验收 7 个顶点、3 个画斜线剖面——这是本仓库**第一张答案侧插图**（set-1/set-2 答案卷无图，不回填）；**底本印错照抄**：第 (2) 问说「两种情况」却列了三条（句间还用分号起），未改「两」也未改标点"}
+  - {"no": 42, status: needs-review, confidence: medium, topic: 数据结构, notes: "题人工逐页转录（`pages/page-007.txt`）／答人工逐页转录（`solution-pages/page-006.txt`）；未人工对照底本；答案见底本第 6 页；答案侧代码块 11 行按标准 C 缩进（底本量得级差 14.5pt ≈ 3 字符宽，属重排归一化，已在 `solution-pages.yml` 记录）；行末 `//` 与语句之间一个空格照抄（`{  //满足条件1` 是两个空格，也照抄）；`return node -> parent;` 的 `->` 两侧确有空格"}
+  - {"no": 43, status: needs-review, confidence: medium, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-007.txt`）／答人工逐页转录（`solution-pages/page-006.txt`、`page-007.txt`）；未人工对照底本；答案见底本第 6—7 页；题面程序段 7 行按 fenced code 转；答案侧第 (1) 问是**另一张表**（`标记/Cache 行号/块内地址` = 高 15 位 / 中间 1 位 / 低 4 位），与第 44 题那张（高 6 / 中间 4 / 低 2）不同，已分别核对"}
+  - {"no": 44, status: needs-review, confidence: medium, topic: 计算机组成原理, notes: "题人工逐页转录（`pages/page-008.txt`）／答人工逐页转录（`solution-pages/page-007.txt`）；未人工对照底本；答案见底本第 7 页；题面 (a)(b)(c) 三张数据表按 GFM 转录（并排的 (b)(c) 线性化为先后两张，题注紧跟本表）；答案侧第 (2) 问的表是 `高 6 位 / 中间 4 位 / 低 2 位`，二进制分组照抄"}
+  - {"no": 45, status: needs-review, confidence: medium, topic: 操作系统, notes: "题人工逐页转录（`pages/page-009.txt`）／答人工逐页转录（`solution-pages/page-007.txt`、`page-008.txt`）；未人工对照底本；答案见底本第 7—8 页；题图（索引节点结构）见 `assets/q45-fig.png`；答案侧 `256^{2}`/`256^{3}` 按 `^{}` 记，`(10+1×256+…)×1KB=…` 用半角公式括号"}
+  - {"no": 46, status: needs-review, confidence: medium, topic: 操作系统, notes: "题人工逐页转录（`pages/page-009.txt`）／答人工逐页转录（`solution-pages/page-008.txt`）；未人工对照底本；答案见底本第 8 页；位示图**保留为插图** `assets/q46-fig.png`（GFM 无跨列，硬转会丢掉省略语义）；答案侧 FIFO 模拟表 11 列 × 5 行逐格核过、空单元格留空不填；**底本印错/异体照抄**：`256KB/1KB=256b=32B`（小写 b 是 bit，不是笔误）"}
+  - {"no": 47, status: needs-review, confidence: medium, topic: 计算机网络, notes: "题人工逐页转录（`pages/page-010.txt`）／答人工逐页转录（`solution-pages/page-008.txt`、`page-009.txt`）；未人工对照底本；答案见底本第 8—9 页；题图（网络拓扑）见 `assets/q47-fig.png`；答案侧 MAC 表按底本顺序（不按接口号排），三个 MAC 与题图标注一一对应；**底本重复照抄**：「当主机 H 发送 DHCP 发送报文时」原印即重复「发送」；第 (4) 问 `212.10.10.1` 与题图默认网关外网地址一致"}
 errata: []
+# 本卷答案卷（`mock2027-set3-solution.pdf`）第 1 页**没有**「勘误：」清单：那一页是
+# 「一、单项选择题」+ 卷首答案表（10 列 × 4 行）+ 逐题解析的开头。所以 errata 是空的
+# **不是漏抄**，而是底本本来就没有这一节；底本自身的印错/异体记在对应题的 notes 里
+# （第 41 题「两种情况」列三条、第 45 题 `二级简介索引`、第 46 题小写 `b`、第 47 题重复「发送」）。
 review:
-  proofread_by: []
+  proofread_by: []          # 尚无人工逐字对照底本 —— 全卷仍是 needs-review
   proofread_at: null
-  qa: null
+  qa:
+    date: 2026-10-18
+    tool: tools/qa_paper.py papers/mock-2027/set-3
+    result: 阻断 0 卷；choice=40/40、comp=7/7、total=47/47；C4/C5/C6 无告警，无 options_in_figure 登记项
+    # ⚠️ 列表项一律加引号：普通标量里出现 `: `（冒号+空格）会被 YAML 当成映射键。
+    answer_crosscheck: >-
+      选择题 40/40 由**两条独立通道**逐题取到且逐位一致：卷首答案表的**人工直读**
+      （`tools/answer_grid_visual.py` 登记 `mock-2027/set-3`，裁带 x40—480 / y138—222 @4.0×，
+      证据图 `build/_scratch/answer-visual/mock2027-set3-solution-band.png`，10 列 × 4 行逐格读出）
+      与逐题解析流（`NN.X。【解析】…`）。工具在任何一处见到同号不同字母就**留空并点名**——
+      不猜、不取多数。第 36 题原先只有单源：本卷答案卷的 OCR 草稿把表里第 36 项折成 `36.` /
+      `.A` 两行，行内配对要求「下一行只有字母」，`.A` 不成，于是表那一侧少了 36；补上人工直读
+      之后工具报「来自卷首答案表：40 题（双源一致的 40 题）」，第 36 题随即也进了双源一致清单。
+      阳性对照沿用本仓库既有做法（改一处、看工具是否点名、再还原并核对 sha256），本卷未另做——
+      此处如实记为**沿用**，不是本卷新做的实验。
+    known_gaps:
+      - "答案侧第 1—5 页仍是 OCR 草稿：选择题只取答案字母（散文解析不进 solutions.md），但第 41 题的解析正是起于第 5 页，那一段散文仍是 OCR 初稿，未逐字核对。"
+      - "状态分布 41 ocr-uncertain / 6 needs-review（由 `tools/meta_status.py` 按实际来源复算：第 1—40 题的答案字母落在底本第 1—5 页、第 41 题的解析也起于第 5 页，那 5 页仍是 OCR，故这 41 题记 ocr-uncertain；第 42—47 题的题与答都是人工逐页转录，记 needs-review）。**没有一题写成 proofread**：题目卷与答案卷第 6—9 页虽已人工逐页转录，但尚未逐字对照底本 PDF 做校对。"
+      - "存疑项（照抄未改，留待原卷复核）：第 25 题 `turn`（底本赋值行字首与 `c` 形近）、第 39 题 `nck`（语义应为 `ack`）、第 47 题 URL 两侧引号的形态。"
+      - "底本自身的印错/异体按原印照抄、未改：第 41 题说「两种情况」列三条、第 45 题 `通过二级简介索引`（应为「间接」）、第 46 题 `256KB/1KB=256b=32B`（小写 b 指 bit）、第 47 题重复的「DHCP 发送报文」。"
+      - "答案侧插图只有第 41 题一张（`assets/q41-ans-fig.png`）。题目卷有 6 张题图（第 6、38、41、45、46、47 题各一张），在解答里没有对应图片；set-1/set-2 的答案卷同样无图，**不在本次回填**。"
+      - "题图内的标注（IP、MAC、接口名、AOE 权值、十六进制地址）一律不抄进正文，只在 `figures.yml` 与本题 notes 里登记。"

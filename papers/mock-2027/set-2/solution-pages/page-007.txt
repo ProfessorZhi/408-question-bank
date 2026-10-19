@@ -1,0 +1,51 @@
+（3）算法中需要顺序遍历数组，时间复杂度为O(n)。
+42.【解析】将栈S1当作输入栈，存储push()传入的数据，用于入队操作；栈S2当作输出栈，用于
+出队操作。每次出队时，若输出栈为空则将输入栈的全部数据依次弹出并压入输出栈，这样输
+出栈从栈顶往栈底的顺序就是队列从队首往队尾的顺序。
+
+```c
+stack<int> inStack, outStack;
+
+void in2out() {
+    while (!inStack.empty()) {
+        outStack.push(inStack.top());
+        inStack.pop();
+    }
+}
+
+void enqueue(int value) {
+    inStack.push(value);
+}
+
+int dequeue() {
+    if (outStack.empty()) {
+        if (inStack.empty()) {
+            return -1;
+        }
+        in2out();
+    }
+    int value = outStack.top();
+    outStack.pop();
+    return value;
+}
+
+bool empty() {
+    return inStack.empty() && outStack.empty()
+}
+```
+
+43.【解析】
+（1）计算机时钟周期为1/500MHz=2ns，每次I/O用时5×20×2ns=200ns，设备准备16位数据用
+时16b/160kbps=100μs，所以最多间隔100μs必须查询一次，百分比为200ns/100μs=0.2%。
+（2）中断响应和中断处理的时间为400×2=0.8μs，0.8μs<100μs，可以用中断I/O方式，百分比
+为0.8%。若传输率改为4MBps，则设备准备16位数据用时16b/4MBps=0.5μs，不能用中
+断I/O方式。
+（3）设备每秒DMA次数最多为5MB/5000B=1000，百分比为1000×500×2ns/1s=0.1%。
+44.【解析】
+（1）每条指令占2个字节，且PC增量为2，所以编址单位为字节。指令字长固定是RISC的设
+计风格。
+（2）无符号比较时，判断表达式中不会出现OF，所以bgt指令执行的是带符号整数比较。
+因为指令系统有54条指令，支持4种寻址方式，所以OP为6位，MOD为2位，OFFSET
+为16-6-2=8位，由于用补码表示，故偏移量范围为-128~127（写出这个即可给分），
+转移目标地址范围是(PC)+2+(-128×2)~(PC)+2+127×2，即转移目标地址的范围是相
+对于bgt指令的前254个单元到后256个单元之间。

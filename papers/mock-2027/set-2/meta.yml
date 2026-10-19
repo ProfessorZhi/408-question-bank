@@ -20,64 +20,84 @@ sources:
     license: "user-provided; all rights reserved by owner; private study use"
     confidence: low   # probe=no-text-layer (OCR needed)，无文本层需 OCR
 extraction:
-  method: ocr            # 试卷与解析均为纯扫描件；页级重建 + 图像核验补录
-  tool: "rapidocr-onnxruntime 1.2.3 (页级 scale2/3/4 重建); 源页图核验补录 (Q3/Q5/Q7/Q18/Q19 选项, Q7 图)"
-  date: "2026-10-16"
+  method: mixed        # text-layer | ocr | manual | mixed
+  tool: "pymupdf 1.28.2 + rapidocr-onnxruntime 1.4.4"
+  date: 2026-10-17
 counts:
-
   choice: 40
   comprehensive: 7
   total: 47
 questions:
-  - {"no": 1, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 2, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 3, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 4, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 5, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 6, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 7, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 8, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 9, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 10, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 11, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 12, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 13, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 14, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 15, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 16, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 17, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 18, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 19, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 20, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 21, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 22, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 23, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 24, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 25, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 26, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 27, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 28, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 29, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 30, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 31, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 32, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 33, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 34, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 35, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 36, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 37, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 38, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 39, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 40, status: needs-review, confidence: null, topic: 未知, notes: ""}
-  - {"no": 41, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 42, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 43, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 44, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 45, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 46, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
-  - {"no": 47, status: ocr-uncertain, confidence: null, topic: 未知, notes: "解析来自扫描件 OCR，未对照"}
+  - {"no": 1, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 2, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 3, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 4, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 5, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 6, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 7, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 2 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；题图与四个 dist 矩阵在底本里是位图、无文字层，人工直读后矩阵以 LaTeX 记（全套语料唯一一处 LaTeX），图见 `assets/q7-fig.png`"}
+  - {"no": 8, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 9, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 10, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 11, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 12, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；题干「指令类型及数目」表人工直读转录，据此改回 OCR 两处误识（`主为200MHz`→`主频为200MHz`、`编泽生成`→`编译生成`）"}
+  - {"no": 13, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 14, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 15, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 16, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 3 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 17, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 18, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 19, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；指令序列（序号 + 汇编 + RTL 注释三列）用 ```text 围栏保形——底本三列被 OCR 打散成交替行"}
+  - {"no": 20, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 21, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 22, status: ocr-uncertain, confidence: low, topic: 计算机组成原理, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 23, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 4 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；⚠️ 选项 II、VI 被底本**扫描墨块**盖住 2 字 / 1 字（8×、14× 渲染下仍是实心块，像素上取不回），现写的「初始化中断向量表」「关闭中断允许位」是**按可见笔形与固定术语补的、不是底本可读字符** —— 见 pages.yml 第 4 页条目"}
+  - {"no": 24, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；三行作业轨迹（Job1/2/3）行间留空行，避免被 CJK 合并成一整句"}
+  - {"no": 25, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；题干含资源分配表与进程等待表两张表（人工直读）"}
+  - {"no": 26, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 27, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 5 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；题干含页表（人工直读）"}
+  - {"no": 28, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 29, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 30, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 31, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 32, status: ocr-uncertain, confidence: low, topic: 操作系统, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 33, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 34, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；题图见 `assets/q34-fig.png`"}
+  - {"no": 35, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 36, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 6 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 37, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 38, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 39, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿；题图（网络拓扑）见 `assets/q39-fig.png`"}
+  - {"no": 40, status: ocr-uncertain, confidence: low, topic: 计算机网络, notes: "题人工逐页转录／答OCR；未人工对照底本；底本第 7 页；答案字母由**两路互校**取到（卷首答案表 + 逐题解析流，见 review.qa.answer_crosscheck），解析文字仍是 OCR 初稿"}
+  - {"no": 41, status: ocr-uncertain, confidence: low, topic: 数据结构, notes: "题人工逐页转录／答人工逐页转录＋OCR（同一题跨页、两边来源不同）；未人工对照底本；本段跨底本第 7—8 页，题干人工转录；**答案解析起于底本第 5 页，那一页仍是 OCR 初稿**（第 6、7 页为人工转录）"}
+  - {"no": 42, status: needs-review, confidence: medium, topic: 数据结构, notes: "题人工逐页转录／答人工逐页转录；未人工对照底本；**一处照抄不补**：`bool empty()` 里 `return inStack.empty() && outStack.empty()` 底本漏印分号（20× 图上整行墨迹止于 `)`），按原印记录、未补 —— 待人工复核"}
+  - {"no": 43, status: needs-review, confidence: medium, topic: 计算机组成原理, notes: "题人工逐页转录／答人工逐页转录；未人工对照底本"}
+  - {"no": 44, status: needs-review, confidence: medium, topic: 计算机组成原理, notes: "题人工逐页转录／答人工逐页转录；未人工对照底本；题图（bg 指令数据通路示意图）见 `assets/q44-fig.png`"}
+  - {"no": 45, status: needs-review, confidence: medium, topic: 操作系统, notes: "题人工逐页转录／答人工逐页转录；未人工对照底本；信号量代码 34 行，保缩进与空行（底本行末注释对齐到制表位，按本卷口径记单空格）"}
+  - {"no": 46, status: needs-review, confidence: medium, topic: 操作系统, notes: "题人工逐页转录／答人工逐页转录；未人工对照底本；结果表落成 GFM 表（6 列 × 4 行逐格 8× 复核）；**底本两处印错、照抄未改**：第 (1)(2) 问印的物理地址 `1F9DH`/`0F9DH` 低 10 位与逻辑地址 `1B9DH` 的低 10 位 `0110011101` 不符（二进制与十六进制本身自洽 ⇒ 是底本算错/印错），正确应为 `1D9DH`/`0D9DH` —— 待人工复核"}
+  - {"no": 47, status: needs-review, confidence: medium, topic: 计算机网络, notes: "题人工逐页转录／答人工逐页转录；未人工对照底本；题图（拓扑）见 `assets/q47-fig.png`；第 (1) 问句末是全角 `；`，照抄未改"}
 errata: []
+# 本卷答案卷（`mock2027-set2-solution.pdf`）第 1 页**没有**「勘误：」清单，也没有 set-1 那种
+# 「答案速查」区间段：它只有逐行的 `01.D …` 与逐题解析。所以 errata 是空的**不是漏抄**，
+# 而是底本本来就没有这一节；底本自身的两处印错记在对应题的 notes 里（第 42、46 题）。
 review:
-  proofread_by: []
+  proofread_by: []          # 尚无人工逐字对照底本 —— 全卷仍是 needs-review / ocr-uncertain
   proofread_at: null
-  qa: null
+  qa:
+    date: 2026-10-17
+    tool: tools/qa_paper.py papers/mock-2027/set-2
+    result: 阻断 0 卷；choice=40/40、comp=7/7、total=47/47；C4/C5/C6 无告警，无 options_in_figure 登记项
+    # ⚠️ 列表项一律加引号：普通标量里出现 `: `（冒号+空格）会被 YAML 当成映射键。
+    answer_crosscheck: >-
+      选择题 40/40 由**两条独立通道**逐题取到且一致：卷首答案表（底本第 1 页的 `01.D`…`40.B`）
+      与逐题解析流（`NN.X。【解析】…`）。工具在任何一处见到同号不同字母就**留空并点名**——
+      不猜、不取多数。阳性对照做了两次，两次都翻转（改一处、看它是否报出来）：
+      把第 7 题**解析流**的 D 改成 A ⇒ 报告 `第 7 题的答案在同一来源内自相矛盾（AD），
+      已留空待人工核对`、选择 39/40；把**卷首表**的 `07.D` 改成 `07.A` ⇒ 报告
+      `第 7 题在不同来源里互相矛盾（AD），已留空待人工核对`、选择 39/40、缺号 [7]。
+      两次都还原后复跑回到 40/40，且草稿 `page-002.txt` / `page-001.txt` 的 sha256 与改前一致
+      （还原是可验证的，不是「应该没动」）。
+    known_gaps:
+      - "答案解析 1—40 仍是 OCR 初稿（底本第 1—5 页未人工对照）：题干一侧已逐页人工转录，答案一侧的散文没有。第 41 题的解析起于底本第 5 页，那一页同理。"
+      - "第 23 题选项 II、VI 各被底本扫描墨块盖住 2 字 / 1 字，现写的是按可见笔形与固定术语补的，非底本可读字符（见该题 notes）。"
+      - "解答侧无插图：本仓库所有 solutions.md 一律不出图；本卷第 46 题的结果表已落成 GFM 表，但题目卷的 5 张题图在解答里没有对应图片。"
+      - "底本自身的两处印错按原印照抄、未改：第 42 题漏印分号、第 46 题物理地址低 10 位（`1F9DH`/`0F9DH` 应为 `1D9DH`/`0D9DH`），两处都在对应题的 notes 里。"
