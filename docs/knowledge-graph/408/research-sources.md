@@ -2,6 +2,18 @@
 
 更新：2026-10-20。**本知识图谱不是官方考纲原文，也不是王道教材逐章全文搬运。** 本仓库只整理原创概念标签、知识关系以及本仓库已经持有的真题题号索引。
 
+## 2027 最新资料（本次补充）
+
+- **2027 正式考纲书目**：[高等教育出版社](https://www.hep.com.cn/book/show/2099763850751057921)。署名教育部教育考试院，ISBN `978-7-04-068451-3`，标示出版于 `2026-09-29`；书目元数据已核实，**未获得正式全文用于逐字复核**。
+- **2027 考纲细目**：[第三方公开转录](https://zhenti.beokayy.club/outline)，其“与 2026 无变化”是网站自身描述，不代表官方版本逐条对照已经完成。
+- **王道 2027 四科出版社书目与目录**：
+  [数据结构](https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851)（ISBN `9787121517914`）、
+  [计算机组成原理](https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045)（ISBN `9787121517945`）、
+  [操作系统](https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363)（ISBN `9787121517952`）、
+  [计算机网络](https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922)（ISBN `9787121517860`）。书籍出版信息为 `2026-01`，早于 2027 考纲出版日期，不能把教材目录直接认定为官方最新范围。
+- **细粒度对照产物**：[2027 范围与王道目录审计](syllabus-2027/source-audit.md)；[四科学习细目](syllabus-2027/README.md)；[217 节点对照](syllabus-2027/concept-crosswalk.csv)；[18 条待审核查漏提案](syllabus-2027/gap-review.md)。以上为原创编辑整理，不复制任何书籍原文或受版权保护的配套题图。
+
+---
 ## 一、范围与分值依据
 
 1. [2026 年 408 大纲公开整理（新东方）](https://kaoyan.xdf.cn/202511/15003718.html)：为本项目当前知识范围基线提供四科章节、考查方向和常见试卷结构参考。**性质：辅导机构转载整理，不是教育部考试院原件；最终以当年正式考纲为准。**
