@@ -35,6 +35,14 @@ jobs:
       - name: 构建器对照自测（必须识别缺图、缺题、泄漏）
         run: python tools/selftest_build.py
 
+      - name: AI 原创 Set 01 方向稿一致性校验（若存在）
+        run: |
+          if test -f drafts/ai-original/set-01/check_plan.py; then
+            python drafts/ai-original/set-01/check_plan.py
+          else
+            echo "no AI draft, skip"
+          fi
+
       - name: 用 schema 校验所有 meta.yml
         run: python tools/validate_meta.py
 
