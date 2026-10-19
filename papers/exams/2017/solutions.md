@@ -259,21 +259,28 @@
 
 (I)算法的基本设计思想表达式树的中序序列加上必要的括号即为等价的中缀表达式。可以基于二叉树的中序遍历策略得到所需的表达式。(3分）
 表达式树中分支结点所对应的子表达式的计算次序，由该分支结点所处的位置决定。为得到正确的中缀表达式，需要在生成遍历序列的同时，在适当位置增加必要的括号。显然，表达式的最外层（对应根结点）及操作数（对应叶结点）不需要添加括号。(2分）
-(2)算法实现(IQ分）
-将二叉树的中序遍历递归算法稍加改造即可得本题答案。除根结点和叶结点外，遍历到其他结点时在遍历其左子树之前加上左括号，在遍历完右子树后加上右括号。
-void B七reeToE(BTree *root
-BtreeToExp(root,  1);         ／／根的高度为1
-void. 13七reeToE:xp(BTree *roqt, int deep)
-｛
-if(root == NULL) return;      ／／空结点返回
-else if(root->left==NULL&&rɝot今right==NULL)  !/若为叶结点
-printf ("%s",  root->data);   //输出操作数，不加括号
-else{
-if (deep>l) printf (" (");    //若有子表达式则加1层括号
-BtreeToExp(root->left, deep+l);
-printf("%s",  root->da七a);       / /输出操作符
-Btree'1'6Exp (roo七一>right, .'\ieep+l l;
-if (deep>l) printf (") ");          / /若有子表达式则加1层括号
+(2) 算法实现（10 分；按源答案第 6 页恢复 C 代码）：
+
+将表达式树的中序遍历递归算法略加改造。除根结点和叶结点外，在遍历左子树前输出左括号，在遍历右子树后输出右括号。
+
+```c
+void BtreeToE(BTree *root) {
+    BtreeToExp(root, 1);  // 根的高度为 1
+}
+
+void BtreeToExp(BTree *root, int deep) {
+    if (root == NULL) return;
+    else if (root->left == NULL && root->right == NULL)
+        printf("%s", root->data);
+    else {
+        if (deep > 1) printf("(");
+        BtreeToExp(root->left, deep + 1);
+        printf("%s", root->data);
+        BtreeToExp(root->right, deep + 1);
+        if (deep > 1) printf(")");
+    }
+}
+```
 【评分说明】CD若考生设计的算法满足题目的功能要求，则(1)、(2)根据所实现算法的策略及输出结果给分，评分标准见下表。
 分数                        备注
 15     采用中序遍历算法且正确，括号嵌套正确，层数适当采用中序遍历算法且正确，括号嵌套正确，但括号嵌套层数过多。例如，表达式最外层加
@@ -377,26 +384,60 @@ float 型，其机器数中不包含最高有效数位，但包含了阶码部�
 
 【答案要点】
 
-先找出线程对在各个变量上的互斥、并发关系。如果是一读一写或两个都是写，那么这就是互斥关系。每一个互斥关系都需要一个信号量进行调节。
-semaphore mutex_yl=l; //mutex_yl用千threadl与thread3对变量y的互斥访问。
-semaphore mu七ex.,._y2=1; //mutex_y2用于thread2与thread3对变量y的互斥访问。
-semaphore mu七ex_z=l;  //mutex_z用千变量z的互斥访问。
-互斥代码如下： (5分）
-thread!                    lhn•ad2                    thread3
-！                                                                                             I                                                                                  I
-(num w;              cnum w;              cnum w;
-wait (mutex_y I)  ;          wail (mutex_y2)  ;       w .a= 1  ;
-W = aiJd (X, y)  ;           wail(mulex_1.)  ;         w.h= I;
-signal(nmtex_yl);      w = add (y , z)  ;          wuit(mutcx_z);
-...                      呴ignal(mut忙x_z);           z = add (z , w)  ;
-：                                signal (mutex_y2)  ;       叫,nal(mutc,_z);
-...                   虹1l(mu廿x_yI);
-｝                         阳iii(mulrx_y2)  ;
-y = add (y , w)  ;
-signal (mutcx_y I)  ;
-ʆignal (mult•x_y2)  ;
-...
-：
+先找出线程对在各个变量上的互斥、并发关系。如果是一读一写或两个都是写，则应互斥。每一种互斥关系用一个信号量协调。
+
+```text
+semaphore mutex_y1 = 1;  // thread1 与 thread3 对变量 y 的互斥访问
+semaphore mutex_y2 = 1;  // thread2 与 thread3 对变量 y 的互斥访问
+semaphore mutex_z  = 1;  // 对变量 z 的互斥访问
+```
+
+互斥代码如下（源页为三栏表，此处分栏转写；5 分）：
+
+**thread1**
+
+```text
+{
+    cnum w;
+    wait(mutex_y1);
+    w = add(x, y);
+    signal(mutex_y1);
+    ...
+}
+```
+
+**thread2**
+
+```text
+{
+    cnum w;
+    wait(mutex_y2);
+    wait(mutex_z);
+    w = add(y, z);
+    signal(mutex_z);
+    signal(mutex_y2);
+    ...
+}
+```
+
+**thread3**
+
+```text
+{
+    cnum w;
+    w.a = 1;
+    w.b = 1;
+    wait(mutex_z);
+    z = add(z, w);
+    signal(mutex_z);
+    wait(mutex_y1);
+    wait(mutex_y2);
+    y = add(y, w);
+    signal(mutex_y1);
+    signal(mutex_y2);
+    ...
+}
+```
 【评分说明】
 ＠各线程与变量之间的互斥、并发情况及相应评分见下表。
 thread! 和thread2    thread2和thread3     thread! 和thread3     给分变益三
@@ -408,17 +449,22 @@ z        不共享      读写互斥       不共享         1分
 
 ### 第 47 题
 
-<!-- 底本第 9—10 页；OCR 初稿，未逐字核对 -->
+<!-- 来源：2017-answer.pdf 第 9—10 页；对照源扫描恢复帧标记与公式 -->
 
 【答案要点】
 
-(1压时刻到ti时刻期间，甲方可以断定乙方已正确接收了3个数据帧，(1分）分别是So,o,
-S 1 ,0, S_{2} ,0 C1分）。R3,3说明乙发送的数据帧确认号是3, 即希望甲发送序号3 的数据帧，说明乙已经接收了序号为0ʇ2的数据帧。
-(2)从/_{1} 时刻起，甲方最多还可以发送5个数据帧Cl分），其中第一个帧是Ss,2C1分），最后一个数据帧是S _{1} ,2C1分）。发送序号3位，有8个序号。在GBN协议中，序号个数>发送窗口+1, 所以这里发送窗口最大为7。此时已发送了s3,o和s4,1, 所以最多还可以发送5个帧。
-(3)甲方需要重发3个数据帧(1分），重发的第一个帧是S_{2} ,3C1分）。在GBN协议中，接收方发送了N帧后，检测出错，则需要发送出错帧及其之后的帧。S2 ,0超时，所以重发的第一帧是S_{2}。已收到乙的R_{2} $.贞，所以确认号应为3。
-(4)甲方可以达到的最大信道利用率是
-8x1000                         7x                              100x10^{6}      X    =                                       100%  50% (2分）                                  8xl000                          0.96x10-3 +2x                                   100x10^{6}
-U= 发送数据的时间／从开始发送第一帧到收到第一个确认帧的时间=Nfd/(Td+ RTT+Ta)
-U 是信道利用率，N 是发送窗口的最大值，Td是发送一数据帧的时间，RTT 是往返时间，
-Ta 是发送一确认帧的时间。这里采用捎带确认，Td=Ta。
+（1）从 $t_0$ 到 $t_1$ 期间，甲方可以断定乙方已正确收到 3 个数据帧：$S_{0,0}$、$S_{1,0}$ 和 $S_{2,0}$。$R_{3,3}$ 的确认号为 3，表示乙希望收到序号 3 的帧，即此前序号 0～2 的数据帧均已正确接收。
+
+（2）从 $t_1$ 起，甲方最多还可以发送 **5 个**数据帧，其中第一个为 $S_{5,2}$，最后一个为 $S_{1,2}$。发送序号字段为 3 位，有 8 个序号；GBN 协议发送窗口最大为 7。此时已发送 $S_{3,0}$ 和 $S_{4,1}$，因此还可发送 5 帧。
+
+（3）甲方需重发 **3 个**数据帧，重发的第一个帧为 $S_{2,3}$。GBN 协议中若 $S_{2,0}$ 超时，须重传出错帧及其后的未确认帧；甲方已收到乙方的 $R_{2,3}$，故确认号为 3。
+
+（4）甲方最大信道利用率：
+
+$$
+U=\frac{7\times\dfrac{8\times1000}{100\times10^6}}{0.96\times10^{-3}+2\times\dfrac{8\times1000}{100\times10^6}}\times100\%=50\%.
+$$
+
+这里 $U=NT_d/(T_d+RTT+T_a)$；$N$ 为发送窗口最大值，$T_d$ 为一个数据帧的发送时间，$RTT$ 为往返时延，$T_a$ 为确认帧发送时间。本题采用捎带确认，$T_d=T_a$。
+
 【评分说明】答案部分正确，酌情给分。
