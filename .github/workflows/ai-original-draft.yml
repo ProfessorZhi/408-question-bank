@@ -1,0 +1,25 @@
+name: AI Original Draft QA
+
+# Only the isolated AI Set 01 proposal is checked here.
+# Existing historic papers and v1 build remain under qa.yml.
+on:
+  push:
+    paths:
+      - "drafts/ai-original/set-01/**"
+      - ".github/workflows/ai-original-draft.yml"
+  pull_request:
+    paths:
+      - "drafts/ai-original/set-01/**"
+      - ".github/workflows/ai-original-draft.yml"
+  workflow_dispatch:
+
+jobs:
+  direction-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate 47 AI question directions (no answers claimed)
+        run: python drafts/ai-original/set-01/check-plan.py
