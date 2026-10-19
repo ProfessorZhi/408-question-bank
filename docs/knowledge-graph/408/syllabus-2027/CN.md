@@ -310,6 +310,6 @@
 
 - [正式2027考纲出版信息（高等教育出版社）](https://www.hep.com.cn/book/show/2099763850751057921)
 - [公开2027考纲转录](https://zhenti.beokayy.club/outline)
-- [王道2027计算机网络电子工业出版社书目目录](https://phei.com.cn/module/goods/wssd_content.jsp?bookid=68922)
+- [王道2027计算机网络电子工业出版社书目目录](https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922)
 
 本页不能用于推断“王道目录全部都属于正式考纲逐条要求”，仍应以官方书本原文为最终依据。
