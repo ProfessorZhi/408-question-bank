@@ -20,6 +20,8 @@
 | [item-plan.json](item-plan.json) | 可机读47题ID、分值/主题/目标难度/配图计划 | 47个槽位已占；0道已写 |
 | [figure-plan.md](figure-plan.md) | 八张结构化SVG题图的设计规格、验图规则 | 图0/8 |
 | [quality-gates.md](quality-gates.md) | 10/10的证据门槛、硬阻断项、独立审稿与试做计划 | 已建规则 |
+| [critical-audit.md](critical-audit.md) | 主动淘汰靠换参数的方向，评估13个高风险题位 | 已完成首轮方向审查 |
+| [check_plan.py](check_plan.py) | 自动校验47题位、150分、考点编号、时间预算和题图对应 | 已建结构校验 |
 | [questions.md](questions.md) | **学生卷正式题面**；不得出现标准答案 | 0/47 |
 | [solutions.md](solutions.md) | **教师卷正式解析**；只在成题且验证后出现 | 0/47 |
 | [review.md](review.md) | 每题状态、审稿发现、返工和质量评价 | 全部待写 |
