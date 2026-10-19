@@ -32,6 +32,9 @@ jobs:
       - name: 质检脚本自测（必须能翻红也能翻绿）
         run: python tools/selftest_qa.py
 
+      - name: 构建器对照自测（必须识别缺图、缺题、泄漏）
+        run: python tools/selftest_build.py
+
       - name: 用 schema 校验所有 meta.yml
         run: python tools/validate_meta.py
 
@@ -59,6 +62,11 @@ jobs:
         run: |
           python tools/qa_paper.py --all \
             --json index/qa-report.json --write-coverage | tee /tmp/qa.txt
+
+      - name: v1 全量构建与 42 份产物验收（不包含 2026）
+        run: |
+          python tools/build_paper.py --all --both -o /tmp/408-v1-build
+          python tools/selftest_build.py --verify-built /tmp/408-v1-build
 
       - name: 完成度写进 job summary
         if: always()
