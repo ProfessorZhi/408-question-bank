@@ -133,15 +133,15 @@
       "primary_concept": "DS05.05",
       "primary_concept_name": "广度优先搜索BFS",
       "supporting_concepts": [
-        "DS05.04",
+        "DS05.01",
         "DS05.02"
       ],
       "difficulty_target": "H",
       "estimated_minutes": 2.8,
-      "cognitive_operation": "最小反例与遍历",
-      "scenario_seed": "无向图中起点的BFS层次和DFS顺序",
-      "originality_design": "考查哪些性质不随邻接遍历顺序而变",
-      "misconception_to_diagnose": "混淆搜索树边、原图边和最短距离",
+      "cognitive_operation": "BFS不变量与删边推理",
+      "scenario_seed": "连通无向图与从s出发的BFS搜索树，讨论删除一条非树边后的变化",
+      "originality_design": "利用BFS树仍完整保留这一关键不变量判断源点到各顶点最短距离是否改变，并区分树边与非树边",
+      "misconception_to_diagnose": "误以为删掉任意图边都会令某个最短距离变长，或将一次特定访问顺序等同于所有BFS顺序",
       "figure_approach": "svg",
       "calibration_anchor": "2025Q06",
       "editorial_state": "direction-only",
@@ -964,15 +964,16 @@
       "primary_concept": "DS02.06",
       "primary_concept_name": "双指针与链表算法",
       "supporting_concepts": [
+        "DS02.03",
         "DS01.02",
         "DS01.03"
       ],
       "difficulty_target": "HM",
       "estimated_minutes": 16,
-      "cognitive_operation": "算法构造与证明",
-      "scenario_seed": "删除一个连续子数组后剩余序列非降，求最短删除长度",
-      "originality_design": "研究非降前后缀与双指针线性扫描，并固定允许删除空段的条件",
-      "misconception_to_diagnose": "只找最长逆序段而不证明整体最优",
+      "cognitive_operation": "两路归并扫描与在线区间维护",
+      "scenario_seed": "两条非降序单链表记录可能重复的版本号，寻找双方共同具备的最长连续整数版本段（并列时选起点更小者）",
+      "originality_design": "只能只读扫描链表，不改变结点且O(1)额外空间；一次双指针归并同时去重、更新连续段，并证明O(m+n)",
+      "misconception_to_diagnose": "把单条链表内的重复版本号当成连续多个不同版本、或错误清空/合并连续段；忽略结果并列规则",
       "figure_approach": "none",
       "calibration_anchor": "2025Q41",
       "editorial_state": "direction-only",
@@ -1124,6 +1125,20 @@
       "question_written": false,
       "answer_verified": false,
       "figure_verified": false
+    }
+  ],
+  "revision_log": [
+    {
+      "at": "2026-10-20",
+      "q_no": 41,
+      "change": "discarded standard shortest-subarray-removal plan due to high LeetCode overlap; replaced with duplicate-aware two sorted linked-list common consecutive-run problem",
+      "status": "replacement-direction-needs-novelty-audit"
+    },
+    {
+      "at": "2026-10-20",
+      "q_no": 5,
+      "change": "replaced BFS/DFS traversal-order comparison because earlier chat already used a similar concept; new invariant concerns removing a non-tree edge from a BFS spanning tree",
+      "status": "replacement-direction-needs-counterexample-audit"
     }
   ]
 }
