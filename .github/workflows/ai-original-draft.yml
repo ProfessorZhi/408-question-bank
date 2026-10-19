@@ -21,5 +21,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Validate 47 AI question directions (no answers claimed)
-        run: python drafts/ai-original/set-01/check-plan.py
+      - name: Validate AI question blueprint and authoring state (not academic review)
+        run: python drafts/ai-original/set-01/check_plan.py
