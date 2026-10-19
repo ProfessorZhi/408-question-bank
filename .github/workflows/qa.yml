@@ -38,6 +38,9 @@ jobs:
       - name: 408 知识图谱完整性与真题锚点校验
         run: python docs/knowledge-graph/408/check.py
 
+      - name: 2027 考纲与王道知识范围映射自测
+        run: python docs/knowledge-graph/408/syllabus-2027/check.py
+
       - name: 用 schema 校验所有 meta.yml
         run: python tools/validate_meta.py
 
