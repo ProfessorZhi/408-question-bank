@@ -1,0 +1,25 @@
+chapter_id,subject_id,kg_chapter,public_outline_area,wangdao_book_area,mapping_note,public_outline_url,wangdao_publisher_url,review_status
+DS01,DS,基础概念与算法,一、基本概念,第1章 绪论,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+DS02,DS,线性表,二、线性表,第2章 线性表,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+DS03,DS,栈队列与数组,三、栈、队列和数组,第3章 栈、队列和数组,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+DS04,DS,树与二叉树,四、树与二叉树,第5章 树与二叉树,reordered-by-wangdao,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+DS05,DS,图,五、图,第6章 图,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+DS06,DS,查找,六、查找,第7章 查找；第4章 串的模式匹配,split-across-book-chapters,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+DS07,DS,排序,七、排序,第8章 排序,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851,editorial-mapping-not-official-verified
+CO01,CO,计算机系统与性能,一、计算机系统概述,第1章 计算机系统概述,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045,editorial-mapping-not-official-verified
+CO02,CO,数据表示和运算,二、数据的表示和运算,第2章 数据的表示和运算,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045,editorial-mapping-not-official-verified
+CO03,CO,存储系统,三、存储器层次结构,第3章 存储系统,label-difference,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045,editorial-mapping-not-official-verified
+CO04,CO,指令系统与机器级程序,四、指令系统,第4章 指令系统,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045,editorial-mapping-not-official-verified
+CO05,CO,CPU与流水线,五、中央处理器（CPU）,第5章 中央处理器,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045,editorial-mapping-not-official-verified
+CO06,CO,总线与输入输出,六、总线和输入/输出系统,总线与输入输出两部分,split-across-book-chapters,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045,editorial-mapping-not-official-verified
+OS01,OS,系统基础与运行环境,一、操作系统基础,第1章 计算机系统概述,label-difference,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363,editorial-mapping-not-official-verified
+OS02,OS,进程线程和并发,二、进程管理,第2章 进程与线程,label-difference,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363,editorial-mapping-not-official-verified
+OS03,OS,内存与虚拟存储,三、内存管理,第3章 内存管理,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363,editorial-mapping-not-official-verified
+OS04,OS,文件系统,四、文件管理,第4章 文件管理,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363,editorial-mapping-not-official-verified
+OS05,OS,设备和外存IO,五、输入/输出（I/O）管理,第5章 输入/输出管理,outline-correspondence,https://zhenti.beokayy.club/outline,https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363,editorial-mapping-not-official-verified
+CN01,CN,网络概述,一、计算机网络概述,第1章 计算机网络体系结构,label-difference,https://zhenti.beokayy.club/outline,https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922,editorial-mapping-not-official-verified
+CN02,CN,物理层,二、物理层,第2章 物理层,outline-correspondence,https://zhenti.beokayy.club/outline,https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922,editorial-mapping-not-official-verified
+CN03,CN,数据链路层,三、数据链路层,第3章 数据链路层,outline-correspondence,https://zhenti.beokayy.club/outline,https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922,editorial-mapping-not-official-verified
+CN04,CN,网络层,四、网络层,第4章 网络层,outline-correspondence,https://zhenti.beokayy.club/outline,https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922,editorial-mapping-not-official-verified
+CN05,CN,传输层,五、传输层,第5章 传输层,outline-correspondence,https://zhenti.beokayy.club/outline,https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922,editorial-mapping-not-official-verified
+CN06,CN,应用层,六、应用层,第6章 应用层,outline-correspondence,https://zhenti.beokayy.club/outline,https://www.phei.com.cn/module/goods/wssd_content.jsp?bookid=68922,editorial-mapping-not-official-verified
