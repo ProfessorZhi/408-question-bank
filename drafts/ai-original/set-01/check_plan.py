@@ -90,7 +90,7 @@ def main() -> None:
             "cognitive_operation", "scenario_seed", "originality_design", "misconception_to_diagnose",
         )), no
         assert question["figure_approach"] in {"none", "svg", "code", "table", "reuse-q43"}, no
-        assert re.fullmatch(r"20(?:0[9]|1\d|2[0-5])Q(?:[1-9]|[1-3]\d|4[0-7])", question["calibration_anchor"]), no
+        assert re.fullmatch(r"20(?:0[9]|1\d|2[0-5])Q(?:0?[1-9]|[1-3]\d|4[0-7])", question["calibration_anchor"]), no
         assert type(question["question_written"]) is bool
         assert type(question["answer_verified"]) is bool
         assert type(question["figure_verified"]) is bool
