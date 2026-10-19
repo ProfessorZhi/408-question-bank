@@ -40,7 +40,7 @@ def assert_acyclic(edges: list[dict[str, str]]) -> None:
         if color.get(node) == 2:
             return
         color[node] = 1
-        for successor in graph[node]:
+        for successor in graph.get(node, []):
             visit(successor)
         color[node] = 2
 
