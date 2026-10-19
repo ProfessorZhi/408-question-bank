@@ -35,6 +35,9 @@ jobs:
       - name: 构建器对照自测（必须识别缺图、缺题、泄漏）
         run: python tools/selftest_build.py
 
+      - name: 408 知识图谱完整性与真题锚点校验
+        run: python docs/knowledge-graph/408/check.py
+
       - name: 用 schema 校验所有 meta.yml
         run: python tools/validate_meta.py
 
