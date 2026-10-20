@@ -24,13 +24,14 @@
     "pilot_calibrated": false
   },
   "figure_status": {
-    "student_svg_count": 13,
+    "student_svg_count": 14,
     "teacher_only": [
       "assets/q42-answer.svg"
     ],
     "byte_reproduction": "passed-in-author-workspace",
     "visual_review": "author-inspected",
-    "independent_visual_review": false
+    "independent_visual_review": false,
+    "total_svg_count": 15
   },
   "quality_claim": "Complete original draft; 2024/2025 difficulty and 10/10 quality are targets, not validated outcomes. Finite program checks do not certify all natural-language semantics.",
   "items": [
@@ -467,17 +468,19 @@
       "no": 46,
       "subject": "OS",
       "points": 8,
-      "primary_concept": "OS05.06",
-      "topic": "阻塞read与DMA中断",
-      "check_mode": "constraint-only",
-      "figures": []
+      "primary_concept": "OS03.10",
+      "topic": "写时复制页框共享、写保护异常与引用计数",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q46-cow.svg"
+      ]
     },
     {
       "no": 47,
       "subject": "CN",
       "points": 9,
-      "primary_concept": "CN04.01",
-      "topic": "分片抓包逆推、MTU区间与TCP重组边界",
+      "primary_concept": "CN04.10",
+      "topic": "链路状态最短路与异步转发表暂态环路",
       "check_mode": "computational-cross-check",
       "figures": [
         "assets/q47-network.svg"
