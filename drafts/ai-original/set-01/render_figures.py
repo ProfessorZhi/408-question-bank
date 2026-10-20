@@ -164,18 +164,18 @@ s.text(320,192,'write k',20);s.text(705,115,'read k',20);s.text(705,310,'read k'
 s.text(565,395,'Each version must reach both subscribers before replacement.',20)
 s.save('q45-buffer.svg')
 
-s=SVG(1400,390,'q47','Q47 one path with a smaller intermediate MTU','TCP traffic travels from H through R1 and R2 to V. Access links have MTU 1500 B at 100 Mb/s; the middle link has MTU 620 B at 12 Mb/s. The RTT is 40 ms.')
-s.rect(60,168,110,66,ident='H');s.text(115,207,'H',26,bold=True)
-s.rect(395,168,125,66,ident='R1');s.text(457,207,'R1',26,bold=True)
-s.rect(825,168,125,66,ident='R2');s.text(887,207,'R2',26,bold=True)
-s.rect(1200,168,110,66,ident='V');s.text(1255,207,'V',26,bold=True)
-s.line(170,201,395,201);s.line(520,201,825,201);s.line(950,201,1200,201)
-s.text(285,107,'100 Mb/s',22);s.text(285,139,f'MTU {SPEC["q47"]["local_mtu_bytes"]} B',21)
-s.text(675,107,f'{SPEC["q47"]["bottleneck_link_bps"]//1000000} Mb/s',22)
-s.text(675,139,f'MTU {SPEC["q47"]["bottleneck_mtu_bytes"]} B',21)
-s.text(1080,107,'100 Mb/s',22);s.text(1080,139,f'MTU {SPEC["q47"]["local_mtu_bytes"]} B',21)
-s.text(700,320,f'H - V TCP RTT = {int(SPEC["q47"]["rtt_seconds"]*1000)} ms',23)
-s.text(700,358,'DF flag, packet captures and TCP sequence numbers are in the question.',19)
+s=SVG(1240,475,'q47','Q47 fragment capture and unknown link MTU','H sends two TCP segments through R to V. H-R MTU is 1500 B. R-V MTU is unknown M. Three observed IP packets are listed in arrival order; there is no fragment-completion or ACK answer in the diagram.')
+s.rect(65,80,130,70,'H','H');s.rect(475,80,130,70,'R','R');s.rect(1040,80,130,70,'V','V')
+s.line(195,115,475,115,arrow=True);s.line(605,115,1040,115,arrow=True)
+s.text(330,76,'MTU = 1500 B',24);s.text(800,76,'MTU = M B',24)
+s.line(965,135,965,200,dash=True);s.text(620,205,'Capture before IP reassembly at V',22,bold=True)
+p=SPEC['q47']
+for i,row in enumerate(p['captures']):
+ x=25+405*i;s.rect(x,238,380,147,ident=f'capture-{i+1}')
+ s.text(x+190,273,f"Arrival {i+1}: ID={row['id']}",22,bold=True)
+ s.text(x+190,313,f"Total={row['total_length']} B   MF={row['mf']}",21)
+ s.text(x+190,353,f"Offset field={row['offset']}",21)
+s.text(620,442,'Offset unit: 8 B. TCP fields and all assumptions are in the question.',20)
 s.save('q47-network.svg')
 
 def main():
