@@ -60,8 +60,8 @@ def structure():
             assert not re.match(r'^[a-zA-Z]+:|^/',ref),ref
             p=(BASE/ref).resolve();assert p.is_relative_to(BASE.resolve()) and p.is_file(),ref
             refs.append(ref)
-    assert len(set(refs))==14,len(set(refs))
-    assert len(re.findall(r'!\[',qtext))==13
+    assert len(set(refs))==15,len(set(refs))
+    assert len(re.findall(r'!\[',qtext))==14
     subprocess.run([__import__('sys').executable,str(BASE/'render_figures.py'),'--check'],check=True)
     spec_hash=hashlib.sha256((BASE/'specs/exam.json').read_bytes()).hexdigest()
     for ref in set(refs):
@@ -78,7 +78,7 @@ def structure():
     c_source=(BASE/'reference_q41.c').read_text(encoding='utf-8')
     fn=c_source[c_source.index('int longestCommonRun'):].strip()
     assert fn in dict(ss)[41],'displayed Q41 code differs from compiled reference'
-    return {'question_count':47,'choice_options':160,'points':150,'question_figures':13,'svg_files':14,'teacher_only_svg':1,'q41_code_matches_display':True}
+    return {'question_count':47,'choice_options':160,'points':150,'question_figures':14,'svg_files':15,'teacher_only_svg':1,'q41_code_matches_display':True}
 
 @functools.lru_cache(None)
 def shapes(n):
@@ -650,69 +650,114 @@ def subscriber_model(records, flawed=False):
             'unsafe_witness':bad[:1],'deadlock_witness':dead[:1],'parallel_reads_reachable':parallel}
 
 
-def fragment(total, mtu, header=20, unit=8):
-    remaining,offset,result=total-header,0,[]
-    while remaining:
-        size=remaining if remaining<=mtu-header else (mtu-header)//unit*unit
-        assert size>0
-        remaining-=size;result.append((offset//unit,header+size,int(remaining>0)));offset+=size
-    return result
+def cow_model():
+    """Independently simulate page mappings, frame owners and COW protection faults."""
+    p=S['q46']; names=p['processes']
+    frames={row['initial_frame']:{'value':row['initial_value'],'owners':set(names)} for row in p['pages']}
+    table={proc:{row['vpn']:row['initial_frame'] for row in p['pages']} for proc in names}
+    writeable={proc:{row['vpn']:False for row in p['pages']} for proc in names}
+    faults=[];copies=[];trace=[];fresh=p['next_fresh_frame'];middle=None
+    for step,action in enumerate(p['operations'],1):
+        proc=action['process']
+        if action['type']=='exit':
+            for vpn,frame in table.pop(proc).items():
+                frames[frame]['owners'].remove(proc)
+            writeable.pop(proc)
+            trace.append({'step':step,'event':'exit','proc':proc})
+            continue
+        vpn=action['vpn'];frame=table[proc][vpn]
+        if not writeable[proc][vpn]:
+            faults.append(step)
+            if len(frames[frame]['owners'])>1:
+                new_frame=fresh;fresh+=1
+                frames[new_frame]={'value':frames[frame]['value'],'owners':{proc}}
+                frames[frame]['owners'].remove(proc);table[proc][vpn]=new_frame
+                copies.append({'step':step,'source':frame,'new':new_frame,'vpn':vpn,'proc':proc})
+                frame=new_frame
+            writeable[proc][vpn]=True
+        frames[frame]['value']=action['value']
+        trace.append({'step':step,'proc':proc,'vpn':vpn,'frame':frame,'value':action['value']})
+        if step==3:
+            middle={name:[frames[table[name][row['vpn']]]['value'] for row in p['pages']] for name in names}
+            middle_frames={name:[table[name][row['vpn']] for row in p['pages']] for name in names}
+    final_parent=[frames[table['P'][row['vpn']]]['value'] for row in p['pages']]
+    assert faults==[1,2,3,5],faults
+    assert copies==[{'step':1,'source':2,'new':9,'vpn':0,'proc':'C'},
+                    {'step':3,'source':5,'new':10,'vpn':1,'proc':'P'}],copies
+    assert middle=={'P':[12,21,30],'C':[11,20,30]},middle
+    assert middle_frames=={'P':[2,10,8],'C':[9,5,8]},middle_frames
+    assert final_parent==[12,21,31] and table['P'][2]==8
+    assert frames[8]['owners']=={'P'} and not writeable['P'][0] is False
+    return {'write_protection_fault_steps':faults,'physical_page_copies':copies,
+            'values_before_child_exit':middle,'frames_before_child_exit':middle_frames,
+            'values_after_parent_final_write':final_parent,'last_write_frame':table['P'][2],
+            'last_write_causes_fault_but_no_copy':5 in faults and not any(c['step']==5 for c in copies),
+            'simulation_events':trace}
 
 
-def receiver_trace(captures,spec,premature_mf=False):
-    ip,delivered,tcp={},set(),set();nxt=spec['next_tcp_byte'];history=[]
-    for packet in captures:
-        ident=packet['id'];state=ip.setdefault(ident,{'bytes':set(),'end':None,'seq':None})
-        begin=packet['offset']*spec['fragment_unit_bytes'];end=begin+packet['total_length']-spec['ip_header_bytes']
-        state['bytes'].update(range(begin,end))
-        if packet['mf']==0:state['end']=end
-        if packet['offset']==0:state['seq']=packet['tcp_seq']
-        complete=(state['end'] is not None and state['seq'] is not None and
-                  (premature_mf or all(i in state['bytes'] for i in range(state['end']))))
-        if complete and ident not in delivered:
-            count=state['end']-spec['tcp_header_bytes'];assert count>=0
-            tcp.update(range(state['seq'],state['seq']+count));delivered.add(ident)
-            while nxt in tcp:nxt+=1
-        history.append({'ack':nxt,'delivered_IP_ids':sorted(delivered),'tcp_bytes_received':len(tcp)})
-    return history
-
-
-def network_inverse():
-    p=S['q47'];h,unit=p['ip_header_bytes'],p['fragment_unit_bytes']
-    a=[x for x in p['captures'] if x['id']==p['first_id']]
-    last=next(x for x in a if x['mf']==0)
-    original=unit*last['offset']+last['total_length']
-    observed={(x['offset'],x['total_length'],x['mf']) for x in a}
-    candidates=[m for m in range(p['mtu_domain'][0],p['mtu_domain'][1]+1)
-                if observed.issubset(set(fragment(original,m,h,unit)))]
-    assert original==1500 and candidates==list(range(620,628)),candidates
-    missing_sets={tuple(x for x in fragment(original,m,h,unit) if x not in observed) for m in candidates}
-    assert len(missing_sets)==1
-    missing,=missing_sets.pop();assert missing==(75,620,1)
-    missing_packet={'id':p['first_id'],'offset':missing[0],'total_length':missing[1],'mf':missing[2],'tcp_seq':None}
-    captures=p['captures']+[missing_packet];history=receiver_trace(captures,p)
-    assert [x['ack'] for x in history]==[1001,1001,1001,2661]
-    assert history[2]['delivered_IP_ids']==[p['second_id']] and history[2]['tcp_bytes_received']==200
-    assert history[-1]['tcp_bytes_received']==1660
-    permutations=0
-    d1={(x['id'],x['offset']) for x in captures if x['id']==p['first_id']}
-    for order in itertools.permutations(captures):
-        trace=receiver_trace(list(order),p);assert trace[-1]['ack']==2661
-        seen=set();before=p['next_tcp_byte']
-        for row,state in zip(order,trace):
-            seen.add((row['id'],row['offset']));assert state['ack']>=before
-            if not d1.issubset(seen):assert state['ack']==1001
-            before=state['ack']
-        permutations+=1
-    wrong=receiver_trace(captures,p,premature_mf=True)
-    assert wrong[2]['ack']!=history[2]['ack']
-    assert fragment(original,619,h,unit)[0][1]==612
-    assert fragment(original,627,h,unit)[0][1]==620
-    assert fragment(original,628,h,unit)[0][1]==628
-    return {'original_IP_bytes':original,'missing_fragment':list(missing),'compatible_MTUs':candidates,
-            'MTUs_enumerated':p['mtu_domain'][1]-p['mtu_domain'][0]+1,'observed_arrival_trace':history,
-            'arrival_permutations_tested':permutations,'premature_MF_mutant_ACK_after_third':wrong[2]['ack'],
-            'finite_checks_not_protocol_formal_verification':True}
+def routing_model():
+    """Shortest paths, mixed forwarding states, TTL drops and all update orders."""
+    p=S['q47'];nodes=p['nodes'];dst=p['destination']
+    def compute(which):
+        dist={n:float('inf') for n in nodes};dist[dst]=0
+        for _ in range(len(nodes)):
+            modified=False
+            for e in p['edges']:
+                a,b,w=e['u'],e['v'],e[which+'_cost']
+                if dist[a]>dist[b]+w:dist[a]=dist[b]+w;modified=True
+                if dist[b]>dist[a]+w:dist[b]=dist[a]+w;modified=True
+            if not modified:break
+        nxt={}
+        for a in nodes:
+            if a==dst:continue
+            options=[]
+            for e in p['edges']:
+                v=e['v'] if e['u']==a else e['u'] if e['v']==a else None
+                if v is not None:options.append((e[which+'_cost']+dist[v],v))
+            best=min(x[0] for x in options)
+            winners=[v for cost,v in options if cost==best]
+            assert len(winners)==1,(which,a,options)
+            nxt[a]=winners[0]
+            assert dist[a]==best,(which,a,best,dist)
+        return dist,nxt
+    olddist,oldnext=compute('old');newdist,newnext=compute('new')
+    assert oldnext==p['expected_old_next'] and newnext==p['expected_new_next']
+    assert newdist=={'R1':5,'R2':6,'R3':7,'R4':0},newdist
+    actors=[x for x in nodes if x!=dst]
+    def cycle(tab):
+        for origin in actors:
+            seen=set();u=origin
+            while u!=dst:
+                if u in seen:return {'origin':origin,'at':u}
+                seen.add(u);u=tab.get(u)
+                assert u is not None
+        return None
+    safe=[];unsafe_examples=[]
+    for order in itertools.permutations(actors):
+        tab=dict(oldnext);bad=None
+        for u in order:
+            tab[u]=newnext[u]
+            bad=cycle(tab)
+            if bad:
+                unsafe_examples.append({'order':list(order),'first_bad_update':u,'cycle':bad})
+                break
+        if not bad:safe.append(list(order))
+    assert safe==[p['expected_safe_update_order']],safe
+    only=dict(oldnext)
+    for u in p['first_updated']:only[u]=newnext[u]
+    ttl=p['initial_ttl'];u=p['source_router'];path=[];drop=None;detail=[]
+    while ttl>0:
+        path.append(u);ttl-=1
+        detail.append({'router':u,'ttl_after_decrement':ttl})
+        if ttl==0:drop=u;break
+        u=only[u]
+        assert len(path)<=10
+    assert path==['R1','R2','R1','R2'] and drop=='R2'
+    assert [x['ttl_after_decrement'] for x in detail]==[3,2,1,0]
+    return {'old_distances':olddist,'old_next_hops':oldnext,'new_distances':newdist,
+            'new_next_hops':newnext,'transient_packet_path':path,
+            'ttl_trace':detail,'discarded_by':drop,'safe_orders':safe,
+            'unsafe_orders_checked':unsafe_examples,'number_of_order_permutations':len(safe)+len(unsafe_examples)}
 
 
 def tests_final():
@@ -724,11 +769,10 @@ def tests_final():
     record(45,{'correct_models':good,'shared_ready_counterexample':bad,
                'scope':'1-4 records; general reasoning remains in solutions.md'},
            sum(x['states'] for x in good)+bad['states'])
-    order=S['q46']['ordered_events'];assert order==[3,2,4,5,6,1]
-    record(46,{'ordering':order,'basis':'event constraints explicitly fixed in the question; OS semantics require editorial review'},
-           mode='constraint-consistency-plus-editorial-proof')
-    result=network_inverse()
-    record(47,result,result['MTUs_enumerated']+result['arrival_permutations_tested'])
+    cow=cow_model()
+    record(46,cow,len(S['q46']['operations']))
+    routes=routing_model()
+    record(47,routes,routes['number_of_order_permutations']+2*len(S['q47']['nodes']))
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--json',type=pathlib.Path);args=ap.parse_args()
@@ -737,13 +781,13 @@ def main():
     manual=[n for n in range(1,48)if str(n)not in RESULTS]
     for n in manual:record(n,'Definition/semantics and option reasoning checked in solutions.md; not algorithmically certified',0,'author-editorial-proof-only')
     results={str(n):RESULTS[str(n)]for n in range(1,48)}
-    report={'status':'pass','scope':'author-run executable cross-check; not independent expert/psychometric certification','structural':structural,'computational_questions':[int(k)for k,v in results.items()if v['mode']=='executable-cross-check'],'editorial_only_questions':manual,'constraint_only_questions':[46],'results':results,'limitations':['finite enumeration is not a general proof','not all natural-language option semantics can be established by code','no candidate-response data or independent expert blind review','difficulty equivalence to 2024/2025 remains an editorial target']}
+    report={'status':'pass','scope':'author-run executable cross-check; not independent expert/psychometric certification','structural':structural,'computational_questions':[int(k)for k,v in results.items()if v['mode']=='executable-cross-check'],'editorial_only_questions':manual,'constraint_only_questions':[],'results':results,'limitations':['finite enumeration is not a general proof','not all natural-language option semantics can be established by code','no candidate-response data or independent expert blind review','difficulty equivalence to 2024/2025 remains an editorial target']}
     print('[verify] PASS: 47 question sections, 160 choices, 47 explanations, 7 rubrics, 150 points')
-    print(f'[verify] PASS: 14 reproducible SVGs (13 student, 1 teacher-only)')
+    print(f'[verify] PASS: 15 reproducible SVGs (14 student, 1 teacher-only)')
     print(f'[verify] computational cross-checks: {len(report["computational_questions"])} questions; editorial-only: {manual}; constrained event check: Q46')
     print(f'[verify] Q41 compiled C: {RESULTS["41"]["checks_or_cases"]} cases')
     print(f'[verify] Q45: subscriber fan-out models explored; flawed shared-ready counterexample found')
-    print(f'[verify] Q47: compatible MTU range {RESULTS["47"]["result"]["compatible_MTUs"][0]}–{RESULTS["47"]["result"]["compatible_MTUs"][-1]} B; {RESULTS["47"]["result"]["arrival_permutations_tested"]} arrival permutations')
+    print("[verify] Q46: 4 write-protection faults, 2 page copies; refcount=1 upgrades in place")\n    print("[verify] Q47: 6 update orders enumerated, exactly one loop-free; TTL=4 drops at R2")
     print('[verify] Independent expert review and timed pilot: NOT PERFORMED')
     if args.json:
         args.json.parent.mkdir(parents=True,exist_ok=True)
