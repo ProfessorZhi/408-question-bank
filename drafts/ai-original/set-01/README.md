@@ -7,6 +7,7 @@
 - **[学生卷：questions.md](questions.md)**：完整47题，只包含题干、选项、题图与一般约定。
 - **[教师解答：solutions.md](solutions.md)**：40题答案表、逐项错因、7道综合题推导及分步评分细则。
 - [逐题状态：review.md](review.md)、[实际验算范围：verification.md](verification.md)、[题图清单：figure-plan.md](figure-plan.md)。
+- **[2009–2025 历年119道综合题原创性纵向审查](originality-evolution-2009-2025.md)**：逐年机制演化、网络大题追踪、对Set 01七题的重新审稿。现有Q41–Q47已成稿，但原创性**未通过终审**，不得据程序验算绿色推定命题满分。
 - [机器可读清单：item-plan.json](item-plan.json)、[题目数据真值：specs/exam.json](specs/exam.json)。后者**含答案**，不得作为学生公开作答页面的一部分。
 
 ## 构成
