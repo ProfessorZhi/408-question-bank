@@ -591,21 +591,144 @@ def pipeline_sync(mutant=False):
         elif enabled==0:dead.append(state)
     return {'reachable_states':len(seen),'transitions':transitions,'completed_states':terminal,'deadlocks':len(dead),'deadlock_example':dead[0]if dead else None}
 
+def subscriber_model(records, flawed=False):
+    """Finite-state check of one-slot delivery to two named subscribers."""
+    p=S['q45']; key='flawed' if flawed else 'correct'
+    programs=[]
+    for program in p[key+'_programs']:
+        actions=[]
+        for op in program:
+            actions.extend([op+':begin',op+':end'] if op in ('readA','readB') else [op])
+        programs.append(actions)
+    sems=list(p[key+'_semaphores']); ix={name:i for i,name in enumerate(sems)}
+    start=((0,0,0),(0,0,0),tuple(p[key+'_semaphores'].values()),0,(0,0),(0,)*(2*records))
+    todo=collections.deque([start]); parents={start:None}; bad=[]; dead=[]; transitions=terminals=0; parallel=False
+    def trace(state,last=None):
+        out=[] if last is None else [last]
+        while parents[state] is not None:
+            state,action=parents[state];out.append(action)
+        return list(reversed(out))
+    while todo:
+        state=todo.popleft();pc,done,sem,version,active,reads=state
+        parallel |= all(active); enabled=0
+        for thread in range(3):
+            if done[thread]==records:continue
+            op=programs[thread][pc[thread]]
+            pcs,dones,sems,acts,hist=list(pc),list(done),list(sem),list(active),list(reads)
+            ver,errors=version,[]
+            if op.startswith('P:'):
+                k=ix[op[2:]]
+                if not sems[k]:continue
+                sems[k]-=1
+            elif op.startswith('V:'):sems[ix[op[2:]]]+=1
+            elif op=='write':
+                if any(acts) or (version and any(hist[r*records+version-1]!=1 for r in range(2))):
+                    errors.append('overwrite before both subscribers finish exactly once')
+                ver=dones[0]+1
+            else:
+                who=0 if op.startswith('readA') else 1
+                if op.endswith(':begin'):
+                    if ver==0 or ver!=dones[thread]+1:errors.append('wrong or repeated version')
+                    if acts[who]:errors.append('overlapping own read')
+                    acts[who]=ver
+                else:
+                    if not acts[who] or acts[who]!=ver:errors.append('slot changed during read')
+                    if 1<=acts[who]<=records:hist[who*records+acts[who]-1]+=1
+                    acts[who]=0
+            pcs[thread]+=1
+            if pcs[thread]==len(programs[thread]):pcs[thread]=0;dones[thread]+=1
+            nxt=(tuple(pcs),tuple(dones),tuple(sems),ver,tuple(acts),tuple(hist))
+            action=f'{"PAB"[thread]}:{op}'
+            if errors and not bad:bad.append({'error':errors[0],'trace':trace(state,action)})
+            transitions+=1;enabled+=1
+            if nxt not in parents:parents[nxt]=(state,action);todo.append(nxt)
+        if all(n==records for n in done):
+            terminals+=1
+            if not flawed:assert reads==(1,)*(2*records) and not any(active) and not any(sem)
+        elif enabled==0 and not dead:dead.append({'trace':trace(state),'version':version,'reads':reads})
+    return {'records':records,'states':len(parents),'transitions':transitions,'completed_states':terminals,
+            'unsafe_witness':bad[:1],'deadlock_witness':dead[:1],'parallel_reads_reachable':parallel}
+
+
+def fragment(total, mtu, header=20, unit=8):
+    remaining,offset,result=total-header,0,[]
+    while remaining:
+        size=remaining if remaining<=mtu-header else (mtu-header)//unit*unit
+        assert size>0
+        remaining-=size;result.append((offset//unit,header+size,int(remaining>0)));offset+=size
+    return result
+
+
+def receiver_trace(captures,spec,premature_mf=False):
+    ip,delivered,tcp={},set(),set();nxt=spec['next_tcp_byte'];history=[]
+    for packet in captures:
+        ident=packet['id'];state=ip.setdefault(ident,{'bytes':set(),'end':None,'seq':None})
+        begin=packet['offset']*spec['fragment_unit_bytes'];end=begin+packet['total_length']-spec['ip_header_bytes']
+        state['bytes'].update(range(begin,end))
+        if packet['mf']==0:state['end']=end
+        if packet['offset']==0:state['seq']=packet['tcp_seq']
+        complete=(state['end'] is not None and state['seq'] is not None and
+                  (premature_mf or all(i in state['bytes'] for i in range(state['end']))))
+        if complete and ident not in delivered:
+            count=state['end']-spec['tcp_header_bytes'];assert count>=0
+            tcp.update(range(state['seq'],state['seq']+count));delivered.add(ident)
+            while nxt in tcp:nxt+=1
+        history.append({'ack':nxt,'delivered_IP_ids':sorted(delivered),'tcp_bytes_received':len(tcp)})
+    return history
+
+
+def network_inverse():
+    p=S['q47'];h,unit=p['ip_header_bytes'],p['fragment_unit_bytes']
+    a=[x for x in p['captures'] if x['id']==p['first_id']]
+    last=next(x for x in a if x['mf']==0)
+    original=unit*last['offset']+last['total_length']
+    observed={(x['offset'],x['total_length'],x['mf']) for x in a}
+    candidates=[m for m in range(p['mtu_domain'][0],p['mtu_domain'][1]+1)
+                if observed.issubset(set(fragment(original,m,h,unit)))]
+    assert original==1500 and candidates==list(range(620,628)),candidates
+    missing_sets={tuple(x for x in fragment(original,m,h,unit) if x not in observed) for m in candidates}
+    assert len(missing_sets)==1
+    missing,=missing_sets.pop();assert missing==(75,620,1)
+    missing_packet={'id':p['first_id'],'offset':missing[0],'total_length':missing[1],'mf':missing[2],'tcp_seq':None}
+    captures=p['captures']+[missing_packet];history=receiver_trace(captures,p)
+    assert [x['ack'] for x in history]==[1001,1001,1001,2661]
+    assert history[2]['delivered_IP_ids']==[p['second_id']] and history[2]['tcp_bytes_received']==200
+    assert history[-1]['tcp_bytes_received']==1660
+    permutations=0
+    d1={(x['id'],x['offset']) for x in captures if x['id']==p['first_id']}
+    for order in itertools.permutations(captures):
+        trace=receiver_trace(list(order),p);assert trace[-1]['ack']==2661
+        seen=set();before=p['next_tcp_byte']
+        for row,state in zip(order,trace):
+            seen.add((row['id'],row['offset']));assert state['ack']>=before
+            if not d1.issubset(seen):assert state['ack']==1001
+            before=state['ack']
+        permutations+=1
+    wrong=receiver_trace(captures,p,premature_mf=True)
+    assert wrong[2]['ack']!=history[2]['ack']
+    assert fragment(original,619,h,unit)[0][1]==612
+    assert fragment(original,627,h,unit)[0][1]==620
+    assert fragment(original,628,h,unit)[0][1]==628
+    return {'original_IP_bytes':original,'missing_fragment':list(missing),'compatible_MTUs':candidates,
+            'MTUs_enumerated':p['mtu_domain'][1]-p['mtu_domain'][0]+1,'observed_arrival_trace':history,
+            'arrival_permutations_tested':permutations,'premature_MF_mutant_ACK_after_third':wrong[2]['ack'],
+            'finite_checks_not_protocol_formal_verification':True}
+
+
 def tests_final():
-    good=pipeline_sync(False);bad=pipeline_sync(True)
-    assert good['deadlocks']==0 and good['completed_states']>0
-    assert bad['deadlocks']>0
-    record(45,{'correct_model':good,'mutant_Pdev_before_Pempty':bad,'finite_model_only':True},good['reachable_states']+bad['reachable_states'])
-    order=S['q46']['ordered_events'];assert sorted(order)==list(range(1,7))
-    assert order==[3,2,4,5,6,1]
-    record(46,{'ordering':order,'basis':'event constraints explicitly fixed in the question; OS semantics require editorial review'},mode='constraint-consistency-plus-editorial-proof')
-    p=S['q47'];h=ipaddress.ip_interface(p['h']);server=ipaddress.ip_interface(p['server']);gateway=ipaddress.ip_interface(p['r1_lan']);r1=ipaddress.ip_interface(p['r1_wan']);r2=ipaddress.ip_interface(p['r2_wan']);dstgw=ipaddress.ip_interface(p['r2_lan'])
-    assert gateway.ip in h.network and server.ip not in h.network
-    assert r1.network==r2.network and dstgw.network==server.network
-    assert str(server.network)=='203.0.113.64/26'and str(server.network.broadcast_address)=='203.0.113.127'
-    seq2=p['client_isn']+1+p['mss'];ack=p['client_isn']+1+p['payload_bytes'];cap=min(min(p['link_bps']),p['rwnd_bytes']*8/p['rtt_seconds'])
-    assert(seq2,ack,cap)==(4001,4501,1600000)
-    record(47,{'server_subnet':str(server.network),'broadcast':str(server.network.broadcast_address),'ARP_target':str(gateway.ip),'next_hop_MAC':p['mac']['r1_lan'],'end_destination_IP':str(server.ip),'second_seq':seq2,'ACK':ack,'throughput_bps':cap,'limiter':'rwnd/RTT'},7)
+    good=[subscriber_model(k) for k in range(1,5)]
+    bad=subscriber_model(3,flawed=True)
+    assert all(x['completed_states'] and not x['unsafe_witness'] and not x['deadlock_witness'] for x in good)
+    assert all(x['parallel_reads_reachable'] for x in good)
+    assert bad['unsafe_witness'] and bad['deadlock_witness']
+    record(45,{'correct_models':good,'shared_ready_counterexample':bad,
+               'scope':'1-4 records; general reasoning remains in solutions.md'},
+           sum(x['states'] for x in good)+bad['states'])
+    order=S['q46']['ordered_events'];assert order==[3,2,4,5,6,1]
+    record(46,{'ordering':order,'basis':'event constraints explicitly fixed in the question; OS semantics require editorial review'},
+           mode='constraint-consistency-plus-editorial-proof')
+    result=network_inverse()
+    record(47,result,result['MTUs_enumerated']+result['arrival_permutations_tested'])
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--json',type=pathlib.Path);args=ap.parse_args()
