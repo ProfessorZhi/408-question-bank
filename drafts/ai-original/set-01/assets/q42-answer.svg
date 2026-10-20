@@ -3,7 +3,7 @@
 <desc id="desc">Left after inserting15; right after replacing50 with predecessor40 and deleting original40.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q42-answer&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;6774a4dc0fbf99731429e3c5e402da4bc4a42b1328ee0c5a546def4f5ef42475&quot;}</metadata>
+<metadata>{&quot;figure_id&quot;: &quot;q42-answer&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5b9565069f4a9347cab0cab885b7ec0cb682f38d1409a563248898637b7e1853&quot;}</metadata>
 <rect width="1160" height="370" fill="white"/>
 <text x="280" y="40" font-size="22" text-anchor="middle" font-weight="700">After inserting 15</text>
 <path class="line" d="M258.63,118.09 L171.37,191.91" data-edge="30--15"/>
