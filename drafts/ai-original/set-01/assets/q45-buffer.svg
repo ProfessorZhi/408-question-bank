@@ -3,7 +3,7 @@
 <desc id="desc">Producer P writes version k into one reusable slot; A and B must each read this version before P may overwrite. The figure describes data flow, not a P/V solution.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q45&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;6774a4dc0fbf99731429e3c5e402da4bc4a42b1328ee0c5a546def4f5ef42475&quot;}</metadata>
+<metadata>{&quot;figure_id&quot;: &quot;q45&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5b9565069f4a9347cab0cab885b7ec0cb682f38d1409a563248898637b7e1853&quot;}</metadata>
 <rect width="1140" height="420" fill="white"/>
 <rect x="45" y="175" width="190" height="85" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="P"/>
 <text x="140" y="223" font-size="24" text-anchor="middle" font-weight="700">Producer P</text>
