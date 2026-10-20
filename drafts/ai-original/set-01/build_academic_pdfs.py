@@ -23,6 +23,8 @@ def question_pdf(md):
         n=int(m[1])
         return rf"\ExamQ{{{n}}}" if n<=40 else rf"\BigQ{{{n}}}{{{SCORES[n]}}}"
     md=RE_Q.sub(q_repl,md)
+    # Keep the network topology and all Q47 subquestions together on the final page.
+    md=md.replace(r"\BigQ{47}{9}", "\\clearpage\n\n\\BigQ{47}{9}")
     md=re.sub(r"(\\BigQ\{\d+\}\{\d+\})\s*\n\s*\n\s*（\d+分）",r"\1\n\n",md)
     assert sum(1 for i in range(1,41) if rf"\ExamQ{{{i}}}" in md)==40
     assert sum(1 for i in range(41,48) if rf"\BigQ{{{i}}}{{{SCORES[i]}}}" in md)==7
@@ -45,6 +47,8 @@ def teacher_pdf(md):
         return (rf"\TeacherItem{{{n}}}{{{answers[n]}}}" if n<=40
                 else rf"\TeacherBig{{{n}}}{{{SCORES[n]}}}")
     md=RE_Q.sub(q_repl,md)
+    # A complete worked problem should not be split at a page boundary.
+    md=md.replace(r"\TeacherBig{47}{9}", "\\clearpage\n\n\\TeacherBig{47}{9}")
     def grid():
         lines=[
           r"\begin{tabularx}{\linewidth}{@{}>{\sffamily\bfseries}l*{10}{>{\centering\arraybackslash\sffamily}X}@{}}",
@@ -57,7 +61,7 @@ def teacher_pdf(md):
         lines.extend([r"\bottomrule",r"\end{tabularx}"])
         return "\n".join(lines)
     assert sum(1 for i in range(1,41) if rf"\TeacherItem{{{i}}}{{{answers[i]}}}" in md)==40
-    return ("\\TeacherCover\n\n\\TeacherSection{一、选择题答案速查}\n\n"
+    return ("\\def\\answeredition{1}\n\n\\TeacherCover\n\n\\TeacherSection{一、选择题答案速查}\n\n"
             "\\AnswerGrid{\n"+grid()+"\n}\n\n"
             "\\TeacherSection{二、选择题逐题解析}\n\n"+md)
 
@@ -100,6 +104,12 @@ def build(kind,filename):
         assert "选择题答案速查" in txt and "评分细则" in txt
     for n in (1,2,19,39,40,41,42,43,44,45,46,47):
         assert re.search(r"(?:^|\n)"+str(n)+r"\.|第\s*"+str(n)+r"\s*题",txt),(filename,n)
+    # A split Q47 would make the last-page network problem difficult to read.
+    pages=[p.get_text() for p in doc]
+    q47_pages=[i for i,p in enumerate(pages) if re.search(r"第\\s*47\\s*题",p)]
+    assert q47_pages==[len(doc)-1], (filename,"Q47 starts on wrong page",q47_pages,len(doc))
+    if kind=="solutions.md":
+        assert "解析版" in pages[min(1,len(pages)-1)], "teacher running header has wrong edition"
     assert output.stat().st_size>30000
     print("[verified]",filename,len(doc),"A4 pages",output.stat().st_size,"bytes",flush=True)
     doc.close()
