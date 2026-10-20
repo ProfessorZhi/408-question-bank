@@ -1,33 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="475" viewBox="0 0 1240 475" role="img" aria-labelledby="title desc">
-<title id="title">Q47 fragment capture and unknown link MTU</title>
-<desc id="desc">H sends two TCP segments through R to V. H-R MTU is 1500 B. R-V MTU is unknown M. Three observed IP packets are listed in arrival order; there is no fragment-completion or ACK answer in the diagram.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="555" viewBox="0 0 1160 555" role="img" aria-labelledby="title desc">
+<title id="title">Q47 link-cost change with asynchronous routing-table updates</title>
+<desc id="desc">Undirected topology R1-R2-R3-R4 with extra R1-R4 link; only R3-R4 link cost changes from 1 to 9, but stays operational. Network N is reached via R4.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5b9565069f4a9347cab0cab885b7ec0cb682f38d1409a563248898637b7e1853&quot;}</metadata>
-<rect width="1240" height="475" fill="white"/>
-<rect x="65" y="80" width="130" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
-<text x="130.0" y="122.7" font-size="22" text-anchor="middle">H</text>
-<rect x="475" y="80" width="130" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="R"/>
-<text x="540.0" y="122.7" font-size="22" text-anchor="middle">R</text>
-<rect x="1040" y="80" width="130" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="V"/>
-<text x="1105.0" y="122.7" font-size="22" text-anchor="middle">V</text>
-<path class="line" d="M195,115 L475,115" marker-end="url(#arrow)"/>
-<path class="line" d="M605,115 L1040,115" marker-end="url(#arrow)"/>
-<text x="330" y="76" font-size="24" text-anchor="middle">MTU = 1500 B</text>
-<text x="800" y="76" font-size="24" text-anchor="middle">MTU = M B</text>
-<path class="line" d="M965,135 L965,200" stroke-dasharray="8 6"/>
-<text x="620" y="205" font-size="22" text-anchor="middle" font-weight="700">Capture before IP reassembly at V</text>
-<rect x="25" y="238" width="380" height="147" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="capture-1"/>
-<text x="215" y="273" font-size="22" text-anchor="middle" font-weight="700">Arrival 1: ID=1201H</text>
-<text x="215" y="313" font-size="21" text-anchor="middle">Total=620 B   MF=1</text>
-<text x="215" y="353" font-size="21" text-anchor="middle">Offset field=0</text>
-<rect x="430" y="238" width="380" height="147" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="capture-2"/>
-<text x="620" y="273" font-size="22" text-anchor="middle" font-weight="700">Arrival 2: ID=1202H</text>
-<text x="620" y="313" font-size="21" text-anchor="middle">Total=240 B   MF=0</text>
-<text x="620" y="353" font-size="21" text-anchor="middle">Offset field=0</text>
-<rect x="835" y="238" width="380" height="147" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="capture-3"/>
-<text x="1025" y="273" font-size="22" text-anchor="middle" font-weight="700">Arrival 3: ID=1201H</text>
-<text x="1025" y="313" font-size="21" text-anchor="middle">Total=300 B   MF=0</text>
-<text x="1025" y="353" font-size="21" text-anchor="middle">Offset field=150</text>
-<text x="620" y="442" font-size="20" text-anchor="middle">Offset unit: 8 B. TCP fields and all assumptions are in the question.</text>
+<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;a27cb9ff659a551f4be8dc876932ef81b37bb85b4b5c97ff4260e9f5f244e8d4&quot;}</metadata>
+<rect width="1160" height="555" fill="white"/>
+<rect x="35" y="121" width="112" height="64" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
+<text x="91" y="161" font-size="26" text-anchor="middle" font-weight="700">H</text>
+<path class="line" d="M147,153 L217,153"/>
+<path class="line" d="M293,153 L487,153"/>
+<path class="line" d="M563,153 L757,153"/>
+<path class="line" d="M281,181 L494,368"/>
+<path class="line" d="M764,181 L557,368"/>
+<path class="line" d="M563,393 L870,447"/>
+<circle cx="255" cy="153" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R1"/>
+<text x="255" y="160" font-size="22" text-anchor="middle">R1</text>
+<circle cx="525" cy="153" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R2"/>
+<text x="525" y="160" font-size="22" text-anchor="middle">R2</text>
+<circle cx="795" cy="153" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R3"/>
+<text x="795" y="160" font-size="22" text-anchor="middle">R3</text>
+<circle cx="525" cy="393" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R4"/>
+<text x="525" y="400" font-size="22" text-anchor="middle">R4</text>
+<rect x="870" y="414" width="226" height="68" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="N"/>
+<text x="983" y="456" font-size="23" text-anchor="middle" font-weight="700">Network N</text>
+<text x="386" y="132" font-size="20" text-anchor="middle">cost 1</text>
+<text x="660" y="132" font-size="20" text-anchor="middle">cost 1</text>
+<text x="315" y="313" font-size="20" text-anchor="middle">cost 5</text>
+<text x="810" y="313" font-size="20" text-anchor="middle">old 1 / new 9</text>
+<text x="579" y="532" font-size="20" text-anchor="middle">All four links remain usable. The routing tables may update at different times.</text>
 </svg>
