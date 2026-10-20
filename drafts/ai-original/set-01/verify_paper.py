@@ -741,7 +741,9 @@ def main():
     print('[verify] PASS: 47 question sections, 160 choices, 47 explanations, 7 rubrics, 150 points')
     print(f'[verify] PASS: 14 reproducible SVGs (13 student, 1 teacher-only)')
     print(f'[verify] computational cross-checks: {len(report["computational_questions"])} questions; editorial-only: {manual}; constrained event check: Q46')
-    print(f'[verify] Q41 compiled C: {RESULTS["41"]["checks_or_cases"]} cases; Q45 correct and deliberately unsafe models distinguished')
+    print(f'[verify] Q41 compiled C: {RESULTS["41"]["checks_or_cases"]} cases')
+    print(f'[verify] Q45: subscriber fan-out models explored; flawed shared-ready counterexample found')
+    print(f'[verify] Q47: compatible MTU range {RESULTS["47"]["result"]["compatible_MTUs"][0]}–{RESULTS["47"]["result"]["compatible_MTUs"][-1]} B; {RESULTS["47"]["result"]["arrival_permutations_tested"]} arrival permutations')
     print('[verify] Independent expert review and timed pilot: NOT PERFORMED')
     if args.json:
         args.json.parent.mkdir(parents=True,exist_ok=True)
