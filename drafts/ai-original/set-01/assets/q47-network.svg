@@ -3,7 +3,7 @@
 <desc id="desc">Undirected topology R1-R2-R3-R4 with extra R1-R4 link; only R3-R4 link cost changes from 1 to 9, but stays operational. Network N is reached via R4.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;a27cb9ff659a551f4be8dc876932ef81b37bb85b4b5c97ff4260e9f5f244e8d4&quot;}</metadata>
+<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
 <rect width="1160" height="555" fill="white"/>
 <rect x="35" y="121" width="112" height="64" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
 <text x="91" y="161" font-size="26" text-anchor="middle" font-weight="700">H</text>
