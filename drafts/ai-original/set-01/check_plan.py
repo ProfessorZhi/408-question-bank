@@ -43,16 +43,15 @@ def main():
             assert re.search(r'\*\*答案：[ABCD]。\*\*',ss[n]),n
         else:assert '评分细则' in ss[n],n
     assert totals=={'DS':45,'CO':45,'OS':35,'CN':25}
-    assert modes=={'computational-cross-check':40,'editorial-only':6,'constraint-only':1}
+    assert modes=={'computational-cross-check':41,'editorial-only':6}
     assert [q['no']for q in items if q['check_mode']=='editorial-only']==[20,22,23,24,29,32]
-    assert [q['no']for q in items if q['check_mode']=='constraint-only']==[46]
-    assert len(set(figs))==len(figs)==manifest['figure_status']['student_svg_count']==13
+    assert len(set(figs))==len(figs)==manifest['figure_status']['student_svg_count']==14
     assert not any(f in figs for f in manifest['figure_status']['teacher_only'])
-    assert len(list((BASE/'assets').glob('*.svg')))==14
+    assert len(list((BASE/'assets').glob('*.svg')))==15
     assert not re.search(r'(?:正确答案|参考答案|答案\s*[:：]\s*[ABCD])',qtext)
     for name in ['reference_q41.c','render_figures.py','verify_paper.py','verification.md','research-and-sources.md','review.md','README.md']:
         assert (BASE/name).is_file(),name
     print('[ai-set-01] PASS: 47 complete questions, 160 choices, 47 explanations, 150 points')
-    print('[ai-set-01] PASS: 13 student SVG + 1 teacher-only SVG; authored, not independently approved')
-    print('[ai-set-01] Scope: 40 computational / 6 editorial-only / Q46 constraint check; no pilot calibration')
+    print('[ai-set-01] PASS: 14 student SVG + 1 teacher-only SVG; authored, not independently approved')
+    print('[ai-set-01] Scope: 41 computational / 6 editorial-only; no pilot calibration')
 if __name__=='__main__':main()
