@@ -7,6 +7,8 @@
 - **[学生卷：questions.md](questions.md)**：完整47题，只包含题干、选项、题图与一般约定。
 - **[教师解答：solutions.md](solutions.md)**：40题答案表、逐项错因、7道综合题推导及分步评分细则。
 - [逐题状态：review.md](review.md)、[实际验算范围：verification.md](verification.md)、[题图清单：figure-plan.md](figure-plan.md)。
+- **[综合题阅读负担与卷内重复审计](reading-load-audit.md)**：2024/2025和Set01现存Markdown题面长度对照、Q19与Q43同机制重叠的修正。
+- [Q46/Q47独立算法模型复核脚本](audit_v3.py)：作者二套算法与反事实测试，不等于外部专家签核。
 - **[2009–2025 历年119道综合题原创性纵向审查](originality-evolution-2009-2025.md)**：逐年机制演化、网络大题追踪、对Set 01七题的重新审稿。现有Q41–Q47已成稿，但原创性**未通过终审**，不得据程序验算绿色推定命题满分。
 - [OS/CN改题记录：revision-20261020-focus.md](revision-20261020-focus.md)；[七大题原创性与常规考法分配](originality-balance-v3.md)。
 - [机器可读清单：item-plan.json](item-plan.json)、[题目数据真值：specs/exam.json](specs/exam.json)。后者**含答案**，不得作为学生公开作答页面的一部分。
