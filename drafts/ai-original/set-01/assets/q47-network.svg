@@ -1,26 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="390" viewBox="0 0 1400 390" role="img" aria-labelledby="title desc">
-<title id="title">Q47 one path with a smaller intermediate MTU</title>
-<desc id="desc">TCP traffic travels from H through R1 and R2 to V. Access links have MTU 1500 B at 100 Mb/s; the middle link has MTU 620 B at 12 Mb/s. The RTT is 40 ms.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="475" viewBox="0 0 1240 475" role="img" aria-labelledby="title desc">
+<title id="title">Q47 fragment capture and unknown link MTU</title>
+<desc id="desc">H sends two TCP segments through R to V. H-R MTU is 1500 B. R-V MTU is unknown M. Three observed IP packets are listed in arrival order; there is no fragment-completion or ACK answer in the diagram.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;6774a4dc0fbf99731429e3c5e402da4bc4a42b1328ee0c5a546def4f5ef42475&quot;}</metadata>
-<rect width="1400" height="390" fill="white"/>
-<rect x="60" y="168" width="110" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
-<text x="115" y="207" font-size="26" text-anchor="middle" font-weight="700">H</text>
-<rect x="395" y="168" width="125" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="R1"/>
-<text x="457" y="207" font-size="26" text-anchor="middle" font-weight="700">R1</text>
-<rect x="825" y="168" width="125" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="R2"/>
-<text x="887" y="207" font-size="26" text-anchor="middle" font-weight="700">R2</text>
-<rect x="1200" y="168" width="110" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="V"/>
-<text x="1255" y="207" font-size="26" text-anchor="middle" font-weight="700">V</text>
-<path class="line" d="M170,201 L395,201"/>
-<path class="line" d="M520,201 L825,201"/>
-<path class="line" d="M950,201 L1200,201"/>
-<text x="285" y="107" font-size="22" text-anchor="middle">100 Mb/s</text>
-<text x="285" y="139" font-size="21" text-anchor="middle">MTU 1500 B</text>
-<text x="675" y="107" font-size="22" text-anchor="middle">12 Mb/s</text>
-<text x="675" y="139" font-size="21" text-anchor="middle">MTU 620 B</text>
-<text x="1080" y="107" font-size="22" text-anchor="middle">100 Mb/s</text>
-<text x="1080" y="139" font-size="21" text-anchor="middle">MTU 1500 B</text>
-<text x="700" y="320" font-size="23" text-anchor="middle">H - V TCP RTT = 40 ms</text>
-<text x="700" y="358" font-size="19" text-anchor="middle">DF flag, packet captures and TCP sequence numbers are in the question.</text>
+<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5b9565069f4a9347cab0cab885b7ec0cb682f38d1409a563248898637b7e1853&quot;}</metadata>
+<rect width="1240" height="475" fill="white"/>
+<rect x="65" y="80" width="130" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
+<text x="130.0" y="122.7" font-size="22" text-anchor="middle">H</text>
+<rect x="475" y="80" width="130" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="R"/>
+<text x="540.0" y="122.7" font-size="22" text-anchor="middle">R</text>
+<rect x="1040" y="80" width="130" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="V"/>
+<text x="1105.0" y="122.7" font-size="22" text-anchor="middle">V</text>
+<path class="line" d="M195,115 L475,115" marker-end="url(#arrow)"/>
+<path class="line" d="M605,115 L1040,115" marker-end="url(#arrow)"/>
+<text x="330" y="76" font-size="24" text-anchor="middle">MTU = 1500 B</text>
+<text x="800" y="76" font-size="24" text-anchor="middle">MTU = M B</text>
+<path class="line" d="M965,135 L965,200" stroke-dasharray="8 6"/>
+<text x="620" y="205" font-size="22" text-anchor="middle" font-weight="700">Capture before IP reassembly at V</text>
+<rect x="25" y="238" width="380" height="147" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="capture-1"/>
+<text x="215" y="273" font-size="22" text-anchor="middle" font-weight="700">Arrival 1: ID=1201H</text>
+<text x="215" y="313" font-size="21" text-anchor="middle">Total=620 B   MF=1</text>
+<text x="215" y="353" font-size="21" text-anchor="middle">Offset field=0</text>
+<rect x="430" y="238" width="380" height="147" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="capture-2"/>
+<text x="620" y="273" font-size="22" text-anchor="middle" font-weight="700">Arrival 2: ID=1202H</text>
+<text x="620" y="313" font-size="21" text-anchor="middle">Total=240 B   MF=0</text>
+<text x="620" y="353" font-size="21" text-anchor="middle">Offset field=0</text>
+<rect x="835" y="238" width="380" height="147" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="capture-3"/>
+<text x="1025" y="273" font-size="22" text-anchor="middle" font-weight="700">Arrival 3: ID=1201H</text>
+<text x="1025" y="313" font-size="21" text-anchor="middle">Total=300 B   MF=0</text>
+<text x="1025" y="353" font-size="21" text-anchor="middle">Offset field=150</text>
+<text x="620" y="442" font-size="20" text-anchor="middle">Offset unit: 8 B. TCP fields and all assumptions are in the question.</text>
+</svg>
