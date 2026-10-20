@@ -1,0 +1,128 @@
+% Restrained A4 academic examination layout; non-official practice edition.
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setmainfont{Noto Serif CJK SC}
+\setsansfont{Noto Sans CJK SC}
+\setmonofont{Noto Sans Mono CJK SC}
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+\usepackage{microtype}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{needspace}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{fvextra}
+\usepackage{graphicx}
+\usepackage{etoolbox}
+\definecolor{examInk}{HTML}{20252B}
+\definecolor{examGray}{HTML}{68727B}
+\definecolor{examLine}{HTML}{BCC3C8}
+\definecolor{examShade}{HTML}{F3F4F5}
+\color{examInk}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2.4pt plus .3pt minus .3pt}
+\linespread{1.15}
+\setlength{\emergencystretch}{2.6em}
+\renewcommand{\arraystretch}{1.12}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTpre}{5pt}
+\setlength{\LTpost}{6pt}
+\setlength{\headheight}{16pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize 计算机学科专业基础综合\quad\textcolor{examGray}{/}\quad 原创模拟卷 01}
+\fancyhead[R]{\sffamily\footnotesize\textcolor{examGray}{\ifdefined\answeredition 解析版\else 学生卷\fi}}
+\fancyfoot[L]{\sffamily\scriptsize\textcolor{examGray}{非官方模拟试题\,·\,仅供学习与测评}}
+\fancyfoot[R]{\sffamily\scriptsize\textcolor{examGray}{\thepage\ / \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0.30pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{examLine}\leaders\hrule height \headrulewidth\hfill}}
+\usepackage{titlesec}
+\titleformat{\section}{\sffamily\bfseries\large}{}{0pt}{}
+\titleformat{\subsection}{\sffamily\bfseries\normalsize}{}{0pt}{}
+\titleformat{\subsubsection}{\sffamily\bfseries\normalsize}{}{0pt}{}
+\titlespacing*{\section}{0pt}{11pt}{6pt}
+\titlespacing*{\subsection}{0pt}{7pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{6pt}{3pt}
+\setlength{\fboxsep}{6pt}
+\newcommand{\StudentCover}{%
+ \thispagestyle{empty}%
+ \noindent\begin{minipage}{\linewidth}\centering
+ {\sffamily\fontsize{8.5}{12}\selectfont\color{examGray}\textbf{2026 · ORIGINAL PRACTICE EXAM}}\\[7pt]
+ {\sffamily\bfseries\fontsize{19}{26}\selectfont 计算机学科专业基础综合}\\[3pt]
+ {\sffamily\fontsize{12}{18}\selectfont 原创模拟试卷（一）}\\[13pt]
+ {\color{examInk}\rule{\linewidth}{1.3pt}}\\[-6pt]
+ {\color{examLine}\rule{\linewidth}{0.35pt}}\\[6pt]
+ {\sffamily\fontsize{10}{15}\selectfont 考试时间：\textbf{180 分钟}\quad\;\;\;试卷满分：\textbf{150 分}\quad\;\;\;试卷共 \textbf{47} 题}
+ \end{minipage}\par\vspace{10pt}
+ \noindent\begin{tabularx}{\linewidth}{@{}lXlX@{}}
+ \sffamily 姓名： &\makebox[\linewidth]{\dotfill}&\sffamily 考号： &\makebox[\linewidth]{\dotfill}
+ \end{tabularx}\par\vspace{11pt}
+ \noindent\begin{minipage}{\linewidth}
+ \color{examInk}\sffamily\fontsize{9.1}{14}\selectfont
+ \textbf{考生须知}\quad ① 全卷分单项选择题和综合应用题两部分；② 单项选择题每题仅有一个正确选项；③ 综合题应写出必要推导步骤，等价正确方法可得分。\par
+ \vspace{3pt}\color{examGray}约定：除题目另有说明，H 表示十六进制，KiB = $2^{10}$ B，Mb/s = $10^{6}$ bit/s。
+ \end{minipage}\par\vspace{5pt}}
+\newcommand{\TeacherCover}{%
+ \thispagestyle{empty}%
+ \noindent\begin{minipage}{\linewidth}\centering
+ {\sffamily\fontsize{8.5}{12}\selectfont\color{examGray}\textbf{SET 01 · TEACHER EDITION}}\\[8pt]
+ {\sffamily\bfseries\fontsize{18}{25}\selectfont 参考答案与详细解析}\\[4pt]
+ {\sffamily\fontsize{11}{16}\selectfont 计算机学科专业基础综合 · 原创模拟试卷（一）}\\[12pt]
+ {\color{examInk}\rule{\linewidth}{1.3pt}}\\[-6pt]
+ {\color{examLine}\rule{\linewidth}{0.35pt}}
+ \end{minipage}\par\vspace{9pt}
+ {\sffamily\fontsize{9.2}{14}\selectfont\color{examGray}本册与学生卷逐题对应。选择题给出判定依据，综合题提供主要推导及分步评分建议；阅卷时应认可等价正确解法。}\par\vspace{9pt}}
+\newcommand{\ExamSection}[2]{%
+ \par\Needspace{5\baselineskip}\vspace{10pt}
+ \noindent\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}Xr@{}}
+ {\sffamily\bfseries\fontsize{12}{16}\selectfont #1} & {\sffamily\color{examGray}\fontsize{9}{13}\selectfont #2}
+ \end{tabularx}\par\vspace{-4pt}%
+ {\color{examInk}\rule{\linewidth}{0.7pt}}\par\vspace{4pt}}
+\newcommand{\TeacherSection}[1]{%
+ \par\Needspace{5\baselineskip}\vspace{11pt}
+ \noindent{\sffamily\bfseries\fontsize{11.5}{16}\selectfont #1}\par\vspace{2pt}%
+ {\color{examLine}\rule{\linewidth}{0.45pt}}\par\vspace{2pt}}
+\newcommand{\ExamQ}[1]{\par\Needspace{5\baselineskip}\vspace{6.5pt}\noindent{\sffamily\bfseries #1.}\hspace{.55em}}
+\newcommand{\BigQ}[2]{%
+ \par\Needspace{11\baselineskip}\vspace{10pt}\noindent
+ \begingroup\setlength{\fboxsep}{6pt}
+ \colorbox{examShade}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+ \sffamily\bfseries 第 #1 题\hfill\normalfont\sffamily\color{examGray}#2 分}}
+ \endgroup\par\vspace{6pt}}
+\newcommand{\Choice}[2]{\textsf{\bfseries #1.}\hspace{.4em}#2}
+\newcommand{\ChoicesTwo}[4]{%
+ \par\vspace{1pt}\noindent
+ \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X@{\hspace{7mm}}>{\raggedright\arraybackslash}X@{}}
+ \Choice{A}{#1} & \Choice{B}{#2}\\[2pt]
+ \Choice{C}{#3} & \Choice{D}{#4}
+ \end{tabularx}\par\vspace{1pt}}
+\newcommand{\ChoicesOne}[4]{%
+ \par\vspace{1pt}\noindent
+ \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X@{}}
+ \Choice{A}{#1}\\[2pt]
+ \Choice{B}{#2}\\[2pt]
+ \Choice{C}{#3}\\[2pt]
+ \Choice{D}{#4}
+ \end{tabularx}\par\vspace{1pt}}
+\newcommand{\TeacherItem}[2]{%
+ \par\Needspace{4\baselineskip}\vspace{6.5pt}\noindent
+ {\sffamily\bfseries #1.}\hspace{.7em}
+ {\sffamily\color{examGray}\fontsize{9}{12}\selectfont 答案}\,\textbf{#2}\par\vspace{-1pt}}
+\newcommand{\TeacherBig}[2]{%
+ \par\Needspace{8\baselineskip}\vspace{11pt}\noindent
+ \begingroup\setlength{\fboxsep}{6pt}
+ \colorbox{examShade}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+ \sffamily\bfseries 第 #1 题\hfill\normalfont\sffamily\color{examGray}评分总额 #2 分}}
+ \endgroup\par\vspace{6pt}}
+\newcommand{\ExamFigure}[3]{%
+ \par\Needspace{7\baselineskip}\vspace{5pt}
+ \begin{center}\includegraphics[width=#2\linewidth,height=0.27\textheight,keepaspectratio]{#1}\\[3pt]
+ {\sffamily\fontsize{8.5}{11}\selectfont\color{examGray}#3}\end{center}\vspace{2pt}}
+\newcommand{\AnswerGrid}[1]{\par\vspace{3pt}\noindent #1\par\vspace{6pt}}
+\AtBeginDocument{\raggedbottom}
