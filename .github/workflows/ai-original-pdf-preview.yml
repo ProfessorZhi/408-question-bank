@@ -25,7 +25,7 @@ jobs:
       - name: Install printing and vector-graphics dependencies
         run: |
           sudo apt-get update -qq
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-lang-chinese fonts-noto-cjk poppler-utils >/tmp/ai408-apt.log
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-lang-chinese texlive-latex-extra lmodern fonts-noto-cjk poppler-utils >/tmp/ai408-apt.log
           python -m pip install -q cairosvg==2.8.2 pymupdf==1.26.7
           fc-match "Noto Serif CJK SC"
       - name: Render and inspect student/teacher PDFs
