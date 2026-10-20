@@ -687,7 +687,7 @@ def cow_model():
     assert middle=={'P':[12,21,30],'C':[11,20,30]},middle
     assert middle_frames=={'P':[2,10,8],'C':[9,5,8]},middle_frames
     assert final_parent==[12,21,31] and table['P'][2]==8
-    assert frames[8]['owners']=={'P'} and not writeable['P'][0] is False
+    assert frames[8]['owners']=={'P'} and all(writeable['P'].values())
     return {'write_protection_fault_steps':faults,'physical_page_copies':copies,
             'values_before_child_exit':middle,'frames_before_child_exit':middle_frames,
             'values_after_parent_final_write':final_parent,'last_write_frame':table['P'][2],
@@ -784,10 +784,11 @@ def main():
     report={'status':'pass','scope':'author-run executable cross-check; not independent expert/psychometric certification','structural':structural,'computational_questions':[int(k)for k,v in results.items()if v['mode']=='executable-cross-check'],'editorial_only_questions':manual,'constraint_only_questions':[],'results':results,'limitations':['finite enumeration is not a general proof','not all natural-language option semantics can be established by code','no candidate-response data or independent expert blind review','difficulty equivalence to 2024/2025 remains an editorial target']}
     print('[verify] PASS: 47 question sections, 160 choices, 47 explanations, 7 rubrics, 150 points')
     print(f'[verify] PASS: 15 reproducible SVGs (14 student, 1 teacher-only)')
-    print(f'[verify] computational cross-checks: {len(report["computational_questions"])} questions; editorial-only: {manual}; constrained event check: Q46')
+    print(f'[verify] computational cross-checks: {len(report["computational_questions"])} questions; editorial-only: {manual}; Q46 and Q47 covered by new executable models')
     print(f'[verify] Q41 compiled C: {RESULTS["41"]["checks_or_cases"]} cases')
     print(f'[verify] Q45: subscriber fan-out models explored; flawed shared-ready counterexample found')
-    print("[verify] Q46: 4 write-protection faults, 2 page copies; refcount=1 upgrades in place")\n    print("[verify] Q47: 6 update orders enumerated, exactly one loop-free; TTL=4 drops at R2")
+    print("[verify] Q46: 4 write-protection faults, 2 page copies; refcount=1 upgrades in place")
+    print("[verify] Q47: 6 update orders enumerated, exactly one loop-free; TTL=4 drops at R2")
     print('[verify] Independent expert review and timed pilot: NOT PERFORMED')
     if args.json:
         args.json.parent.mkdir(parents=True,exist_ok=True)
