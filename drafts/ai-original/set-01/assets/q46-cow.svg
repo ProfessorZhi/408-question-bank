@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="505" viewBox="0 0 1180 505" role="img" aria-labelledby="title desc">
+<title id="title">Q46 initial copy-on-write shared page mappings</title>
+<desc id="desc">P and C initially share VPN0, VPN1 and VPN2 using frames F2, F5 and F8. Each virtual mapping is read-only COW, and each physical frame has reference count two.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q46&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;a27cb9ff659a551f4be8dc876932ef81b37bb85b4b5c97ff4260e9f5f244e8d4&quot;}</metadata>
+<rect width="1180" height="505" fill="white"/>
+<text x="195" y="52" font-size="24" text-anchor="middle" font-weight="700">Parent P (COW)</text>
+<text x="595" y="52" font-size="24" text-anchor="middle" font-weight="700">Physical frames</text>
+<text x="980" y="52" font-size="24" text-anchor="middle" font-weight="700">Child C (COW)</text>
+<rect x="82" y="105" width="225" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="p-vpn0"/>
+<text x="194" y="147" font-size="22" text-anchor="middle">VPN0 (RO)</text>
+<rect x="469" y="105" width="255" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="frame2"/>
+<text x="596" y="147" font-size="22" text-anchor="middle">F2: value 10</text>
+<rect x="867" y="105" width="225" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="c-vpn0"/>
+<text x="979" y="147" font-size="22" text-anchor="middle">VPN0 (RO)</text>
+<path class="line" d="M307,140 L469,140" marker-end="url(#arrow)"/>
+<path class="line" d="M867,140 L724,140" marker-end="url(#arrow)"/>
+<rect x="82" y="213" width="225" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="p-vpn1"/>
+<text x="194" y="255" font-size="22" text-anchor="middle">VPN1 (RO)</text>
+<rect x="469" y="213" width="255" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="frame5"/>
+<text x="596" y="255" font-size="22" text-anchor="middle">F5: value 20</text>
+<rect x="867" y="213" width="225" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="c-vpn1"/>
+<text x="979" y="255" font-size="22" text-anchor="middle">VPN1 (RO)</text>
+<path class="line" d="M307,248 L469,248" marker-end="url(#arrow)"/>
+<path class="line" d="M867,248 L724,248" marker-end="url(#arrow)"/>
+<rect x="82" y="321" width="225" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="p-vpn2"/>
+<text x="194" y="363" font-size="22" text-anchor="middle">VPN2 (RO)</text>
+<rect x="469" y="321" width="255" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="frame8"/>
+<text x="596" y="363" font-size="22" text-anchor="middle">F8: value 30</text>
+<rect x="867" y="321" width="225" height="70" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="c-vpn2"/>
+<text x="979" y="363" font-size="22" text-anchor="middle">VPN2 (RO)</text>
+<path class="line" d="M307,356 L469,356" marker-end="url(#arrow)"/>
+<path class="line" d="M867,356 L724,356" marker-end="url(#arrow)"/>
+<text x="590" y="477" font-size="20" text-anchor="middle">Each frame initially has two references; the mappings are read-only COW.</text>
+</svg>
