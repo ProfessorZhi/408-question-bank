@@ -106,7 +106,7 @@ def build(kind,filename):
         assert re.search(r"(?:^|\n)"+str(n)+r"\.|第\s*"+str(n)+r"\s*题",txt),(filename,n)
     # A split Q47 would make the last-page network problem difficult to read.
     pages=[p.get_text() for p in doc]
-    q47_pages=[i for i,p in enumerate(pages) if re.search(r"第\\s*47\\s*题",p)]
+    q47_pages=[i for i,p in enumerate(pages) if re.search(r"第\s*47\s*题",p)]
     assert q47_pages==[len(doc)-1], (filename,"Q47 starts on wrong page",q47_pages,len(doc))
     if kind=="solutions.md":
         assert "解析版" in pages[min(1,len(pages)-1)], "teacher running header has wrong edition"
