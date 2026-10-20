@@ -209,11 +209,11 @@
       "no": 19,
       "subject": "CO",
       "points": 2,
-      "primary_concept": "CO05.07",
-      "topic": "load-use前递",
+      "primary_concept": "CO05.04",
+      "topic": "微程序微命令字段编码与允许并行的位宽",
       "check_mode": "computational-cross-check",
       "figures": [
-        "assets/q19-pipeline.svg"
+        "assets/q19-microcode.svg"
       ]
     },
     {
