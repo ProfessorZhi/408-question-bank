@@ -218,7 +218,13 @@ def main():
  for name,content in FIGURES.items():
   p=BASE/'assets'/name
   if check:
-   if not p.exists() or p.read_text(encoding='utf-8')!=content:raise SystemExit('SVG mismatch: '+name)
+   if not p.exists():raise SystemExit('SVG missing: '+name)
+   actual=p.read_text(encoding='utf-8')
+   if actual!=content:
+    import difflib
+    diff=list(difflib.unified_diff(actual.splitlines(),content.splitlines(),fromfile='committed/'+name,tofile='generated/'+name,lineterm=''))
+    print('\n'.join(diff[:24]),file=sys.stderr)
+    raise SystemExit('SVG mismatch: '+name)
   else:p.write_text(content,encoding='utf-8')
  print(f'[figures] {"verified" if check else "rendered"} {len(FIGURES)} deterministic SVG files; spec sha256 {HASH}')
 if __name__=='__main__':main()
