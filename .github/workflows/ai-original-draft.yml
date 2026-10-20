@@ -22,6 +22,8 @@ jobs:
           python-version: "3.12"
       - name: Validate all 47 authored questions and metadata
         run: python drafts/ai-original/set-01/check_plan.py
+      - name: Q46/Q47 separate-algorithm and counterfactual audit (author-written)
+        run: python drafts/ai-original/set-01/audit_v3.py
       - name: Reproduce SVGs and cross-check calculations, C code and state machines
         run: python drafts/ai-original/set-01/verify_paper.py --json /tmp/ai408-validation.json
       - name: Upload reproducible validation report
