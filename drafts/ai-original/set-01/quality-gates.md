@@ -19,4 +19,4 @@
 
 ## 状态
 
-当前统一 `drafted`，作者推导完成，40题主结果有程序交叉检验、6题作者概念解释、Q46时序约束核对。`independent_review=false`，`pilot_calibrated=false`。本次绿色CI只表示其声明覆盖的测试通过，不能标记 `editorial-approved` 或 `pilot-calibrated`。
+当前统一 `drafted`，作者推导完成，41题主要结果有程序交叉检验（含新版Q46 COW页框模型和Q47动态路由模型），6题仍为作者概念解释。`independent_review=false`，`pilot_calibrated=false`。本次绿色CI只表示其声明覆盖的测试通过，不能标记 `editorial-approved` 或 `pilot-calibrated`。
