@@ -152,23 +152,31 @@ for title,offset,nodes,edges in [
  for n,xy in pp.items():s.node(*xy,n,f'{offset}-{n}',r=28)
 s.save('q42-answer.svg')
 
-s=SVG(1140,445,'q45','Q45 three stages and two reusable slots','A captures, B checks, C archives. A and C share device D. Two slots are reused only after archival. No semaphore solution appears.');
-for x,n,op in [(50,'A','capture'),(450,'B','check'),(850,'C','archive')]:
- s.rect(x,55,240,90,ident=n);s.text(x+120,88,n,25,bold=True);s.text(x+120,119,op,21)
-s.line(290,100,450,100,arrow=True);s.line(690,100,850,100,arrow=True)
-s.rect(390,215,360,70,ident='buffer');s.line(570,215,570,285);s.text(480,258,'slot 0',22);s.text(660,258,'slot 1',22);s.text(570,197,'FIFO ring buffer',20)
-s.rect(430,340,280,65,'shared device D','D');s.path('M170,145 L170,372 L430,372',dash=True);s.path('M970,145 L970,372 L710,372',dash=True)
-s.text(570,430,'A and C use D exclusively; B does not use D.',20);s.save('q45-buffer.svg')
+s=SVG(1140,420,'q45','Q45 one slot and two independent subscribers','Producer P writes version k into one reusable slot; A and B must each read this version before P may overwrite. The figure describes data flow, not a P/V solution.')
+s.rect(45,175,190,85,ident='P');s.text(140,223,'Producer P',24,bold=True)
+s.rect(405,175,190,85,ident='slot');s.text(500,222,'single slot',23,bold=True)
+s.rect(840,65,240,90,ident='A');s.text(960,117,'Subscriber A',23,bold=True)
+s.rect(840,265,240,90,ident='B');s.text(960,317,'Subscriber B',23,bold=True)
+s.line(235,218,405,218,arrow=True)
+s.line(595,198,840,110,arrow=True)
+s.line(595,235,840,310,arrow=True)
+s.text(320,192,'write k',20);s.text(705,115,'read k',20);s.text(705,310,'read k',20)
+s.text(565,395,'Each version must reach both subscribers before replacement.',20)
+s.save('q45-buffer.svg')
 
-s=SVG(1390,395,'q47','Q47 campus to datacenter network','H-S1-R1-R2-S2-V, 100Mb/s LANs and8Mb/s point-to-point. Interface addressing is also given in the problem table.');pos={'H':(100,195),'S1':(305,195),'R1':(500,195),'R2':(835,195),'S2':(1030,195),'V':(1275,195)}
-for u,v in [('H','S1'),('S1','R1'),('R1','R2'),('R2','S2'),('S2','V')]:s.line(pos[u][0]+48,195,pos[v][0]-48,195)
-for n,(x,y) in pos.items():
- if n.startswith('R'):s.node(x,y,n,n,r=43)
- else:s.rect(x-48,y-31,96,62,n,n)
-s.text(300,135,'100 Mb/s LAN',23);s.text(1050,135,'100 Mb/s LAN',23);s.text(666,173,'8 Mb/s',22)
-s.text(666,70,'198.51.100.0/30',22);s.text(556,127,'.1',22);s.text(779,127,'.2',22)
-for node,key,y in [('H','h',276),('R1','r1_lan',330),('R2','r2_lan',330),('V','server',276)]:s.text(pos[node][0],y,SPEC['q47'][key],19)
-s.text(666,375,'No NAT; routes already installed. MAC addresses are in the question table.',20);s.save('q47-network.svg')
+s=SVG(1400,390,'q47','Q47 one path with a smaller intermediate MTU','TCP traffic travels from H through R1 and R2 to V. Access links have MTU 1500 B at 100 Mb/s; the middle link has MTU 620 B at 12 Mb/s. The RTT is 40 ms.')
+s.rect(60,168,110,66,ident='H');s.text(115,207,'H',26,bold=True)
+s.rect(395,168,125,66,ident='R1');s.text(457,207,'R1',26,bold=True)
+s.rect(825,168,125,66,ident='R2');s.text(887,207,'R2',26,bold=True)
+s.rect(1200,168,110,66,ident='V');s.text(1255,207,'V',26,bold=True)
+s.line(170,201,395,201);s.line(520,201,825,201);s.line(950,201,1200,201)
+s.text(285,107,'100 Mb/s',22);s.text(285,139,f'MTU {SPEC["q47"]["local_mtu_bytes"]} B',21)
+s.text(675,107,f'{SPEC["q47"]["bottleneck_link_bps"]//1000000} Mb/s',22)
+s.text(675,139,f'MTU {SPEC["q47"]["bottleneck_mtu_bytes"]} B',21)
+s.text(1080,107,'100 Mb/s',22);s.text(1080,139,f'MTU {SPEC["q47"]["local_mtu_bytes"]} B',21)
+s.text(700,320,f'H - V TCP RTT = {int(SPEC["q47"]["rtt_seconds"]*1000)} ms',23)
+s.text(700,358,'DF flag, packet captures and TCP sequence numbers are in the question.',19)
+s.save('q47-network.svg')
 
 def main():
  check='--check' in sys.argv
