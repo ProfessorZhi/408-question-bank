@@ -164,18 +164,39 @@ s.text(320,192,'write k',20);s.text(705,115,'read k',20);s.text(705,310,'read k'
 s.text(565,395,'Each version must reach both subscribers before replacement.',20)
 s.save('q45-buffer.svg')
 
-s=SVG(1240,475,'q47','Q47 fragment capture and unknown link MTU','H sends two TCP segments through R to V. H-R MTU is 1500 B. R-V MTU is unknown M. Three observed IP packets are listed in arrival order; there is no fragment-completion or ACK answer in the diagram.')
-s.rect(65,80,130,70,'H','H');s.rect(475,80,130,70,'R','R');s.rect(1040,80,130,70,'V','V')
-s.line(195,115,475,115,arrow=True);s.line(605,115,1040,115,arrow=True)
-s.text(330,76,'MTU = 1500 B',24);s.text(800,76,'MTU = M B',24)
-s.line(965,135,965,200,dash=True);s.text(620,205,'Capture before IP reassembly at V',22,bold=True)
-p=SPEC['q47']
-for i,row in enumerate(p['captures']):
- x=25+405*i;s.rect(x,238,380,147,ident=f'capture-{i+1}')
- s.text(x+190,273,f"Arrival {i+1}: ID={row['id']}",22,bold=True)
- s.text(x+190,313,f"Total={row['total_length']} B   MF={row['mf']}",21)
- s.text(x+190,353,f"Offset field={row['offset']}",21)
-s.text(620,442,'Offset unit: 8 B. TCP fields and all assumptions are in the question.',20)
+s=SVG(1180,505,'q46','Q46 initial copy-on-write shared page mappings','P and C initially share VPN0, VPN1 and VPN2 using frames F2, F5 and F8. Each virtual mapping is read-only COW, and each physical frame has reference count two.')
+s.text(195,52,'Parent P (COW)',24,bold=True)
+s.text(595,52,'Physical frames',24,bold=True)
+s.text(980,52,'Child C (COW)',24,bold=True)
+for i,page in enumerate(SPEC['q46']['pages']):
+ y=105+108*i
+ s.rect(82,y,225,70,ident=f'p-vpn{i}')
+ s.text(194,y+42,f'VPN{i} (RO)',22)
+ s.rect(469,y,255,70,ident=f"frame{page['initial_frame']}")
+ s.text(596,y+42,f"F{page['initial_frame']}: value {page['initial_value']}",22)
+ s.rect(867,y,225,70,ident=f'c-vpn{i}')
+ s.text(979,y+42,f'VPN{i} (RO)',22)
+ s.line(307,y+35,469,y+35,arrow=True)
+ s.line(867,y+35,724,y+35,arrow=True)
+s.text(590,477,'Each frame initially has two references; the mappings are read-only COW.',20)
+s.save('q46-cow.svg')
+
+s=SVG(1160,555,'q47','Q47 link-cost change with asynchronous routing-table updates','Undirected topology R1-R2-R3-R4 with extra R1-R4 link; only R3-R4 link cost changes from 1 to 9, but stays operational. Network N is reached via R4.')
+s.rect(35,121,112,64,ident='H');s.text(91,161,'H',26,bold=True)
+s.line(147,153,217,153)
+s.line(293,153,487,153)
+s.line(563,153,757,153)
+s.line(281,181,494,368)
+s.line(764,181,557,368)
+s.line(563,393,870,447)
+for name,x,y in [('R1',255,153),('R2',525,153),('R3',795,153),('R4',525,393)]:
+ s.node(x,y,name,name,r=38)
+s.rect(870,414,226,68,ident='N');s.text(983,456,'Network N',23,bold=True)
+s.text(386,132,'cost 1',20)
+s.text(660,132,'cost 1',20)
+s.text(315,313,'cost 5',20)
+s.text(810,313,'old 1 / new 9',20)
+s.text(579,532,'All four links remain usable. The routing tables may update at different times.',20)
 s.save('q47-network.svg')
 
 def main():
