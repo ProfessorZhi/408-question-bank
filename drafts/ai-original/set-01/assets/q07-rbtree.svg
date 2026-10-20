@@ -5,10 +5,10 @@
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
 <metadata>{&quot;figure_id&quot;: &quot;q07&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5b9565069f4a9347cab0cab885b7ec0cb682f38d1409a563248898637b7e1853&quot;}</metadata>
 <rect width="840" height="395" fill="white"/>
-<path class="line" d="M375.7,80.58 L244.3,159.42" data-edge="4--2"/>
-<path class="line" d="M444.3,80.58 L575.7,159.42" data-edge="4--6"/>
 <path class="line" d="M182.92,209.44 L122.08,275.56" data-edge="2--1"/>
 <path class="line" d="M236.43,210.03 L293.57,274.97" data-edge="2--3"/>
+<path class="line" d="M375.7,80.58 L244.3,159.42" data-edge="4--2"/>
+<path class="line" d="M444.3,80.58 L575.7,159.42" data-edge="4--6"/>
 <path class="line" d="M585.8,211.85 L539.2,273.15" data-edge="6--5"/>
 <path class="line" d="M637.08,209.44 L697.92,275.56" data-edge="6--nil"/>
 <circle cx="410" cy="60" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="4"/>
