@@ -299,7 +299,11 @@ def tests_co():
     maxalign=max(x[2]for x in p['fields']);size=(cursor+maxalign-1)//maxalign*maxalign
     bb=p['value'].to_bytes(4,'little');addr=p['base']+p['index']*size+offsets['value']+bb.index(p['target_byte'])
     choose(18,addr,[0x1012,0x1014,0x1015,0x1016]);record(18,{'sizeof_record':size,'field_offsets':offsets,'target_addr':f'{addr:04X}'})
-    p=S['q19'];sim=pipeline(p['instructions'],0x4000,{'2':0x1000,'4':3,'6':4},{0x1000:2});choose(19,(sim['load_stalls'],sim['cycles']),[(0,7),(1,7),(2,9),(1,8)]);record(19,{'cycles':sim['cycles'],'WB':sim['retired'],'load_stalls':sim['load_stalls']},sim['cycles'])
+    p=S['q19'];assert p['zero_code_reserved'] and p['parallel_between_groups']
+    wa=p['groupA_commands'].bit_length();wb=p['groupB_commands'].bit_length()
+    width=wa+wb+p['next_address_bits']+p['branch_selector_bits']
+    assert (wa,wb,width)==(3,2,15)
+    choose(19,width,[13,14,16,15]);record(19,{'group_A_bits':wa,'group_B_bits':wb,'next_address_bits':p['next_address_bits'],'branch_mode_bits':p['branch_selector_bits'],'total_bits':width})
     p=S['q21'];peak=p['clock_hz']*p['bus_bits']/8*p['transfers_per_data_cycle']/1e6;effective=p['words']*(p['bus_bits']/8)/(sum(p[k]for k in ['command_cycles','wait_cycles','data_cycles'])/p['clock_hz'])/1e6
     choose(21,(round(peak,1),round(effective,1)),[(800,457.1),(400,457.1),(800,800),(400,228.6)]);record(21,{'peak_MBps':peak,'effective_MBps':effective})
 
