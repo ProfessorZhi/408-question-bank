@@ -1,0 +1,26 @@
+% Print-first layout for original examination text.
+\usepackage{xeCJK}
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\footnotesize\sffamily 408 AI Original · Set 01}
+\fancyhead[R]{\footnotesize\sffamily 作者校验版 · 非正式真题}
+\fancyfoot[C]{\sffamily\thepage}
+\setlength{\headheight}{14pt}
+\renewcommand{\headrulewidth}{0.25pt}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\normalsize\bfseries}{}{0pt}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{}{0pt}{}
+\titlespacing*{\section}{0pt}{1.8ex plus 0.5ex}{0.7ex}
+\titlespacing*{\subsection}{0pt}{1.4ex plus 0.4ex}{0.7ex}
+\titlespacing*{\subsubsection}{0pt}{1.6ex plus 0.3ex}{0.6ex}
+\usepackage{float}
+\floatplacement{figure}{H}
+\renewcommand{\figurename}{图}
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{0pt}
+\usepackage{needspace}

@@ -1,0 +1,57 @@
+name: Set 01 Academic A4 PDF Previews
+on:
+  push:
+    branches:
+      - draft/pdf-preview-set01
+    paths:
+      - drafts/ai-original/set-01/build_academic_pdfs.py
+      - drafts/ai-original/set-01/academic-filter.lua
+      - drafts/ai-original/set-01/proof_contact_sheet.py
+      - drafts/ai-original/set-01/pdf-academic-header.tex
+      - drafts/ai-original/set-01/questions.md
+      - drafts/ai-original/set-01/solutions.md
+      - drafts/ai-original/set-01/assets/**
+      - .github/workflows/ai-original-pdf-preview.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  a4-pdfs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install printing and vector-graphics dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends pandoc texlive-xetex texlive-lang-chinese texlive-latex-extra texlive-fonts-recommended lmodern fonts-noto-cjk poppler-utils >/tmp/ai408-apt.log
+          python -m pip install -q cairosvg==2.8.2 pymupdf==1.26.7
+          fc-match "Noto Serif CJK SC"
+      - name: Render and inspect student/teacher PDFs
+        run: python drafts/ai-original/set-01/build_academic_pdfs.py
+      - name: Produce first-page thumbnails
+        run: |
+          cd drafts/ai-original/set-01/previews-academic
+          pdftoppm -f 1 -l 1 -singlefile -scale-to 1200 -png Set01_Student_Academic.pdf Set01_Student_Page1 >/dev/null
+          pdftoppm -f 1 -l 1 -singlefile -scale-to 1200 -png Set01_Solutions_Academic.pdf Set01_Answers_Page1 >/dev/null
+      - name: Inspect all-page layouts via contact sheets
+        run: python drafts/ai-original/set-01/proof_contact_sheet.py
+      - name: Upload printable PDFs and previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: 408-Set01-Academic-A4-Print-PDFs
+          path: drafts/ai-original/set-01/previews-academic/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Publish PDFs on preview branch for direct viewing
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add drafts/ai-original/set-01/previews-academic/
+          if ! git diff --cached --quiet; then
+            git commit -m "build(ai408): publish academic-layout PDF proofs [skip ci]"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
