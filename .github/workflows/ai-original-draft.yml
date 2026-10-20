@@ -31,3 +31,11 @@ jobs:
           name: ai408-set01-validation
           path: /tmp/ai408-validation.json
           if-no-files-found: warn
+      - name: Authoring snapshot (contains answers; not a student handout)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai408-set01-authoring-snapshot
+          path: drafts/ai-original/set-01/
+          retention-days: 7
+          if-no-files-found: error
