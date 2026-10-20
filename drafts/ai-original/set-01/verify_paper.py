@@ -744,7 +744,7 @@ def routing_model():
         if not bad:safe.append(list(order))
     assert safe==[p['expected_safe_update_order']],safe
     only=dict(oldnext)
-    for u in p['first_updated']:only[u]=newnext[u]
+    only[p['first_updated']]=newnext[p['first_updated']]
     ttl=p['initial_ttl'];u=p['source_router'];path=[];drop=None;detail=[]
     while ttl>0:
         path.append(u);ttl-=1
