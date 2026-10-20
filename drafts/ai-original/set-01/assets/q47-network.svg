@@ -1,36 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1390" height="395" viewBox="0 0 1390 395" role="img" aria-labelledby="title desc">
-<title id="title">Q47 campus to datacenter network</title>
-<desc id="desc">H-S1-R1-R2-S2-V, 100Mb/s LANs and8Mb/s point-to-point. Interface addressing is also given in the problem table.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="390" viewBox="0 0 1400 390" role="img" aria-labelledby="title desc">
+<title id="title">Q47 one path with a smaller intermediate MTU</title>
+<desc id="desc">TCP traffic travels from H through R1 and R2 to V. Access links have MTU 1500 B at 100 Mb/s; the middle link has MTU 620 B at 12 Mb/s. The RTT is 40 ms.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
-<rect width="1390" height="395" fill="white"/>
-<path class="line" d="M148,195 L257,195"/>
-<path class="line" d="M353,195 L452,195"/>
-<path class="line" d="M548,195 L787,195"/>
-<path class="line" d="M883,195 L982,195"/>
-<path class="line" d="M1078,195 L1227,195"/>
-<rect x="52" y="164" width="96" height="62" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
-<text x="100.0" y="202.7" font-size="22" text-anchor="middle">H</text>
-<rect x="257" y="164" width="96" height="62" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="S1"/>
-<text x="305.0" y="202.7" font-size="22" text-anchor="middle">S1</text>
-<circle cx="500" cy="195" r="43" fill="white" stroke="#111" stroke-width="2.4" data-node="R1"/>
-<text x="500" y="202" font-size="22" text-anchor="middle">R1</text>
-<circle cx="835" cy="195" r="43" fill="white" stroke="#111" stroke-width="2.4" data-node="R2"/>
-<text x="835" y="202" font-size="22" text-anchor="middle">R2</text>
-<rect x="982" y="164" width="96" height="62" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="S2"/>
-<text x="1030.0" y="202.7" font-size="22" text-anchor="middle">S2</text>
-<rect x="1227" y="164" width="96" height="62" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="V"/>
-<text x="1275.0" y="202.7" font-size="22" text-anchor="middle">V</text>
-<text x="300" y="135" font-size="23" text-anchor="middle">100 Mb/s LAN</text>
-<text x="1050" y="135" font-size="23" text-anchor="middle">100 Mb/s LAN</text>
-<text x="666" y="173" font-size="22" text-anchor="middle">8 Mb/s</text>
-<text x="666" y="70" font-size="22" text-anchor="middle">198.51.100.0/30</text>
-<text x="556" y="127" font-size="22" text-anchor="middle">.1</text>
-<text x="779" y="127" font-size="22" text-anchor="middle">.2</text>
-<text x="100" y="276" font-size="19" text-anchor="middle">192.0.2.10/26</text>
-<text x="500" y="330" font-size="19" text-anchor="middle">192.0.2.1/26</text>
-<text x="835" y="330" font-size="19" text-anchor="middle">203.0.113.65/26</text>
-<text x="1275" y="276" font-size="19" text-anchor="middle">203.0.113.70/26</text>
-<text x="666" y="375" font-size="20" text-anchor="middle">No NAT; routes already installed. MAC addresses are in the question table.</text>
-</svg>
+<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;6774a4dc0fbf99731429e3c5e402da4bc4a42b1328ee0c5a546def4f5ef42475&quot;}</metadata>
+<rect width="1400" height="390" fill="white"/>
+<rect x="60" y="168" width="110" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
+<text x="115" y="207" font-size="26" text-anchor="middle" font-weight="700">H</text>
+<rect x="395" y="168" width="125" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="R1"/>
+<text x="457" y="207" font-size="26" text-anchor="middle" font-weight="700">R1</text>
+<rect x="825" y="168" width="125" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="R2"/>
+<text x="887" y="207" font-size="26" text-anchor="middle" font-weight="700">R2</text>
+<rect x="1200" y="168" width="110" height="66" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="V"/>
+<text x="1255" y="207" font-size="26" text-anchor="middle" font-weight="700">V</text>
+<path class="line" d="M170,201 L395,201"/>
+<path class="line" d="M520,201 L825,201"/>
+<path class="line" d="M950,201 L1200,201"/>
+<text x="285" y="107" font-size="22" text-anchor="middle">100 Mb/s</text>
+<text x="285" y="139" font-size="21" text-anchor="middle">MTU 1500 B</text>
+<text x="675" y="107" font-size="22" text-anchor="middle">12 Mb/s</text>
+<text x="675" y="139" font-size="21" text-anchor="middle">MTU 620 B</text>
+<text x="1080" y="107" font-size="22" text-anchor="middle">100 Mb/s</text>
+<text x="1080" y="139" font-size="21" text-anchor="middle">MTU 1500 B</text>
+<text x="700" y="320" font-size="23" text-anchor="middle">H - V TCP RTT = 40 ms</text>
+<text x="700" y="358" font-size="19" text-anchor="middle">DF flag, packet captures and TCP sequence numbers are in the question.</text>
