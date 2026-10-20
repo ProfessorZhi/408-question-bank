@@ -6,6 +6,7 @@ on:
     paths:
       - drafts/ai-original/set-01/build_academic_pdfs.py
       - drafts/ai-original/set-01/academic-filter.lua
+      - drafts/ai-original/set-01/proof_contact_sheet.py
       - drafts/ai-original/set-01/pdf-academic-header.tex
       - drafts/ai-original/set-01/questions.md
       - drafts/ai-original/set-01/solutions.md
@@ -33,9 +34,11 @@ jobs:
         run: python drafts/ai-original/set-01/build_academic_pdfs.py
       - name: Produce first-page thumbnails
         run: |
-          cd drafts/ai-original/set-01/previews
+          cd drafts/ai-original/set-01/previews-academic
           pdftoppm -f 1 -l 1 -singlefile -scale-to 1200 -png Set01_Student_Academic.pdf Set01_Student_Page1 >/dev/null
           pdftoppm -f 1 -l 1 -singlefile -scale-to 1200 -png Set01_Solutions_Academic.pdf Set01_Answers_Page1 >/dev/null
+      - name: Inspect all-page layouts via contact sheets
+        run: python drafts/ai-original/set-01/proof_contact_sheet.py
       - name: Upload printable PDFs and previews
         uses: actions/upload-artifact@v4
         with:
