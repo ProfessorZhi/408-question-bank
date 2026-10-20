@@ -12,7 +12,9 @@
 - [RFC 9293：TCP](https://www.rfc-editor.org/rfc/rfc9293.html)，序号、连接与累计确认语义用于Q38。Q47 v3已改为网络层路由更新题，不再是TCP题。Q39明确使用题定的教学分轮模型，而非宣称真实TCP总按逐RTT批量发送。
 - [RFC 5681：TCP拥塞控制](https://www.rfc-editor.org/rfc/rfc5681.html)，仅作慢启动/拥塞避免术语参照；不从旧教材默认值推断当前所有实现的初始窗口。
 - [The Open Group：open](https://pubs.opengroup.org/onlinepubs/9799919799/functions/open.html) 和 [lseek](https://pubs.opengroup.org/onlinepubs/9799919799/functions/lseek.html)，用于区分文件描述符、打开文件对象和文件偏移。Q24明确给定POSIX式模型，不要求适用于所有操作系统。
-- [RFC 791：Internet Protocol](https://www.rfc-editor.org/rfc/rfc791.html)：Q47只涉及IPv4 TTL逐路由器递减的语义。题干将减1后为0即丢弃作为明确操作约定；无需掌握专业微环路协议实现。
+- [RFC 791：Internet Protocol](https://www.rfc-editor.org/rfc/rfc791.html)：Q47涉及IPv4 TTL逐路由器递减的语义；题干将减1后为0即丢弃作为明确约定。
+- [IETF RFC 5715 §6.7](https://datatracker.ietf.org/doc/html/rfc5715#section-6.7)与[RFC 6976 §2.1.1](https://datatracker.ietf.org/doc/html/rfc6976#section-2.1.1)：**已在公开标准中提出费用增大后的有序FIB更新及微环路避免**，属于Q47的既有原理，不是本卷首创；考生无需预先知道这些术语。
+- [MIT xv6 教材 §5（Page faults）](https://mit-pdos.github.io/xv6-riscv-book/pgfault.html)：明确记载COW写异常、页表引用计数和单引用页不必复制的优化，为Q46机制的教科书先例。
 
 ## 考试资料边界
 

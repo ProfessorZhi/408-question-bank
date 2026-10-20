@@ -17,7 +17,6 @@
 | Q43 | [教学处理器M](assets/q43-machine.svg) | 阶段延迟、前递、分支EX判定 |
 | Q45 | [同步缓冲](assets/q45-buffer.svg) | 单槽版本k须分别交付A/B；图不泄漏通知与确认方案 |
 | Q46 | [COW共享页框](assets/q46-cow.svg) | 父子进程三对只读虚页到F2/F5/F8的共享关系及初始引用 |
-
 | Q47 | [路由费用更新图](assets/q47-network.svg) | R1—R2—R3—R4及R1—R4额外链路；链路费用1→9但不断连，不直接泄漏安全更新顺序 |
 | 仅教师Q42 | [两步AVL结果](assets/q42-answer.svg) | 插入15和删除50后的解答树 |
 

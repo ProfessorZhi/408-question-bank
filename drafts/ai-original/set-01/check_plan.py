@@ -25,6 +25,11 @@ def main():
     assert state['editorial_state']=='drafted' and not state['independent_review'] and not state['pilot_calibrated']
     items=manifest['items'];assert [q['no']for q in items]==list(range(1,48))
     qtext=(BASE/'questions.md').read_text(encoding='utf-8');stext=(BASE/'solutions.md').read_text(encoding='utf-8')
+    readme=(BASE/'README.md').read_text(encoding='utf-8')
+    student_version=re.search(r'^## .*?（完整初稿 (v\d+(?:\.\d+)*)）\s*$',qtext,re.M)
+    readme_version=re.search(r'^# .*?（完整初稿 (v\d+(?:\.\d+)*)',readme,re.M)
+    assert student_version and readme_version and student_version.group(1)==readme_version.group(1),'student/README version drift'
+    assert (BASE/'blind-review-protocol.md').is_file(),'independent-review handoff missing'
     qs=split_sections(qtext);ss=split_sections(stext)
     assert list(qs)==list(range(1,48)) and list(ss)==list(range(1,48))
     marks={41:13,42:10,43:12,44:11,45:7,46:8,47:9}
