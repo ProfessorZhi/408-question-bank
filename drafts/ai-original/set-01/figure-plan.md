@@ -15,8 +15,8 @@
 | Q41 | [两条链表](assets/q41-lists.svg) | 重复值、链指针、NULL |
 | Q42 | [初始AVL](assets/q42-avl.svg) | 初始六个结点的左右孩子 |
 | Q43 | [教学处理器M](assets/q43-machine.svg) | 阶段延迟、前递、分支EX判定 |
-| Q45 | [同步缓冲](assets/q45-buffer.svg) | 两槽、三个阶段、共享外设D；不泄漏信号量解答 |
-| Q47 | [网络拓扑](assets/q47-network.svg) | 两个LAN、点到点链路、接口与带宽 |
+| Q45 | [同步缓冲](assets/q45-buffer.svg) | 单槽版本k须分别交付A/B；图不泄漏通知与确认方案 |
+| Q47 | [分片抓包](assets/q47-network.svg) | H—R—V、未知MTU M、三个观测分组；不画出缺片或ACK答案 |
 | 仅教师Q42 | [两步AVL结果](assets/q42-answer.svg) | 插入15和删除50后的解答树 |
 
 ## 核验
