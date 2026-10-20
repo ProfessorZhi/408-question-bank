@@ -3,7 +3,7 @@
 <desc id="desc">The two rows are nondecreasing singly linked lists. Arrows are next pointers, not integer adjacency.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q41&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
+<metadata>{&quot;figure_id&quot;: &quot;q41&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;6774a4dc0fbf99731429e3c5e402da4bc4a42b1328ee0c5a546def4f5ef42475&quot;}</metadata>
 <rect width="1240" height="305" fill="white"/>
 <text x="35" y="95" font-size="24" text-anchor="middle" font-weight="700">A</text>
 <rect x="80" y="65" width="72" height="50" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="a0"/>
