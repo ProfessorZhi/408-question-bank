@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="395" viewBox="0 0 840 395" role="img" aria-labelledby="title desc">
+<title id="title">Q07 red-black tree with unknown colors</title>
+<desc id="desc">Root4 black,1 and3 red. Unknown colors on2,6,5. Every omitted null pointer is a black NIL leaf.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q07&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="840" height="395" fill="white"/>
+<path class="line" d="M182.92,209.44 L122.08,275.56" data-edge="2--1"/>
+<path class="line" d="M236.43,210.03 L293.57,274.97" data-edge="2--3"/>
+<path class="line" d="M375.7,80.58 L244.3,159.42" data-edge="4--2"/>
+<path class="line" d="M444.3,80.58 L575.7,159.42" data-edge="4--6"/>
+<path class="line" d="M585.8,211.85 L539.2,273.15" data-edge="6--5"/>
+<path class="line" d="M637.08,209.44 L697.92,275.56" data-edge="6--nil"/>
+<circle cx="410" cy="60" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="4"/>
+<text x="410" y="67" font-size="22" text-anchor="middle">4 (B)</text>
+<circle cx="210" cy="180" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="2"/>
+<text x="210" y="187" font-size="22" text-anchor="middle">2 (?)</text>
+<circle cx="610" cy="180" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="6"/>
+<text x="610" y="187" font-size="22" text-anchor="middle">6 (?)</text>
+<circle cx="95" cy="305" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="1"/>
+<text x="95" y="312" font-size="22" text-anchor="middle">1 (R)</text>
+<circle cx="320" cy="305" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="3"/>
+<text x="320" y="312" font-size="22" text-anchor="middle">3 (R)</text>
+<circle cx="515" cy="305" r="40" fill="white" stroke="#111" stroke-width="2.4" data-node="5"/>
+<text x="515" y="312" font-size="22" text-anchor="middle">5 (?)</text>
+<rect x="695" y="285" width="60" height="40" rx="4" fill="white" stroke="#111" stroke-width="2.4"/>
+<text x="725.0" y="311.3" font-size="18" text-anchor="middle">NIL</text>
+<text x="420" y="378" font-size="20" text-anchor="middle">B = black; R = red; all NIL leaves are black.</text>
+</svg>

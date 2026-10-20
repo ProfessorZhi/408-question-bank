@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="370" viewBox="0 0 1160 370" role="img" aria-labelledby="title desc">
+<title id="title">Solution Q42 two final AVL states</title>
+<desc id="desc">Left after inserting15; right after replacing50 with predecessor40 and deleting original40.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q42-answer&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="1160" height="370" fill="white"/>
+<text x="280" y="40" font-size="22" text-anchor="middle" font-weight="700">After inserting 15</text>
+<path class="line" d="M258.63,118.09 L171.37,191.91" data-edge="30--15"/>
+<path class="line" d="M301.37,118.09 L388.63,191.91" data-edge="30--50"/>
+<path class="line" d="M132.51,231.86 L87.49,288.14" data-edge="15--10"/>
+<path class="line" d="M166.06,232.94 L203.94,287.06" data-edge="15--20"/>
+<path class="line" d="M393.94,232.94 L356.06,287.06" data-edge="50--40"/>
+<path class="line" d="M427.49,231.86 L472.51,288.14" data-edge="50--60"/>
+<circle cx="280" cy="100" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-30"/>
+<text x="280" y="107" font-size="22" text-anchor="middle">30</text>
+<circle cx="150" cy="210" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-15"/>
+<text x="150" y="217" font-size="22" text-anchor="middle">15</text>
+<circle cx="410" cy="210" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-50"/>
+<text x="410" y="217" font-size="22" text-anchor="middle">50</text>
+<circle cx="70" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-10"/>
+<text x="70" y="317" font-size="22" text-anchor="middle">10</text>
+<circle cx="220" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-20"/>
+<text x="220" y="317" font-size="22" text-anchor="middle">20</text>
+<circle cx="340" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-40"/>
+<text x="340" y="317" font-size="22" text-anchor="middle">40</text>
+<circle cx="490" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="0-60"/>
+<text x="490" y="317" font-size="22" text-anchor="middle">60</text>
+<text x="860" y="40" font-size="22" text-anchor="middle" font-weight="700">Then deleting 50</text>
+<path class="line" d="M838.63,118.09 L751.37,191.91" data-edge="30--15"/>
+<path class="line" d="M881.37,118.09 L968.63,191.91" data-edge="30--40"/>
+<path class="line" d="M712.51,231.86 L667.49,288.14" data-edge="15--10"/>
+<path class="line" d="M746.06,232.94 L783.94,287.06" data-edge="15--20"/>
+<path class="line" d="M1007.49,231.86 L1052.51,288.14" data-edge="40--60"/>
+<circle cx="860" cy="100" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="580-30"/>
+<text x="860" y="107" font-size="22" text-anchor="middle">30</text>
+<circle cx="730" cy="210" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="580-15"/>
+<text x="730" y="217" font-size="22" text-anchor="middle">15</text>
+<circle cx="990" cy="210" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="580-40"/>
+<text x="990" y="217" font-size="22" text-anchor="middle">40</text>
+<circle cx="650" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="580-10"/>
+<text x="650" y="317" font-size="22" text-anchor="middle">10</text>
+<circle cx="800" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="580-20"/>
+<text x="800" y="317" font-size="22" text-anchor="middle">20</text>
+<circle cx="1070" cy="310" r="28" fill="white" stroke="#111" stroke-width="2.4" data-node="580-60"/>
+<text x="1070" y="317" font-size="22" text-anchor="middle">60</text>
+</svg>

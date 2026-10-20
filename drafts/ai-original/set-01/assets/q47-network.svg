@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1160" height="555" viewBox="0 0 1160 555" role="img" aria-labelledby="title desc">
+<title id="title">Q47 link-cost change with asynchronous routing-table updates</title>
+<desc id="desc">Undirected topology R1-R2-R3-R4 with extra R1-R4 link; only R3-R4 link cost changes from 1 to 9, but stays operational. Network N is reached via R4.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q47&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="1160" height="555" fill="white"/>
+<rect x="35" y="121" width="112" height="64" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="H"/>
+<text x="91" y="161" font-size="26" text-anchor="middle" font-weight="700">H</text>
+<path class="line" d="M147,153 L217,153"/>
+<path class="line" d="M293,153 L487,153"/>
+<path class="line" d="M563,153 L757,153"/>
+<path class="line" d="M281,181 L494,368"/>
+<path class="line" d="M764,181 L557,368"/>
+<path class="line" d="M563,393 L870,447"/>
+<circle cx="255" cy="153" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R1"/>
+<text x="255" y="160" font-size="22" text-anchor="middle">R1</text>
+<circle cx="525" cy="153" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R2"/>
+<text x="525" y="160" font-size="22" text-anchor="middle">R2</text>
+<circle cx="795" cy="153" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R3"/>
+<text x="795" y="160" font-size="22" text-anchor="middle">R3</text>
+<circle cx="525" cy="393" r="38" fill="white" stroke="#111" stroke-width="2.4" data-node="R4"/>
+<text x="525" y="400" font-size="22" text-anchor="middle">R4</text>
+<rect x="870" y="414" width="226" height="68" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="N"/>
+<text x="983" y="456" font-size="23" text-anchor="middle" font-weight="700">Network N</text>
+<text x="386" y="132" font-size="20" text-anchor="middle">cost 1</text>
+<text x="660" y="132" font-size="20" text-anchor="middle">cost 1</text>
+<text x="315" y="313" font-size="20" text-anchor="middle">cost 5</text>
+<text x="810" y="313" font-size="20" text-anchor="middle">old 1 / new 9</text>
+<text x="579" y="532" font-size="20" text-anchor="middle">All four links remain usable. The routing tables may update at different times.</text>
+</svg>

@@ -1,0 +1,490 @@
+{
+  "schema": "ai-exam-authoring-v1",
+  "exam_id": "ai-original/set-01",
+  "status": "complete-draft-author-checked",
+  "planning_snapshot_commit": "259ebef1078e2022bf0dc11353553ba23a9524c1",
+  "format": {
+    "minutes": 180,
+    "points": 150,
+    "choice_count": 40,
+    "comprehensive_count": 7,
+    "subject_points": {
+      "DS": 45,
+      "CO": 45,
+      "OS": 35,
+      "CN": 25
+    }
+  },
+  "common_item_state": {
+    "question_written": true,
+    "solution_written": true,
+    "editorial_state": "drafted",
+    "author_reasoning_complete": true,
+    "independent_review": false,
+    "pilot_calibrated": false
+  },
+  "figure_status": {
+    "student_svg_count": 14,
+    "teacher_only": [
+      "assets/q42-answer.svg"
+    ],
+    "byte_reproduction": "passed-in-author-workspace",
+    "visual_review": "author-inspected",
+    "independent_visual_review": false,
+    "total_svg_count": 15
+  },
+  "quality_claim": "Complete original draft; 2024/2025 difficulty and 10/10 quality are targets, not validated outcomes. Finite program checks do not certify all natural-language semantics.",
+  "items": [
+    {
+      "no": 1,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS01.03",
+      "topic": "累计扫描复杂度",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 2,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS03.02",
+      "topic": "有限容量栈",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 3,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS04.03",
+      "topic": "前后序重构数量",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 4,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS04.07",
+      "topic": "哈夫曼平局与WPL",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 5,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS05.05",
+      "topic": "BFS树与非树边删除",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q05-bfs.svg"
+      ]
+    },
+    {
+      "no": 6,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS05.06",
+      "topic": "最小生成树边分类",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q06-mst.svg"
+      ]
+    },
+    {
+      "no": 7,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS06.06",
+      "topic": "红黑树约束",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q07-rbtree.svg"
+      ]
+    },
+    {
+      "no": 8,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS06.07",
+      "topic": "B+树范围扫描",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q08-bplus.svg"
+      ]
+    },
+    {
+      "no": 9,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS06.09",
+      "topic": "KMP前缀回退",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 10,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS07.05",
+      "topic": "稳定性与给定划分",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 11,
+      "subject": "DS",
+      "points": 2,
+      "primary_concept": "DS07.09",
+      "topic": "二路最优归并",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 12,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO02.03",
+      "topic": "补码借位和溢出",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 13,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO02.07",
+      "topic": "binary32平局舍入",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 14,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO02.08",
+      "topic": "C整数提升",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 15,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO03.06",
+      "topic": "Cache两遍访问",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 16,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO03.11",
+      "topic": "TLB标记与组号",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 17,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO04.04",
+      "topic": "PC相对位移",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 18,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO04.05",
+      "topic": "对齐与小端",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 19,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO05.04",
+      "topic": "微程序微命令字段编码与允许并行的位宽",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q19-microcode.svg"
+      ]
+    },
+    {
+      "no": 20,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO05.03",
+      "topic": "ISA与微架构",
+      "check_mode": "editorial-only",
+      "figures": []
+    },
+    {
+      "no": 21,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO06.02",
+      "topic": "总线峰值和有效吞吐",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 22,
+      "subject": "CO",
+      "points": 2,
+      "primary_concept": "CO06.07",
+      "topic": "DMA机制",
+      "check_mode": "editorial-only",
+      "figures": []
+    },
+    {
+      "no": 23,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS01.03",
+      "topic": "系统调用与中断",
+      "check_mode": "editorial-only",
+      "figures": []
+    },
+    {
+      "no": 24,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS02.02",
+      "topic": "线程与打开文件对象",
+      "check_mode": "editorial-only",
+      "figures": []
+    },
+    {
+      "no": 25,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS02.04",
+      "topic": "SRTF调度",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 26,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS02.10",
+      "topic": "银行家试分配",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 27,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS03.04",
+      "topic": "多级页表地址",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 28,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS03.07",
+      "topic": "LRU初态与命中更新",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 29,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS04.08",
+      "topic": "链接计数与打开引用",
+      "check_mode": "editorial-only",
+      "figures": []
+    },
+    {
+      "no": 30,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS04.06",
+      "topic": "多级索引读块",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 31,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS05.05",
+      "topic": "C-SCAN回卷",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 32,
+      "subject": "OS",
+      "points": 2,
+      "primary_concept": "OS01.07",
+      "topic": "引导过程",
+      "check_mode": "editorial-only",
+      "figures": []
+    },
+    {
+      "no": 33,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN01.04",
+      "topic": "存储转发分组",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 34,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN02.02",
+      "topic": "信道容量双上界",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 35,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN03.11",
+      "topic": "MAC学习转发",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q35-switches.svg"
+      ]
+    },
+    {
+      "no": 36,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN03.05",
+      "topic": "SR序号回绕和丢ACK",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q36-sr.svg"
+      ]
+    },
+    {
+      "no": 37,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN04.04",
+      "topic": "最长前缀匹配",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 38,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN05.05",
+      "topic": "TCP乱序与累计ACK",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q38-tcp.svg"
+      ]
+    },
+    {
+      "no": 39,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN05.08",
+      "topic": "题定TCP分轮模型",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 40,
+      "subject": "CN",
+      "points": 2,
+      "primary_concept": "CN06.06",
+      "topic": "缓存DNS与持久HTTP",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 41,
+      "subject": "DS",
+      "points": 13,
+      "primary_concept": "DS02.06",
+      "topic": "带重复有序链表公共连续段",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q41-lists.svg"
+      ]
+    },
+    {
+      "no": 42,
+      "subject": "DS",
+      "points": 10,
+      "primary_concept": "DS06.05",
+      "topic": "AVL插删查找",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q42-avl.svg"
+      ]
+    },
+    {
+      "no": 43,
+      "subject": "CO",
+      "points": 12,
+      "primary_concept": "CO05.06",
+      "topic": "教学处理器流水线",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q43-machine.svg"
+      ]
+    },
+    {
+      "no": 44,
+      "subject": "CO",
+      "points": 11,
+      "primary_concept": "CO04.02",
+      "topic": "教学ISA编码与C级语义",
+      "check_mode": "computational-cross-check",
+      "figures": []
+    },
+    {
+      "no": 45,
+      "subject": "OS",
+      "points": 7,
+      "primary_concept": "OS02.07",
+      "topic": "双订阅者逐版本交付与通知许可纠错",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q45-buffer.svg"
+      ]
+    },
+    {
+      "no": 46,
+      "subject": "OS",
+      "points": 8,
+      "primary_concept": "OS03.10",
+      "topic": "写时复制页框共享、写保护异常与引用计数",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q46-cow.svg"
+      ]
+    },
+    {
+      "no": 47,
+      "subject": "CN",
+      "points": 9,
+      "primary_concept": "CN04.10",
+      "topic": "链路状态最短路与异步转发表暂态环路",
+      "check_mode": "computational-cross-check",
+      "figures": [
+        "assets/q47-network.svg"
+      ]
+    }
+  ]
+}

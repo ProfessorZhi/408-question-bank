@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="420" viewBox="0 0 1140 420" role="img" aria-labelledby="title desc">
+<title id="title">Q45 one slot and two independent subscribers</title>
+<desc id="desc">Producer P writes version k into one reusable slot; A and B must each read this version before P may overwrite. The figure describes data flow, not a P/V solution.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q45&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="1140" height="420" fill="white"/>
+<rect x="45" y="175" width="190" height="85" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="P"/>
+<text x="140" y="223" font-size="24" text-anchor="middle" font-weight="700">Producer P</text>
+<rect x="405" y="175" width="190" height="85" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="slot"/>
+<text x="500" y="222" font-size="23" text-anchor="middle" font-weight="700">single slot</text>
+<rect x="840" y="65" width="240" height="90" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="A"/>
+<text x="960" y="117" font-size="23" text-anchor="middle" font-weight="700">Subscriber A</text>
+<rect x="840" y="265" width="240" height="90" rx="4" fill="white" stroke="#111" stroke-width="2.4" data-node="B"/>
+<text x="960" y="317" font-size="23" text-anchor="middle" font-weight="700">Subscriber B</text>
+<path class="line" d="M235,218 L405,218" marker-end="url(#arrow)"/>
+<path class="line" d="M595,198 L840,110" marker-end="url(#arrow)"/>
+<path class="line" d="M595,235 L840,310" marker-end="url(#arrow)"/>
+<text x="320" y="192" font-size="20" text-anchor="middle">write k</text>
+<text x="705" y="115" font-size="20" text-anchor="middle">read k</text>
+<text x="705" y="310" font-size="20" text-anchor="middle">read k</text>
+<text x="565" y="395" font-size="20" text-anchor="middle">Each version must reach both subscribers before replacement.</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="665" viewBox="0 0 1000 665" role="img" aria-labelledby="title desc">
+<title id="title">Q36 selective repeat timeline</title>
+<desc id="desc">Sequence modulus8, window4. Original F6 lost. F7,F0,F1 acknowledged; retransmitted F6 received but ACK6 lost. Diagram not to scale.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q36&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="1000" height="665" fill="white"/>
+<text x="165" y="38" font-size="24" text-anchor="middle" font-weight="700">Sender</text>
+<text x="835" y="38" font-size="24" text-anchor="middle" font-weight="700">Receiver</text>
+<path class="line" d="M165,65 L165,625" marker-end="url(#arrow)"/>
+<path class="line" d="M835,65 L835,625" marker-end="url(#arrow)"/>
+<path class="line" d="M165,87 L600.5,110.4" stroke-dasharray="8 6"/>
+<path class="line" d="M592.5,102.4 L608.5,118.4"/>
+<path class="line" d="M592.5,118.4 L608.5,102.4"/>
+<text x="600.5" y="141.4" font-size="17" text-anchor="middle">lost</text>
+<rect x="400.0" y="77.0" width="200" height="24" fill="white"/>
+<text x="500.0" y="96.0" font-size="18" text-anchor="middle">F6</text>
+<path class="line" d="M165,155 L835,185" marker-end="url(#arrow)"/>
+<rect x="400.0" y="142.0" width="200" height="24" fill="white"/>
+<text x="500.0" y="161.0" font-size="18" text-anchor="middle">F7</text>
+<path class="line" d="M835,204 L165,235" marker-end="url(#arrow)"/>
+<rect x="400.0" y="191.5" width="200" height="24" fill="white"/>
+<text x="500.0" y="210.5" font-size="18" text-anchor="middle">ACK7</text>
+<path class="line" d="M165,266 L835,296" marker-end="url(#arrow)"/>
+<rect x="400.0" y="253.0" width="200" height="24" fill="white"/>
+<text x="500.0" y="272.0" font-size="18" text-anchor="middle">F0</text>
+<path class="line" d="M835,315 L165,346" marker-end="url(#arrow)"/>
+<rect x="400.0" y="302.5" width="200" height="24" fill="white"/>
+<text x="500.0" y="321.5" font-size="18" text-anchor="middle">ACK0</text>
+<path class="line" d="M165,377 L835,407" marker-end="url(#arrow)"/>
+<rect x="400.0" y="364.0" width="200" height="24" fill="white"/>
+<text x="500.0" y="383.0" font-size="18" text-anchor="middle">F1</text>
+<path class="line" d="M835,426 L165,457" marker-end="url(#arrow)"/>
+<rect x="400.0" y="413.5" width="200" height="24" fill="white"/>
+<text x="500.0" y="432.5" font-size="18" text-anchor="middle">ACK1</text>
+<path class="line" d="M165,498 L835,532" marker-end="url(#arrow)"/>
+<rect x="400.0" y="487.0" width="200" height="24" fill="white"/>
+<text x="500.0" y="506.0" font-size="18" text-anchor="middle">F6 (retransmit)</text>
+<path class="line" d="M835,552 L399.5,576.7" stroke-dasharray="8 6"/>
+<path class="line" d="M391.5,568.7 L407.5,584.7"/>
+<path class="line" d="M391.5,584.7 L407.5,568.7"/>
+<text x="399.5" y="607.7" font-size="17" text-anchor="middle">lost</text>
+<rect x="400.0" y="543.0" width="200" height="24" fill="white"/>
+<text x="500.0" y="562.0" font-size="18" text-anchor="middle">ACK6</text>
+<text x="500" y="645" font-size="18" text-anchor="middle">Time runs downward; only listed losses occur.</text>
+</svg>

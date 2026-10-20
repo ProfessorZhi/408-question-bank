@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="370" viewBox="0 0 920 370" role="img" aria-labelledby="title desc">
+<title id="title">Q42 initial AVL tree</title>
+<desc id="desc">Root30;10 has right20;50 has left40 and right60.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q42&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="920" height="370" fill="white"/>
+<path class="line" d="M220.49,204.58 L279.51,275.42" data-edge="10--20"/>
+<path class="line" d="M411.38,74.31 L228.62,165.69" data-edge="30--10"/>
+<path class="line" d="M468.62,74.31 L651.38,165.69" data-edge="30--50"/>
+<path class="line" d="M658.38,203.59 L591.62,276.41" data-edge="50--40"/>
+<path class="line" d="M701.62,203.59 L768.38,276.41" data-edge="50--60"/>
+<circle cx="440" cy="60" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="30"/>
+<text x="440" y="67" font-size="22" text-anchor="middle">30</text>
+<circle cx="200" cy="180" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="10"/>
+<text x="200" y="187" font-size="22" text-anchor="middle">10</text>
+<circle cx="300" cy="300" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="20"/>
+<text x="300" y="307" font-size="22" text-anchor="middle">20</text>
+<circle cx="680" cy="180" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="50"/>
+<text x="680" y="187" font-size="22" text-anchor="middle">50</text>
+<circle cx="570" cy="300" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="40"/>
+<text x="570" y="307" font-size="22" text-anchor="middle">40</text>
+<circle cx="790" cy="300" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="60"/>
+<text x="790" y="307" font-size="22" text-anchor="middle">60</text>
+</svg>

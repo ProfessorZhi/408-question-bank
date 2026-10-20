@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="400" viewBox="0 0 720 400" role="img" aria-labelledby="title desc">
+<title id="title">Q05 BFS tree and a non-tree edge</title>
+<desc id="desc">Solid edges sa,sb,ac,bd form T. Dashed cd is e.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
+<style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
+<metadata>{&quot;figure_id&quot;: &quot;q05&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5d1ddc6256f2179ade674aca1919efa468a86d28516b686a3ff20e965cf07305&quot;}</metadata>
+<rect width="720" height="400" fill="white"/>
+<path class="line" d="M113.98,176.43 L291.02,93.57" data-edge="s--a"/>
+<path class="line" d="M113.98,203.57 L291.02,286.43" data-edge="s--b"/>
+<path class="line" d="M352.0,80.0 L548.0,80.0" data-edge="a--c"/>
+<path class="line" d="M352.0,300.0 L548.0,300.0" data-edge="b--d"/>
+<path class="line" d="M580.0,112.0 L580.0,268.0" stroke-dasharray="8 6" data-edge="c--d"/>
+<circle cx="85" cy="190" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="s"/>
+<text x="85" y="197" font-size="22" text-anchor="middle">s</text>
+<circle cx="320" cy="80" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="a"/>
+<text x="320" y="87" font-size="22" text-anchor="middle">a</text>
+<circle cx="320" cy="300" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="b"/>
+<text x="320" y="307" font-size="22" text-anchor="middle">b</text>
+<circle cx="580" cy="80" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="c"/>
+<text x="580" y="87" font-size="22" text-anchor="middle">c</text>
+<circle cx="580" cy="300" r="32" fill="white" stroke="#111" stroke-width="2.4" data-node="d"/>
+<text x="580" y="307" font-size="22" text-anchor="middle">d</text>
+<text x="605" y="197" font-size="24" text-anchor="middle">e</text>
+<text x="350" y="377" font-size="21" text-anchor="middle">Solid: T     Dashed: e (not in T)</text>
+</svg>
