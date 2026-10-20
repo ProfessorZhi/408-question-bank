@@ -8,7 +8,7 @@
 | Q06 | [带权图](assets/q06-mst.svg) | 七条边、各边权值及桥DE |
 | Q07 | [红黑树](assets/q07-rbtree.svg) | 已知B/R、未知颜色及黑色NIL约定 |
 | Q08 | [B+树](assets/q08-bplus.svg) | 根分隔值、叶页内容及右向叶链 |
-| Q19 | [流水线](assets/q19-pipeline.svg) | 五级与两条前递路径 |
+| Q19 | [微指令字段](assets/q19-microcode.svg) | 双微命令字段A/B可并行，独立的下址和转移方式字段，待求位宽不泄漏答案 |
 | Q35 | [交换机](assets/q35-switches.svg) | S1/S2端口与四个主机 |
 | Q36 | [SR时序](assets/q36-sr.svg) | 模8序号、原F6与重传ACK6丢失 |
 | Q38 | [TCP时序](assets/q38-tcp.svg) | 乱序到达、段首字节和采样时刻T |
