@@ -3,7 +3,7 @@
 <desc id="desc">Solid edges sa,sb,ac,bd form T. Dashed cd is e.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q05&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;5b9565069f4a9347cab0cab885b7ec0cb682f38d1409a563248898637b7e1853&quot;}</metadata>
+<metadata>{&quot;figure_id&quot;: &quot;q05&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;a27cb9ff659a551f4be8dc876932ef81b37bb85b4b5c97ff4260e9f5f244e8d4&quot;}</metadata>
 <rect width="720" height="400" fill="white"/>
 <path class="line" d="M113.98,176.43 L291.02,93.57" data-edge="s--a"/>
 <path class="line" d="M113.98,203.57 L291.02,286.43" data-edge="s--b"/>
