@@ -1,4 +1,4 @@
-# 408 AI Original · Set 01（完整初稿 v3 · OS/CN题型重构）
+# 408 AI Original · Set 01（完整初稿 v3.2 · 原创机制和卷面可读性优化）
 
 **已成稿：47/47题；40道单选、160个选项；7道综合题；150分、180分钟目标；15张SVG。** 当前状态是 `complete-draft-author-checked`，不是独立专家终审或考生试做校准后的正式命题。
 
@@ -30,7 +30,7 @@ Q19已从与Q43前三条指令重合的流水线题更换成微程序字段编�
 
 ## 已做与未做
 
-**已做**：完整题面与解答；出题者逐项逻辑检查；41题计算/枚举/模拟交叉检验；6题概念性作者解释；Q46包含COW逐步页框模拟，Q47独立枚举全部6种转发表更新顺序；15张SVG可逐字节重现，已在作者工作区逐张目视检查。
+**已做**：完整题面与解答；出题者逐项逻辑检查；41题计算/枚举/模拟交叉检验；6题概念性作者解释；Q46包含COW逐步页框模拟，Q47独立枚举全部6种转发表更新顺序；15张SVG可逐字节重现；原版图做过作者目视检查，v3新增或重绘题图仍需独立视觉审稿与纸面试读。
 
 **未做**：第二位命题专家独立盲审、真实考生180分钟试做、项目反应理论/区分度统计、全网原创性唯一性检索。**2024–2025同档难度与10/10质量是目标，不是已验证结论。** 条件完整和程序测试通过不自动等于每个自然语言干扰项都已由机器证明。
 
@@ -40,6 +40,8 @@ Q19已从与Q43前三条指令重合的流水线题更换成微程序字段编�
 python drafts/ai-original/set-01/check_plan.py
 python drafts/ai-original/set-01/render_figures.py --check
 python drafts/ai-original/set-01/verify_paper.py --json /tmp/ai408-validation.json
+python drafts/ai-original/set-01/audit_readability.py --json /tmp/ai408-readability.json
+python drafts/ai-original/set-01/audit_v3.py
 ```
 
 前两项使用Python标准库；第三项还需要C11编译器gcc或cc。编译产物只在临时目录中生成并自动回收，不访问用户设备、不联网取题、不读取凭据。GitHub的独立 `AI Original Draft QA` 工作流会上传实际验证报告；原有历史题库QA工作流保持原样。
