@@ -45,4 +45,4 @@
 
 ## v2 修订记录
 
-Q45/Q47旧测试已由新版模型替换；当前活动验证入口为 verify_paper.py。verify_common_v1.py 保存Q1–Q44通用验证快照，旧的 tests_final() 和 pipeline_sync() 不作为新版Q45/Q47的验收证据。SVG元数据已同步到当前 specs/exam.json 哈希。
+Q45/Q47旧测试已由新版模型替换；当前活动验证入口为 verify_paper.py。旧的 pipeline_sync() 函数仍留在脚本中，但新版 tests_final() 不再调用它；新版使用 subscriber_model() 与 network_inverse()。SVG元数据已同步到当前 specs/exam.json 哈希。
