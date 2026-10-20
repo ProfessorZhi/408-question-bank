@@ -3,7 +3,7 @@
 <desc id="desc">Root separators20,40; leaves3,8,12 then20,25,32 then40,47,51. Root cached.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#111"/></marker></defs>
 <style>text{font-family:Arial,DejaVu Sans,sans-serif;fill:#111} .line{fill:none;stroke:#111;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}</style>
-<metadata>{&quot;figure_id&quot;: &quot;q08&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;ed31bf043e29c768bb13015873d7a831d7ff8ec8020d2d7dcbac98fb6f915ee5&quot;}</metadata>
+<metadata>{&quot;figure_id&quot;: &quot;q08&quot;, &quot;renderer&quot;: &quot;render_figures.py/v1&quot;, &quot;spec_sha256&quot;: &quot;6774a4dc0fbf99731429e3c5e402da4bc4a42b1328ee0c5a546def4f5ef42475&quot;}</metadata>
 <rect width="1000" height="365" fill="white"/>
 <text x="500" y="35" font-size="22" text-anchor="middle">Root page (cached)</text>
 <rect x="390" y="60" width="220" height="60" rx="4" fill="white" stroke="#111" stroke-width="2.4"/>
