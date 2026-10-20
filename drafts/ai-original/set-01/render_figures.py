@@ -91,7 +91,20 @@ def pipeline(ident,title,detailed=False):
   s.text(600,405,'Load value ready at MEM-end; ALU value ready at EX-end.',20)
  else:s.text(600,40,title,23,bold=True);s.text(600,327,'No same-cycle MEM-end to EX-end use.',20)
  return s
-pipeline('q19','Q19 forwarding and load-use').save('q19-pipeline.svg')
+s=SVG(1060,310,'q19','Q19 microinstruction field format','Two parallel microcommand groups with separate encoded fields; all-zero means idle in each group. The next address and branch selector have fixed widths. Field boxes are not drawn to bit scale.')
+for x,w,node in [(50,220,'A'),(300,220,'B'),(550,230,'next'),(810,200,'branch')]:
+ s.rect(x,110,w,100,ident=node)
+s.text(160,150,'Group A',25,bold=True)
+s.text(160,182,'4 commands + idle',19)
+s.text(410,150,'Group B',25,bold=True)
+s.text(410,182,'3 commands + idle',19)
+s.text(665,150,'Next address',23,bold=True)
+s.text(665,182,'8 bits',21)
+s.text(910,150,'Branch mode',23,bold=True)
+s.text(910,182,'2 bits',21)
+s.text(530,62,'A and B may operate in parallel; each group issues at most one command.',21)
+s.text(530,270,'Find the MINIMUM total width. Field boxes are not to bit scale.',21)
+s.save('q19-microcode.svg')
 pipeline('q43','Q43 teaching machine M',True).save('q43-machine.svg')
 
 s=SVG(1030,390,'q35','Q35 self-learning Ethernet switches','S1 ports1,2,3 to H1,H2,S2; S2 ports1,2,3 to S1,H3,H4.');s.rect(280,160,135,70,'S1','S1');s.rect(610,160,135,70,'S2','S2')
