@@ -1,0 +1,422 @@
+{
+  "version": "2027",
+  "subject": "OS",
+  "name": "操作系统",
+  "weight": 35,
+  "syllabus_evidence": "https://zhenti.beokayy.club/outline",
+  "wangdao_publisher_url": "https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69363",
+  "wangdao_isbn": "9787121517952",
+  "official_metadata_url": "https://www.hep.com.cn/book/show/2099763850751057921",
+  "evidence_note": "正式考纲书目已确认，细目根据第三方大纲转录与王道2027目录核对，以下训练目标由本项目自编。",
+  "sections": [
+    {
+      "chapter_id": "OS01",
+      "id": "OS01-S01",
+      "title": "操作系统概念与发展",
+      "concept_ids": [
+        "OS01.01"
+      ],
+      "learning_targets": [
+        "资源管理与用户服务",
+        "并发共享虚拟异步特点",
+        "批处理分时实时等发展模型"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS01",
+      "id": "OS01-S02",
+      "title": "CPU运行模式与异常中断",
+      "concept_ids": [
+        "OS01.02",
+        "OS01.03"
+      ],
+      "learning_targets": [
+        "特权指令和用户内核态",
+        "异常/中断及处理边界",
+        "系统调用陷入与返回"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS01",
+      "id": "OS01-S03",
+      "title": "装入链接与进程内存映像",
+      "concept_ids": [
+        "OS01.04",
+        "OS01.05"
+      ],
+      "learning_targets": [
+        "编译链接装入及地址重定位",
+        "代码段数据段栈堆与进程地址空间",
+        "用户栈/内核空间区分"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS01",
+      "id": "OS01-S04",
+      "title": "内核组织结构",
+      "concept_ids": [
+        "OS01.06"
+      ],
+      "learning_targets": [
+        "分层和模块化",
+        "宏内核、微内核及外核的基本思想",
+        "内核组成与服务职责"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS01",
+      "id": "OS01-S05",
+      "title": "系统引导和虚拟机",
+      "concept_ids": [
+        "OS01.07",
+        "OS01.06"
+      ],
+      "learning_targets": [
+        "固件/引导程序及加载流程",
+        "启动盘与磁盘分区",
+        "虚拟机/虚拟化的基本概念"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS02",
+      "id": "OS02-S01",
+      "title": "进程线程组织状态与控制",
+      "concept_ids": [
+        "OS02.01",
+        "OS02.02"
+      ],
+      "learning_targets": [
+        "PCB与线程控制结构",
+        "创建退出阻塞唤醒",
+        "内核级与用户级线程差异",
+        "线程共享与私有资源"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS02",
+      "id": "OS02-S02",
+      "title": "进程间通信",
+      "concept_ids": [
+        "OS02.11"
+      ],
+      "learning_targets": [
+        "共享内存",
+        "消息传递与消息队列",
+        "管道",
+        "信号与互斥同步机制边界"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS02",
+      "id": "OS02-S03",
+      "title": "CPU调度和上下文切换",
+      "concept_ids": [
+        "OS02.03",
+        "OS02.04",
+        "OS02.05",
+        "OS02.12"
+      ],
+      "learning_targets": [
+        "抢占与非抢占",
+        "到达执行等待时间计算",
+        "FCFS SJF RR优先级和高响应比",
+        "多处理器调度",
+        "空闲任务及上下文切换"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS02",
+      "id": "OS02-S04",
+      "title": "同步互斥及经典问题",
+      "concept_ids": [
+        "OS02.06",
+        "OS02.07",
+        "OS02.08"
+      ],
+      "learning_targets": [
+        "竞争条件与临界区",
+        "软件方法硬件原子方法和互斥锁",
+        "P/V信号量与读者写者",
+        "生产者消费者和哲学家进餐",
+        "条件变量与管程的基本理解"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS02",
+      "id": "OS02-S05",
+      "title": "死锁及解除",
+      "concept_ids": [
+        "OS02.09",
+        "OS02.10"
+      ],
+      "learning_targets": [
+        "四个必要条件",
+        "死锁预防避免检测和恢复",
+        "安全序列与银行家算法",
+        "资源请求能否安全分配"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS03",
+      "id": "OS03-S01",
+      "title": "内存地址与连续分配",
+      "concept_ids": [
+        "OS03.01",
+        "OS03.02"
+      ],
+      "learning_targets": [
+        "逻辑/物理地址与重定位",
+        "首次/最佳/最坏适应",
+        "碎片及紧凑",
+        "访问保护"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS03",
+      "id": "OS03-S02",
+      "title": "分页分段及段页式",
+      "concept_ids": [
+        "OS03.03",
+        "OS03.04",
+        "OS03.05"
+      ],
+      "learning_targets": [
+        "分页地址分割与页表",
+        "TLB查找及多级页表",
+        "分段与段页式结构",
+        "内存共享与访问权限"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS03",
+      "id": "OS03-S03",
+      "title": "虚拟内存与请求分页",
+      "concept_ids": [
+        "OS03.06"
+      ],
+      "learning_targets": [
+        "局部性与虚拟内存",
+        "页表状态/访问位",
+        "缺页中断与磁盘换入",
+        "有效访问时间"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS03",
+      "id": "OS03-S04",
+      "title": "页框分配回收与置换",
+      "concept_ids": [
+        "OS03.07",
+        "OS03.08"
+      ],
+      "learning_targets": [
+        "固定/可变驻留集",
+        "FIFO LRU Clock/OPT过程",
+        "局部/全局置换",
+        "调页工作集与抖动概念"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS03",
+      "id": "OS03-S05",
+      "title": "内存映射文件及性能",
+      "concept_ids": [
+        "OS03.09",
+        "OS03.10"
+      ],
+      "learning_targets": [
+        "文件映射与按需加载",
+        "缺页频率和系统性能",
+        "共享页面与写时复制的理解性扩展"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS04",
+      "id": "OS04-S01",
+      "title": "文件对象与保护",
+      "concept_ids": [
+        "OS04.01",
+        "OS04.02",
+        "OS04.09"
+      ],
+      "learning_targets": [
+        "文件属性与inode/FCB",
+        "建立打开读写删除等操作",
+        "访问控制与目录项关系"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS04",
+      "id": "OS04-S02",
+      "title": "文件逻辑与物理结构",
+      "concept_ids": [
+        "OS04.04",
+        "OS04.05",
+        "OS04.06"
+      ],
+      "learning_targets": [
+        "连续链式索引分配",
+        "FAT与链接簇",
+        "直接和多级间接索引",
+        "文件偏移到磁盘块计算"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS04",
+      "id": "OS04-S03",
+      "title": "目录树与链接",
+      "concept_ids": [
+        "OS04.03",
+        "OS04.08"
+      ],
+      "learning_targets": [
+        "目录路径解析",
+        "单级多级树形目录",
+        "软硬链接及引用计数",
+        "目录项和文件实体区分"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS04",
+      "id": "OS04-S04",
+      "title": "文件系统结构和外存管理",
+      "concept_ids": [
+        "OS04.07",
+        "OS04.10"
+      ],
+      "learning_targets": [
+        "外存/内存文件系统布局",
+        "超级块位图空闲表",
+        "VFS与挂载",
+        "缓存和磁盘块分配"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS05",
+      "id": "OS05-S01",
+      "title": "设备与IO模型",
+      "concept_ids": [
+        "OS05.01",
+        "OS05.06"
+      ],
+      "learning_targets": [
+        "字符块网络设备及端口",
+        "程序查询中断和DMA",
+        "阻塞/非阻塞IO接口",
+        "用户层到驱动的路径"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS05",
+      "id": "OS05-S02",
+      "title": "IO软件层次",
+      "concept_ids": [
+        "OS05.01",
+        "OS05.06"
+      ],
+      "learning_targets": [
+        "用户IO系统调用",
+        "设备独立软件和驱动",
+        "中断服务流程与数据传送"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS05",
+      "id": "OS05-S03",
+      "title": "缓冲、分配与假脱机",
+      "concept_ids": [
+        "OS05.02",
+        "OS05.03",
+        "OS05.07"
+      ],
+      "learning_targets": [
+        "缓冲区缓冲池与高速缓存区分",
+        "设备分配回收与设备独立性",
+        "SPOOLing与设备共享"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS05",
+      "id": "OS05-S04",
+      "title": "磁盘结构、管理和调度",
+      "concept_ids": [
+        "OS05.04",
+        "OS05.05"
+      ],
+      "learning_targets": [
+        "柱面磁道扇区寻址",
+        "物理/逻辑格式化与分区",
+        "FCFS SSTF SCAN CSCAN的过程与寻道长度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "OS05",
+      "id": "OS05-S05",
+      "title": "SSD与磁盘差异",
+      "concept_ids": [
+        "OS05.08"
+      ],
+      "learning_targets": [
+        "固态硬盘访问行为与磁盘差异",
+        "读写性能特性",
+        "磨损均衡的目的及基本思想"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    }
+  ],
+  "book_extras": [
+    {
+      "name": "条件变量与经典同步原语",
+      "location": "2027考纲进程同步项",
+      "status": "outline-explicit-gap",
+      "note": "现有217概念仅将其概括在信号量/同步节点中，后续宜增独立叶子概念"
+    },
+    {
+      "name": "内核组织中的外核",
+      "location": "2027考纲系统结构",
+      "status": "outline-explicit-gap",
+      "note": "不是所有王道年份都将外核设为重要考点；但公开考纲列出名称，不能忽略"
+    },
+    {
+      "name": "工作集和抖动的全部细节",
+      "location": "王道3.2.5带星",
+      "status": "syllabus-derived",
+      "note": "公开2027大纲仅要求虚存性能因素与改进，王道细化有助理解但不表示所有算法必须细抠"
+    },
+    {
+      "name": "目录实现的哈希/线性查找",
+      "location": "王道4.2.4带星",
+      "status": "wangdao-additional",
+      "note": "教材有实现层扩展，公开考纲要求树形目录及其操作；需按题意合理处理"
+    },
+    {
+      "name": "设备驱动与中断协作",
+      "location": "王道I/O接口章节",
+      "status": "outline-applied",
+      "note": "属于明显的系统协同应用，不能把操作系统与组成原理的IO分开背名词"
+    }
+  ]
+}
