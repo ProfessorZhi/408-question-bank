@@ -1,0 +1,540 @@
+{
+  "version": "2027",
+  "subject": "CO",
+  "name": "计算机组成原理",
+  "weight": 45,
+  "syllabus_evidence": "https://zhenti.beokayy.club/outline",
+  "wangdao_publisher_url": "https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=69045",
+  "wangdao_isbn": "9787121517945",
+  "official_metadata_url": "https://www.hep.com.cn/book/show/2099763850751057921",
+  "evidence_note": "官方考纲实体书出版已确认；考试范围明细对照第三方2027转录及王道2027书目，具体学习目标为原创讲解。",
+  "sections": [
+    {
+      "chapter_id": "CO01",
+      "id": "CO01-S01",
+      "title": "计算机系统结构和程序执行",
+      "concept_ids": [
+        "CO01.01",
+        "CO01.02"
+      ],
+      "learning_targets": [
+        "五大功能部件及连接",
+        "存储程序原理",
+        "软硬件分层",
+        "高级语言到机器指令转换",
+        "取指与执行过程"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO01",
+      "id": "CO01-S02",
+      "title": "计算机性能与效率",
+      "concept_ids": [
+        "CO01.03",
+        "CO01.04",
+        "CO01.05"
+      ],
+      "learning_targets": [
+        "主频周期CPI和指令数换算",
+        "CPU时间与加速比",
+        "响应时间与吞吐量",
+        "MIPS、MFLOPS及GFLOPS等速率指标"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO02",
+      "id": "CO02-S01",
+      "title": "进位计数与数的编码",
+      "concept_ids": [
+        "CO02.01",
+        "CO02.02"
+      ],
+      "learning_targets": [
+        "二八十六进制换算",
+        "无符号/有符号整数范围",
+        "原码反码补码概念",
+        "带符号与无符号解释"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO02",
+      "id": "CO02-S02",
+      "title": "加减法电路与ALU",
+      "concept_ids": [
+        "CO02.03",
+        "CO02.04"
+      ],
+      "learning_targets": [
+        "加法器和ALU结构",
+        "补码加减与进位",
+        "CF OF SF ZF等标志含义",
+        "运算溢出与数值范围"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO02",
+      "id": "CO02-S03",
+      "title": "乘除运算的基本方法",
+      "concept_ids": [
+        "CO02.05"
+      ],
+      "learning_targets": [
+        "移位加法/减法的思想",
+        "乘法与除法电路基本组织",
+        "无乘除指令时的运算模拟"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO02",
+      "id": "CO02-S04",
+      "title": "无符号与有符号整数运算",
+      "concept_ids": [
+        "CO02.02",
+        "CO02.03",
+        "CO02.08"
+      ],
+      "learning_targets": [
+        "类型转换与截断",
+        "符号扩展和零扩展",
+        "比较/条件分支中的标志解读"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO02",
+      "id": "CO02-S05",
+      "title": "浮点数表示与加减",
+      "concept_ids": [
+        "CO02.06",
+        "CO02.07"
+      ],
+      "learning_targets": [
+        "IEEE754符号阶码尾数",
+        "正规/非正规、零和无穷特殊值",
+        "对阶规格化舍入与溢出",
+        "整数与float转换精度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S01",
+      "title": "存储器分类和层次",
+      "concept_ids": [
+        "CO03.01",
+        "CO03.05"
+      ],
+      "learning_targets": [
+        "SRAM DRAM Flash与ROM特征",
+        "局部性原理",
+        "容量成本速度与层次关系"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S02",
+      "title": "半导体主存与CPU接口",
+      "concept_ids": [
+        "CO03.01",
+        "CO03.02"
+      ],
+      "learning_targets": [
+        "DRAM芯片行列寻址与刷新",
+        "存储字长芯片个数扩展",
+        "地址线数据线译码与容量"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S03",
+      "title": "多模块存储器",
+      "concept_ids": [
+        "CO03.03"
+      ],
+      "learning_targets": [
+        "顺序编址/交叉编址",
+        "连续访存的周期安排",
+        "带宽峰值和流水式存取条件"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S04",
+      "title": "磁盘和固态硬盘",
+      "concept_ids": [
+        "CO03.04"
+      ],
+      "learning_targets": [
+        "磁盘扇区磁道柱面与容量",
+        "平均寻道/旋转/传输时间",
+        "SSD与磁盘的读写性能特点"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S05",
+      "title": "Cache结构与映射",
+      "concept_ids": [
+        "CO03.05",
+        "CO03.06"
+      ],
+      "learning_targets": [
+        "直接相联和组相联",
+        "块内位/组索引/标记划分",
+        "初始空Cache访存命中轨迹"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S06",
+      "title": "Cache替换和写策略",
+      "concept_ids": [
+        "CO03.07",
+        "CO03.08"
+      ],
+      "learning_targets": [
+        "LRU与FIFO替换过程",
+        "直写与回写",
+        "有效位脏位和存储开销"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S07",
+      "title": "存储性能分析",
+      "concept_ids": [
+        "CO03.09",
+        "CO03.12"
+      ],
+      "learning_targets": [
+        "命中率与缺失损失",
+        "平均访存时间AMAT",
+        "访存路径与CPU执行效率"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO03",
+      "id": "CO03-S08",
+      "title": "页式与段式虚拟存储",
+      "concept_ids": [
+        "CO03.10",
+        "CO03.11"
+      ],
+      "learning_targets": [
+        "页号页偏移、PTE和多级页表",
+        "TLB结构与快表命中",
+        "段式与段页式转换基本原理",
+        "与OS页表管理的区别"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO04",
+      "id": "CO04-S01",
+      "title": "指令系统和编码",
+      "concept_ids": [
+        "CO04.01",
+        "CO04.02"
+      ],
+      "learning_targets": [
+        "操作码/地址码与指令格式",
+        "定长可变长指令",
+        "扩展操作码与编码空间"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO04",
+      "id": "CO04-S02",
+      "title": "有效地址与寻址",
+      "concept_ids": [
+        "CO04.03",
+        "CO04.04"
+      ],
+      "learning_targets": [
+        "寄存器直接/间接",
+        "立即数直接间接",
+        "基址变址和PC相对",
+        "偏移补码及PC加法"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO04",
+      "id": "CO04-S03",
+      "title": "数据对齐与字节序",
+      "concept_ids": [
+        "CO04.05"
+      ],
+      "learning_targets": [
+        "按字节编址、大小端",
+        "半字字双字对齐",
+        "跨字访问与机器内存顺序"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO04",
+      "id": "CO04-S04",
+      "title": "CISC与RISC基本思想",
+      "concept_ids": [
+        "CO04.06"
+      ],
+      "learning_targets": [
+        "复杂和精简ISA取舍",
+        "Load/Store基本概念",
+        "指令规则性与流水线适配"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO04",
+      "id": "CO04-S05",
+      "title": "高级语言与机器码对应",
+      "concept_ids": [
+        "CO04.07",
+        "CO04.08",
+        "CO04.09"
+      ],
+      "learning_targets": [
+        "编译汇编链接过程",
+        "if和for/while翻译",
+        "机器分支指令条件",
+        "函数调用栈帧与参数"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S01",
+      "title": "CPU寄存器与功能",
+      "concept_ids": [
+        "CO05.01"
+      ],
+      "learning_targets": [
+        "通用和专用寄存器",
+        "PC IR MAR MDR",
+        "ALU与标志",
+        "寄存器宽度及含义"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S02",
+      "title": "指令执行与数据通路",
+      "concept_ids": [
+        "CO05.02",
+        "CO05.03"
+      ],
+      "learning_targets": [
+        "取指间址执行写回",
+        "多总线/单总线数据通路",
+        "控制信号方向与时序",
+        "微操作序列"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S03",
+      "title": "控制器与控制方式",
+      "concept_ids": [
+        "CO05.04"
+      ],
+      "learning_targets": [
+        "硬布线与微程序控制",
+        "微指令与控制存储器",
+        "操作序列与控制线编码"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S04",
+      "title": "异常与中断硬件流程",
+      "concept_ids": [
+        "CO05.05"
+      ],
+      "learning_targets": [
+        "故障陷阱终止与外中断",
+        "响应优先级",
+        "现场保存与向量入口",
+        "中断屏蔽基本机制"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S05",
+      "title": "流水线结构与性能",
+      "concept_ids": [
+        "CO05.06"
+      ],
+      "learning_targets": [
+        "吞吐率加速比时钟周期",
+        "时空图",
+        "填充排空与理想/实际CPI"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S06",
+      "title": "流水线冒险处理",
+      "concept_ids": [
+        "CO05.07",
+        "CO05.08"
+      ],
+      "learning_targets": [
+        "结构冒险",
+        "RAW等相关和旁路转发",
+        "流水线停顿与分支冲刷",
+        "控制冒险处理的时间损失"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO05",
+      "id": "CO05-S07",
+      "title": "多发射与多处理器",
+      "concept_ids": [
+        "CO05.09",
+        "CO05.10"
+      ],
+      "learning_targets": [
+        "超标量与动态调度概念",
+        "SISD SIMD MIMD向量处理",
+        "硬件多线程",
+        "多核与SMP基本区分"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO06",
+      "id": "CO06-S01",
+      "title": "总线组织及性能",
+      "concept_ids": [
+        "CO06.01",
+        "CO06.02"
+      ],
+      "learning_targets": [
+        "地址/数据/控制线作用",
+        "总线事务与突发传输",
+        "周期带宽与总线占用"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO06",
+      "id": "CO06-S02",
+      "title": "总线定时和通信",
+      "concept_ids": [
+        "CO06.03"
+      ],
+      "learning_targets": [
+        "同步时钟与异步握手",
+        "非互锁半互锁全互锁",
+        "数据有效窗口"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO06",
+      "id": "CO06-S03",
+      "title": "IO接口控制器",
+      "concept_ids": [
+        "CO06.04"
+      ],
+      "learning_targets": [
+        "数据状态控制端口",
+        "端口寻址与设备编址",
+        "接口缓冲和CPU访问方式"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO06",
+      "id": "CO06-S04",
+      "title": "程序查询IO",
+      "concept_ids": [
+        "CO06.05",
+        "CO06.08"
+      ],
+      "learning_targets": [
+        "轮询频率和CPU占用",
+        "设备缓冲防溢出约束",
+        "每次访问周期预算"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO06",
+      "id": "CO06-S05",
+      "title": "中断驱动IO",
+      "concept_ids": [
+        "CO06.06",
+        "CO06.08"
+      ],
+      "learning_targets": [
+        "中断请求响应和处理",
+        "中断屏蔽多重中断",
+        "数据吞吐和CPU开销"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "chapter_id": "CO06",
+      "id": "CO06-S06",
+      "title": "DMA数据传输",
+      "concept_ids": [
+        "CO06.07",
+        "CO06.08"
+      ],
+      "learning_targets": [
+        "DMA控制器与主存数据通路",
+        "启动与传输完成中断",
+        "总线占用与访存成本"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    }
+  ],
+  "book_extras": [
+    {
+      "name": "RISC-V或特定指令集编码示例",
+      "location": "书中具体ISA示例",
+      "status": "outline-derived",
+      "note": "官方要求机器级程序及RISC/CISC基本原理，不能由书中示例推导“唯一指定ISA”"
+    },
+    {
+      "name": "数字电路门级细节",
+      "location": "王道ALU与门电路延伸",
+      "status": "background-support",
+      "note": "加法器/ALU是明确范围，但单独数字逻辑设计应依是否用于理解题干决定"
+    },
+    {
+      "name": "高级微结构推测与完整乱序执行细节",
+      "location": "王道处理器延伸",
+      "status": "textbook-additional",
+      "note": "官方明确超标量和动态流水线基本概念，不能等同完整高端处理器微结构设计要求"
+    },
+    {
+      "name": "SSD控制器内部算法",
+      "location": "外存辅助拓展",
+      "status": "textbook-additional",
+      "note": "官方CO说明SSD，具体主控/FTL算法深度需和大纲原文或真题核对"
+    }
+  ]
+}

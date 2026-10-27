@@ -1,0 +1,586 @@
+{
+  "version": "2027",
+  "subject": "DS",
+  "name": "数据结构",
+  "weight": 45,
+  "syllabus_evidence": "https://zhenti.beokayy.club/outline",
+  "wangdao_publisher_url": "https://wap.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851",
+  "wangdao_isbn": "9787121517914",
+  "official_metadata_url": "https://www.hep.com.cn/book/show/2099763850751057921",
+  "evidence_note": "官方2027书目存在；具体条目通过第三方大纲转录与王道出版目录互相定位，未逐字核对官方书正文。学习目标为原创解释。",
+  "sections": [
+    {
+      "id": "DS01-S01",
+      "chapter_id": "DS01",
+      "title": "数据结构术语与逻辑模型",
+      "concept_ids": [
+        "DS01.01"
+      ],
+      "learning_targets": [
+        "区分逻辑结构和存储结构",
+        "区分数据类型、ADT和基本操作",
+        "依据访问/修改要求选择存储方式"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS01-S02",
+      "chapter_id": "DS01",
+      "title": "算法基本性质与评价",
+      "concept_ids": [
+        "DS01.02",
+        "DS01.03",
+        "DS01.04",
+        "DS01.05"
+      ],
+      "learning_targets": [
+        "分析正确性与终止性",
+        "计算循环与递归时间复杂度",
+        "辨析最坏/平均代价与递归栈空间"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS02-S01",
+      "chapter_id": "DS02",
+      "title": "线性表基础与顺序存储",
+      "concept_ids": [
+        "DS02.01",
+        "DS02.02"
+      ],
+      "learning_targets": [
+        "实现顺序表插入删除定位",
+        "按下标计算地址和元素移动",
+        "处理边界下标与动态长度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS02-S02",
+      "chapter_id": "DS02",
+      "title": "线性表链式存储",
+      "concept_ids": [
+        "DS02.03",
+        "DS02.04"
+      ],
+      "learning_targets": [
+        "单链表前驱后继与头结点",
+        "双链表和循环链表",
+        "多种实现的空间/访问/插删成本"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS02-S03",
+      "chapter_id": "DS02",
+      "title": "线性表的算法应用",
+      "concept_ids": [
+        "DS02.05",
+        "DS02.06"
+      ],
+      "learning_targets": [
+        "链表重排合并共享后缀",
+        "快慢指针与单趟扫描",
+        "满足指定时间/空间上界并说明边界"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS03-S01",
+      "chapter_id": "DS03",
+      "title": "栈及顺序链式实现",
+      "concept_ids": [
+        "DS03.01",
+        "DS03.02"
+      ],
+      "learning_targets": [
+        "入栈出栈及满空条件",
+        "合法出栈序列",
+        "受限栈与函数调用栈的差异"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS03-S02",
+      "chapter_id": "DS03",
+      "title": "队列及顺序链式实现",
+      "concept_ids": [
+        "DS03.05",
+        "DS03.06"
+      ],
+      "learning_targets": [
+        "循环队列首尾指针与空满条件",
+        "链队列与双端队列",
+        "序列操作的正确性"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS03-S03",
+      "chapter_id": "DS03",
+      "title": "栈和队列的应用",
+      "concept_ids": [
+        "DS03.03",
+        "DS03.04",
+        "DS03.05"
+      ],
+      "learning_targets": [
+        "括号匹配与表达式求值",
+        "递归调用与非递归改造",
+        "二叉树层次遍历及BFS队列"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS03-S04",
+      "chapter_id": "DS03",
+      "title": "多维数组存储",
+      "concept_ids": [
+        "DS03.07"
+      ],
+      "learning_targets": [
+        "行优先列优先下标转线性地址",
+        "二维数组偏移计算",
+        "布局和连续访存差异"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS03-S05",
+      "chapter_id": "DS03",
+      "title": "特殊和稀疏矩阵的压缩",
+      "concept_ids": [
+        "DS03.08"
+      ],
+      "learning_targets": [
+        "三角对称三对角矩阵映射",
+        "非零元素的存储结构",
+        "有效元素数量与访问代价"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS04-S01",
+      "chapter_id": "DS04",
+      "title": "树的性质和二叉树存储",
+      "concept_ids": [
+        "DS04.01",
+        "DS04.02"
+      ],
+      "learning_targets": [
+        "结点度层次高度与边数",
+        "完全二叉树数量性质",
+        "顺序和链式表示"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS04-S02",
+      "chapter_id": "DS04",
+      "title": "二叉树遍历、线索与实现",
+      "concept_ids": [
+        "DS04.03",
+        "DS04.04",
+        "DS04.05",
+        "DS04.10"
+      ],
+      "learning_targets": [
+        "前中后序层序遍历",
+        "遍历序列恢复与非唯一条件",
+        "线索树构造",
+        "递归/迭代代码复杂度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS04-S03",
+      "chapter_id": "DS04",
+      "title": "树与森林",
+      "concept_ids": [
+        "DS04.06"
+      ],
+      "learning_targets": [
+        "树的孩子兄弟表示",
+        "树森林和二叉树互转",
+        "树森林遍历以及结点关系"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS04-S04",
+      "chapter_id": "DS04",
+      "title": "树的应用",
+      "concept_ids": [
+        "DS04.07",
+        "DS04.08",
+        "DS04.09"
+      ],
+      "learning_targets": [
+        "哈夫曼树WPL与前缀码",
+        "并查集及合并查找",
+        "堆调整、插删与堆性质"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS05-S01",
+      "chapter_id": "DS05",
+      "title": "图的基本概念",
+      "concept_ids": [
+        "DS05.01"
+      ],
+      "learning_targets": [
+        "度数与边数、连通性和路径",
+        "有向入出度",
+        "图结构与必要/充分条件"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS05-S02",
+      "chapter_id": "DS05",
+      "title": "图的存储表示",
+      "concept_ids": [
+        "DS05.02",
+        "DS05.03"
+      ],
+      "learning_targets": [
+        "邻接矩阵和邻接表读写",
+        "邻接多重表十字链表",
+        "存储稠密/稀疏图的代价"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS05-S03",
+      "chapter_id": "DS05",
+      "title": "图的遍历",
+      "concept_ids": [
+        "DS05.04",
+        "DS05.05"
+      ],
+      "learning_targets": [
+        "DFS与BFS搜索树",
+        "标记与访问顺序",
+        "连通分量判断与复杂度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS05-S04",
+      "chapter_id": "DS05",
+      "title": "图的核心算法应用",
+      "concept_ids": [
+        "DS05.06",
+        "DS05.07",
+        "DS05.08",
+        "DS05.09"
+      ],
+      "learning_targets": [
+        "Prim与Kruskal最小生成树",
+        "最短路径适用条件",
+        "拓扑排序与序列唯一性",
+        "AOE关键路径和时间余量"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S01",
+      "chapter_id": "DS06",
+      "title": "查找概念及效率",
+      "concept_ids": [
+        "DS06.01",
+        "DS06.10"
+      ],
+      "learning_targets": [
+        "平均查找长度",
+        "成功失败比较次数",
+        "结构选型与关键字分布"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S02",
+      "chapter_id": "DS06",
+      "title": "顺序和分块查找",
+      "concept_ids": [
+        "DS06.01"
+      ],
+      "learning_targets": [
+        "无序有序查找比较过程",
+        "分块查找索引",
+        "存储结构与成本"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S03",
+      "chapter_id": "DS06",
+      "title": "折半查找",
+      "concept_ids": [
+        "DS06.02",
+        "DS06.03"
+      ],
+      "learning_targets": [
+        "上下界更新",
+        "判定树与最多比较",
+        "失败外部结点"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S04",
+      "chapter_id": "DS06",
+      "title": "二叉搜索树",
+      "concept_ids": [
+        "DS06.04"
+      ],
+      "learning_targets": [
+        "BST插入删除查找",
+        "中序性质",
+        "路径合法性与性能退化"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S05",
+      "chapter_id": "DS06",
+      "title": "AVL平衡树",
+      "concept_ids": [
+        "DS06.05"
+      ],
+      "learning_targets": [
+        "失衡定位及四种旋转",
+        "高度变化",
+        "搜索代价"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S06",
+      "chapter_id": "DS06",
+      "title": "红黑树",
+      "concept_ids": [
+        "DS06.06"
+      ],
+      "learning_targets": [
+        "红黑颜色/黑高不变量",
+        "BST顺序和AVL区别",
+        "结构合法性"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S07",
+      "chapter_id": "DS06",
+      "title": "B树与B+树",
+      "concept_ids": [
+        "DS06.07"
+      ],
+      "learning_targets": [
+        "B树孩子关键字边界和分裂",
+        "删除基本操作",
+        "B+树叶索引的结构与用途"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S08",
+      "chapter_id": "DS06",
+      "title": "散列查找",
+      "concept_ids": [
+        "DS06.08"
+      ],
+      "learning_targets": [
+        "散列函数与装填因子",
+        "开放定址和链地址冲突处理",
+        "探测次数与聚集"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS06-S09",
+      "chapter_id": "DS06",
+      "title": "字符串模式匹配",
+      "concept_ids": [
+        "DS06.09"
+      ],
+      "learning_targets": [
+        "朴素匹配与失配",
+        "KMP的next和回退位置",
+        "模式匹配复杂度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S01",
+      "chapter_id": "DS07",
+      "title": "排序定义与综合评价",
+      "concept_ids": [
+        "DS07.10",
+        "DS07.11"
+      ],
+      "learning_targets": [
+        "稳定性和适用条件",
+        "比较/移动/辅助空间",
+        "根据中间结果推断算法"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S02",
+      "chapter_id": "DS07",
+      "title": "直接/折半插入排序",
+      "concept_ids": [
+        "DS07.01"
+      ],
+      "learning_targets": [
+        "不同插入定位方案",
+        "移动与比较次数",
+        "稳定性与复杂度"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S03",
+      "chapter_id": "DS07",
+      "title": "冒泡/简单选择排序",
+      "concept_ids": [
+        "DS07.03",
+        "DS07.04"
+      ],
+      "learning_targets": [
+        "逐趟过程",
+        "交换与比较",
+        "稳定性及最佳最坏情况"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S04",
+      "chapter_id": "DS07",
+      "title": "希尔排序",
+      "concept_ids": [
+        "DS07.02"
+      ],
+      "learning_targets": [
+        "增量分组和组内直接插入",
+        "性能影响与稳定性"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S05",
+      "chapter_id": "DS07",
+      "title": "快速排序",
+      "concept_ids": [
+        "DS07.05"
+      ],
+      "learning_targets": [
+        "一次划分与枢轴",
+        "递归深度",
+        "不均衡划分的最坏代价"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S06",
+      "chapter_id": "DS07",
+      "title": "堆排序",
+      "concept_ids": [
+        "DS07.06",
+        "DS04.09"
+      ],
+      "learning_targets": [
+        "建堆、下沉上浮与交换",
+        "建堆复杂度",
+        "稳定性"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S07",
+      "chapter_id": "DS07",
+      "title": "二路归并排序",
+      "concept_ids": [
+        "DS07.07"
+      ],
+      "learning_targets": [
+        "两路合并过程",
+        "辅助空间",
+        "分治复杂度与稳定性"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S08",
+      "chapter_id": "DS07",
+      "title": "基数排序",
+      "concept_ids": [
+        "DS07.08"
+      ],
+      "learning_targets": [
+        "按位分配收集",
+        "基数与趟数",
+        "稳定子排序条件"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S09",
+      "chapter_id": "DS07",
+      "title": "外部排序",
+      "concept_ids": [
+        "DS07.09"
+      ],
+      "learning_targets": [
+        "初始归并段",
+        "磁盘I/O趟次",
+        "多路归并与外存代价",
+        "王道展开的置换选择/败者树作为方法学习"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    },
+    {
+      "id": "DS07-S10",
+      "chapter_id": "DS07",
+      "title": "排序算法综合应用",
+      "concept_ids": [
+        "DS07.10",
+        "DS07.11"
+      ],
+      "learning_targets": [
+        "排序选型",
+        "不变量与错误反例",
+        "时间/空间/稳定性权衡"
+      ],
+      "alignment": "syllabus-area-editorial-decomposition"
+    }
+  ],
+  "book_extras": [
+    {
+      "name": "串的定义与存储实现",
+      "location": "王道第4章带星 4.1",
+      "status": "wangdao-additional",
+      "note": "官方单列的是查找中的字符串模式匹配，教材的整章概念不等于官方独立章节"
+    },
+    {
+      "name": "计数排序完整实现",
+      "location": "王道第8章带星 8.5.3",
+      "status": "wangdao-additional",
+      "note": "官方列出基数排序等项目，但未单列计数排序"
+    },
+    {
+      "name": "有向无环图描述表达式",
+      "location": "王道图应用6.4.3",
+      "status": "wangdao-additional",
+      "note": "可作理解和迁移，不能替换官方明确列出的四项图算法"
+    },
+    {
+      "name": "败者树和最佳归并树",
+      "location": "王道外排序8.7",
+      "status": "outline-deepening",
+      "note": "可作为外排序的细化方法，不应伪称考纲独立命名条目"
+    }
+  ]
+}
